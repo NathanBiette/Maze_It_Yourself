@@ -7,10 +7,10 @@
 
 [node name="floor" type="Sprite" parent="."]
 
-transform/pos = Vector2( 25, 25 )
+transform/pos = Vector2( 50.4848, 50.5928 )
 texture = ExtResource( 1 )
 region = true
-region_rect = Rect2( 0, 0, 50, 50 )
+region_rect = Rect2( 0, 0, 100, 100 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="floor"]
 
@@ -33,13 +33,14 @@ trigger = false
 
 [node name="wall" type="Sprite" parent="."]
 
-transform/pos = Vector2( 125, 25 )
+transform/pos = Vector2( 173, 50 )
 texture = ExtResource( 2 )
 region = true
-region_rect = Rect2( 0, 0, 50, 50 )
+region_rect = Rect2( 0, 0, 100, 100 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="wall"]
 
+transform/pos = Vector2( 3, 4 )
 transform/scale = Vector2( 0.78125, 0.78125 )
 input/pickable = false
 collision/layers = 1
@@ -51,7 +52,7 @@ bounce = 0.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="wall/StaticBody2D"]
 
-transform/pos = Vector2( -128, 0 )
+transform/pos = Vector2( -193.379, -35.5953 )
 transform/scale = Vector2( -3.2, -3.2 )
 build_mode = 0
 polygon = Vector2Array(  )
