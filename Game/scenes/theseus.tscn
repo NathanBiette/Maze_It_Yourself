@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scripts/theseus.gd" type="Script" id=1]
 [ext_resource path="res://swipe/addons/swipe-detector/swipe_detector.gd" type="Script" id=2]
-[ext_resource path="res://graphics/heroplaceholder.png" type="Texture" id=3]
+[ext_resource path="res://textures/hero.tex" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
