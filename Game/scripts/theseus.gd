@@ -4,7 +4,7 @@ var original_pos
 var direction = 0
 var distance
 
-const HERO_SPEED = 50
+const HERO_SPEED = 100
 
 func _ready():
 	original_pos = get_node(".").get_global_pos()
@@ -12,22 +12,22 @@ func _ready():
 
 func move_up():
 	if (direction == 0):
-		distance = 50
+		distance = 100
 		direction = 1
 
 func move_down():
 	if (direction == 0):
-		distance = 50
+		distance = 100
 		direction = 2
 
 func move_left():
 	if (direction == 0):
-		distance = 50
+		distance = 100
 		direction = 3
 
 func move_right():
 	if (direction == 0):
-		distance = 50
+		distance = 100
 		direction = 4
 
 func _process(delta):
