@@ -1,22 +1,77 @@
 extends Node2D
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+var original_pos
+var direction = 0
+var distance
+
+const HERO_SPEED = 50
 
 func _ready():
-	pass
+	original_pos = get_node(".").get_global_pos()
+	set_process(true)
 
+func move_up():
+	if (direction == 0):
+		distance = 50
+		direction = 1
 
+func move_down():
+	if (direction == 0):
+		distance = 50
+		direction = 2
+
+func move_left():
+	if (direction == 0):
+		distance = 50
+		direction = 3
+
+func move_right():
+	if (direction == 0):
+		distance = 50
+		direction = 4
+
+func _process(delta):
+	var hero_pos = get_node(".").get_global_pos()
+	var movelen = HERO_SPEED * delta
+	
+	if (direction == 1):
+		hero_pos.y -= movelen
+		distance -= movelen
+		if (distance <= 0):
+			direction = 0
+			hero_pos.y -= direction
+	
+	if (direction == 2):
+		hero_pos.y += movelen
+		distance -= movelen
+		if (distance <= 0):
+			direction = 0
+			hero_pos.y += direction
+	
+	if (direction == 3):
+		hero_pos.x -= movelen
+		distance -= movelen
+		if (distance <= 0):
+			direction = 0
+			hero_pos.x += direction
+	
+	if (direction == 4):
+		hero_pos.x += movelen
+		distance -= movelen
+		if (distance <= 0):
+			direction = 0
+			hero_pos.x -= direction
+	
+	get_node(".").set_global_pos(hero_pos)
 
 func _on_swipe_gesture_swiped( gesture ):
 	var dir = gesture.get_direction()
 	if (dir=="up"):
-		get_node(".").set_global_pos(get_node(".").get_global_pos() + Vector2(0,-50))
+		move_up()
 	if (dir=="down"):
-		get_node(".").set_global_pos(get_node(".").get_global_pos() + Vector2(0,50))
+		move_down()
 	if (dir=="left"):
-		get_node(".").set_global_pos(get_node(".").get_global_pos() + Vector2(-50,0))
+		move_left()
 	if (dir=="right"):
-		get_node(".").set_global_pos(get_node(".").get_global_pos() + Vector2(50,0))
+		move_right()
 
