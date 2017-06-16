@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://graphics/floor_placeholder.png" type="Texture" id=1]
+[ext_resource path="res://graphics/wall_placeholder.png" type="Texture" id=2]
+
+[node name="Node" type="Node"]
+
+[node name="floor" type="Sprite" parent="."]
+
+transform/pos = Vector2( 25, 25 )
+texture = ExtResource( 1 )
+region = true
+region_rect = Rect2( 0, 0, 50, 50 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="floor"]
+
+transform/scale = Vector2( 0.78125, 0.78125 )
+input/pickable = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="floor/StaticBody2D"]
+
+transform/scale = Vector2( 3.2, 3.2 )
+build_mode = 0
+polygon = Vector2Array(  )
+shape_range = Vector2( -1, -1 )
+trigger = false
+
+[node name="wall" type="Sprite" parent="."]
+
+transform/pos = Vector2( 125, 25 )
+texture = ExtResource( 2 )
+region = true
+region_rect = Rect2( 0, 0, 50, 50 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="wall"]
+
+transform/scale = Vector2( 0.78125, 0.78125 )
+input/pickable = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="wall/StaticBody2D"]
+
+transform/pos = Vector2( -128, 0 )
+transform/scale = Vector2( -3.2, -3.2 )
+build_mode = 0
+polygon = Vector2Array(  )
+shape_range = Vector2( -1, -1 )
+trigger = false
+
+
