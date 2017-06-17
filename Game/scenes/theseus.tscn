@@ -1,39 +1,158 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=14 format=1]
 
 [ext_resource path="res://scripts/theseus.gd" type="Script" id=1]
 [ext_resource path="res://scripts/theseus_kinematic_body.gd" type="Script" id=2]
 [ext_resource path="res://swipe/addons/swipe-detector/swipe_detector.gd" type="Script" id=3]
 [ext_resource path="res://textures/hero.tex" type="Texture" id=4]
 
-[sub_resource type="ConvexPolygonShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
-points = Vector2Array( 25, 25, -25, 25, -25, -25, 25, -25 )
+extents = Vector2( 25, 25 )
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=7]
 
-resource/name = "movement_down"
+resource/name = "blocked_move_down"
 length = 1.0
 loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:transform/pos")
+tracks/0/path = NodePath("..:transform/pos")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0, 0.5 ),
-"transitions": FloatArray( 1, 1 ),
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 4, 0.25 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 50 ) ]
+"values": [ Vector2( 175, 125 ), Vector2( 175, 150 ), Vector2( 175, 125 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+
+resource/name = "blocked_move_left"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 4, 0.25 ),
+"update": 0,
+"values": [ Vector2( 175, 125 ), Vector2( 150, 125 ), Vector2( 175, 125 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+
+resource/name = "blocked_move_right"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 4, 0.25 ),
+"update": 0,
+"values": [ Vector2( 175, 125 ), Vector2( 200, 125 ), Vector2( 175, 125 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+
+resource/name = "blocked_move_up"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 4, 0.25 ),
+"update": 0,
+"values": [ Vector2( 175, 125 ), Vector2( 175, 100 ), Vector2( 175, 125 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+
+resource/name = "movement_down_50px"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2 ),
+"transitions": FloatArray( 1, 0.25 ),
+"update": 0,
+"values": [ Vector2( 175, 75 ), Vector2( 175, 125 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+
+resource/name = "movement_left_50px"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2 ),
+"transitions": FloatArray( 1, 0.25 ),
+"update": 0,
+"values": [ Vector2( 225, 125 ), Vector2( 175, 125 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+
+resource/name = "movement_right_50px"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2 ),
+"transitions": FloatArray( 1, 0.25 ),
+"update": 0,
+"values": [ Vector2( 125, 125 ), Vector2( 175, 125 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+
+resource/name = "movement_up_50px"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2 ),
+"transitions": FloatArray( 1, 0.25 ),
+"update": 0,
+"values": [ Vector2( 175, 175 ), Vector2( 175, 125 ) ]
 }
 
 [node name="theseus" type="Node2D"]
 
+transform/pos = Vector2( 175, 125 )
 script/script = ExtResource( 1 )
 
 [node name="theseus" type="KinematicBody2D" parent="."]
 
-transform/pos = Vector2( 0, 50 )
 input/pickable = false
 shapes/0/shape = SubResource( 3 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
@@ -62,23 +181,29 @@ debug_mode = false
 
 texture = ExtResource( 4 )
 
-[node name="Movement_down" type="AnimationPlayer" parent="theseus"]
+[node name="Movement_anims" type="AnimationPlayer" parent="theseus"]
 
 playback/process_mode = 0
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/movement_down = SubResource( 2 )
+anims/blocked_move_down = SubResource( 7 )
+anims/blocked_move_left = SubResource( 8 )
+anims/blocked_move_right = SubResource( 9 )
+anims/blocked_move_up = SubResource( 10 )
+anims/movement_down_50px = SubResource( 2 )
+anims/movement_left_50px = SubResource( 4 )
+anims/movement_right_50px = SubResource( 5 )
+anims/movement_up_50px = SubResource( 6 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="theseus"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="theseus"]
 
-build_mode = 0
-polygon = Vector2Array( 25, 25, -25, 25, -25, -25, 25, -25 )
-shape_range = Vector2( 0, 0 )
+shape = SubResource( 3 )
 trigger = false
+_update_shape_index = 0
 
 [connection signal="swiped" from="theseus/swipe gesture" to="." method="_on_swipe_gesture_swiped"]
 
