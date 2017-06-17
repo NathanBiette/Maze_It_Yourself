@@ -14,8 +14,12 @@ func _ready():
 func move_up():
 	move(Vector2(0,-MOVEMENT_UNIT))
 	if (is_colliding()):
-		revert_motion()
-		get_node("Movement_anims").play("blocked_move_up")
+		var stuff = get_collider()
+		if (stuff.is_in_group("enemies")) :
+			stuff.get_node(".").interact()
+		else :
+			revert_motion()
+			get_node("Movement_anims").play("blocked_move_up")
 	else:
 		get_node("Movement_anims").play("movement_up_50px")
 
