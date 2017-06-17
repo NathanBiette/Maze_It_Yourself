@@ -55,3 +55,6 @@ func _on_swipe_gesture_swiped( gesture ):
 		move_left()
 	if (dir=="right"):
 		move_right()
+
+func get_movement_unit():
+	return MOVEMENT_UNIT

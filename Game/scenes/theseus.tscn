@@ -1,16 +1,19 @@
-[gd_scene load_steps=14 format=1]
+[gd_scene load_steps=19 format=1]
 
 [ext_resource path="res://scripts/theseus.gd" type="Script" id=1]
 [ext_resource path="res://scripts/theseus_kinematic_body.gd" type="Script" id=2]
 [ext_resource path="res://swipe/addons/swipe-detector/swipe_detector.gd" type="Script" id=3]
 [ext_resource path="res://textures/hero.tex" type="Texture" id=4]
+[ext_resource path="res://textures/hero_face_left.tex" type="Texture" id=5]
+[ext_resource path="res://textures/hero_face_down.tex" type="Texture" id=6]
+[ext_resource path="res://textures/hero_face_up.tex" type="Texture" id=7]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 25, 25 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=2]
 
 resource/name = "blocked_move_down"
 length = 1.0
@@ -26,8 +29,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 175, 125 ), Vector2( 175, 150 ), Vector2( 175, 125 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 3, 2 ]
+}
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=3]
 
 resource/name = "blocked_move_left"
 length = 1.0
@@ -43,8 +56,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 175, 125 ), Vector2( 150, 125 ), Vector2( 175, 125 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 0, 1 ]
+}
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=4]
 
 resource/name = "blocked_move_right"
 length = 1.0
@@ -60,8 +83,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 175, 125 ), Vector2( 200, 125 ), Vector2( 175, 125 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 0 ]
+}
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=5]
 
 resource/name = "blocked_move_up"
 length = 1.0
@@ -77,10 +110,19 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 175, 125 ), Vector2( 175, 100 ), Vector2( 175, 125 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 2, 3 ]
+}
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=6]
 
-resource/name = "movement_down_50px"
 length = 1.0
 loop = false
 step = 0.1
@@ -94,10 +136,19 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 175, 75 ), Vector2( 175, 125 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=7]
 
-resource/name = "movement_left_50px"
 length = 1.0
 loop = false
 step = 0.1
@@ -111,10 +162,19 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 225, 125 ), Vector2( 175, 125 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=8]
 
-resource/name = "movement_right_50px"
 length = 1.0
 loop = false
 step = 0.1
@@ -128,10 +188,19 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 125, 125 ), Vector2( 175, 125 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=9]
 
-resource/name = "movement_up_50px"
 length = 1.0
 loop = false
 step = 0.1
@@ -145,6 +214,40 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 175, 175 ), Vector2( 175, 125 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 1,
+"values": [ 3 ]
+}
+
+[sub_resource type="GDScript" id=10]
+
+script/source = "extends AnimationPlayer
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+func _ready():
+	# Called every time the node is added to the scene.
+	# Initialization here
+	var unit = get_node(\"../.\").get_movement_unit()
+	
+"
+
+[sub_resource type="SpriteFrames" id=11]
+
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [node name="theseus" type="Node2D"]
 
@@ -154,7 +257,7 @@ script/script = ExtResource( 1 )
 [node name="theseus" type="KinematicBody2D" parent="."]
 
 input/pickable = false
-shapes/0/shape = SubResource( 3 )
+shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -179,6 +282,7 @@ debug_mode = false
 
 [node name="Sprite" type="Sprite" parent="theseus"]
 
+visibility/visible = false
 texture = ExtResource( 4 )
 
 [node name="Movement_anims" type="AnimationPlayer" parent="theseus"]
@@ -186,27 +290,33 @@ texture = ExtResource( 4 )
 playback/process_mode = 0
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/blocked_move_down = SubResource( 7 )
-anims/blocked_move_left = SubResource( 8 )
-anims/blocked_move_right = SubResource( 9 )
-anims/blocked_move_up = SubResource( 10 )
-anims/movement_down_50px = SubResource( 2 )
-anims/movement_left_50px = SubResource( 4 )
-anims/movement_right_50px = SubResource( 5 )
-anims/movement_up_50px = SubResource( 6 )
+anims/blocked_move_down = SubResource( 2 )
+anims/blocked_move_left = SubResource( 3 )
+anims/blocked_move_right = SubResource( 4 )
+anims/blocked_move_up = SubResource( 5 )
+anims/movement_down_50px = SubResource( 6 )
+anims/movement_left_50px = SubResource( 7 )
+anims/movement_right_50px = SubResource( 8 )
+anims/movement_up_50px = SubResource( 9 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
+script/script = SubResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="theseus"]
 
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[connection signal="swiped" from="theseus/swipe gesture" to="." method="_on_swipe_gesture_swiped"]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="theseus"]
+
+frames = SubResource( 11 )
+animation = "default"
 
 [connection signal="swiped" from="theseus/swipe gesture" to="theseus" method="_on_swipe_gesture_swiped"]
+
+[connection signal="swiped" from="theseus/swipe gesture" to="." method="_on_swipe_gesture_swiped"]
 
 
