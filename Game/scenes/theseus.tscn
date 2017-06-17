@@ -315,8 +315,8 @@ _update_shape_index = 0
 frames = SubResource( 11 )
 animation = "default"
 
-[connection signal="swiped" from="theseus/swipe gesture" to="theseus" method="_on_swipe_gesture_swiped"]
-
 [connection signal="swiped" from="theseus/swipe gesture" to="." method="_on_swipe_gesture_swiped"]
+
+[connection signal="swiped" from="theseus/swipe gesture" to="theseus" method="_on_swipe_gesture_swiped"]
 
 
