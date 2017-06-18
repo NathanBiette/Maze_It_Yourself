@@ -31,9 +31,19 @@ func _move(dir):
 	else:
 		get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
 
+	#new version of swipe move that allow non rectilign moves to be taken in account
 func _on_swipe_gesture_swiped( gesture ):
-	var dir = gesture.get_direction()
-	_move(dir)
+	var angle = gesture.get_direction_angle()
+	if (angle < 0.785 and angle > -0.785) :
+		_move("up")
+	if (angle <= -0.785 and angle >= -2.356):
+		_move("right")
+	if (angle <= 2.356 and angle >= 0.785):
+		_move("left")
+	if (angle < -2.356 or angle > 2.356) :
+		_move("down")
+	
+	
 
 func get_movement_unit():
 	return MOVEMENT_UNIT
