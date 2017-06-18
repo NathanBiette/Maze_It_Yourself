@@ -50,15 +50,15 @@ func move_right():
 		get_node("Movement_anims").play("movement_right_50px")
 
 func _on_swipe_gesture_swiped( gesture ):
-	var dir = gesture.get_direction()
-	if (dir=="up"):
+	var angle = gesture.get_direction_angle()
+	if (angle < 0.785 and angle > -0.785) :
 		move_up()
-	if (dir=="down"):
-		move_down()
-	if (dir=="left"):
-		move_left()
-	if (dir=="right"):
+	if (angle <= -0.785 and angle >= -2.356):
 		move_right()
+	if (angle <= 2.356 and angle >= 0.785):
+		move_left()
+	if (angle < -2.356 or angle > 2.356) :
+		move_down()
 
 func get_movement_unit():
 	return MOVEMENT_UNIT
