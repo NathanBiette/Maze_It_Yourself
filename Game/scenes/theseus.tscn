@@ -285,6 +285,6 @@ playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 
-[connection signal="swiped" from="swipe gesture" to="." method="_on_swipe_gesture_swiped"]
+[connection signal="swiped" from="theseus/swipe gesture" to="theseus" method="_on_swipe_gesture_swiped"]
 
 
