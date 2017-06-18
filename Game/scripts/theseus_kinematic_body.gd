@@ -37,9 +37,9 @@ func move_left():
 	move(Vector2(-MOVEMENT_UNIT,0))
 	if (is_colliding()):
 		revert_motion()
-		get_node("Movement_anims").play("blocked_move_left")
+		get_node("../AnimatedSprite/Movement_anims").play("blocked_move_left")
 	else:
-		get_node("Movement_anims").play("movement_left_50px")
+		get_node("../AnimatedSprite/Movement_anims").play("movement_left_50px")
 
 func move_right():
 	move(Vector2(MOVEMENT_UNIT,0))
