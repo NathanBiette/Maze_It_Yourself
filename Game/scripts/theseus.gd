@@ -1,8 +1,5 @@
 extends KinematicBody2D
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
 var original_pos
 
 const MOVEMENT_UNIT = 50
@@ -22,11 +19,12 @@ func _move(dir):
 		move(Vector2(MOVEMENT_UNIT,0))
 	
 	if (is_colliding()):
-		var stuff = get_collider()
-		if (stuff.is_in_group("enemies")) :
-			stuff.get_node(".").interact()
+		revert_motion()
+		var collider = get_collider()
+		if (collider.is_in_group("enemies")) :
+			collider.get_node(".").interact(dir, get_node("."))
 		else :
-			revert_motion()
+		
 			get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + dir)
 	else:
 		get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
@@ -43,7 +41,8 @@ func _on_swipe_gesture_swiped( gesture ):
 	if (angle < -2.356 or angle > 2.356) :
 		_move("down")
 	
-	
+func lose_hp():
+	get_node("AnimatedSprite/Movement_anims").play("hp_lost")
 
 func get_movement_unit():
 	return MOVEMENT_UNIT
