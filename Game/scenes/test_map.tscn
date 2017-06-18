@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=1]
 
-[ext_resource path="res://scenes/test_map.gd" type="Script" id=1]
+[ext_resource path="res://scripts/test_map.gd" type="Script" id=1]
 [ext_resource path="res://sets/tileset.res" type="TileSet" id=2]
 [ext_resource path="res://scenes/theseus.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/skeleton.tscn" type="PackedScene" id=4]
