@@ -14,6 +14,7 @@ func _ready():
 func interact(dir, node):
 	if (dir=="up"):
 		get_node("Sprite/Skeleton_Anims").play("death")
+		node.get_node("AnimatedSprite/Movement_anims").play("blocked_movement_" + dir)
 		get_node(".").queue_free()
 	else:
 		node.lose_hp()
