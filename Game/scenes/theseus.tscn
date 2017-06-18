@@ -309,7 +309,7 @@ anims/movement_left_50px = SubResource( 9 )
 anims/movement_right_50px = SubResource( 10 )
 anims/movement_up_50px = SubResource( 11 )
 playback/active = true
-playback/speed = 2.0
+playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 

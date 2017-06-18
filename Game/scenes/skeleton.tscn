@@ -43,7 +43,7 @@ script/script = ExtResource( 1 )
 
 texture = ExtResource( 2 )
 
-[node name="Skeleton_Anims" type="AnimationPlayer" parent="Sprite"]
+[node name="Skeleton_Death_Anim" type="AnimationPlayer" parent="Sprite"]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
@@ -67,6 +67,8 @@ process_mode = 1
 wait_time = 1.0
 one_shot = false
 autostart = true
+
+[connection signal="finished" from="Sprite/Skeleton_Death_Anim" to="." method="_on_Skeleton_Death_Anim_finished"]
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 

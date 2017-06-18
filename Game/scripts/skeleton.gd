@@ -13,9 +13,8 @@ func _ready():
 
 func interact(dir, node):
 	if (dir=="up"):
-		get_node("Sprite/Skeleton_Anims").play("death")
-		node.get_node("AnimatedSprite/Movement_anims").play("blocked_movement_" + dir)
-		get_node(".").queue_free()
+		get_node("Sprite/Skeleton_Death_Anim").play("death")
+		node.get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + dir)
 	else:
 		node.lose_hp()
 
@@ -42,3 +41,7 @@ func _on_Timer_timeout():
 		_move("left")
 	if (dir==4):
 		_move("right")
+
+
+func _on_Skeleton_Death_Anim_finished():
+	get_node(".").queue_free()
