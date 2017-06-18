@@ -4,13 +4,13 @@ extends KinematicBody2D
 # var a = 2
 # var b = "textvar"
 var original_pos
+
 const MOVEMENT_UNIT = 50
 
 func _ready():
 	original_pos = get_node(".").get_global_pos()
 	# Called every time the node is added to the scene.
 	# Initialization here
-	
 func _move(dir):
 	if (dir=="up"):
 		move(Vector2(0,-MOVEMENT_UNIT))

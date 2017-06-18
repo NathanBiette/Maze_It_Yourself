@@ -12,10 +12,10 @@ extents = Vector2( 10, 10 )
 
 [node name="floor" type="Sprite" parent="."]
 
-transform/pos = Vector2( 25, 25 )
+transform/pos = Vector2( 50.4848, 50.5928 )
 texture = ExtResource( 1 )
 region = true
-region_rect = Rect2( 0, 0, 50, 50 )
+region_rect = Rect2( 0, 0, 100, 100 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="floor"]
 
@@ -38,7 +38,19 @@ trigger = false
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 
+<<<<<<< HEAD
 transform/pos = Vector2( 125, 25 )
+=======
+transform/pos = Vector2( 173, 50 )
+texture = ExtResource( 2 )
+region = true
+region_rect = Rect2( 0, 0, 100, 100 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="wall"]
+
+transform/pos = Vector2( 3, 4 )
+transform/scale = Vector2( 0.78125, 0.78125 )
+>>>>>>> origin/heroes
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( -2.53988, 2.22044e-07, -2.18514e-07, -2.49951, 0, 0 )
@@ -71,8 +83,17 @@ _update_shape_index = 0
 
 [node name="wall" type="Sprite" parent="RigidBody2D"]
 
+<<<<<<< HEAD
 texture = ExtResource( 2 )
 region = true
 region_rect = Rect2( 0, 0, 50, 50 )
+=======
+transform/pos = Vector2( -193.379, -35.5953 )
+transform/scale = Vector2( -3.2, -3.2 )
+build_mode = 0
+polygon = Vector2Array(  )
+shape_range = Vector2( -1, -1 )
+trigger = false
+>>>>>>> origin/heroes
 
 
