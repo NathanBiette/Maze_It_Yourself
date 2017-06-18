@@ -10,41 +10,34 @@ func _ready():
 	original_pos = get_node(".").get_global_pos()
 	# Called every time the node is added to the scene.
 	# Initialization here
+
+func interact(dir, node):
+	if (dir=="up"):
+		get_node("Sprite/Skeleton_Anims").play("death")
+		get_node(".").queue_free()
+	else:
+		node.lose_hp()
+
+func _move(dir):
+	if (dir=="up"):
+		move(Vector2(0,-MOVEMENT_UNIT))
+	elif (dir=="down"):
+		move(Vector2(0,MOVEMENT_UNIT))
+	elif (dir=="left"):
+		move(Vector2(-MOVEMENT_UNIT,0))
+	elif (dir=="right"):
+		move(Vector2(MOVEMENT_UNIT,0))
 	
-func move_up():
-	move(Vector2(0,-MOVEMENT_UNIT))
 	if (is_colliding()):
 		revert_motion()
-
-
-func move_down():
-	move(Vector2(0,MOVEMENT_UNIT))
-	if (is_colliding()):
-		revert_motion()
-
-
-func move_left():
-	move(Vector2(-MOVEMENT_UNIT,0))
-	if (is_colliding()):
-		revert_motion()
-
-func move_right():
-	move(Vector2(MOVEMENT_UNIT,0))
-	if (is_colliding()):
-		revert_motion()
-
-
-func get_movement_unit():
-	return MOVEMENT_UNIT
-
 
 func _on_Timer_timeout():
 	var dir = randi()%4+1
 	if (dir==1):
-		move_up()
+		_move("up")
 	if (dir==2):
-		move_down()
+		_move("down")
 	if (dir==3):
-		move_left()
+		_move("left")
 	if (dir==4):
-		move_right()
+		_move("right")
