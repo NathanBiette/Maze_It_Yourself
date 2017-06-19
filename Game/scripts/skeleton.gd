@@ -4,10 +4,13 @@ extends KinematicBody2D
 # var a = 2
 # var b = "textvar"
 var original_pos
-const MOVEMENT_UNIT = 50
+var damage
+const MOVEMENT_UNIT = 100
+
 
 func _ready():
 	original_pos = get_node(".").get_global_pos()
+	damage = 1
 	# Called every time the node is added to the scene.
 	# Initialization here
 
@@ -21,9 +24,10 @@ func interact(dir, node):
 		get_node("CollisionShape2D").queue_free()
 		#the hitbox disapears first
 		#theseus plays his attack anim or loses HP
+		node.set_idle(false)
 		node.get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + dir)
 	else:
-		node.lose_hp()
+		node.lose_hp(damage)
 
 func _move(dir):
 	if (dir=="up"):
@@ -40,19 +44,21 @@ func _move(dir):
 		revert_motion()
 		var collider = get_collider()
 		if (collider.is_in_group("theseus")):
-			collider.lose_hp()
+			collider.lose_hp(damage)
 
 #one move every timer finished
 func _on_Timer_timeout():
-	var dir = randi()%4+1
-	if (dir==1):
+	var theseus_pos = get_node("../theseus").get_global_pos() 
+	var guideline = get_node(".").get_global_pos() - theseus_pos
+	var angle = guideline.angle()
+	if (angle < 0.785 and angle > -0.785) :
 		_move("up")
-	if (dir==2):
-		_move("down")
-	if (dir==3):
-		_move("left")
-	if (dir==4):
+	if (angle <= -0.785 and angle >= -2.356):
 		_move("right")
+	if (angle <= 2.356 and angle >= 0.785):
+		_move("left")
+	if (angle < -2.356 or angle > 2.356) :
+		_move("down")
 
 #loads automatically when death anim is over
 func _on_Skeleton_Death_Anim_finished():
