@@ -55,3 +55,4 @@ func lose_hp():
 #function with potential (meaning useless for now)
 func get_movement_unit():
 	return MOVEMENT_UNIT
+
