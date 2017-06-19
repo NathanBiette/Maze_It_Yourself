@@ -4,11 +4,13 @@ extends KinematicBody2D
 # var a = 2
 # var b = "textvar"
 var original_pos
+var damage
 const MOVEMENT_UNIT = 100
 
 
 func _ready():
 	original_pos = get_node(".").get_global_pos()
+	damage = 1
 	# Called every time the node is added to the scene.
 	# Initialization here
 
@@ -25,7 +27,7 @@ func interact(dir, node):
 		node.set_idle(false)
 		node.get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + dir)
 	else:
-		node.lose_hp()
+		node.lose_hp(damage)
 
 func _move(dir):
 	if (dir=="up"):
@@ -42,7 +44,7 @@ func _move(dir):
 		revert_motion()
 		var collider = get_collider()
 		if (collider.is_in_group("theseus")):
-			collider.lose_hp()
+			collider.lose_hp(damage)
 
 #one move every timer finished
 func _on_Timer_timeout():

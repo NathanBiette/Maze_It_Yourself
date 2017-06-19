@@ -14,3 +14,6 @@ func _process(delta):
 		for t in range(tab.size()):
 			if (get_node("TileMap").get_cell(tab[t][0],tab[t][1])==2):
 				get_node("TileMap").set_cell(tab[t][0],tab[t][1],3)
+
+func get_HP():
+	return get_node("theseus").get_HP()
