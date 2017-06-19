@@ -13,7 +13,9 @@ func _process(delta):
 		var tab = get_node("TileMap").get_used_cells()
 		for t in range(tab.size()):
 			if (get_node("TileMap").get_cell(tab[t][0],tab[t][1])==2):
-				get_node("TileMap").set_cell(tab[t][0],tab[t][1],3)
+				get_node("TileMap").set_cell(tab[t][0],tab[t][1],0)
+			if (get_node("TileMap").get_cell(tab[t][0],tab[t][1])==6):
+				get_node("TileMap").set_cell(tab[t][0],tab[t][1],5)
 
 func get_HP():
 	return get_node("theseus").get_HP()
