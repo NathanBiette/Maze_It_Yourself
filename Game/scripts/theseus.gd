@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 var original_pos
 
+#how many pixels theseus must move per swipe
 const MOVEMENT_UNIT = 50
 
 func _ready():
@@ -18,13 +19,14 @@ func _move(dir):
 	elif (dir=="right"):
 		move(Vector2(MOVEMENT_UNIT,0))
 	
+	#part called when colliding with wall, trap, enemy, object
 	if (is_colliding()):
 		revert_motion()
 		var collider = get_collider()
+		#part coding what happens with every kind of collider
 		if (collider.is_in_group("enemies")) :
 			collider.get_node(".").interact(dir, get_node("."))
 		else :
-		
 			get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + dir)
 	else:
 		get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
@@ -40,9 +42,11 @@ func _on_swipe_gesture_swiped( gesture ):
 		_move("left")
 	if (angle < -2.356 or angle > 2.356) :
 		_move("down")
-	
+
+#function that can be called by enemies to change Theseus' attributes
 func lose_hp():
 	get_node("AnimatedSprite/Movement_anims").play("hp_lost")
 
+#function with potential (meaning useless for now)
 func get_movement_unit():
 	return MOVEMENT_UNIT
