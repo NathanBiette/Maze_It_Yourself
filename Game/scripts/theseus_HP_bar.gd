@@ -10,12 +10,12 @@ func _ready():
 	# Initialization here
 	
 	#HP_info is a vector2 containingat index 0 int max_HP and at index 1 int current_HP
-	var HP_info = get_node("../../.").get_HP()
+	var HP_info = get_node("../../../.").get_HP()
 	set_max(HP_info[0])
 	set_value(HP_info[1])
 	set_process(true)
 
 func _process(delta):
-	HP_info = get_node("../../.").get_HP()
+	HP_info = get_node("../../../.").get_HP()
 	set_max(HP_info[0])
 	set_value(HP_info[1])
