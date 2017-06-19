@@ -11,6 +11,7 @@ script/script = ExtResource( 1 )
 
 [node name="TileMap" type="TileMap" parent="."]
 
+transform/pos = Vector2( -50, 0 )
 mode = 0
 tile_set = ExtResource( 2 )
 cell/size = Vector2( 100, 100 )
@@ -29,11 +30,11 @@ tile_data = IntArray( 0, 1, 1, 1, 2, 1, 3, 1, 4, 1, 5, 1, 6, 1, 7, 1, 11, 1, 12,
 
 [node name="Skeleton" parent="." instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 525, 875 )
+transform/pos = Vector2( 500, 850 )
 
 [node name="theseus" parent="." instance=ExtResource( 4 )]
 
-transform/pos = Vector2( 575, 175 )
+transform/pos = Vector2( 200, 250 )
 
 [node name="Camera2D" type="Camera2D" parent="theseus"]
 
@@ -41,7 +42,7 @@ visibility/visible = false
 anchor_mode = 1
 rotating = false
 current = true
-zoom = Vector2( 0.5, 0.5 )
+zoom = Vector2( 1, 1 )
 limit/left = -10000000
 limit/top = -10000000
 limit/right = 10000000

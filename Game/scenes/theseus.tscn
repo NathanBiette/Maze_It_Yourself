@@ -11,7 +11,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 22, 22 )
+extents = Vector2( 44, 44 )
 
 [sub_resource type="SpriteFrames" id=2]
 
@@ -302,6 +302,7 @@ debug_mode = false
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 
+transform/pos = Vector2( 0, -30 )
 frames = SubResource( 2 )
 animation = "default"
 
