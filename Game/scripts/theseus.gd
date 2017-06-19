@@ -1,6 +1,11 @@
 extends KinematicBody2D
 
 var original_pos
+var hp = 5
+var helmet = "default_helmet"
+var weapon = "default_weapon"
+var shield = "default_shield"
+var item = "default_item"
 
 const MOVEMENT_UNIT = 50
 
