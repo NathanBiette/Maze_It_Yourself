@@ -1,12 +1,14 @@
 extends KinematicBody2D
 
 var original_pos
-var hp = 5
+var max_HP = 10
 var helmet = "default_helmet"
 var weapon = "default_weapon"
 var shield = "default_shield"
 var item = "default_item"
+var current_HP = max_HP
 
+#is a movement animation over right now?
 var idle = true
 
 #how many pixels theseus must move per swipe
@@ -54,7 +56,8 @@ func _on_swipe_gesture_swiped( gesture ):
 			_move("down")
 
 #function that can be called by enemies to change Theseus' attributes
-func lose_hp():
+func lose_hp(damage):
+	current_HP -= damage
 	get_node("AnimatedSprite/Damage_anims").play("hp_lost")
 
 #function with potential (meaning useless for now)
@@ -69,3 +72,6 @@ func is_idle():
 	
 func set_idle(enable):
 	idle = enable
+
+func get_HP():
+	return Vector2(max_HP,current_HP)
