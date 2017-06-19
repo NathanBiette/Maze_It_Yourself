@@ -50,7 +50,7 @@ func _on_swipe_gesture_swiped( gesture ):
 
 #function that can be called by enemies to change Theseus' attributes
 func lose_hp():
-	get_node("AnimatedSprite/Movement_anims").play("hp_lost")
+	get_node("AnimatedSprite/Damage_anims").play("hp_lost")
 
 #function with potential (meaning useless for now)
 func get_movement_unit():

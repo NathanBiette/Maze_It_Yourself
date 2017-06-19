@@ -21,7 +21,7 @@ func interact(dir, node):
 		get_node("CollisionShape2D").queue_free()
 		#the hitbox disapears first
 		#theseus plays his attack anim or loses HP
-		node.get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + dir)
+		node.get_node("AnimatedSprite/Damage_anims").play("blocked_move_" + dir)
 	else:
 		node.lose_hp()
 
