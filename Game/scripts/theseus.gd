@@ -7,6 +7,8 @@ var weapon = "default_weapon"
 var shield = "default_shield"
 var item = "default_item"
 
+var idle = true
+
 #how many pixels theseus must move per swipe
 const MOVEMENT_UNIT = 100
 
@@ -32,27 +34,38 @@ func _move(dir):
 		if (collider.is_in_group("enemies")) :
 			collider.get_node(".").interact(dir, get_node("."))
 		else :
+			idle = false
 			get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + dir)
 	else:
+		idle = false
 		get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
 
 	#new version of swipe move that allow non rectilign moves to be taken in account
 func _on_swipe_gesture_swiped( gesture ):
-	var angle = gesture.get_direction_angle()
-	if (angle < 0.785 and angle > -0.785) :
-		_move("up")
-	if (angle <= -0.785 and angle >= -2.356):
-		_move("right")
-	if (angle <= 2.356 and angle >= 0.785):
-		_move("left")
-	if (angle < -2.356 or angle > 2.356) :
-		_move("down")
+	if (is_idle()):
+		var angle = gesture.get_direction_angle()
+		if (angle < 0.785 and angle > -0.785) :
+			_move("up")
+		if (angle <= -0.785 and angle >= -2.356):
+			_move("right")
+		if (angle <= 2.356 and angle >= 0.785):
+			_move("left")
+		if (angle < -2.356 or angle > 2.356) :
+			_move("down")
 
 #function that can be called by enemies to change Theseus' attributes
 func lose_hp():
-	get_node("AnimatedSprite/Movement_anims").play("hp_lost")
+	get_node("AnimatedSprite/Damage_anims").play("hp_lost")
 
 #function with potential (meaning useless for now)
 func get_movement_unit():
 	return MOVEMENT_UNIT
+	
+func _on_Movement_anims_finished():
+	idle = true
 
+func is_idle():
+	return idle
+	
+func set_idle(enable):
+	idle = enable

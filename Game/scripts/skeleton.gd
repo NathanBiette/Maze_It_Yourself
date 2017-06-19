@@ -6,6 +6,7 @@ extends KinematicBody2D
 var original_pos
 const MOVEMENT_UNIT = 100
 
+
 func _ready():
 	original_pos = get_node(".").get_global_pos()
 	# Called every time the node is added to the scene.
@@ -21,6 +22,7 @@ func interact(dir, node):
 		get_node("CollisionShape2D").queue_free()
 		#the hitbox disapears first
 		#theseus plays his attack anim or loses HP
+		node.set_idle(false)
 		node.get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + dir)
 	else:
 		node.lose_hp()
