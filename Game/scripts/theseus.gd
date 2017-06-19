@@ -8,7 +8,7 @@ var shield = "default_shield"
 var item = "default_item"
 
 #how many pixels theseus must move per swipe
-const MOVEMENT_UNIT = 50
+const MOVEMENT_UNIT = 100
 
 func _ready():
 	original_pos = get_node(".").get_global_pos()
