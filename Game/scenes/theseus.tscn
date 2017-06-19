@@ -1,12 +1,11 @@
-[gd_scene load_steps=19 format=1]
+[gd_scene load_steps=18 format=1]
 
 [ext_resource path="res://scripts/theseus.gd" type="Script" id=1]
 [ext_resource path="res://swipe/addons/swipe-detector/swipe_detector.gd" type="Script" id=2]
 [ext_resource path="res://textures/hero/hero_face_right_100px.tex" type="Texture" id=3]
-[ext_resource path="res://textures/hero_face_left.tex" type="Texture" id=4]
-[ext_resource path="res://textures/hero_face_down.tex" type="Texture" id=5]
+[ext_resource path="res://textures/hero/hero_face_left_100px.tex" type="Texture" id=4]
+[ext_resource path="res://textures/hero/hero_face_down_100px.tex" type="Texture" id=5]
 [ext_resource path="res://textures/hero/hero_face_up_100px.tex" type="Texture" id=6]
-[ext_resource path="res://textures/hero.tex" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -16,7 +15,7 @@ extents = Vector2( 44, 44 )
 [sub_resource type="SpriteFrames" id=2]
 
 animations = [ {
-"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 6 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
