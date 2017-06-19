@@ -311,7 +311,7 @@ anims/movement_left_100px = SubResource( 9 )
 anims/movement_right_100px = SubResource( 10 )
 anims/movement_up_100px = SubResource( 11 )
 playback/active = true
-playback/speed = 1.875
+playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 
@@ -327,5 +327,7 @@ blend_times = [  ]
 autoplay = ""
 
 [connection signal="swiped" from="swipe gesture" to="." method="_on_swipe_gesture_swiped"]
+
+[connection signal="finished" from="AnimatedSprite/Movement_anims" to="." method="_on_Movement_anims_finished"]
 
 
