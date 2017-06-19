@@ -35,10 +35,11 @@ transform/pos = Vector2( 500, 850 )
 
 [node name="theseus" parent="." instance=ExtResource( 4 )]
 
-transform/pos = Vector2( 200, 250 )
+transform/pos = Vector2( 250, 150 )
 
 [node name="Camera2D" type="Camera2D" parent="theseus"]
 
+visibility/visible = false
 anchor_mode = 1
 rotating = false
 current = true
