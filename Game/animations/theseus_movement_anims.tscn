@@ -1,0 +1,171 @@
+[gd_scene load_steps=10 format=1]
+
+[sub_resource type="Animation" id=1]
+
+resource/name = "blocked_move_down"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 4, 0.25 ),
+"update": 0,
+"values": [ Vector2( 175, 125 ), Vector2( 175, 150 ), Vector2( 175, 125 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+
+resource/name = "blocked_move_left"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 4, 0.25 ),
+"update": 0,
+"values": [ Vector2( 175, 125 ), Vector2( 150, 125 ), Vector2( 175, 125 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+
+resource/name = "blocked_move_right"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 4, 0.25 ),
+"update": 0,
+"values": [ Vector2( 175, 125 ), Vector2( 200, 125 ), Vector2( 175, 125 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+
+resource/name = "blocked_move_up"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 4, 0.25 ),
+"update": 0,
+"values": [ Vector2( 175, 125 ), Vector2( 175, 100 ), Vector2( 175, 125 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2 ),
+"transitions": FloatArray( 1, 0.25 ),
+"update": 0,
+"values": [ Vector2( 175, 75 ), Vector2( 175, 125 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2 ),
+"transitions": FloatArray( 1, 0.25 ),
+"update": 0,
+"values": [ Vector2( 225, 125 ), Vector2( 175, 125 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2 ),
+"transitions": FloatArray( 1, 0.25 ),
+"update": 0,
+"values": [ Vector2( 125, 125 ), Vector2( 175, 125 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2 ),
+"transitions": FloatArray( 1, 0.25 ),
+"update": 0,
+"values": [ Vector2( 175, 175 ), Vector2( 175, 125 ) ]
+}
+
+[sub_resource type="GDScript" id=9]
+
+script/source = "extends AnimationPlayer
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+func _ready():
+	# Called every time the node is added to the scene.
+	# Initialization here
+	var unit = get_node(\"../.\").get_mouvement_unit()
+	
+	
+	pass
+"
+
+[node name="Movement_anims" type="AnimationPlayer"]
+
+playback/process_mode = 0
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/blocked_move_down = SubResource( 1 )
+anims/blocked_move_left = SubResource( 2 )
+anims/blocked_move_right = SubResource( 3 )
+anims/blocked_move_up = SubResource( 4 )
+anims/movement_down_50px = SubResource( 5 )
+anims/movement_left_50px = SubResource( 6 )
+anims/movement_right_50px = SubResource( 7 )
+anims/movement_up_50px = SubResource( 8 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+script/script = SubResource( 9 )
+
+
