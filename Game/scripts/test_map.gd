@@ -12,10 +12,12 @@ func _ready():
 	find_doors()
 	close_doors()
 	set_process(true)
+	print(get_node(".").get_tree().get_root())
+	print(get_node("TileMap").get_children())
 
 func _process(delta):
 	var tree = get_tree()
-	if (get_node(".").get_tree().get_nodes_in_group("enemies").size()==0):
+	if (no_enemy_left()):
 		open_doors()
 
 
@@ -64,3 +66,10 @@ func set_room_id(id):
 
 func is_open():
 	return is_open
+	
+func no_enemy_left():
+	var kids = get_node("TileMap").get_children()
+	for kid in kids:
+		if kid.is_in_group("enemies"):
+			return false
+	return true
