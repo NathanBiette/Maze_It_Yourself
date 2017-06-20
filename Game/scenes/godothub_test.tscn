@@ -17,6 +17,22 @@ margin/top = 0.0
 margin/right = 200.0
 margin/bottom = 200.0
 
+[node name="channgeChannelButton" type="Button" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 100.0
+margin/top = 100.0
+margin/right = 211.0
+margin/bottom = 120.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "changechannel"
+flat = false
+
 [node name="connectButton" type="Button" parent="Panel"]
 
 focus/ignore_mouse = false
@@ -84,6 +100,23 @@ enabled_focus_mode = 2
 shortcut = null
 text = "ping"
 flat = false
+
+[node name="Label" type="Label" parent="Panel"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 50.0
+margin/top = 150.0
+margin/right = 136.0
+margin/bottom = 164.0
+text = "disconnected"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[connection signal="pressed" from="Panel/channgeChannelButton" to="." method="_on_channgeChannelButton_pressed"]
 
 [connection signal="pressed" from="Panel/connectButton" to="." method="_on_connectButton_pressed"]
 
