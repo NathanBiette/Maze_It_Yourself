@@ -34,7 +34,11 @@ func _move(dir):
 		var collider = get_collider()
 		#part coding what happens with every kind of collider
 		if (collider.is_in_group("enemies")) :
-			collider.get_node(".").interact(dir, get_node("."))
+			revert_motion()
+			collider.interact(dir, get_node("."))
+		elif (collider.is_in_group("door")) :
+			revert_motion()
+			collider.shazaam()
 		else :
 			idle = false
 			get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + dir)
