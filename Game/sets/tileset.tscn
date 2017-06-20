@@ -53,11 +53,9 @@ constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="door_closed/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="door_closed/StaticBody2D"]
 
-build_mode = 0
-polygon = Vector2Array( -50, -50, -50, 50, 50, 50, 50, -50 )
-shape_range = Vector2( 0, 0 )
+shape = SubResource( 1 )
 trigger = false
 
 [node name="door_open" type="Sprite" parent="."]
@@ -65,9 +63,6 @@ trigger = false
 transform/pos = Vector2( 50, 250 )
 texture = ExtResource( 3 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="door_open"]
-
-input/pickable = false
 shapes/0/shape = SubResource( 5 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = true
@@ -159,5 +154,11 @@ build_mode = 0
 polygon = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 shape_range = Vector2( 0, 0 )
 trigger = false
+_update_shape_index = 0
+
+[node name="door_open" type="Sprite" parent="."]
+
+transform/pos = Vector2( 50, 250 )
+texture = ExtResource( 4 )
 
 
