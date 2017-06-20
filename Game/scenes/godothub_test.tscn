@@ -6,18 +6,89 @@
 
 script/script = ExtResource( 1 )
 
-[node name="Label" type="Label" parent="."]
+[node name="Panel" type="Panel" parent="."]
 
-focus/ignore_mouse = true
+focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 400.0
-margin/top = 300.0
-margin/right = 440.0
-margin/bottom = 314.0
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 200.0
+margin/bottom = 200.0
+
+[node name="connectButton" type="Button" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 12.0
+margin/bottom = 20.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "connect"
+flat = false
+
+[node name="disconnectButton" type="Button" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 100.0
+margin/right = 12.0
+margin/bottom = 120.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "disconnect"
+flat = false
+
+[node name="Camera2D" type="Camera2D" parent="Panel"]
+
+visibility/visible = false
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+
+[node name="pingButton" type="Button" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 100.0
+margin/top = 0.0
+margin/right = 112.0
+margin/bottom = 20.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "ping"
+flat = false
+
+[connection signal="pressed" from="Panel/connectButton" to="." method="_on_connectButton_pressed"]
+
+[connection signal="pressed" from="Panel/disconnectButton" to="." method="_on_disconnectButton_pressed"]
+
+[connection signal="pressed" from="Panel/pingButton" to="." method="_on_pingButton_pressed"]
 
 
