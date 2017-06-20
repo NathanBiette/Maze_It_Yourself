@@ -8,7 +8,7 @@ var next_room
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
-	next_room = "res://scenes/test_map.tscn"
+	next_room = "res://scenes/game_hero/rooms/test_map.tscn"
 	set_process(true)
 
 func _process(delta):
