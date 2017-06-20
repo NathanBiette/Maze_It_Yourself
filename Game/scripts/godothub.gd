@@ -9,6 +9,7 @@ signal join(id)
 signal left(id)
 signal message(data)
 signal ping(ping)
+signal lobbyrequest(list)
 
 var conn
 
@@ -62,6 +63,10 @@ func is_listening():
 			return 
 		emit_signal("message",data)#message signal when data is received
 		
+		if data.event == "lobbyreq":
+			emit_signal("lobbyreq", data.list)
+			return
+		
 func change_channel(channel):
 	client.channel = channel
 	send_data({event="channel"})
@@ -103,3 +108,6 @@ func send_data(data): #Only accept dictionary
 func disconnect():
 	send_data({event="disconnect"})
 	conn.close()
+
+func lobby_request():
+	send_data({event="lobbyreq"})

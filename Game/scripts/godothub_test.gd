@@ -15,9 +15,11 @@ func _process(dt):
 func _on_receive(data):
 	print("Receive Data: ",data)
 
+func _on_lobbyrequest(list):
+	print("Hello " + list)
 
 func _on_pingButton_pressed():
-	conn.broadcast_data({"string":"Hello"})
+	conn.lobby_request()
 
 
 func _on_disconnectButton_pressed():
