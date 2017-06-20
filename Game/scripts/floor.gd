@@ -4,20 +4,18 @@ extends Node
 # var a = 2
 # var b = "textvar"
 const OFFSET = 5000
-var current_room
 var rooms = Array()
 #doors format : 
 #	[[Vector2 global_pos, id [room number, door_type], id of connected door],[...],...]
 var doors = Array()
 #vector2vector2array really
 var links = Vector2Array()
-
 var number_of_rooms = 0
 
 func _ready():
 	add_room("res://scenes/game_hero/rooms/test_map.tscn")
 	add_architect()
-	get_node("map_"+str(current_room)).set_pause_room(false)
+	get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
 
 func add_architect():
 	var scene = load("res://scenes/game_architect/architect.tscn")
