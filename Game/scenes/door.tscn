@@ -14,8 +14,8 @@ script/source = "extends StaticBody2D
 # class member variables go here, for example:
 # var a = 2
 # var b = \"textvar\"
-var number_of_rooms = 0
-const OFFSET = 5000
+var door_id=[0,0]
+var door_connected = [0,0]
 
 func _ready():
 	# Called every time the node is added to the scene.
@@ -23,16 +23,16 @@ func _ready():
 	pass
 
 func shazaam():
-	var scene = load(\"res://scenes/test_map.tscn\")
-	var node = scene.instance()
-	number_of_rooms += 1
-	node.set_name(\"map_\" + str(number_of_rooms))
-	get_node(\"../../.\").add_child(node)
-	get_node(\"../../map_\" + str(number_of_rooms) + \"/TileMap\").set_global_pos(Vector2(OFFSET * number_of_rooms, 0))
-	var movement = get_node(\"../../theseus\").get_global_pos()
-	movement[0]+=OFFSET * number_of_rooms
-	get_node(\"../../theseus\").set_global_pos(movement)
-	"
+	get_node(\"../../theseus/Camera2D/CanvasLayer/AnimationPlayer\").play(\"fade_to_black\")
+	get_node(\"../../.\").change_room(door_connected)
+
+func set_door_id(room, door):
+	door_id[0] = room
+	door_id[1] = door
+
+func set_door_connected(room, door):
+	door_connected[0]=room
+	door_connected[1]=door"
 
 [node name="door" type="StaticBody2D" groups=[
 "door",

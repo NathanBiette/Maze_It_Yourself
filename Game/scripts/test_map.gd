@@ -10,7 +10,6 @@ const hero_speed = 50
 func _ready():
 	doors_locations = Vector2Array()
 	find_doors()
-	create_doors()
 	close_doors()
 	set_process(true)
 
@@ -40,20 +39,6 @@ func find_doors():
 
 func get_doors_locations():
 	return doors_locations
-
-func create_doors():
-	# if you want only one door use this code instead
-	#var scene = load("res://scenes/door.tscn")
-	#var node = scene.instance()
-	#add_child(node)
-	#node.set_global_pos(Vector2(50,150))
-	
-	#finds all doors and put at these locations a square for TP
-	for d in range(doors_locations.size()):
-		var scene = load("res://scenes/door.tscn")
-		var node = scene.instance()
-		add_child(node)
-		node.set_global_pos(Vector2((doors_locations[d][0]*100 +50),(doors_locations[d][1]*100 +50)))
 
 func is_open():
 	return is_open

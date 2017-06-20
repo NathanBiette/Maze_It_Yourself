@@ -1,0 +1,132 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://scripts/architect.gd" type="Script" id=1]
+
+[node name="architect" type="Node"]
+
+script/script = ExtResource( 1 )
+
+[node name="Panel" type="Panel" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 190.0
+margin/bottom = 80.0
+
+[node name="Button" type="Button" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 50.0
+margin/top = 0.0
+margin/right = 144.0
+margin/bottom = 20.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Create Room"
+flat = false
+
+[node name="OptionButton" type="OptionButton" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 20.0
+margin/right = 47.0
+margin/bottom = 40.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "room_1"
+flat = false
+align = 0
+selected = -1
+items = [  ]
+
+[node name="OptionButton 2" type="OptionButton" parent="Panel/OptionButton"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 20.0
+margin/top = 20.0
+margin/right = 67.0
+margin/bottom = 40.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "door"
+flat = false
+align = 0
+selected = -1
+items = [  ]
+
+[node name="OptionButton1" type="OptionButton" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 100.0
+margin/top = 20.0
+margin/right = 187.0
+margin/bottom = 40.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "room_2"
+flat = false
+align = 0
+selected = -1
+items = [  ]
+
+[node name="OptionButton 2" type="OptionButton" parent="Panel/OptionButton1"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 20.0
+margin/top = 20.0
+margin/right = 67.0
+margin/bottom = 40.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "door"
+flat = false
+align = 0
+selected = -1
+items = [  ]
+
+[node name="Button 2" type="Button" parent="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 60.0
+margin/top = 60.0
+margin/right = 140.0
+margin/bottom = 80.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "connect"
+flat = false
+
+[connection signal="pressed" from="Panel/Button" to="." method="_on_Button_pressed"]
+
+[connection signal="pressed" from="Panel/Button 2" to="." method="_on_Button_2_pressed"]
+
+
