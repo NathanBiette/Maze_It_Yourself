@@ -43,7 +43,9 @@ tracks/1/keys = {
 "values": [ 0.5, 1.0 ]
 }
 
-[node name="KinematicBody2D" type="KinematicBody2D"]
+[node name="KinematicBody2D" type="KinematicBody2D" groups=[
+"lootable",
+]]
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )

@@ -65,6 +65,10 @@ func _move(dir):
 		elif (collider.is_in_group("door")) :
 			revert_motion()
 			collider.shazaam()
+		elif (collider.is_in_group("lootable")):
+			idle = false
+			collider.interact(get_node("."))
+			get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
 		else :
 			idle = false
 			revert_motion()
