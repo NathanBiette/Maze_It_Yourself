@@ -4,7 +4,7 @@ var hero_position
 var direction
 var doors_locations
 var is_open = false
-
+var room_id = 0
 const hero_speed = 50
 
 func _ready():
@@ -14,7 +14,8 @@ func _ready():
 	set_process(true)
 
 func _process(delta):
-	if (get_tree().get_nodes_in_group("enemies").size()==0):
+	var tree = get_tree()
+	if (get_node(".").get_tree().get_nodes_in_group("enemies").size()==0):
 		open_doors()
 
 
@@ -54,6 +55,12 @@ func find_doors():
 
 func get_doors_locations():
 	return doors_locations
+
+func get_room_id():
+	return room_id
+
+func set_room_id(id):
+	room_id = id
 
 func is_open():
 	return is_open

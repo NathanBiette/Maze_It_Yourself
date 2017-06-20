@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 var original_pos
+var current_room
 var max_HP = 10
 #items and hp and gold of theseus
 var helmet
@@ -18,7 +19,7 @@ const MOVEMENT_UNIT = 100
 
 func _ready():
 	original_pos = get_node(".").get_global_pos()
-	
+	current_room = 0
 	#load equipement data and hp
 	current_HP = Globals.get("hp")
 	helmet = Globals.get("helmet")
@@ -102,3 +103,9 @@ func set_idle(enable):
 #get the amount of hp of theseus
 func get_HP():
 	return Vector2(max_HP,current_HP)
+
+func get_current_room():
+	return current_room
+
+func set_current_room(new_room):
+	current_room = new_room
