@@ -23,6 +23,8 @@ func open_doors():
 	for d in range(doors_locations.size()):
 		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==2):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],3)
+			#changes the cell just above the door /!\ doesn't work if the door is on a top or bottom wall
+			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,5)
 	is_open = true
 
 func close_doors():
@@ -40,15 +42,18 @@ func get_doors_locations():
 	return doors_locations
 
 func create_doors():
-	var scene = load("res://scenes/door.tscn")
-	var node = scene.instance()
-	add_child(node)
-	node.set_global_pos(Vector2(50,150))
-	#for d in range(doors_locations.size()):
-		#var scene = load("res://scenes/door.tscn")
-		#var node = scene.instance()
-		#add_child(node)
-		#node.set_global_pos(Vector2((doors_locations[d][0]*100 +50),(doors_locations[d][1]*100 +50)))
+	# if you want only one door use this code instead
+	#var scene = load("res://scenes/door.tscn")
+	#var node = scene.instance()
+	#add_child(node)
+	#node.set_global_pos(Vector2(50,150))
+	
+	#finds all doors and put at these locations a square for TP
+	for d in range(doors_locations.size()):
+		var scene = load("res://scenes/door.tscn")
+		var node = scene.instance()
+		add_child(node)
+		node.set_global_pos(Vector2((doors_locations[d][0]*100 +50),(doors_locations[d][1]*100 +50)))
 
 func is_open():
 	return is_open

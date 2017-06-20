@@ -297,7 +297,7 @@ debug_mode = false
 transform/pos = Vector2( 0, -30 )
 frames = SubResource( 2 )
 animation = "default"
-frame = 4
+frame = 2
 
 [node name="Movement_anims" type="AnimationPlayer" parent="AnimatedSprite"]
 
