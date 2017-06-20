@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=1]
 
-[ext_resource path="res://scenes/game_hero/objects/weapons/steel_sword.gd" type="Script" id=1]
-[ext_resource path="res://textures/objects/weapons/steel_sword.tex" type="Texture" id=2]
+[ext_resource path="res://scenes/game_hero/objects/weapons/basic_weapon.gd" type="Script" id=1]
+[ext_resource path="res://textures/objects/weapons/basic_weapon.tex" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -43,7 +43,7 @@ tracks/1/keys = {
 "values": [ 0.5, 1.0 ]
 }
 
-[node name="steel_sword" type="KinematicBody2D" groups=[
+[node name="basic_weapon" type="KinematicBody2D" groups=[
 "lootable",
 "weapons",
 ]]
@@ -67,9 +67,12 @@ _update_shape_index = 0
 
 frames = SubResource( 2 )
 animation = "default"
-offset = Vector2( 0, -19.9708 )
+offset = Vector2( 0, -19.9534 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite" groups=[
+"lootable",
+"weapons",
+]]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0

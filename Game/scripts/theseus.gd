@@ -1,14 +1,21 @@
 extends KinematicBody2D
 
+
+##VARABLES##
 var original_pos
 var current_room
 var max_HP = 10
-#items and hp and gold of theseus
+
+#items
 var helmet
 var weapon
 var shield
 var item
+
+#stats
 var current_HP
+var attack
+var defense
 var gold
 
 #is a movement animation over right now?
@@ -17,17 +24,28 @@ var idle = true
 #how many pixels theseus must move per swipe
 const MOVEMENT_UNIT = 100
 
+#storage variable to keep track of dropping object node before dropping object on next move
+var dropping_object
+var dropping = false
+
+
+##FUNCTIONS##
 func _ready():
 	original_pos = get_node(".").get_global_pos()
 	current_room = 0
 	#load equipement data and hp
 	current_HP = Globals.get("hp")
-	helmet = Globals.get("helmet")
-	weapon = Globals.get("weapon")
-	shield = Globals.get("shield")
-	item = Globals.get("item")
+	#load et instance node from starter inventory
+	helmet = load("res://scenes/game_hero/objects/helmets/" + str(Globals.get("helmet")) + ".tscn").instance()
+	weapon = load("res://scenes/game_hero/objects/weapons/" + str(Globals.get("weapon")) + ".tscn").instance()
+	shield = load("res://scenes/game_hero/objects/shields/" + str(Globals.get("shield")) + ".tscn").instance()
+	item = load("res://scenes/game_hero/objects/items/" + str(Globals.get("item")) + ".tscn").instance()
 	gold = Globals.get("gold")
-	
+	#compute attack and defense stats
+	attack = weapon.attack()
+	defense = shield.defense() + helmet.defense()
+	#print( get_node("../floor/map_" + str(current_room)).get_filename())
+	#print(weapon.get_name())
 
 #extract direction of swipe gesture and call move function according to direction
 #new version of swipe move that allow non rectilign moves to be taken in account
@@ -63,20 +81,34 @@ func _move(dir):
 		if (collider.is_in_group("enemies")) :
 			revert_motion()
 			collider.interact(dir, get_node("."))
+		#collision with door
 		elif (collider.is_in_group("door")) :
 			revert_motion()
 			collider.shazaam()
+		#collisition with loot
 		elif (collider.is_in_group("lootable")):
-			idle = false
-			collider.interact(get_node("."))
-			get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
+			if(dropping):
+				idle = false
+				get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
+				drop(dropping_object, dir)
+				loot(collider)
+			else:
+				idle = false
+				get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
+				loot(collider)
+		
 		else :
 			idle = false
 			revert_motion()
 			get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + dir)
 	else:
-		idle = false
-		get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
+		if(dropping):
+			idle = false
+			get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
+			drop(dropping_object,dir)
+		else:
+			idle = false
+			get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
 
 
 #function that can be called by enemies to change Theseus' attributes
@@ -109,3 +141,50 @@ func get_current_room():
 
 func set_current_room(new_room):
 	current_room = new_room
+	
+func loot(collider):
+	if (collider.is_in_group("weapons")):
+		dropping_object = weapon
+		#set bool dropping to true to trigger drop action on next succesful move
+		dropping = true
+		#duplicate node of colliding item for it not to be destroyed on freeing from map
+		weapon = collider.duplicate()
+		#save weapon reference 
+		Globals.set("weapon", weapon.get_name())
+		#update stats
+		stats_update()
+		#destroy instance of collider in test map
+		collider.queue_free()
+#	elif (collider.is_in_group("shields")):
+#		print("helle")
+#	elif (collider.is_in_group("helmets")):
+#		
+#	elif (collider.is_in_group("items")):
+		
+	pass
+	#collider.interact(get_node("."))
+
+#dropping function
+func drop(node, dir):
+	#get position after!! move and compute position of drop (previous position of player) 
+	var pos_of_drop = get_node(".").get_pos()
+	if (dir=="up"):
+		pos_of_drop[1] += MOVEMENT_UNIT
+	elif (dir=="down"):
+		pos_of_drop[1] -= MOVEMENT_UNIT
+	elif (dir=="left"):
+		pos_of_drop[0] += MOVEMENT_UNIT
+	elif (dir=="right"):
+		pos_of_drop[0] -= MOVEMENT_UNIT
+	#set position of drop on the map
+	node.set_pos(pos_of_drop)
+	#add chil node to map
+	get_node("../floor/map_" + str(current_room)).add_child(node.duplicate())
+	#destroy instance of dropping object
+	node.queue_free()
+	dropping = false
+
+#to update stats of hero
+func stats_update():
+	attack = weapon.attack()
+	defense = shield.defense() + helmet.defense()
