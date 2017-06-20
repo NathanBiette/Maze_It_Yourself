@@ -21,7 +21,15 @@ func add(d):
 		if (d[0]*10+d[1] == get_item_ID(i)):
 			not_in_list = false
 	if not_in_list:
-		add_item(\"Room \" +str(d[0])+\" door \"+str(d[1]), d[0] * 10 + d[1])
+		if d[1] == 0:
+			add_item(\"Room \" +str(d[0])+\" north door\", d[0] * 10 + d[1])
+		if d[1] == 1:
+			add_item(\"Room \" +str(d[0])+\" west door\", d[0] * 10 + d[1])
+		if d[1] == 2:
+			add_item(\"Room \" +str(d[0])+\" south door\", d[0] * 10 + d[1])
+		if d[1] == 3:
+			add_item(\"Room \" +str(d[0])+\" east door\", d[0] * 10 + d[1])
+		
 "
 
 [node name="architect" type="Node"]
@@ -36,7 +44,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = -10.0
-margin/right = 190.0
+margin/right = 310.0
 margin/bottom = 96.0
 
 [node name="LineEdit" type="LineEdit" parent="Panel"]
@@ -47,7 +55,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 190.0
+margin/right = 310.0
 margin/bottom = 24.0
 text = "res://scenes/game_hero/rooms/test_map.tscn"
 placeholder/text = "path to room"
@@ -62,9 +70,9 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 50.0
+margin/left = 110.0
 margin/top = 20.0
-margin/right = 144.0
+margin/right = 204.0
 margin/bottom = 40.0
 toggle_mode = false
 enabled_focus_mode = 2
@@ -80,7 +88,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 50.0
-margin/right = 90.0
+margin/right = 130.0
 margin/bottom = 70.0
 toggle_mode = false
 enabled_focus_mode = 2
@@ -97,9 +105,9 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 110.0
+margin/left = 160.0
 margin/top = 50.0
-margin/right = 190.0
+margin/right = 280.0
 margin/bottom = 70.0
 toggle_mode = false
 enabled_focus_mode = 2
@@ -116,9 +124,9 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 60.0
+margin/left = 120.0
 margin/top = 80.0
-margin/right = 140.0
+margin/right = 200.0
 margin/bottom = 100.0
 toggle_mode = false
 enabled_focus_mode = 2

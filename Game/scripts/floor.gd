@@ -46,12 +46,6 @@ func add_room(room):
 		else:
 			doors.append([Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[node.get_room_id(), i],[-1,-1]])
 	create_doors(number_of_rooms)
-	
-	#connecting 2 doors
-	if (number_of_rooms >= 1):
-		var random_door_id_1 = [0,3]
-		var random_door_id_2 = [1,1]
-		connect(random_door_id_1, random_door_id_2)
 		
 	#updating for next_use
 	number_of_rooms += 1

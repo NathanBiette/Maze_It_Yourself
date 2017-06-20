@@ -30,6 +30,15 @@ func open_doors():
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],6)
 			#changes the cell just above the door /!\ doesn't work if the door is on a top or bottom wall
 			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,10)
+		#NORTH
+		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==3):
+			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],4)
+			#changes the cell just above the door /!\ doesn't work if the door is on a top or bottom wall
+		#SOUTH
+		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==7):
+			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],8)
+			#changes the cell just above the door /!\ doesn't work if the door is on a top or bottom wall
+
 	is_open = true
 
 func close_doors():

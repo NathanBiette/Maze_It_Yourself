@@ -21,6 +21,7 @@ func _process(delta):
 	pass
 
 func _on_Button_pressed():
+	next_room = get_node("Panel/LineEdit").get_text()
 	get_node("../.").add_room(next_room)
 	update_doors(get_node("../.").get_doors())
 
