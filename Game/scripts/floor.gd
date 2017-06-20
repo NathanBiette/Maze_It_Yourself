@@ -17,7 +17,7 @@ var number_of_rooms = 0
 func _ready():
 	add_room("res://scenes/game_hero/rooms/test_map.tscn")
 	add_architect()
-	current_room==rooms[0]
+	get_node("map_"+str(current_room)).set_pause_room(false)
 
 func add_architect():
 	var scene = load("res://scenes/game_architect/architect.tscn")
@@ -56,6 +56,7 @@ func add_room(room):
 		
 	#updating for next_use
 	number_of_rooms += 1
+	node.set_pause_room(true)
 
 func create_doors(active_room):
 	# if you want only one door use this code instead
