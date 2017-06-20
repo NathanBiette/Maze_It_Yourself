@@ -55,6 +55,10 @@ func find_doors():
 			#SOUTH
 			doors_locations[2] = tab[t]
 
+func update_global_pos(room_number):
+	for i in doors_locations:
+		i[0] += 50*room_number
+	
 func get_doors_locations():
 	return doors_locations
 
