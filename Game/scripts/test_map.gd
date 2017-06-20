@@ -13,7 +13,6 @@ func _ready():
 	close_doors()
 	set_process(true)
 
-
 func _process(delta):
 	var tree = get_tree()
 	if (no_enemy_left()):
@@ -42,7 +41,7 @@ func find_doors():
 	var tab = get_node("TileMap").get_used_cells()
 	for t in range(tab.size()):
 		if (get_node("TileMap").get_cell(tab[t][0],tab[t][1])==1 or get_node("TileMap").get_cell(tab[t][0],tab[t][1])==2 ):
-			#EST
+			#EAST
 			doors_locations[3] = tab[t]
 		if (get_node("TileMap").get_cell(tab[t][0],tab[t][1])==3 or get_node("TileMap").get_cell(tab[t][0],tab[t][1])==4 ):
 			#NORD

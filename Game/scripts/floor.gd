@@ -35,7 +35,7 @@ func add_room(room):
 	node.set_room_id(number_of_rooms)
 	rooms.append(node)
 	node.get_node("TileMap").set_global_pos(Vector2(OFFSET * number_of_rooms, 0))
-	node.update_global_pos(number_of_rooms)
+	
 	#managing doors
 	
 	var temp_doors_locations = node.get_doors_locations()
@@ -43,7 +43,7 @@ func add_room(room):
 		if (temp_doors_locations[i] == Vector2(-1,-1)):
 			pass
 		else:
-			doors.append([Vector2(temp_doors_locations[i][0] * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[node.get_room_id(), i],[-1,-1]])
+			doors.append([Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[node.get_room_id(), i],[-1,-1]])
 	create_doors(number_of_rooms)
 	
 	#connecting 2 doors
@@ -64,13 +64,14 @@ func create_doors(active_room):
 	#node.set_global_pos(Vector2(50,150))
 	
 	#finds all doors in the the room and put at these locations a square for TP
+	
 	var doors_to_set = find_doors_in_room(active_room)
 	for d in doors_to_set:
 		var scene = load("res://scenes/game_hero/rooms/door.tscn")
 		var node = scene.instance()
 		get_node("map_" + str(number_of_rooms)).add_child(node)
 		node.set_door_id(d[1][0],d[1][1])
-		node.set_global_pos(Vector2(d[0][0] + (OFFSET * d[1][0]),d[0][1]))
+		node.set_global_pos(d[0])
 
 func change_room(door_id):
 	var current_door_index = find_door_index(door_id)
@@ -81,16 +82,19 @@ func change_room(door_id):
 	#NORTH CASE
 	elif (next_door_id[1] == 0):
 		get_node("../theseus").set_global_pos(Vector2(doors[next_door_index][0][0], doors[next_door_index][0][1] + 100))
+		get_node("../theseus").set_current_room(next_door_id[0])
 	#WEST CASE
 	elif (next_door_id[1] == 1):
 		get_node("../theseus").set_global_pos(Vector2(doors[next_door_index][0][0] + 100, doors[next_door_index][0][1]))
+		get_node("../theseus").set_current_room(next_door_id[0])
 	#SOUTH CASE
 	elif (next_door_id[1] == 2):
 		get_node("../theseus").set_global_pos(Vector2(doors[next_door_index][0][0], doors[next_door_index][0][1] - 100))
-	#NORTH CASE
+		get_node("../theseus").set_current_room(next_door_id[0])
+	#EAST CASE
 	elif (next_door_id[1] == 3):
 		get_node("../theseus").set_global_pos(Vector2(doors[next_door_index][0][0] - 100, doors[next_door_index][0][1]))
-	get_node("../theseus").set_current_room(next_door_id[0])
+		get_node("../theseus").set_current_room(next_door_id[0])
 
 func find_doors_in_room(x):
 	var l = []

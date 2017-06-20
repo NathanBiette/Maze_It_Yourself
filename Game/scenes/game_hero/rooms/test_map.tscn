@@ -4,9 +4,7 @@
 [ext_resource path="res://sets/tileset.res" type="TileSet" id=2]
 [ext_resource path="res://scenes/game_hero/enemies/skeleton.tscn" type="PackedScene" id=3]
 
-[node name="map_0" type="Node" groups=[
-"enemy",
-]]
+[node name="map_0" type="Node"]
 
 script/script = ExtResource( 1 )
 
