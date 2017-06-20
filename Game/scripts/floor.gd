@@ -60,12 +60,12 @@ func create_doors(active_room):
 	
 	#finds all doors in the the room and put at these locations a square for TP
 	var doors_to_set = find_doors_in_room(active_room)
-	for d in range(doors_to_set.size()):
+	for d in doors_to_set:
 		var scene = load("res://scenes/game_hero/rooms/door.tscn")
 		var node = scene.instance()
 		get_node("map_" + str(number_of_rooms)).add_child(node)
-		node.set_door_id([d[1]])
-		node.set_global_pos(Vector2(d[0] + (OFFSET * d[1][0]),d[0]))
+		node.set_door_id(d[1][0],d[1][1])
+		node.set_global_pos(Vector2(d[0][0] + (OFFSET * d[1][0]),d[0][1]))
 
 func change_room(door):
 	var movement = get_node("../theseus").get_global_pos()
@@ -74,7 +74,7 @@ func change_room(door):
 	get_node("../theseus").set_global_pos(movement)
 	get_node("../theseus").set_current_room(current_room + 1)
 
-func find_door_in_room(x):
+func find_doors_in_room(x):
 	var l = []
 	for d in doors:
 		if (d[1][0] == x):

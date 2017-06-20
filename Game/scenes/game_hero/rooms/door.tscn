@@ -11,6 +11,9 @@ extents = Vector2( 25, 25 )
 
 script/source = "extends StaticBody2D
 
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
 var door_id=[0,0]
 var door_connected = [-1,-1]
 var door_type = \"west\"
