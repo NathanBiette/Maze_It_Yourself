@@ -20,10 +20,10 @@ func _process(delta):
 
 func open_doors():
 	for d in range(doors_locations.size()):
-		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==2):
-			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],3)
+		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==1):
+			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],2)
 			#changes the cell just above the door /!\ doesn't work if the door is on a top or bottom wall
-			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,5)
+			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,4)
 	is_open = true
 
 func close_doors():
