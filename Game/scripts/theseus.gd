@@ -2,11 +2,13 @@ extends KinematicBody2D
 
 var original_pos
 var max_HP = 10
-var helmet = "default_helmet"
-var weapon = "default_weapon"
-var shield = "default_shield"
-var item = "default_item"
-var current_HP = max_HP
+#items and hp and gold of theseus
+var helmet
+var weapon
+var shield
+var item
+var current_HP
+var gold
 
 #is a movement animation over right now?
 var idle = true
@@ -16,9 +18,34 @@ const MOVEMENT_UNIT = 100
 
 func _ready():
 	original_pos = get_node(".").get_global_pos()
-	# Called every time the node is added to the scene.
-	# Initialization here
+	
+	#load equipement data and hp
+	current_HP = Globals.get("hp")
+	helmet = Globals.get("helmet")
+	weapon = Globals.get("weapon")
+	shield = Globals.get("shield")
+	item = Globals.get("item")
+	gold = Globals.get("gold")
+	
+
+#extract direction of swipe gesture and call move function according to direction
+#new version of swipe move that allow non rectilign moves to be taken in account
+func _on_swipe_gesture_swiped(gesture):
+	if (is_idle()):
+		var angle = gesture.get_direction_angle()
+		if (angle < 0.785 and angle > -0.785) :
+			_move("up")
+		if (angle <= -0.785 and angle >= -2.356):
+			_move("right")
+		if (angle <= 2.356 and angle >= 0.785):
+			_move("left")
+		if (angle < -2.356 or angle > 2.356) :
+			_move("down")
+
+#move script of theseus
 func _move(dir):
+	
+	#part called to move theseus
 	if (dir=="up"):
 		move(Vector2(0,-MOVEMENT_UNIT))
 	elif (dir=="down"):
@@ -46,18 +73,6 @@ func _move(dir):
 		idle = false
 		get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
 
-	#new version of swipe move that allow non rectilign moves to be taken in account
-func _on_swipe_gesture_swiped( gesture ):
-	if (is_idle()):
-		var angle = gesture.get_direction_angle()
-		if (angle < 0.785 and angle > -0.785) :
-			_move("up")
-		if (angle <= -0.785 and angle >= -2.356):
-			_move("right")
-		if (angle <= 2.356 and angle >= 0.785):
-			_move("left")
-		if (angle < -2.356 or angle > 2.356) :
-			_move("down")
 
 #function that can be called by enemies to change Theseus' attributes
 func lose_hp(damage):
@@ -67,15 +82,19 @@ func lose_hp(damage):
 #function with potential (meaning useless for now)
 func get_movement_unit():
 	return MOVEMENT_UNIT
-	
+
+#set back theseus to idle state when move is finished
 func _on_Movement_anims_finished():
 	idle = true
 
+#test idle state of theseus
 func is_idle():
 	return idle
-	
+
+#set idle state of theseus
 func set_idle(enable):
 	idle = enable
 
+#get the amount of hp of theseus
 func get_HP():
 	return Vector2(max_HP,current_HP)

@@ -48,7 +48,7 @@ func _move(dir):
 
 #one move every timer finished
 func _on_Timer_timeout():
-	var theseus_pos = get_node("../../theseus").get_global_pos() 
+	var theseus_pos = get_node("../../../theseus").get_global_pos() 
 	var guideline = get_node(".").get_global_pos() - theseus_pos
 	var angle = guideline.angle()
 	if (angle < 0.785 and angle > -0.785) :
