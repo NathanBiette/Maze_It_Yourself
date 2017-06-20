@@ -15,6 +15,7 @@ var number_of_rooms = 0
 func _ready():
 	add_room("res://scenes/game_hero/rooms/test_map.tscn")
 	add_architect()
+	get_node("architect").update_doors(doors)
 	get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
 
 func add_architect():
@@ -110,6 +111,9 @@ func find_door_index(id):
 	for i in range(doors.size()):
 		if (doors[i][1] == id):
 			return i
+
+func get_doors():
+	return doors
 
 func connect(door_id1,door_id2):
 	var i = find_door_index(door_id1)
