@@ -58,7 +58,7 @@ margin/left = 0.0
 margin/top = -43.0
 margin/right = 220.0
 margin/bottom = -11.0
-text = "Enter IP and channelto connect to:"
+text = "Enter IP and channel to connect to:"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -172,6 +172,14 @@ enabled_focus_mode = 2
 shortcut = null
 text = "start local architect"
 flat = false
+
+[connection signal="pressed" from="CanvasLayer/connect_architect" to="." method="_on_connect_architect_pressed"]
+
+[connection signal="pressed" from="CanvasLayer/connect_hero" to="." method="_on_connect_hero_pressed"]
+
+[connection signal="pressed" from="CanvasLayer/disconnect" to="." method="_on_disconnect_pressed"]
+
+[connection signal="pressed" from="CanvasLayer/start_hero" to="." method="_on_start_hero_pressed"]
 
 [connection signal="pressed" from="CanvasLayer/start_architect" to="." method="_on_start_architect_pressed"]
 
