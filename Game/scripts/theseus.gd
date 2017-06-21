@@ -27,7 +27,7 @@ func _ready():
 	shield = Globals.get("shield")
 	item = Globals.get("item")
 	gold = Globals.get("gold")
-	get_node("Camera2D/hud/healthBar").set_value((current_HP/max_HP)*100)
+	get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100)
 	get_node("Camera2D/hud/coinSprite/coinLabel").set_text(str(gold))
 
 #extract direction of swipe gesture and call move function according to direction
