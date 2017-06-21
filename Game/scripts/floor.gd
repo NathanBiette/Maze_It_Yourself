@@ -90,6 +90,7 @@ func change_room(door_id):
 	elif (next_door_id[1] == 3):
 		get_node("../theseus").set_global_pos(Vector2(doors[next_door_index][0][0] - 100, doors[next_door_index][0][1]))
 		get_node("../theseus").set_current_room(next_door_id[0])
+	get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
 
 func find_doors_in_room(x):
 	var l = []
