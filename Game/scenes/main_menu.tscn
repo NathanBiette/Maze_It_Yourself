@@ -1,12 +1,14 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://textures/level/black_fade_away.tex" type="Texture" id=1]
+[ext_resource path="res://scripts/main_menu.gd" type="Script" id=2]
 
 [node name="background" type="Sprite"]
 
-transform/pos = Vector2( 508.593, 363.861 )
+transform/pos = Vector2( 507.185, 363 )
 transform/scale = Vector2( 3.4362, 4.28099 )
 texture = ExtResource( 1 )
+script/script = ExtResource( 2 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -14,5 +16,163 @@ layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
+
+[node name="Title" type="Label" parent="CanvasLayer"]
+
+rect/scale = Vector2( 5, 5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 197.0
+margin/top = 26.0
+margin/right = 317.0
+margin/bottom = 40.0
+text = "MAZE IT YOURSELF"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="enter_ip" type="LineEdit" parent="CanvasLayer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 294.0
+margin/top = 244.0
+margin/right = 684.0
+margin/bottom = 268.0
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="please_connect" type="Label" parent="CanvasLayer/enter_ip"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = -43.0
+margin/right = 220.0
+margin/bottom = -11.0
+text = "Enter IP and channelto connect to:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="enter_channel" type="LineEdit" parent="CanvasLayer/enter_ip"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 89.0
+margin/top = 47.0
+margin/right = 307.0
+margin/bottom = 71.0
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="connect_architect" type="Button" parent="CanvasLayer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 534.0
+margin/top = 351.0
+margin/right = 676.0
+margin/bottom = 371.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Connect as architect"
+flat = false
+
+[node name="connect_hero" type="Button" parent="CanvasLayer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 300.0
+margin/top = 351.0
+margin/right = 442.0
+margin/bottom = 371.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Connect as hero"
+flat = false
+
+[node name="disconnect" type="Button" parent="CanvasLayer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 446.0
+margin/top = 385.0
+margin/right = 528.0
+margin/bottom = 405.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Disconnect"
+flat = false
+
+[node name="status_text" type="Label" parent="CanvasLayer"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 424.0
+margin/top = 419.0
+margin/right = 557.0
+margin/bottom = 450.0
+text = "Status: disconnected"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="start_hero" type="Button" parent="CanvasLayer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 297.0
+margin/top = 497.0
+margin/right = 443.0
+margin/bottom = 517.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Start local hero"
+flat = false
+
+[node name="start_architect" type="Button" parent="CanvasLayer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 538.0
+margin/top = 496.0
+margin/right = 673.0
+margin/bottom = 516.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "start local architect"
+flat = false
+
+[connection signal="pressed" from="CanvasLayer/start_architect" to="." method="_on_start_architect_pressed"]
 
 
