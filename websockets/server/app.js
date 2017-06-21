@@ -46,7 +46,6 @@
       var dict;
       console.log(event.data);
       dict = JSON.parse(event.data);
-      console.log(dict);
 
       switch (dict.event) {
 
@@ -58,7 +57,7 @@
           broadcast(event.data, ws);
 
         case 'channel':
-          channel(ws, dict.channel);
+          change_channel(ws, dict.channel);
           break;
 
         case 'global':
@@ -70,7 +69,7 @@
           break;
 
         case 'join':
-          if (hasStarted[dict.channel] == false) {
+          if (hasStarted[dict.channel] != true) {
             join(ws, dict.channel, dict.role);
           } else {
             ws.send('{"event":"error","msg":"game_started"}');
@@ -79,6 +78,10 @@
 
         case 'leave':
           leave(ws, role);
+          break;
+
+        default:
+          console.log('Event non reconnu');
       }
     };
 
@@ -136,7 +139,7 @@
   }
 
   // Function to change channel
-  function channel(ws, channel) {
+  function change_channel(ws, channel) {
 
     if (ws.channel == channel) {
       return
@@ -170,7 +173,7 @@
   function global_channel(channel) {
     for (var i=0; i<connections.length; i++) {
       if (connections[i].channel == channel) {
-        channel(connections[i], global);
+        change_channel(connections[i], global);
       }
     }
     console.log('Freed channel ' + channel);
@@ -178,7 +181,7 @@
 
   // Function to move a client to the global channel
   function global_chan(ws) {
-    channel(ws, global);
+    change_channel(ws, global);
   }
 
   // Function to start a game and block the channel
@@ -201,32 +204,42 @@
 
       case null:
         lobbyState[channel] = role;
-        channel(ws, channel);
+        change_channel(ws, channel);
+        ws.role = role;
+        break;
+
+      case undefined:
+        lobbyState[channel] = role;
+        change_channel(ws, channel);
         ws.role = role;
         break;
 
       case 0:
         lobbyState[channel] = role;
-        channel(ws, channel);
+        change_channel(ws, channel);
         break;
 
       case 1:
         if (role == 1) {
           ws.send('{"event":"error","msg":"hero"}');
+          console.log('Already a hero');
         } else {
           lobbyState[channel] = 3;
-          channel(ws, channel);
+          change_channel(ws, channel);
           ws.role = role;
+          console.log('An architect has joined lobby ' + channel);
         }
         break;
 
       case 2:
         if (role == 2) {
           ws.send('{"event":"error","msg":"architect"}');
+          console.log('Already an architect');
         } else {
           lobbyState[channel] = 3;
-          channel(ws, channel);
+          change_channel(ws, channel);
           ws.role = role;
+          console.log('A hero has joined lobby ' + channel);
         }
         break;
 
@@ -235,7 +248,7 @@
         break;
 
       default:
-        console.log('Unknown role detected from : ' + ws.id);
+        console.log('Unknown lobbystate detected from : ' + ws.id);
     }
   }
 

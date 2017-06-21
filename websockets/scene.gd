@@ -33,10 +33,13 @@ func _on_message_recieved(msg):
 		return
 	if (dict.event == 'update'):
 		print(dict.msg)
+		return
+	if (dict.event == 'error'):
+		print(dict.msg)
 
 
 func _on_Button_pressed():
-	websocket.send('{ "event": "join", "channel":' + str(1-channel) + ',"role":' + role + '}')
+	websocket.send('{ "event": "join", "channel":' + str(channel) + ',"role":' + str(role) + '}')
 	print('Sent change channel')
 
 
