@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=1]
+[gd_scene load_steps=27 format=1]
 
 [ext_resource path="res://scripts/theseus.gd" type="Script" id=1]
 [ext_resource path="res://swipe/addons/swipe-detector/swipe_detector.gd" type="Script" id=2]
@@ -11,6 +11,9 @@
 [ext_resource path="res://textures/hero/hero_face_right_dash_100px.tex" type="Texture" id=9]
 [ext_resource path="res://textures/hero/hero_face_up_dash_100px.tex" type="Texture" id=10]
 [ext_resource path="res://textures/level/black_fade_away.tex" type="Texture" id=11]
+[ext_resource path="res://textures/hero/health_bar_under.tex" type="Texture" id=12]
+[ext_resource path="res://textures/hero/health_bar_over.tex" type="Texture" id=13]
+[ext_resource path="res://textures/hero/health_bar_progress.tex" type="Texture" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -20,14 +23,14 @@ extents = Vector2( 44, 44 )
 [sub_resource type="SpriteFrames" id=2]
 
 animations = [ {
-"frames": [  ],
-"loop": true,
-"name": "New Anim",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "default",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "New Anim",
 "speed": 5.0
 } ]
 
@@ -372,7 +375,7 @@ drag_margin/bottom = 0.2
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
-scale = Vector2( 1, 1 )
+scale = Vector2( 2, 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D/CanvasLayer"]
 
@@ -388,9 +391,40 @@ autoplay = ""
 [node name="Sprite" type="Sprite" parent="Camera2D/CanvasLayer"]
 
 visibility/opacity = 0.0
-transform/pos = Vector2( 150, 250 )
+transform/pos = Vector2( 153.425, 250 )
 transform/scale = Vector2( 10, 10 )
 texture = ExtResource( 11 )
+
+[node name="hud" type="CanvasLayer" parent="Camera2D"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="healthBar" type="TextureProgress" parent="Camera2D/hud"]
+
+rect/scale = Vector2( 0.5, 0.5 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -3.0
+margin/top = 1041.0
+margin/right = 497.0
+margin/bottom = 1116.0
+range/min = 0.0
+range/max = 100.0
+range/step = 1.0
+range/page = 0.0
+range/value = 1.0
+range/exp_edit = false
+range/rounded = false
+texture/under = ExtResource( 12 )
+texture/over = ExtResource( 13 )
+texture/progress = ExtResource( 14 )
+radial_fill/fill_degrees = 360.0
+radial_fill/center_offset = Vector2( 0, 0 )
 
 [connection signal="swiped" from="swipe gesture" to="." method="_on_swipe_gesture_swiped"]
 
