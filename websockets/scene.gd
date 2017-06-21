@@ -6,6 +6,7 @@ var websocket
 
 var run_time = 0
 var channel = 1;
+var role = 1;
 
 func _process(delta):
 	#print(peer.is_connected())
@@ -35,7 +36,7 @@ func _on_message_recieved(msg):
 
 
 func _on_Button_pressed():
-	websocket.send('{ "event": "channel", "channel":' + str(1-channel) + ' }')
+	websocket.send('{ "event": "join", "channel":' + str(1-channel) + ',"role":' + role + '}')
 	print('Sent change channel')
 
 
@@ -45,3 +46,10 @@ func _on_Button_pressed():
 func _on_updateButton_pressed():
 	websocket.send('{ "event": "update", "msg":"Hello there" }')
 	print('Sent update')
+
+
+func _on_changeRoleButton_pressed():
+	if (role == 1):
+		role = 2
+	else:
+		role = 1;
