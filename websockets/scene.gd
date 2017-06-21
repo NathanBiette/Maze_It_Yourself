@@ -5,6 +5,7 @@ extends Node
 var websocket
 
 var run_time = 0
+var channel = 1;
 
 func _process(delta):
 	#print(peer.is_connected())
@@ -28,7 +29,8 @@ func _on_message_recieved(msg):
 
 
 func _on_Button_pressed():
-	websocket.send('{ "event": "multicast", "msg": "Hello" }')
+	channel = 1-channel
+	websocket.send('{ "event": "channel", "channel":' + str(channel) + ' }')
 	print('cl')
 
 

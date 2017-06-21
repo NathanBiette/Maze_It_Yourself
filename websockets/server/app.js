@@ -22,27 +22,52 @@
   });
 
   var connections = [];
-  var connectionIDcounter = 0;
+  var numberChannels = {};
 
   app.use(express["static"](PUBLIC));
 
   wss.on('connection', function(ws, req) {
     console.log('Connected ' + req.connection.remoteAddress);
+    ws.id = req.connection.remoteAddress;
+    ws.channel = 'global'
+
+    if (numberChannels[ws.channel] == null) {
+      numberChannels[ws.channel] = 0;
+    }
+    numberChannels[ws.channel] += 1;
+
     connections.push(ws);
+    console.log(numberChannels[ws.channel] + ' clients in channel ' + ws.channel);
+
     ws.onmessage = function(event) {
       var dict;
       console.log(event.data);
       dict = JSON.parse(event.data);
       console.log(dict);
-      sendAll("Sent back: " + event.data, ws);
+
+      switch (dict.event) {
+
+        case 'multicast':
+          multicast("Hello from " + req.connection.remoteAddress);
+          break;
+
+        case 'channel':
+          channel(ws, dict.channel);
+      }
     };
+
     ws.onerror = function(error) {
       return console.log(error);
     };
+
     ws.onclose = function(code, reason) {
+      numberChannels[ws.channel] -= 1;
+      console.log(ws.id + ' has left channel ' + ws.channel);
+      console.log(numberChannels[ws.channel] + ' clients in channel ' + ws.channel);
       connections.splice(ws);
       return console.log(req.connection.remoteAddress + ' has been disconnected');
     };
+
     return ws.send('Logged');
   });
 
@@ -50,14 +75,37 @@
     return console.log("Server started");
   });
 
-  function sendAll (message, ws) {
+  function multicast (message, ws) {
     for (var i=0; i<connections.length; i++) {
       if (connections[i] != ws) {
         connections[i].send("Message: " + message);
       }
     }
-}
+  }
 
+  function channel(ws, channel) {
+    if (ws.channel == channel) {
+      return
+    }
+    if (numberChannels[channel] >= 2) {
+      console.log('Too many clients in channel ' + channel);
+      ws.send('{"event":"error","msg":"Too many clients in channel"}');
+      return
+    }
+    numberChannels[ws.channel] -= 1;
+    console.log(ws.id + ' has left channel ' + ws.channel);
+    console.log(numberChannels[ws.channel] + ' clients in channel ' + ws.channel);
+
+    ws.channel = channel;
+    if (numberChannels[channel] == null) {
+      numberChannels[channel] = 0;
+    }
+    numberChannels[channel] += 1;
+    console.log(ws.id + ' has joined channel ' + channel);
+    console.log(numberChannels[channel] + ' clients in channel ' + channel);
+  }
+
+/*
   _on_time = function() {
     var msg;
     msg = new Date().toString();
@@ -75,5 +123,6 @@
   };
 
   setInterval(_on_time, 3000);
+  */
 
 }).call(this);
