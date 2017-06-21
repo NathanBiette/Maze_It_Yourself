@@ -26,7 +26,11 @@ const MOVEMENT_UNIT = 100
 
 #storage variable to keep track of dropping object node before dropping object on next move
 var dropping_object
+var looting_object
 var dropping = false
+var looting = false
+var previous_dir
+var inventory_need_update = false
 
 
 ##FUNCTIONS##
@@ -61,6 +65,7 @@ func _on_swipe_gesture_swiped(gesture):
 		if (angle < -2.356 or angle > 2.356) :
 			_move("down")
 
+
 #move script of theseus
 func _move(dir):
 	
@@ -73,7 +78,7 @@ func _move(dir):
 		move(Vector2(-MOVEMENT_UNIT,0))
 	elif (dir=="right"):
 		move(Vector2(MOVEMENT_UNIT,0))
-	
+	previous_dir = dir
 	#part called when colliding with wall, trap, enemy, object
 	if (is_colliding()):
 		var collider = get_collider()
@@ -85,32 +90,16 @@ func _move(dir):
 		elif (collider.is_in_group("door")) :
 			revert_motion()
 			collider.shazaam()
-		#collisition with loot
-		elif (collider.is_in_group("lootable")):
-			if(dropping):
-				idle = false
-				get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
-				drop(dropping_object, dir)
-				loot(collider)
-			else:
-				idle = false
-				get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
-				loot(collider)
-		
 		else :
 			idle = false
 			revert_motion()
 			get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + dir)
 	else:
-		if(dropping):
-			idle = false
-			get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
-			drop(dropping_object,dir)
-		else:
-			idle = false
-			get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
-
-
+		
+		idle = false
+		get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
+		print("end of animation")
+		
 #function that can be called by enemies to change Theseus' attributes
 func lose_hp(damage):
 	current_HP -= damage
@@ -123,6 +112,9 @@ func get_movement_unit():
 #set back theseus to idle state when move is finished
 func _on_Movement_anims_finished():
 	idle = true
+	if(looting or dropping):
+		update_inventory(previous_dir)
+		print("inventory updated")
 
 #test idle state of theseus
 func is_idle():
@@ -141,31 +133,48 @@ func get_current_room():
 
 func set_current_room(new_room):
 	current_room = new_room
+
+
+#########LOOT#########################
+
+func pick_up(object):
+	looting_object = object.duplicate(true)
+	object.queue_free()
+	print("pick_up " + looting_object.get_name())
+	looting = true
+	print(looting)
 	
-func loot(collider):
-	if (collider.is_in_group("weapons")):
-		dropping_object = weapon
-		#set bool dropping to true to trigger drop action on next succesful move
+
+func update_inventory(dir):
+	if(dropping):
+		drop(dropping_object,dir)
+		print("droping")
+	if (looting):
+		if (looting_object.is_in_group("weapons")):
+			dropping_object = weapon
+			#duplicate node of colliding item for it not to be destroyed on freeing from map
+			weapon = looting_object.duplicate(true)
+			#destroy instance of collider in test map
+			looting_object.queue_free()
+			#save weapon reference 
+			Globals.set("weapon", weapon.get_name())
+			#update stats
+		looting = false
 		dropping = true
-		#duplicate node of colliding item for it not to be destroyed on freeing from map
-		weapon = collider.duplicate()
-		#save weapon reference 
-		Globals.set("weapon", weapon.get_name())
-		#update stats
-		stats_update()
-		#destroy instance of collider in test map
-		collider.queue_free()
+		print("looting")
+	stats_update()
+	inventory_need_update = false
+
 #	elif (collider.is_in_group("shields")):
 #		print("helle")
 #	elif (collider.is_in_group("helmets")):
 #		
 #	elif (collider.is_in_group("items")):
 		
-	pass
 	#collider.interact(get_node("."))
 
 #dropping function
-func drop(node, dir):
+func drop(node,dir):
 	#get position after!! move and compute position of drop (previous position of player) 
 	var pos_of_drop = get_node(".").get_pos()
 	if (dir=="up"):
@@ -179,7 +188,7 @@ func drop(node, dir):
 	#set position of drop on the map
 	node.set_pos(pos_of_drop)
 	#add chil node to map
-	get_node("../floor/map_" + str(current_room)).add_child(node.duplicate())
+	get_node("../floor/map_" + str(current_room)).add_child(node.duplicate(true))
 	#destroy instance of dropping object
 	node.queue_free()
 	dropping = false
@@ -188,3 +197,4 @@ func drop(node, dir):
 func stats_update():
 	attack = weapon.attack()
 	defense = shield.defense() + helmet.defense()
+

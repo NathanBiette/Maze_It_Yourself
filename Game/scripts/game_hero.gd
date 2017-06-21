@@ -17,13 +17,14 @@ func _ready():
 	Globals.set("gold",0)
 	
 
-	#load level
-	level_scene = load("res://scenes/game_hero/test_floor.tscn")
-	level_instance = level_scene.instance()
-	add_child(level_instance)
 
 	#load hero 
 	theseus_hero = load("res://scenes/game_hero/theseus.tscn")
 	theseus_instance = theseus_hero.instance()
 	add_child(theseus_instance)
+	
+	#load level
+	level_scene = load("res://scenes/game_hero/test_floor.tscn")
+	level_instance = level_scene.instance()
+	add_child(level_instance)
 	

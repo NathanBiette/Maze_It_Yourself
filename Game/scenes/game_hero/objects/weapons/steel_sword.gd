@@ -1,22 +1,18 @@
-extends KinematicBody2D
+extends Node2D
 
 const attack = 1
 #var position
 
 func _ready():
-	# Called every time the node is added to the scene.
-	# Initialization here
 	pass
-	
-#func interact(node):
-#	#interactions with lootable objects
-#	node.loot(get_node())
-#	#delete instance of lootable
-#	get_node(".").queue_free()
-#
-#	#theseus plays his attack anim or loses HP
-#	node.set_idle(false)
-#	node.get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + dir)
 
 func attack():
 	return attack
+
+func _on_Area2D_area_enter(area):
+	#print("trigger")
+	var interacting_node = area.get_node("../")
+	if (interacting_node.get_name() == "theseus"):
+		print("node say " + get_node(".").get_name())
+		interacting_node.pick_up(get_node("."))
+

@@ -34,8 +34,12 @@ __meta__ = {
 
 transform/pos = Vector2( 500, 850 )
 
+[node name="steel_sword 2" parent="." instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 250, 450 )
+
 [node name="steel_sword" parent="." instance=ExtResource( 4 )]
 
-transform/pos = Vector2( 250, 400 )
+transform/pos = Vector2( 350, 450 )
 
 
