@@ -172,7 +172,6 @@ func _run(_self):
 			var masked = _mask(byte,msg)
 			for i in range(masked.size()):
 				put_u8(masked[i])
-			print(msg+" sent")
 			
 		OS.delay_msec(3)
 	

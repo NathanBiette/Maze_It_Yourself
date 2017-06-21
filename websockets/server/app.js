@@ -48,11 +48,14 @@
       switch (dict.event) {
 
         case 'multicast':
-          multicast("Hello from " + req.connection.remoteAddress);
+          multicast(event.data, ws);
           break;
 
         case 'channel':
           channel(ws, dict.channel);
+          break;
+        case 'update':
+          multicast(event.data, ws);
       }
     };
 
@@ -77,8 +80,10 @@
 
   function multicast (message, ws) {
     for (var i=0; i<connections.length; i++) {
-      if (connections[i] != ws) {
-        connections[i].send("Message: " + message);
+      var conn = connections[i];
+      var channel = ws.channel;
+      if (conn != ws && conn.channel == channel) {
+        connections[i].send(message);
       }
     }
   }
@@ -87,9 +92,9 @@
     if (ws.channel == channel) {
       return
     }
-    if (numberChannels[channel] >= 2) {
+    if (channel != global && numberChannels[channel] >= 2) {
       console.log('Too many clients in channel ' + channel);
-      ws.send('{"event":"error","msg":"Too many clients in channel"}');
+      ws.send('{"event":"error","msg":"clients_overflow"}');
       return
     }
     numberChannels[ws.channel] -= 1;
@@ -101,6 +106,7 @@
       numberChannels[channel] = 0;
     }
     numberChannels[channel] += 1;
+    ws.send('{"event":"channel", "channel":' + channel + '}')
     console.log(ws.id + ' has joined channel ' + channel);
     console.log(numberChannels[channel] + ' clients in channel ' + channel);
   }

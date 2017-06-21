@@ -25,13 +25,23 @@ func _ready():
 	websocket.set_reciever(self,'_on_message_recieved')
 
 func _on_message_recieved(msg):
-	print("This is a message: " + msg)
+	var dict = {}
+	dict.parse_json(msg)
+	if (dict.event == 'channel'):
+		channel = dict.channel
+		return
+	if (dict.event == 'update'):
+		print(dict.msg)
 
 
 func _on_Button_pressed():
-	channel = 1-channel
-	websocket.send('{ "event": "channel", "channel":' + str(channel) + ' }')
-	print('cl')
+	websocket.send('{ "event": "channel", "channel":' + str(1-channel) + ' }')
+	print('Sent change channel\n')
 
 
 
+
+
+func _on_updateButton_pressed():
+	websocket.send('{ "event": "update", "msg":"Hello there" }')
+	print('Sent update\n')
