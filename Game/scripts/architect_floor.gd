@@ -14,9 +14,14 @@ var number_of_rooms = 0
 
 func _ready():
 	add_room("res://scenes/game_hero/rooms/test_map.tscn")
+	add_architect()
 	get_node("architect").update_doors(doors)
-	get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
+	get_node("../.").new_instance("1", get_node("."))
 
+func add_architect():
+	var scene = load("res://scenes/game_architect/architect.tscn")
+	var node = scene.instance()
+	add_child(node)
 
 func add_room(room):
 	
@@ -62,30 +67,6 @@ func create_doors(active_room):
 		get_node("map_" + str(number_of_rooms)).add_child(node)
 		node.set_door_id(d[1][0],d[1][1])
 		node.set_global_pos(d[0])
-
-func change_room(door_id):
-	var current_door_index = find_door_index(door_id)
-	var next_door_id = doors[current_door_index][2]
-	var next_door_index = find_door_index(next_door_id) 
-	if (next_door_id == [-1,-1]):
-		pass
-	#NORTH CASE
-	elif (next_door_id[1] == 0):
-		get_node("../theseus").set_global_pos(Vector2(doors[next_door_index][0][0], doors[next_door_index][0][1] + 100))
-		get_node("../theseus").set_current_room(next_door_id[0])
-	#WEST CASE
-	elif (next_door_id[1] == 1):
-		get_node("../theseus").set_global_pos(Vector2(doors[next_door_index][0][0] + 100, doors[next_door_index][0][1]))
-		get_node("../theseus").set_current_room(next_door_id[0])
-	#SOUTH CASE
-	elif (next_door_id[1] == 2):
-		get_node("../theseus").set_global_pos(Vector2(doors[next_door_index][0][0], doors[next_door_index][0][1] - 100))
-		get_node("../theseus").set_current_room(next_door_id[0])
-	#EAST CASE
-	elif (next_door_id[1] == 3):
-		get_node("../theseus").set_global_pos(Vector2(doors[next_door_index][0][0] - 100, doors[next_door_index][0][1]))
-		get_node("../theseus").set_current_room(next_door_id[0])
-	get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
 
 func find_doors_in_room(x):
 	var l = []
