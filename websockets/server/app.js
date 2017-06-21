@@ -200,23 +200,42 @@
 
   // Function to make a client join a lobby
   function join(ws, channel, role) { // Role: 1 for Hero, 2 for Architect
+    console.log(lobbyState[channel] + ': lobbyState');
     switch(lobbyState[channel]) {
 
       case null:
-        lobbyState[channel] = role;
+        lobbyState[channel] = parseInt(role);
         change_channel(ws, channel);
         ws.role = role;
+        if (role == 1) {
+          console.log('A hero has joined lobby ' + channel);
+        }
+        if (role == 2) {
+          console.log('An architect has joined lobby ' + channel);
+        }
         break;
 
       case undefined:
-        lobbyState[channel] = role;
+        lobbyState[channel] = parseInt(role);
         change_channel(ws, channel);
         ws.role = role;
+        if (role == 1) {
+          console.log('A hero has joined lobby ' + channel);
+        }
+        if (role == 2) {
+          console.log('An architect has joined lobby ' + channel);
+        }
         break;
 
       case 0:
-        lobbyState[channel] = role;
+        lobbyState[channel] = parseInt(role);
         change_channel(ws, channel);
+        if (role == 1) {
+          console.log('A hero has joined lobby ' + channel);
+        }
+        if (role == 2) {
+          console.log('An architect has joined lobby ' + channel);
+        }
         break;
 
       case 1:
