@@ -28,6 +28,7 @@
 
   app.use(express["static"](PUBLIC));
 
+// Handles everything for each connection
   wss.on('connection', function(ws, req) {
     console.log('Connected ' + req.connection.remoteAddress);
     ws.id = req.connection.remoteAddress;
@@ -61,12 +62,23 @@
           break;
 
         case 'global':
-          global(ws);
+          global_chan(ws);
           break;
 
         case 'update':
           multicast(event.data, ws);
           break;
+
+        case 'join':
+          if (hasStarted[dict.channel] == false) {
+            join(ws, dict.channel, dict.role);
+          } else {
+            ws.send('{"event":"error","msg":"game_started"}');
+          }
+          break;
+
+        case 'leave':
+          leave(ws, role);
       }
     };
 
@@ -75,9 +87,12 @@
     };
 
     ws.onclose = function(code, reason) {
-      numberChannels[ws.channel] -= 1;
-      console.log(ws.id + ' has left channel ' + ws.channel);
-      console.log(numberChannels[ws.channel] + ' clients in channel ' + ws.channel);
+      var channel = ws.channel;
+      numberChannels[channel] -= 1;
+      console.log(ws.id + ' has left channel ' + channel);
+      if (channel != global && hasStarted[channel] != false) {
+        lobbyState[ws.channel] -= ws.role;
+      }
       connections.splice(ws);
       return console.log(req.connection.remoteAddress + ' has been disconnected');
     };
@@ -100,6 +115,7 @@
     }
   }
 
+  // Function to send a message to everyone on a channel
   function server_multicast(channel, msg) {
     for (var i=0; i<connections.length; i++) {
       if (connections[i].channel == channel) {
@@ -150,28 +166,83 @@
     }
   }
 
+  // Function to free a channel
   function global_channel(channel) {
     for (var i=0; i<connections.length; i++) {
       if (connections[i].channel == channel) {
         channel(connections[i], global);
       }
     }
+    console.log('Freed channel ' + channel);
   }
 
-  function global(ws) {
+  // Function to move a client to the global channel
+  function global_chan(ws) {
     channel(ws, global);
   }
 
+  // Function to start a game and block the channel
   function start(channel) {
     hasStarted[channel] = true;
     server_multicast(channel,'{"event":"start"}');
     console.log("Game on channel " + channel + " has started");
   }
 
+  // Function to end a game and free the channel
   function end(channel) {
     hasStarted[channel] = false;
     server_multicast(channel, '{"event":"end"}');
     console.log("Game on channel " + channel + "has started");
+  }
+
+  // Function to make a client join a lobby
+  function join(ws, channel, role) { // Role: 1 for Hero, 2 for Architect
+    switch(lobbyState[channel]) {
+
+      case null:
+        lobbyState[channel] = role;
+        channel(ws, channel);
+        ws.role = role;
+        break;
+
+      case 0:
+        lobbyState[channel] = role;
+        channel(ws, channel);
+        break;
+
+      case 1:
+        if (role == 1) {
+          ws.send('{"event":"error","msg":"hero"}');
+        } else {
+          lobbyState[channel] = 3;
+          channel(ws, channel);
+          ws.role = role;
+        }
+        break;
+
+      case 2:
+        if (role == 2) {
+          ws.send('{"event":"error","msg":"architect"}');
+        } else {
+          lobbyState[channel] = 3;
+          channel(ws, channel);
+          ws.role = role;
+        }
+        break;
+
+      case 3:
+        ws.send('{"event":"error","msg":"full"}')
+        break;
+
+      default:
+        console.log('Unknown role detected from : ' + ws.id);
+    }
+  }
+
+  // Function to make a client leave a lobby
+  function leave(ws, role) {
+    lobbyState[ws.channel] -= role;
+    global_chan(ws);
   }
 
 /*
