@@ -10,9 +10,8 @@ func attack():
 	return attack
 
 func _on_Area2D_area_enter(area):
-	#print("trigger")
 	var interacting_node = area.get_node("../")
 	if (interacting_node.get_name() == "theseus"):
-		print("node say " + get_node(".").get_name())
-		interacting_node.pick_up(get_node("."))
+		interacting_node.pick_up("steel_sword", "weapons")
+		get_node(".").get_parent().kill(get_node("."))
 

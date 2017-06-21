@@ -14,6 +14,7 @@ var links = Vector2Array()
 
 var number_of_rooms = 0
 
+
 func _ready():
 	add_room("res://scenes/game_hero/rooms/test_map.tscn")
 	add_architect()
@@ -23,6 +24,7 @@ func add_architect():
 	var scene = load("res://scenes/game_architect/architect.tscn")
 	var node = scene.instance()
 	add_child(node)
+
 
 func add_room(room):
 	

@@ -25,12 +25,13 @@ var idle = true
 const MOVEMENT_UNIT = 100
 
 #storage variable to keep track of dropping object node before dropping object on next move
-var dropping_object
-var looting_object
+var dropping_object_name
+var dropping_object_type
+var looting_object_name
+var looting_object_type
 var dropping = false
 var looting = false
 var previous_dir
-var inventory_need_update = false
 
 
 ##FUNCTIONS##
@@ -137,44 +138,43 @@ func set_current_room(new_room):
 
 #########LOOT#########################
 
-func pick_up(object):
-	looting_object = object.duplicate(true)
-	object.queue_free()
-	print("pick_up " + looting_object.get_name())
+func pick_up(object_name, object_type):
+	looting_object_name = object_name
+	looting_object_type = object_type
+	print("pick_up " + looting_object_name)
 	looting = true
 	print(looting)
 	
 
 func update_inventory(dir):
 	if(dropping):
-		drop(dropping_object,dir)
+		drop(dropping_object_name,dropping_object_type,dir)
 		print("droping")
 	if (looting):
-		if (looting_object.is_in_group("weapons")):
-			dropping_object = weapon
-			#duplicate node of colliding item for it not to be destroyed on freeing from map
-			weapon = looting_object.duplicate(true)
-			#destroy instance of collider in test map
-			looting_object.queue_free()
+		if (looting_object_type == "weapons"):
+			dropping_object_name = weapon.get_name()
+			dropping_object_type = "weapons"
+			print("deleting weapon " + weapon.get_name())
+			#free previous weapon node before using weapon var again to store new weapon
+			#weapon.queue_free()
+			
+			print("loding "+"res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn")
+			#load node of colliding item for it not to be destroyed on freeing from map
+			weapon = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
+			print("new weapon is " + weapon.get_name())
 			#save weapon reference 
 			Globals.set("weapon", weapon.get_name())
-			#update stats
+		
 		looting = false
 		dropping = true
 		print("looting")
+	#update stats
 	stats_update()
-	inventory_need_update = false
 
-#	elif (collider.is_in_group("shields")):
-#		print("helle")
-#	elif (collider.is_in_group("helmets")):
-#		
-#	elif (collider.is_in_group("items")):
-		
-	#collider.interact(get_node("."))
 
 #dropping function
-func drop(node,dir):
+func drop(dropping_object_name,dropping_object_type,dir):
+	print("dropping " + dropping_object_name)
 	#get position after!! move and compute position of drop (previous position of player) 
 	var pos_of_drop = get_node(".").get_pos()
 	if (dir=="up"):
@@ -185,16 +185,11 @@ func drop(node,dir):
 		pos_of_drop[0] += MOVEMENT_UNIT
 	elif (dir=="right"):
 		pos_of_drop[0] -= MOVEMENT_UNIT
-	#set position of drop on the map
-	node.set_pos(pos_of_drop)
-	#add chil node to map
-	get_node("../floor/map_" + str(current_room)).add_child(node.duplicate(true))
-	#destroy instance of dropping object
-	node.queue_free()
 	dropping = false
-
+	print(get_node("../floor/map_"+str(current_room)).get_name())
+	get_node("../floor/map_"+str(current_room)).add_object(dropping_object_name,dropping_object_type,pos_of_drop)
+	
 #to update stats of hero
 func stats_update():
 	attack = weapon.attack()
 	defense = shield.defense() + helmet.defense()
-
