@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=1]
+[gd_scene load_steps=29 format=1]
 
 [ext_resource path="res://scripts/theseus.gd" type="Script" id=1]
 [ext_resource path="res://swipe/addons/swipe-detector/swipe_detector.gd" type="Script" id=2]
@@ -11,9 +11,11 @@
 [ext_resource path="res://textures/hero/hero_face_right_dash_100px.tex" type="Texture" id=9]
 [ext_resource path="res://textures/hero/hero_face_up_dash_100px.tex" type="Texture" id=10]
 [ext_resource path="res://textures/level/black_fade_away.tex" type="Texture" id=11]
-[ext_resource path="res://textures/hero/health_bar_under.tex" type="Texture" id=12]
-[ext_resource path="res://textures/hero/health_bar_over.tex" type="Texture" id=13]
-[ext_resource path="res://textures/hero/health_bar_progress.tex" type="Texture" id=14]
+[ext_resource path="res://textures/hero/hud_bg.tex" type="Texture" id=12]
+[ext_resource path="res://textures/hero/health_bar_under.tex" type="Texture" id=13]
+[ext_resource path="res://textures/hero/health_bar_over.tex" type="Texture" id=14]
+[ext_resource path="res://textures/hero/health_bar_progress.tex" type="Texture" id=15]
+[ext_resource path="res://textures/menus/font.fnt" type="BitmapFont" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -365,10 +367,10 @@ drag_margin/h_enabled = true
 drag_margin/v_enabled = true
 smoothing/enable = true
 smoothing/speed = 5.0
-drag_margin/left = 0.2
+drag_margin/left = 0.0
 drag_margin/top = 0.2
-drag_margin/right = 0.2
-drag_margin/bottom = 0.2
+drag_margin/right = 0.0
+drag_margin/bottom = 0.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
 
@@ -391,7 +393,7 @@ autoplay = ""
 [node name="Sprite" type="Sprite" parent="Camera2D/CanvasLayer"]
 
 visibility/opacity = 0.0
-transform/pos = Vector2( 153.425, 250 )
+transform/pos = Vector2( 153.425, 251.228 )
 transform/scale = Vector2( 10, 10 )
 texture = ExtResource( 11 )
 
@@ -402,6 +404,11 @@ offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 
+[node name="hud_bar" type="Sprite" parent="Camera2D/hud"]
+
+transform/pos = Vector2( 960.501, 951.523 )
+texture = ExtResource( 12 )
+
 [node name="healthBar" type="TextureProgress" parent="Camera2D/hud"]
 
 rect/scale = Vector2( 0.5, 0.5 )
@@ -409,10 +416,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = -3.0
-margin/top = 1041.0
-margin/right = 497.0
-margin/bottom = 1116.0
+margin/left = 0.0
+margin/top = 920.0
+margin/right = 500.0
+margin/bottom = 995.0
 range/min = 0.0
 range/max = 100.0
 range/step = 1.0
@@ -420,11 +427,29 @@ range/page = 0.0
 range/value = 1.0
 range/exp_edit = false
 range/rounded = false
-texture/under = ExtResource( 12 )
-texture/over = ExtResource( 13 )
-texture/progress = ExtResource( 14 )
+texture/under = ExtResource( 13 )
+texture/over = ExtResource( 14 )
+texture/progress = ExtResource( 15 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 0, 0 )
+
+[node name="healthLabel" type="Label" parent="Camera2D/hud"]
+
+rect/scale = Vector2( 2, 2 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 47.0
+margin/top = 857.0
+margin/right = 115.0
+margin/bottom = 885.0
+custom_fonts/font = ExtResource( 16 )
+custom_colors/font_color = Color( 1, 0.75531, 0.175781, 1 )
+text = "HEALTH"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [connection signal="swiped" from="swipe gesture" to="." method="_on_swipe_gesture_swiped"]
 
