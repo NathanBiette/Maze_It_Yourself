@@ -23,6 +23,8 @@
 
   var connections = [];
   var numberChannels = {};
+  var hasStarted = {};
+  var lobbyState = {};
 
   app.use(express["static"](PUBLIC));
 
@@ -51,11 +53,20 @@
           multicast(event.data, ws);
           break;
 
+        case 'broadcast':
+          broadcast(event.data, ws);
+
         case 'channel':
           channel(ws, dict.channel);
           break;
+
+        case 'global':
+          global(ws);
+          break;
+
         case 'update':
           multicast(event.data, ws);
+          break;
       }
     };
 
@@ -78,25 +89,49 @@
     return console.log("Server started");
   });
 
+  // Function to multicast (broadcast to a channel) a message
   function multicast (message, ws) {
+    var channel = ws.channel;
+    var id = ws.id;
     for (var i=0; i<connections.length; i++) {
-      var conn = connections[i];
-      var channel = ws.channel;
-      if (conn != ws && conn.channel == channel) {
+      if (connections[i].id != id && connections.channel == channel) {
         connections[i].send(message);
       }
     }
   }
 
+  function server_multicast(channel, msg) {
+    for (var i=0; i<connections.length; i++) {
+      if (connections[i].channel == channel) {
+        connections[i].send(msg);
+      }
+    }
+  }
+
+  // Function to broadcast a message
+  function broadcast(message, ws) {
+  var channel = ws.channel;
+  var id = ws.id;
+    for (var i=0; i<connections.length; i++) {
+      if (connections[i].id != ws.id) {
+        connections[i].send(message);
+      }
+    }
+  }
+
+  // Function to change channel
   function channel(ws, channel) {
+
     if (ws.channel == channel) {
       return
     }
+
     if (channel != global && numberChannels[channel] >= 2) {
       console.log('Too many clients in channel ' + channel);
       ws.send('{"event":"error","msg":"clients_overflow"}');
       return
     }
+
     numberChannels[ws.channel] -= 1;
     console.log(ws.id + ' has left channel ' + ws.channel);
     console.log(numberChannels[ws.channel] + ' clients in channel ' + ws.channel);
@@ -109,6 +144,34 @@
     ws.send('{"event":"channel", "channel":' + channel + '}')
     console.log(ws.id + ' has joined channel ' + channel);
     console.log(numberChannels[channel] + ' clients in channel ' + channel);
+
+    if (numberChannels[channel] == 2) {
+      start(channel);
+    }
+  }
+
+  function global_channel(channel) {
+    for (var i=0; i<connections.length; i++) {
+      if (connections[i].channel == channel) {
+        channel(connections[i], global);
+      }
+    }
+  }
+
+  function global(ws) {
+    channel(ws, global);
+  }
+
+  function start(channel) {
+    hasStarted[channel] = true;
+    server_multicast(channel,'{"event":"start"}');
+    console.log("Game on channel " + channel + " has started");
+  }
+
+  function end(channel) {
+    hasStarted[channel] = false;
+    server_multicast(channel, '{"event":"end"}');
+    console.log("Game on channel " + channel + "has started");
   }
 
 /*
@@ -130,5 +193,15 @@
 
   setInterval(_on_time, 3000);
   */
+
+  _free_channels = function() {
+    for (var channel in numberChannels) {
+      if (numberChannels[channel] == 0) {
+        delete numberChannels[channel];
+      }
+    }
+  };
+
+  setInterval(_free_channels, 60000);
 
 }).call(this);

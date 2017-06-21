@@ -36,7 +36,7 @@ func _on_message_recieved(msg):
 
 func _on_Button_pressed():
 	websocket.send('{ "event": "channel", "channel":' + str(1-channel) + ' }')
-	print('Sent change channel\n')
+	print('Sent change channel')
 
 
 
@@ -44,4 +44,4 @@ func _on_Button_pressed():
 
 func _on_updateButton_pressed():
 	websocket.send('{ "event": "update", "msg":"Hello there" }')
-	print('Sent update\n')
+	print('Sent update')
