@@ -15,9 +15,5 @@ func _ready():
 	get_node("architect_floor/1").queue_free()
 	node.free()
 
-func new_instance(a, demanding_node):
-	node = scene.instance()
-	demanding_node.add_child(node)
-	#node.free()
 
 

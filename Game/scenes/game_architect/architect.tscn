@@ -43,9 +43,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = -10.0
+margin/top = 0.0
 margin/right = 310.0
-margin/bottom = 96.0
+margin/bottom = 106.0
 
 [node name="LineEdit" type="LineEdit" parent="Panel"]
 
@@ -57,7 +57,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 310.0
 margin/bottom = 24.0
-text = "res://scenes/game_hero/rooms/test_map.tscn"
+text = "res://scenes/game_architect/ghost_rooms/map_0.tscn"
 placeholder/text = "path to room"
 placeholder/alpha = 0.6
 focus_mode = 2
