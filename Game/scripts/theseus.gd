@@ -49,8 +49,6 @@ func _ready():
 	#compute attack and defense stats
 	attack = weapon.attack()
 	defense = shield.defense() + helmet.defense()
-	#print( get_node("../floor/map_" + str(current_room)).get_filename())
-	#print(weapon.get_name())
 
 #extract direction of swipe gesture and call move function according to direction
 #new version of swipe move that allow non rectilign moves to be taken in account
@@ -114,8 +112,9 @@ func get_movement_unit():
 func _on_Movement_anims_finished():
 	idle = true
 	if(looting or dropping):
+		######### need fix => split animation moves in two AnimationPlayers 
+		######### with inventory update at en of move animations  #####
 		update_inventory(previous_dir)
-		print("inventory updated")
 
 #test idle state of theseus
 func is_idle():
@@ -136,7 +135,7 @@ func set_current_room(new_room):
 	current_room = new_room
 
 
-#########LOOT#########################
+############################LOOT##################################
 
 func pick_up(object_name, object_type):
 	looting_object_name = object_name
@@ -149,30 +148,42 @@ func pick_up(object_name, object_type):
 func update_inventory(dir):
 	if(dropping):
 		drop(dropping_object_name,dropping_object_type,dir)
-		print("droping")
 	if (looting):
-		if (looting_object_type == "weapons"):
-			dropping_object_name = weapon.get_name()
-			dropping_object_type = "weapons"
-			print("deleting weapon " + weapon.get_name())
-			#free previous weapon node before using weapon var again to store new weapon
-			#weapon.queue_free()
-			
-			print("loding "+"res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn")
-			#load node of colliding item for it not to be destroyed on freeing from map
-			weapon = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
-			print("new weapon is " + weapon.get_name())
-			#save weapon reference 
-			Globals.set("weapon", weapon.get_name())
-		
+		loot(looting_object_name, looting_object_type)
 		looting = false
 		dropping = true
-		print("looting")
-	#update stats
+	#update stats of theseus
 	stats_update()
 
+func loot(looting_object_name,looting_object_type):
+	if (looting_object_type == "weapons"):
+			dropping_object_name = weapon.get_name()
+			dropping_object_type = "weapons"
+			#free previous weapon node before using weapon var again to store new weapon
+			#weapon.queue_free()
+			#load node of colliding item for it not to be destroyed on freeing from map
+			weapon = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
+			#save weapon reference 
+			Globals.set("weapon", weapon.get_name())
+	if (looting_object_type == "shields"):
+			dropping_object_name = shield.get_name()
+			dropping_object_type = "shields"
+			#shield.queue_free()
+			shield = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
+			Globals.set("shield", helmet.get_name())
+	if (looting_object_type == "helmets"):
+			dropping_object_name = helmet.get_name()
+			dropping_object_type = "helmets"
+			#helmet.queue_free()
+			helmet = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
+			Globals.set("helmet", helmet.get_name())
+	if (looting_object_type == "items"):
+			dropping_object_name = item.get_name()
+			dropping_object_type = "items"
+			#items.queue_free()
+			item = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
+			Globals.set("item", item.get_name())
 
-#dropping function
 func drop(dropping_object_name,dropping_object_type,dir):
 	print("dropping " + dropping_object_name)
 	#get position after!! move and compute position of drop (previous position of player) 
@@ -186,10 +197,10 @@ func drop(dropping_object_name,dropping_object_type,dir):
 	elif (dir=="right"):
 		pos_of_drop[0] -= MOVEMENT_UNIT
 	dropping = false
-	print(get_node("../floor/map_"+str(current_room)).get_name())
 	get_node("../floor/map_"+str(current_room)).add_object(dropping_object_name,dropping_object_type,pos_of_drop)
 	
 #to update stats of hero
 func stats_update():
 	attack = weapon.attack()
 	defense = shield.defense() + helmet.defense()
+#####################################################################################

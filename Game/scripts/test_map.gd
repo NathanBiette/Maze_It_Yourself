@@ -65,12 +65,17 @@ func set_room_id(id):
 func is_open():
 	return is_open
 
-#nice function that frees enslaved node forever
+################LOOT#############################
+
+#free the node when is idling
 func kill(node_to_be_freed):
 	node_to_be_freed.queue_free()
 
+#add object to map (for drop)
 func add_object(object_name, object_type, object_pos):
 	print("res://scenes/game_hero/objects/"+object_type+"/"+object_name+".tscn")
 	var object = load("res://scenes/game_hero/objects/"+object_type+"/"+object_name+".tscn").instance()
 	object.set_pos(object_pos)
 	get_node(".").add_child(object)
+
+##################################################
