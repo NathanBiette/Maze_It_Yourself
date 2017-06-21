@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=1]
+[gd_scene load_steps=29 format=1]
 
 [ext_resource path="res://scripts/theseus.gd" type="Script" id=1]
 [ext_resource path="res://swipe/addons/swipe-detector/swipe_detector.gd" type="Script" id=2]
@@ -14,6 +14,8 @@
 [ext_resource path="res://textures/hero/health_bar_under.tex" type="Texture" id=12]
 [ext_resource path="res://textures/hero/health_bar_over.tex" type="Texture" id=13]
 [ext_resource path="res://textures/hero/health_bar_progress.tex" type="Texture" id=14]
+[ext_resource path="res://textures/objects/coin.tex" type="Texture" id=15]
+[ext_resource path="res://textures/menus/font.fnt" type="BitmapFont" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -391,7 +393,7 @@ autoplay = ""
 [node name="Sprite" type="Sprite" parent="Camera2D/CanvasLayer"]
 
 visibility/opacity = 0.0
-transform/pos = Vector2( 153.425, 251.228 )
+transform/pos = Vector2( 154.16, 251.228 )
 transform/scale = Vector2( 10, 10 )
 texture = ExtResource( 11 )
 
@@ -425,6 +427,28 @@ texture/over = ExtResource( 13 )
 texture/progress = ExtResource( 14 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 0, 0 )
+
+[node name="coinSprite" type="Sprite" parent="Camera2D/hud"]
+
+transform/pos = Vector2( 19.8475, 86.0057 )
+transform/scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 15 )
+
+[node name="coinLabel" type="Label" parent="Camera2D/hud/coinSprite"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 14.0
+margin/top = -9.0
+margin/right = 154.0
+margin/bottom = 19.0
+custom_fonts/font = ExtResource( 16 )
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [connection signal="swiped" from="swipe gesture" to="." method="_on_swipe_gesture_swiped"]
 
