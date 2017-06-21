@@ -5,7 +5,7 @@ extends KinematicBody2D
 # var b = "textvar"
 var original_pos
 var damage
-const MOVEMENT_UNIT = 100
+var movement_unit = 100
 
 
 func _ready():
@@ -31,13 +31,13 @@ func interact(dir, node):
 
 func _move(dir):
 	if (dir=="up"):
-		move(Vector2(0,-MOVEMENT_UNIT))
+		move(Vector2(0,-movement_unit))
 	elif (dir=="down"):
-		move(Vector2(0,MOVEMENT_UNIT))
+		move(Vector2(0,movement_unit))
 	elif (dir=="left"):
-		move(Vector2(-MOVEMENT_UNIT,0))
+		move(Vector2(-movement_unit,0))
 	elif (dir=="right"):
-		move(Vector2(MOVEMENT_UNIT,0))
+		move(Vector2(movement_unit,0))
 	
 	#part called when colliding with wall, other enemy or theseus
 	if (is_colliding()):
@@ -48,7 +48,7 @@ func _move(dir):
 
 #one move every timer finished
 func _on_Timer_timeout():
-	var theseus_pos = get_node("../theseus").get_global_pos() 
+	var theseus_pos = get_node("../../../../theseus").get_global_pos() 
 	var guideline = get_node(".").get_global_pos() - theseus_pos
 	var angle = guideline.angle()
 	if (angle < 0.785 and angle > -0.785) :
@@ -63,3 +63,11 @@ func _on_Timer_timeout():
 #loads automatically when death anim is over
 func _on_Skeleton_Death_Anim_finished():
 	get_node(".").queue_free()
+
+func set_pause(boolean):
+	if(boolean):
+		get_node("Timer").stop()
+		set_process(false)
+	else:
+		get_node("Timer").start()
+		set_process(true)

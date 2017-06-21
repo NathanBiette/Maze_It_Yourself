@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://scenes/game_hero/objects/weapons/steel_sword.gd" type="Script" id=1]
 [ext_resource path="res://textures/objects/weapons/steel_sword.tex" type="Texture" id=2]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[sub_resource type="SpriteFrames" id=2]
 
 animations = [ {
 "frames": [ ExtResource( 2 ) ],
@@ -12,9 +17,8 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 
-resource/name = "idle"
 length = 1.0
 loop = true
 step = 0.1
@@ -39,9 +43,14 @@ tracks/1/keys = {
 "values": [ 0.5, 1.0 ]
 }
 
-[node name="KinematicBody2D" type="KinematicBody2D"]
+[node name="KinematicBody2D" type="KinematicBody2D" groups=[
+"lootable",
+]]
 
 input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = true
 collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
@@ -49,12 +58,13 @@ script/script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
-trigger = false
+shape = SubResource( 1 )
+trigger = true
 _update_shape_index = 0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 
-frames = SubResource( 1 )
+frames = SubResource( 2 )
 animation = "default"
 offset = Vector2( 0, -19.9708 )
 
@@ -63,7 +73,7 @@ offset = Vector2( 0, -19.9708 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/idle = SubResource( 2 )
+anims/idle = SubResource( 3 )
 next/idle = "idle"
 playback/active = true
 playback/speed = 0.5
