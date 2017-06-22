@@ -9,6 +9,9 @@ var room_id = 0
 const hero_speed = 50
 
 func _ready():
+	pass
+
+func initialize():
 	doors_locations = [Vector2(-1,-1),Vector2(-1,-1),Vector2(-1,-1),Vector2(-1,-1)]
 	find_doors()
 	find_spawn()

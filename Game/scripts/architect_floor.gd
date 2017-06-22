@@ -20,34 +20,38 @@ func add_architect():
 	var node = scene.instance()
 	add_child(node)
 
-func add_room(ghost_room):
-
+func add_room(core_map):
+	
 	#creation of room
-
-	var scene = load(ghost_room)
-	var node = scene.instance()
-	add_child(node)
+	
+	var room = load("res://scenes/game_architect/ghost_rooms/architect_room.tscn")
+	var room_node = room.instance()
+	add_child(room_node)
+	#adding the core_map
+	var tile_map_scene = load(core_map)
+	var tile_map_node = tile_map_scene.instance()
+	room_node.add_child(tile_map_node)
 
 	#setting up the room
 
-	node.set_name("map_" + str(number_of_rooms))
-	node.set_room_id(number_of_rooms)
-	rooms.append(node)
-	node.get_node("TileMap").set_global_pos(Vector2(OFFSET * number_of_rooms, 0))
+	room_node.set_name("map_" + str(number_of_rooms))
+	room_node.set_room_id(number_of_rooms)
+	rooms.append(room_node)
+	room_node.get_node("TileMap").set_global_pos(Vector2(OFFSET * number_of_rooms, 0))
 
 	#managing doors
 
-	var temp_doors_locations = node.get_doors_locations()
+	var temp_doors_locations = room_node.get_doors_locations()
 	for i in range(4):
 		if (temp_doors_locations[i] == Vector2(-1,-1)):
 			pass
 		else:
-			doors.append([Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[node.get_room_id(), i],[-1,-1]])
+			doors.append([Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]])
 	create_doors(number_of_rooms)
 
 	#managing spawn
 	
-	var temp_spawn_locations = node.get_spawn_locations()
+	var temp_spawn_locations = room_node.get_spawn_locations()
 	for i in range(temp_spawn_locations.size()):
 		var enemy_scene = load("res://scenes/game_architect/ghost_enemies/ghost_skeleton.tscn")
 		var enemy_node = enemy_scene.instance()
@@ -56,7 +60,7 @@ func add_room(ghost_room):
 	
 	#updating for next_use
 	number_of_rooms += 1
-	node.set_pause_room(true)
+	room_node.set_pause_room(true)
 
 func create_doors(active_room):
 	# if you want only one door use this code instead

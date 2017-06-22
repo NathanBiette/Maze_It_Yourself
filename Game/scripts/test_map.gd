@@ -9,6 +9,9 @@ const hero_speed = 50
 var spawn_locations = []
 
 func _ready():
+	pass
+
+func initialize():
 	doors_locations = [Vector2(-1,-1),Vector2(-1,-1),Vector2(-1,-1),Vector2(-1,-1)]
 	find_doors()
 	close_doors()
