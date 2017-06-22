@@ -83,9 +83,8 @@ func _move(dir):
 		else :
 			idle = false
 			revert_motion()
-			get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + dir)
+			get_node("AnimatedSprite/Blocked_move_anims").play("blocked_move_" + dir)
 	else:
-		
 		idle = false
 		get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
 
@@ -107,6 +106,9 @@ func _on_Movement_anims_finished():
 		######### need fix => split animation moves in two AnimationPlayers 
 		######### with inventory update at en of move animations  #####
 		update_inventory(previous_dir)
+
+func _on_Blocked_move_anims_finished():
+	idle = true
 
 #test idle state of theseus
 func is_idle():
@@ -157,24 +159,32 @@ func loot(looting_object_name,looting_object_type):
 			weapon = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
 			#save weapon reference 
 			Globals.set("weapon", weapon.get_name())
+			#changing sprite texture of hud inventory
+			get_node("./Camera2D/hud/weaponPanel/Sprite").set_texture(load("res://textures/objects/weapons/" + weapon.get_name() + ".tex"))
+	
 	if (looting_object_type == "shields"):
 			dropping_object_name = shield.get_name()
 			dropping_object_type = "shields"
 			#shield.queue_free()
 			shield = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
-			Globals.set("shield", helmet.get_name())
+			Globals.set("shield", shield.get_name())
+			get_node("./Camera2D/hud/shieldPanel/Sprite").set_texture(load("res://textures/objects/shields/" + shield.get_name() + ".tex"))
+	
 	if (looting_object_type == "helmets"):
 			dropping_object_name = helmet.get_name()
 			dropping_object_type = "helmets"
 			#helmet.queue_free()
 			helmet = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
 			Globals.set("helmet", helmet.get_name())
+			get_node("./Camera2D/hud/helmetPanel/Sprite").set_texture(load("res://textures/objects/helmets/" + helmet.get_name() + ".tex"))
+	
 	if (looting_object_type == "items"):
 			dropping_object_name = item.get_name()
 			dropping_object_type = "items"
-			#items.queue_free()
+			#item.queue_free()
 			item = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
 			Globals.set("item", item.get_name())
+			get_node("./Camera2D/hud/itemPanel/Sprite").set_texture(load("res://textures/objects/items/" + item.get_name() + ".tex"))
 
 func drop(dropping_object_name,dropping_object_type,dir):
 	print("dropping " + dropping_object_name)
@@ -208,3 +218,4 @@ func _on_touchBox_input_event( ev ):
 			_move("left")
 		if (angle < -2.456 or angle > 2.456) :
 			_move("down")
+

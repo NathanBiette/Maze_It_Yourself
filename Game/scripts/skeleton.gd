@@ -25,7 +25,7 @@ func interact(dir, node):
 		#the hitbox disapears first
 		#theseus plays his attack anim or loses HP
 		node.set_idle(false)
-		node.get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + dir)
+		node.get_node("AnimatedSprite/Blocked_move_anims").play("blocked_move_" + dir)
 	else:
 		node.lose_hp(damage)
 
