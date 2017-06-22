@@ -40,7 +40,6 @@
     numberChannels[ws.channel] += 1;
 
     connections.push(ws);
-    console.log(connections.length + ' clients atm');
     console.log(numberChannels[ws.channel] + ' clients in channel ' + ws.channel);
 
     // Activated when receiving a message from a connection
@@ -197,7 +196,6 @@
 
   // Function to free a channel
   function global_channel(channel) {
-    console.log(connections.length);
     for (var i=0; i<connections.length; i++) {
       if (connections[i].channel == channel) {
         change_channel(connections[i], 'global');
