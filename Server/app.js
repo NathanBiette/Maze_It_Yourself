@@ -31,6 +31,7 @@
 // Handles everything for each connection
   wss.on('connection', function(ws, req) {
     console.log('Connected ' + req.connection.remoteAddress);
+    ws.id = req.connection.remoteAddress;
     ws.channel = 'global'
     ws.connected = true;
 
@@ -85,7 +86,7 @@
           break;
 
         case 'connection':
-          ws.id = dict.id;
+          // ws.id = dict.id;
           console.log('New id: ' + ws.id);
           break;
 
