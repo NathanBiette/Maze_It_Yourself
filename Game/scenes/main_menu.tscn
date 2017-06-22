@@ -33,7 +33,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="enter_ip" type="LineEdit" parent="CanvasLayer"]
+[node name="enter_channel" type="LineEdit" parent="CanvasLayer"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -48,7 +48,7 @@ focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 
-[node name="please_connect" type="Label" parent="CanvasLayer/enter_ip"]
+[node name="please_connect" type="Label" parent="CanvasLayer/enter_channel"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -62,21 +62,6 @@ text = "Enter IP and channel to connect to:"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-
-[node name="enter_channel" type="LineEdit" parent="CanvasLayer/enter_ip"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 89.0
-margin/top = 47.0
-margin/right = 307.0
-margin/bottom = 71.0
-placeholder/alpha = 0.6
-focus_mode = 2
-caret/caret_blink = false
-caret/caret_blink_speed = 0.65
 
 [node name="connect_architect" type="Button" parent="CanvasLayer"]
 
@@ -116,10 +101,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 446.0
-margin/top = 385.0
-margin/right = 528.0
-margin/bottom = 405.0
+margin/left = 448.0
+margin/top = 452.0
+margin/right = 532.0
+margin/bottom = 472.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -173,6 +158,22 @@ shortcut = null
 text = "start local architect"
 flat = false
 
+[node name="leave_lobby" type="Button" parent="CanvasLayer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 450.0
+margin/top = 387.0
+margin/right = 538.0
+margin/bottom = 407.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Leave lobby"
+flat = false
+
 [connection signal="pressed" from="CanvasLayer/connect_architect" to="." method="_on_connect_architect_pressed"]
 
 [connection signal="pressed" from="CanvasLayer/connect_hero" to="." method="_on_connect_hero_pressed"]
@@ -182,5 +183,7 @@ flat = false
 [connection signal="pressed" from="CanvasLayer/start_hero" to="." method="_on_start_hero_pressed"]
 
 [connection signal="pressed" from="CanvasLayer/start_architect" to="." method="_on_start_architect_pressed"]
+
+[connection signal="pressed" from="CanvasLayer/leave_lobby" to="." method="_on_leave_lobby_pressed"]
 
 

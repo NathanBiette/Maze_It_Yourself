@@ -77,7 +77,7 @@
           break;
 
         case 'leave':
-          leave(ws, role);
+          leave(ws, ws.role);
           break;
 
         default:
@@ -93,7 +93,7 @@
       var channel = ws.channel;
       numberChannels[channel] -= 1;
       console.log(ws.id + ' has left channel ' + channel);
-      if (channel != global && hasStarted[channel] != false) {
+      if (channel != 'global' && hasStarted[channel] != false) {
         lobbyState[ws.channel] -= ws.role;
       }
       connections.splice(ws);
@@ -145,7 +145,7 @@
       return
     }
 
-    if (channel != global && numberChannels[channel] >= 2) {
+    if (channel != 'global' && numberChannels[channel] >= 2) {
       console.log('Too many clients in channel ' + channel);
       ws.send('{"event":"error","msg":"clients_overflow"}');
       return
@@ -173,7 +173,7 @@
   function global_channel(channel) {
     for (var i=0; i<connections.length; i++) {
       if (connections[i].channel == channel) {
-        change_channel(connections[i], global);
+        change_channel(connections[i], 'global');
       }
     }
     console.log('Freed channel ' + channel);
@@ -181,7 +181,7 @@
 
   // Function to move a client to the global channel
   function global_chan(ws) {
-    change_channel(ws, global);
+    change_channel(ws, 'global');
   }
 
   // Function to start a game and block the channel
@@ -230,6 +230,7 @@
       case 0:
         lobbyState[channel] = parseInt(role);
         change_channel(ws, channel);
+        ws.role = role;
         if (role == 1) {
           console.log('A hero has joined lobby ' + channel);
         }
@@ -247,6 +248,7 @@
           change_channel(ws, channel);
           ws.role = role;
           console.log('An architect has joined lobby ' + channel);
+          check_start(channel);
         }
         break;
 
@@ -259,6 +261,7 @@
           change_channel(ws, channel);
           ws.role = role;
           console.log('A hero has joined lobby ' + channel);
+          check_start(channel);
         }
         break;
 
@@ -275,6 +278,26 @@
   function leave(ws, role) {
     lobbyState[ws.channel] -= role;
     global_chan(ws);
+    if (role == 1) {
+      console.log('A hero has left lobby ' + ws.channel);
+    } else {
+      console.log('An architect has left lobby ' + ws.channel);
+    }
+  }
+
+  function check_start(channel) {
+    if (lobbyState[channel] == 3) {
+      server_multicast(channel, '{"event":"soon"}');
+      var timer = 10;
+
+      var interval = setInterval(function countdown() {
+        timer -= 1;
+        if (timer <= 0) {
+          start(channel);
+        }
+      }, 1000);
+
+    }
   }
 
 /*
