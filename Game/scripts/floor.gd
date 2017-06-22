@@ -145,6 +145,6 @@ func update_release():
 		else:
 			edition_ok = false
 	if edition_ok == true:
-		editable_doors =[] + doors
+		doors = str2var(var2str(editable_doors))
 	else:
-		get_node("architect/WindowDialog").popup()
+		get_node("architect/CanvasLayer/WindowDialog").popup()
