@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scripts/floor.gd" type="Script" id=1]
 
-[node name="floor" type="Node"]
+[node name="hero_floor" type="Node"]
 
 script/script = ExtResource( 1 )
 

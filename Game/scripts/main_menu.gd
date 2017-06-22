@@ -19,7 +19,7 @@ func _on_message_recieved(msg):
 
 
 func _on_start_architect_pressed():
-	pass # replace with function body
+	get_tree().change_scene("res://scenes/game_architect/game_architect.tscn")
 
 
 func _on_start_hero_pressed():
