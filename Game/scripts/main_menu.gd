@@ -1,17 +1,20 @@
 extends Sprite
 
 var websocket
-var channel
 var server_ip = '137.194.23.37'
+var channel = 'global'
 
 func _ready():
 	websocket = preload('websocket.gd').new(self)
 	websocket.start('137.194.23.37',3000)
 	websocket.set_reciever(self,'_on_message_recieved')
+	websocket.send('{"event":"connection","id":"' + OS.get_unique_ID() + '"}')
 
 func _on_message_recieved(msg):
 	var dict = {}
 	dict.parse_json(msg)
+	if (dict.event == 'channel'):
+		channel = dict.channel
 	print(msg)
 
 

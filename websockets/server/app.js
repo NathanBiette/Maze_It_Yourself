@@ -31,8 +31,8 @@
 // Handles everything for each connection
   wss.on('connection', function(ws, req) {
     console.log('Connected ' + req.connection.remoteAddress);
-    ws.id = req.connection.remoteAddress;
     ws.channel = 'global'
+    ws.connected = true;
 
     if (numberChannels[ws.channel] == null) {
       numberChannels[ws.channel] = 0;
@@ -42,27 +42,13 @@
     connections.push(ws);
     console.log(numberChannels[ws.channel] + ' clients in channel ' + ws.channel);
 
+    // Activated when receiving a message from a connection
     ws.onmessage = function(event) {
       var dict;
       console.log(event.data);
       dict = JSON.parse(event.data);
 
       switch (dict.event) {
-
-        case 'multicast':
-          multicast(event.data, ws);
-          break;
-
-        case 'broadcast':
-          broadcast(event.data, ws);
-
-        case 'channel':
-          change_channel(ws, dict.channel);
-          break;
-
-        case 'global':
-          global_chan(ws);
-          break;
 
         case 'update':
           multicast(event.data, ws);
@@ -77,27 +63,67 @@
           break;
 
         case 'leave':
-          leave(ws, ws.role);
+          if (ws.channel != 'global') {
+            leave(ws, ws.role);
+          }
+          break;
+
+        case 'multicast':
+          multicast(event.data, ws);
+          break;
+
+        case 'global':
+          global_chan(ws);
+          break;
+
+        case 'broadcast':
+          broadcast(event.data, ws);
+          break;
+
+        case 'channel':
+          change_channel(ws, dict.channel);
+          break;
+
+        case 'connection':
+          ws.id = dict.id;
+          console.log('New id: ' + ws.id);
+          break;
+
+        case 'reconnection':
+          ws.id = dict.id;
+          console.log('Reconnection id: ' + ws.id);
+          is_double(ws);
           break;
 
         default:
-          console.log('Event non reconnu');
+          console.log('Event non reconnu : ' + dict.event);
       }
     };
 
+    // Activated when an error is happening
     ws.onerror = function(error) {
       return console.log(error);
     };
 
+    // Activated when a connection is closed
     ws.onclose = function(code, reason) {
+
+      ws.connected = false;
+
       var channel = ws.channel;
       numberChannels[channel] -= 1;
       console.log(ws.id + ' has left channel ' + channel);
-      if (channel != 'global' && hasStarted[channel] != false) {
+
+      if (channel != 'global' && hasStarted[channel] != true) {
         lobbyState[ws.channel] -= ws.role;
       }
+
+      if (hasStarted[channel] == true) {
+        console.log(ws.id + ' has been disconnected during a game');
+        hold_connection(ws);
+      }
       connections.splice(ws);
-      return console.log(req.connection.remoteAddress + ' has been disconnected');
+      return console.log(ws.id + ' has been disconnected');
     };
 
     return ws.send('Logged');
@@ -163,10 +189,6 @@
     ws.send('{"event":"channel", "channel":' + channel + '}')
     console.log(ws.id + ' has joined channel ' + channel);
     console.log(numberChannels[channel] + ' clients in channel ' + channel);
-
-    if (numberChannels[channel] == 2) {
-      start(channel);
-    }
   }
 
   // Function to free a channel
@@ -189,13 +211,23 @@
     hasStarted[channel] = true;
     server_multicast(channel,'{"event":"start"}');
     console.log("Game on channel " + channel + " has started");
+    /*var timer = 5;
+    var interval = setInterval(function countdown() {
+      timer -= 1;
+      if (timer <= 0) {
+        clearInterval(interval);
+        end(channel);
+      }
+    }, 1000);*/
   }
 
   // Function to end a game and free the channel
   function end(channel) {
     hasStarted[channel] = false;
+    lobbyState[channel] = 0;
     server_multicast(channel, '{"event":"end"}');
-    console.log("Game on channel " + channel + "has started");
+    global_channel(channel);
+    console.log("Game on channel " + channel + " has ended");
   }
 
   // Function to make a client join a lobby
@@ -277,22 +309,25 @@
   // Function to make a client leave a lobby
   function leave(ws, role) {
     lobbyState[ws.channel] -= role;
-    global_chan(ws);
     if (role == 1) {
       console.log('A hero has left lobby ' + ws.channel);
     } else {
       console.log('An architect has left lobby ' + ws.channel);
     }
+    global_chan(ws);
   }
 
+  // Function to check if a game can be launched and begins a countdown if possible
   function check_start(channel) {
     if (lobbyState[channel] == 3) {
       server_multicast(channel, '{"event":"soon"}');
-      var timer = 10;
+
+      var timer = 5;
 
       var interval = setInterval(function countdown() {
         timer -= 1;
         if (timer <= 0) {
+          clearInterval(interval);
           start(channel);
         }
       }, 1000);
@@ -300,30 +335,48 @@
     }
   }
 
-/*
-  _on_time = function() {
-    var msg;
-    msg = new Date().toString();
-    return wss.clients.forEach((function(_this) {
-      return function(client) {
-        var err;
-        try {
-          return client.send(msg);
-        } catch (error1) {
-          err = error1;
-          return err;
-        }
-      };
-    })(this));
-  };
+  function hold_connection(ws) {
+    multicast('{"event":"error","msg":"disconnection"}', ws);
 
-  setInterval(_on_time, 3000);
-  */
+    var timer = 10;
+
+    var interval = setInterval(function countdown() {
+      timer -= 1;
+      if (ws.connected == true) {
+        connections.splice(ws);
+        return
+      }
+      if (timer <= 0) {
+        clearInterval(interval);
+        console.log('Game in channel ' + ws.channel + " can't continue");
+        connections.splice(ws);
+        end(ws.channel);
+      }
+
+    }, 1000);
+  }
+
+  function is_double(web) {
+    for (co in connections) {
+      if (co.id == web.id) {
+        co.connected = true;
+        change_channel(web, co.channel);
+        web.role = 3 - lobbyState[co.channel];
+        lobbyState[co.channel] = 3;
+        log.console(web.id + ' has reconnected');
+        return
+      }
+    }
+    web.send('{"event":"error","msg":"reconnection"}');
+    log.console('Could not reconnect ' + web.id);
+  }
 
   _free_channels = function() {
     for (var channel in numberChannels) {
       if (numberChannels[channel] == 0) {
         delete numberChannels[channel];
+        delete lobbyState[channel];
+        delete hasStarted[channel];
       }
     }
   };
