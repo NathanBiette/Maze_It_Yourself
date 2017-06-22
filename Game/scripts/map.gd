@@ -6,18 +6,23 @@ var doors_locations
 var is_open = false
 var room_id = 0
 const hero_speed = 50
+var spawn_locations = []
 
 func _ready():
+	pass
+
+func initialize():
 	doors_locations = [Vector2(-1,-1),Vector2(-1,-1),Vector2(-1,-1),Vector2(-1,-1)]
 	find_doors()
-	close_doors()
-	set_process(true)
+	find_spawn()
+	if get_node("../../.").get_name() == "game_hero":
+		close_doors()
+		set_process(true)
 
 func _process(delta):
 	var tree = get_tree()
 	if (no_enemy_left()):
 		open_doors()
-
 
 func open_doors():
 	for d in range(doors_locations.size()):
@@ -61,6 +66,15 @@ func find_doors():
 		if (get_node("TileMap").get_cell(tab[t][0],tab[t][1])==7 or get_node("TileMap").get_cell(tab[t][0],tab[t][1])==8 ):
 			#SOUTH
 			doors_locations[2] = tab[t]
+
+func find_spawn():
+	var tab = get_node("TileMap").get_used_cells()
+	for t in range(tab.size()):
+		if (get_node("TileMap").get_cell(tab[t][0],tab[t][1])==12):
+			spawn_locations.append(tab[t])
+
+func get_spawn_locations():
+	return spawn_locations
 
 func update_global_pos(room_number):
 	for i in doors_locations:

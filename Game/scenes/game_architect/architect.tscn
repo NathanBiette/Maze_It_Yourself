@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://scripts/architect.gd" type="Script" id=1]
+[ext_resource path="res://scenes/game_architect/connection_error_popup.tscn" type="PackedScene" id=2]
 
 [sub_resource type="GDScript" id=1]
 
@@ -43,9 +44,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = -10.0
+margin/top = 0.0
 margin/right = 310.0
-margin/bottom = 96.0
+margin/bottom = 106.0
 
 [node name="LineEdit" type="LineEdit" parent="Panel"]
 
@@ -53,11 +54,11 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.0
+margin/left = 130.0
 margin/top = 0.0
 margin/right = 310.0
 margin/bottom = 24.0
-text = "res://scenes/game_hero/rooms/test_map.tscn"
+text = "0"
 placeholder/text = "path to room"
 placeholder/alpha = 0.6
 focus_mode = 2
@@ -133,6 +134,29 @@ enabled_focus_mode = 2
 shortcut = null
 text = "connect"
 flat = false
+
+[node name="Label" type="Label" parent="Panel"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 4.0
+margin/right = 121.0
+margin/bottom = 24.0
+text = "Core room number:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="WindowDialog" parent="." instance=ExtResource( 2 )]
+
+visibility/visible = false
+margin/left = 0.0
+margin/top = 130.0
+margin/right = 379.0
+margin/bottom = 173.0
 
 [connection signal="pressed" from="Panel/create_room" to="." method="_on_Button_pressed"]
 
