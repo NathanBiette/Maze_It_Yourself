@@ -40,7 +40,6 @@
     numberChannels[ws.channel] += 1;
 
     connections.push(ws);
-    console.log(connections.length + ' clients atm');
     console.log(numberChannels[ws.channel] + ' clients in channel ' + ws.channel);
 
     // Activated when receiving a message from a connection
@@ -197,7 +196,6 @@
 
   // Function to free a channel
   function global_channel(channel) {
-    console.log(connections.length);
     for (var i=0; i<connections.length; i++) {
       if (connections[i].channel == channel) {
         change_channel(connections[i], 'global');
@@ -340,6 +338,7 @@
     }
   }
 
+  // Function to hold a game when a player has been disconnected
   function hold_connection(ws) {
     multicast('{"event":"error","msg":"disconnection"}', ws);
 
@@ -363,6 +362,7 @@
     }, 1000);
   }
 
+  // Function to check if a connection was already there when reconnecting
   function is_double(web) {
     for (i=0; i<connections.length; i++) {
       var co = connections[i];
@@ -371,6 +371,7 @@
         change_channel(web, co.channel);
         web.role = 3 - lobbyState[co.channel];
         lobbyState[co.channel] = 3;
+        server_multicast(co.channel, '{"event":"error","msg":"reconnection"}');
         log.console(web.id + ' has reconnected');
         return
       }
