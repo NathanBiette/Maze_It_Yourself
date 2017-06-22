@@ -292,7 +292,7 @@ extents = Vector2( 10, 10 )
 "theseus",
 ]]
 
-transform/pos = Vector2( 150, 250 )
+transform/pos = Vector2( 150, 150 )
 z/z = 1
 input/pickable = false
 shapes/0/shape = SubResource( 1 )

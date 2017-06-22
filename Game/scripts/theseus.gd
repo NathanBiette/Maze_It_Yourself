@@ -56,22 +56,6 @@ func _ready():
 	get_node("Camera2D/hud/weaponPanel/Sprite").set_texture(load("res://textures/objects/weapons/steel_sword.tex"))
 	get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(100)
 
-
-#extract direction of swipe gesture and call move function according to direction
-#new version of swipe move that allow non rectilign moves to be taken in account
-func _on_swipe_gesture_swiped(gesture):
-	if (is_idle()):
-		var angle = gesture.get_direction_angle()
-		if (angle < 0.685 and angle > -0.685) :
-			_move("up")
-		if (angle <= -0.885 and angle >= -2.256):
-			_move("right")
-		if (angle <= 2.256 and angle >= 0.885):
-			_move("left")
-		if (angle < -2.456 or angle > 2.456) :
-			_move("down")
-
-
 #move script of theseus
 func _move(dir):
 	
@@ -215,7 +199,7 @@ func stats_update():
 
 func _on_touchBox_input_event( ev ):
 	if (is_idle() and (ev.type==InputEvent.SCREEN_TOUCH or ev.type==InputEvent.MOUSE_BUTTON)):
-		var angle = Vector2(960-ev.x, 540-ev.y).angle()
+		var angle = Vector2(750-ev.x, 600-ev.y).angle()
 		if (angle < 0.685 and angle > -0.685) :
 			_move("up")
 		if (angle <= -0.885 and angle >= -2.256):
