@@ -376,7 +376,7 @@ drag_margin/v_enabled = true
 smoothing/enable = true
 smoothing/speed = 5.0
 drag_margin/left = 0.0
-drag_margin/top = 0.2
+drag_margin/top = 0.0
 drag_margin/right = 0.0
 drag_margin/bottom = 0.0
 
