@@ -368,7 +368,7 @@
       }
     }
     web.send('{"event":"error","msg":"reconnection"}');
-    log.console('Could not reconnect ' + web.id):
+    log.console('Could not reconnect ' + web.id);
   }
 
   _free_channels = function() {
