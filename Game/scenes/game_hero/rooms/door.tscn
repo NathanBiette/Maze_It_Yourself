@@ -15,7 +15,6 @@ script/source = "extends StaticBody2D
 # var a = 2
 # var b = \"textvar\"
 var door_id=[0,0]
-var door_connected = [-1,-1]
 var door_type = \"west\"
 
 func _ready():
@@ -25,7 +24,7 @@ func _ready():
 
 func shazaam():
 	get_node(\"../../../theseus/Camera2D/CanvasLayer/AnimationPlayer\").play(\"fade_to_black\")
-	get_node(\"../../.\").change_room(door_connected)
+	get_node(\"../../.\").change_room(door_id)
 
 func get_door_id():
 	return door_id
@@ -33,13 +32,7 @@ func get_door_id():
 func set_door_id(room, door):
 	door_id[0] = room
 	door_id[1] = door
-
-func get_door_connected():
-	return door_connected
-
-func set_door_connected(room, door):
-	door_connected[0]=room
-	door_connected[1]=door"
+"
 
 [node name="door" type="StaticBody2D" groups=[
 "door",

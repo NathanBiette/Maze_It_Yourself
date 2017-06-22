@@ -15,7 +15,7 @@ func _ready():
 
 func _process(delta):
 	var tree = get_tree()
-	if (get_node(".").get_tree().get_nodes_in_group("enemies").size()==0):
+	if (no_enemy_left()):
 		open_doors()
 
 
@@ -30,6 +30,15 @@ func open_doors():
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],6)
 			#changes the cell just above the door /!\ doesn't work if the door is on a top or bottom wall
 			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,10)
+		#NORTH
+		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==3):
+			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],4)
+			#changes the cell just above the door /!\ doesn't work if the door is on a top or bottom wall
+		#SOUTH
+		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==7):
+			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],8)
+			#changes the cell just above the door /!\ doesn't work if the door is on a top or bottom wall
+
 	is_open = true
 
 func close_doors():
@@ -41,7 +50,7 @@ func find_doors():
 	var tab = get_node("TileMap").get_used_cells()
 	for t in range(tab.size()):
 		if (get_node("TileMap").get_cell(tab[t][0],tab[t][1])==1 or get_node("TileMap").get_cell(tab[t][0],tab[t][1])==2 ):
-			#EST
+			#EAST
 			doors_locations[3] = tab[t]
 		if (get_node("TileMap").get_cell(tab[t][0],tab[t][1])==3 or get_node("TileMap").get_cell(tab[t][0],tab[t][1])==4 ):
 			#NORD
@@ -53,6 +62,10 @@ func find_doors():
 			#SOUTH
 			doors_locations[2] = tab[t]
 
+func update_global_pos(room_number):
+	for i in doors_locations:
+		i[0] += 50*room_number
+	
 func get_doors_locations():
 	return doors_locations
 
@@ -64,6 +77,7 @@ func set_room_id(id):
 
 func is_open():
 	return is_open
+
 
 ################LOOT#############################
 
@@ -79,3 +93,18 @@ func add_object(object_name, object_type, object_pos):
 	get_node(".").add_child(object)
 
 ##################################################
+
+	
+func no_enemy_left():
+	var kids = get_node("TileMap").get_children()
+	for kid in kids:
+		if kid.is_in_group("enemies"):
+			return false
+	return true
+
+func set_pause_room(boolean):
+	var kids = get_node("TileMap").get_children()
+	for kid in kids:
+		if (kid.has_method("set_pause")):
+			kid.set_pause(boolean)
+

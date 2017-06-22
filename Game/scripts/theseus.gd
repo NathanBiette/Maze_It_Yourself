@@ -46,9 +46,16 @@ func _ready():
 	shield = load("res://scenes/game_hero/objects/shields/" + str(Globals.get("shield")) + ".tscn").instance()
 	item = load("res://scenes/game_hero/objects/items/" + str(Globals.get("item")) + ".tscn").instance()
 	gold = Globals.get("gold")
+
 	#compute attack and defense stats
 	attack = weapon.attack()
 	defense = shield.defense() + helmet.defense()
+
+	get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100)
+	get_node("Camera2D/hud/coinSprite/coinLabel").set_text(str(gold))
+	get_node("Camera2D/hud/weaponPanel/Sprite").set_texture(load("res://textures/objects/weapons/steel_sword.tex"))
+	get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(100)
+
 
 #extract direction of swipe gesture and call move function according to direction
 #new version of swipe move that allow non rectilign moves to be taken in account
@@ -97,12 +104,13 @@ func _move(dir):
 		
 		idle = false
 		get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
-		print("end of animation")
+
 		
 #function that can be called by enemies to change Theseus' attributes
 func lose_hp(damage):
 	current_HP -= damage
 	get_node("AnimatedSprite/Damage_anims").play("hp_lost")
+	get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100.0)
 
 #function with potential (meaning useless for now)
 func get_movement_unit():
