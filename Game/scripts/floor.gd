@@ -8,8 +8,10 @@ var rooms = Array()
 #doors format : 
 #	[[Vector2 global_pos, id [room number, door_type], id of connected door],[...],...]
 var doors = Array()
-#vector2vector2array really
-var links = Vector2Array()
+var editable_doors = Array() #editable version for architect only
+#spawns format : 
+#	[[id [room number, door_type], Vector2 global_pos, already used (bool), monster type (int)],[...],...]
+var spawns = Array()
 var number_of_rooms = 0
 
 
@@ -31,7 +33,9 @@ func add_room(core_map_index):
 	var room = load("res://scenes/game_hero/rooms/hero_map.tscn")
 	var room_node = room.instance()
 	add_child(room_node)
+	
 	#creation of room
+	
 	var tile_map_scene = load("res://scenes/rooms/core_room_" + str(core_map_index) + ".tscn")
 	var tile_map_node = tile_map_scene.instance()
 	room_node.add_child(tile_map_node)
@@ -50,23 +54,21 @@ func add_room(core_map_index):
 		if (temp_doors_locations[i] == Vector2(-1,-1)):
 			pass
 		else:
-			doors.append([Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]])
+			var new_door = [Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]]
+			doors.append(new_door)
+			
+			#for later when we have a real architect
+			
+			#if get_node("../.").get_name() == "game_architect":
+			editable_doors.append(new_door)
+			
 	create_doors(number_of_rooms)
 	
 	#managing spawn locations
 	
 	var temp_spawn_locations = room_node.get_spawn_locations()
 	for i in range(temp_spawn_locations.size()):
-		if get_node("../.").get_name() == "game_hero":
-			var enemy_scene = load("res://scenes/game_hero/enemies/skeleton.tscn")
-			var enemy_node = enemy_scene.instance()
-			get_node("map_" +str(number_of_rooms) + "/TileMap").add_child(enemy_node)
-			enemy_node.set_pos(Vector2(temp_spawn_locations[i][0]*100 +50,temp_spawn_locations[i][1]*100 +50))
-		elif get_node("../.").get_name() == "game_architect":
-			var enemy_scene = load("res://scenes/game_architect/ghost_enemies/ghost_skeleton.tscn")
-			var enemy_node = enemy_scene.instance()
-			get_node("map_" +str(number_of_rooms) + "/TileMap").add_child(enemy_node)
-			enemy_node.set_pos(Vector2(temp_spawn_locations[i][0]*100 +50,temp_spawn_locations[i][1]*100 +50))
+		spawns.append([[number_of_rooms, i], temp_spawn_locations[i], false, -1])
 	
 	#updating for next_use
 	number_of_rooms += 1
@@ -130,7 +132,12 @@ func connect(door_id1,door_id2):
 	var i = find_door_index(door_id1)
 	var j = find_door_index(door_id2)
 	if (doors[i][2] == [-1,-1]) and (doors[j][2] == [-1,-1]):
-		doors[i][2] = door_id2
-		doors[j][2] = door_id1
+		editable_doors[i][2] = door_id2
+		editable_doors[j][2] = door_id1
 	else:
 		get_node("architect/WindowDialog").popup()
+
+func link(spawn, monster):
+	pass
+
+func 
