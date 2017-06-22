@@ -10,12 +10,14 @@ func _ready():
 	
 	#initialise globals player variables
 	Globals.set("hp",10)
-	Globals.set("helmet","default_helmet")
-	Globals.set("weapon","default_weapon")
-	Globals.set("shield","default_shield")
-	Globals.set("item","default_item")
+	Globals.set("helmet","basic_helmet")
+	Globals.set("weapon","basic_weapon")
+	Globals.set("shield","basic_shield")
+	Globals.set("item","basic_item")
 	Globals.set("gold",0)
 	
+
+
 	#load hero 
 	theseus_hero = load("res://scenes/game_hero/theseus.tscn")
 	theseus_instance = theseus_hero.instance()

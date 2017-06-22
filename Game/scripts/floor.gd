@@ -12,6 +12,7 @@ var doors = Array()
 var links = Vector2Array()
 var number_of_rooms = 0
 
+
 func _ready():
 	add_architect()
 	#hero_exclusive
