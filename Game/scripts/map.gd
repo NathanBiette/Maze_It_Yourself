@@ -14,9 +14,10 @@ func _ready():
 func initialize():
 	doors_locations = [Vector2(-1,-1),Vector2(-1,-1),Vector2(-1,-1),Vector2(-1,-1)]
 	find_doors()
-	close_doors()
 	find_spawn()
-	set_process(true)
+	if get_node("../../.").get_name() == "game_hero":
+		close_doors()
+		set_process(true)
 
 func _process(delta):
 	var tree = get_tree()
