@@ -55,12 +55,12 @@ func add_room(core_map_index):
 			pass
 		else:
 			var new_door = [Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]]
-			doors.append(new_door)
+			doors.append([Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]])
 			
 			#for later when we have a real architect
 			
 			#if get_node("../.").get_name() == "game_architect":
-			editable_doors.append(new_door)
+			editable_doors.append([Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]])
 			
 	create_doors(number_of_rooms)
 	
@@ -131,13 +131,20 @@ func get_doors():
 func connect(door_id1,door_id2):
 	var i = find_door_index(door_id1)
 	var j = find_door_index(door_id2)
-	if (doors[i][2] == [-1,-1]) and (doors[j][2] == [-1,-1]):
-		editable_doors[i][2] = door_id2
-		editable_doors[j][2] = door_id1
-	else:
-		get_node("architect/WindowDialog").popup()
+	editable_doors[i][2] = door_id2
+	editable_doors[j][2] = door_id1
 
 func link(spawn, monster):
 	pass
 
-func 
+func update_release():
+	var edition_ok = true
+	for i in range (doors.size()):
+		if doors[i][2] == [-1,-1]:
+			pass
+		else:
+			edition_ok = false
+	if edition_ok == true:
+		editable_doors =[] + doors
+	else:
+		get_node("architect/WindowDialog").popup()

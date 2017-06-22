@@ -39,4 +39,4 @@ func _on_link_pressed():
 	get_node("../.").link(spawn, monster)
 
 func _on_Release_pressed():
-	get_node("../.").update_release(spawn, monster)
+	get_node("../.").update_release()
