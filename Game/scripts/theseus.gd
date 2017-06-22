@@ -62,13 +62,13 @@ func _ready():
 func _on_swipe_gesture_swiped(gesture):
 	if (is_idle()):
 		var angle = gesture.get_direction_angle()
-		if (angle < 0.785 and angle > -0.785) :
+		if (angle < 0.685 and angle > -0.685) :
 			_move("up")
-		if (angle <= -0.785 and angle >= -2.356):
+		if (angle <= -0.885 and angle >= -2.256):
 			_move("right")
-		if (angle <= 2.356 and angle >= 0.785):
+		if (angle <= 2.256 and angle >= 0.885):
 			_move("left")
-		if (angle < -2.356 or angle > 2.356) :
+		if (angle < -2.456 or angle > 2.456) :
 			_move("down")
 
 
@@ -212,3 +212,15 @@ func stats_update():
 	attack = weapon.attack()
 	defense = shield.defense() + helmet.defense()
 #####################################################################################
+
+func _on_touchBox_input_event( ev ):
+	if (is_idle() and (ev.type==InputEvent.SCREEN_TOUCH or ev.type==InputEvent.MOUSE_BUTTON)):
+		var angle = Vector2(960-ev.x, 540-ev.y).angle()
+		if (angle < 0.685 and angle > -0.685) :
+			_move("up")
+		if (angle <= -0.885 and angle >= -2.256):
+			_move("right")
+		if (angle <= 2.256 and angle >= 0.885):
+			_move("left")
+		if (angle < -2.456 or angle > 2.456) :
+			_move("down")

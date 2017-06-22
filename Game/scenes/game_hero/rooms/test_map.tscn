@@ -32,7 +32,7 @@ __meta__ = {
 
 [node name="Skeleton" parent="TileMap" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 500, 850 )
+transform/pos = Vector2( 450, 950 )
 
 [node name="steel_sword 2" parent="." instance=ExtResource( 4 )]
 
