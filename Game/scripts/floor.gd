@@ -13,11 +13,14 @@ var links = Vector2Array()
 var number_of_rooms = 0
 
 func _ready():
-	add_room("res://scenes/rooms/core_room_3.tscn")
 	add_architect()
-	get_node("architect").update_doors(doors)
-	get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
-
+	#hero_exclusive
+	if get_node("../.").get_name() == "game_hero":
+		add_room("res://scenes/rooms/core_room_0.tscn")
+		get_node("architect").update_doors(doors)
+		get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
+	
+	
 func add_architect():
 	var scene = load("res://scenes/game_architect/architect.tscn")
 	var node = scene.instance()
@@ -54,21 +57,22 @@ func add_room(core_map):
 	
 	var temp_spawn_locations = room_node.get_spawn_locations()
 	for i in range(temp_spawn_locations.size()):
-		var enemy_scene = load("res://scenes/game_hero/enemies/skeleton.tscn")
-		var enemy_node = enemy_scene.instance()
-		get_node("map_" +str(number_of_rooms) + "/TileMap").add_child(enemy_node)
-		enemy_node.set_pos(Vector2(temp_spawn_locations[i][0]*100 +50,temp_spawn_locations[i][1]*100 +50))
+		if get_node("../.").get_name() == "game_hero":
+			var enemy_scene = load("res://scenes/game_hero/enemies/skeleton.tscn")
+			var enemy_node = enemy_scene.instance()
+			get_node("map_" +str(number_of_rooms) + "/TileMap").add_child(enemy_node)
+			enemy_node.set_pos(Vector2(temp_spawn_locations[i][0]*100 +50,temp_spawn_locations[i][1]*100 +50))
+		elif get_node("../.").get_name() == "game_architect":
+			var enemy_scene = load("res://scenes/game_architect/ghost_enemies/ghost_skeleton.tscn")
+			var enemy_node = enemy_scene.instance()
+			get_node("map_" +str(number_of_rooms) + "/TileMap").add_child(enemy_node)
+			enemy_node.set_pos(Vector2(temp_spawn_locations[i][0]*100 +50,temp_spawn_locations[i][1]*100 +50))
 	
 	#updating for next_use
 	number_of_rooms += 1
 	room_node.set_pause_room(true)
 
 func create_doors(active_room):
-	# if you want only one door use this code instead
-	#var scene = load("res://scenes/door.tscn")
-	#var node = scene.instance()
-	#add_child(node)
-	#node.set_global_pos(Vector2(50,150))
 	
 	#finds all doors in the the room and put at these locations a square for TP
 	
@@ -125,5 +129,8 @@ func get_doors():
 func connect(door_id1,door_id2):
 	var i = find_door_index(door_id1)
 	var j = find_door_index(door_id2)
-	doors[i][2] = door_id2
-	doors[j][2] = door_id1
+	if (doors[i][2] == [-1,-1]) and (doors[j][2] == [-1,-1]):
+		doors[i][2] = door_id2
+		doors[j][2] = door_id1
+	else:
+		get_node("architect/WindowDialog").popup()

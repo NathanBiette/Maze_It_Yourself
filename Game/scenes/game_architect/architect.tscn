@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://scripts/architect.gd" type="Script" id=1]
+[ext_resource path="res://scenes/game_architect/connection_error_popup.tscn" type="PackedScene" id=2]
 
 [sub_resource type="GDScript" id=1]
 
@@ -133,6 +134,14 @@ enabled_focus_mode = 2
 shortcut = null
 text = "connect"
 flat = false
+
+[node name="WindowDialog" parent="." instance=ExtResource( 2 )]
+
+visibility/visible = false
+margin/left = 0.0
+margin/top = 130.0
+margin/right = 379.0
+margin/bottom = 173.0
 
 [connection signal="pressed" from="Panel/create_room" to="." method="_on_Button_pressed"]
 
