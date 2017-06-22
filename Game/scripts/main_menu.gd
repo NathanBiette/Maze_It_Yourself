@@ -1,8 +1,8 @@
 extends Sprite
 
 var websocket
-var channel
 var server_ip = '137.194.23.37'
+var channel = 'global'
 
 func _ready():
 	websocket = preload('websocket.gd').new(self)
@@ -12,6 +12,10 @@ func _ready():
 func _on_message_recieved(msg):
 	var dict = {}
 	dict.parse_json(msg)
+	if (dict.event == 'connection'):
+		websocket.send('{"event":"connection","id":' + str(OS.get_unique_ID()) + '}')
+	if (dict.event == 'channel'):
+		channel = dict.channel
 	print(msg)
 
 
