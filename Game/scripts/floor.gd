@@ -16,23 +16,22 @@ func _ready():
 	add_architect()
 	#hero_exclusive
 	if get_node("../.").get_name() == "game_hero":
-		add_room("res://scenes/rooms/core_room_0.tscn")
+		add_room(0)
 		get_node("architect").update_doors(doors)
 		get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
-	
-	
+
 func add_architect():
 	var scene = load("res://scenes/game_architect/architect.tscn")
 	var node = scene.instance()
 	add_child(node)
 
-func add_room(core_map):
+func add_room(core_map_index):
 	
 	var room = load("res://scenes/game_hero/rooms/hero_map.tscn")
 	var room_node = room.instance()
 	add_child(room_node)
 	#creation of room
-	var tile_map_scene = load(core_map)
+	var tile_map_scene = load("res://scenes/rooms/core_room_" + str(core_map_index) + ".tscn")
 	var tile_map_node = tile_map_scene.instance()
 	room_node.add_child(tile_map_node)
 	
