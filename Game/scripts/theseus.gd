@@ -50,10 +50,11 @@ func _ready():
 	#compute attack and defense stats
 	attack = weapon.attack()
 	defense = shield.defense() + helmet.defense()
-
+	
+	#load sprite of objects
 	get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100)
 	get_node("Camera2D/hud/coinSprite/coinLabel").set_text(str(gold))
-	get_node("Camera2D/hud/weaponPanel/Sprite").set_texture(load("res://textures/objects/weapons/steel_sword.tex"))
+	get_node("Camera2D/hud/weaponPanel/Sprite").set_texture(load("res://textures/objects/weapons/" + weapon.get_name() + ".tex"))
 	get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(100)
 
 #move script of theseus
