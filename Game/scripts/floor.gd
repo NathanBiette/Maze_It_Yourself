@@ -14,9 +14,14 @@ var number_of_rooms = 0
 
 func _ready():
 	add_room("res://scenes/game_hero/rooms/test_map.tscn")
-	get_node("architect").update_doors(doors)
+	#add_architect()
+	#get_node("architect").update_doors(doors)
 	get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
 
+func add_architect():
+	var scene = load("res://scenes/game_architect/architect.tscn")
+	var node = scene.instance()
+	add_child(node)
 
 func add_room(room):
 	
@@ -41,7 +46,16 @@ func add_room(room):
 		else:
 			doors.append([Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[node.get_room_id(), i],[-1,-1]])
 	create_doors(number_of_rooms)
-		
+	
+	#managing spawn locations
+	
+	var temp_spawn_locations = node.get_spawn_locations()
+	for i in range(temp_spawn_locations.size()):
+		var enemy_scene = load("res://scenes/game_hero/enemies/skeleton.tscn")
+		var enemy_node = enemy_scene.instance()
+		get_node("map_" +str(number_of_rooms) + "/TileMap").add_child(enemy_node)
+		enemy_node.set_pos(Vector2(temp_spawn_locations[i][0]*100 +50,temp_spawn_locations[i][1]*100 +50))
+	
 	#updating for next_use
 	number_of_rooms += 1
 	node.set_pause_room(true)

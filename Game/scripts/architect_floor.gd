@@ -51,7 +51,8 @@ func add_room(ghost_room):
 	for i in range(temp_spawn_locations.size()):
 		var enemy_scene = load("res://scenes/game_architect/ghost_enemies/ghost_skeleton.tscn")
 		var enemy_node = enemy_scene.instance()
-		enemy_node.set_pos(temp_spawn_locations[i])
+		get_node("map_" +str(number_of_rooms) + "/TileMap").add_child(enemy_node)
+		enemy_node.set_pos(Vector2(temp_spawn_locations[i][0]*100 +50,temp_spawn_locations[i][1]*100 +50))
 	
 	#updating for next_use
 	number_of_rooms += 1
