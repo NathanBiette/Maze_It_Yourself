@@ -41,6 +41,7 @@
     numberChannels[ws.channel] += 1;
 
     connections.push(ws);
+    var pingpong = setInterval(ping, 30000);
     console.log(numberChannels[ws.channel] + ' clients in channel ' + ws.channel);
 
     // Activated when receiving a message from a connection
@@ -50,6 +51,10 @@
       dict = JSON.parse(event.data);
 
       switch (dict.event) {
+
+        case 'pong':
+          pong();
+          break;
 
         case 'update':
           multicast(event.data, ws);
@@ -130,7 +135,24 @@
       return console.log(ws.id + ' has been disconnected');
     };
 
-    return ws.send('Logged');
+    function ping() {
+      try {
+        ws.send('{"event":"ping"}');
+      } catch(e) {
+        console.log('Could not send ping to ' + ws.id);
+      }
+      tm = setTimeout(function () {
+        console.log(ws.id + ' timed out');
+        ws.terminate();
+        clearInterval(pingpong);
+      }, 1000);
+    }
+
+    function pong() {
+      clearTimeout(tm);
+    }
+
+    return
   });
 
   server.listen(PORT, process.env.IP || "0.0.0.0", function() {
