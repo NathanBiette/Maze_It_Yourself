@@ -93,6 +93,7 @@
         case 'connection':
           // ws.id = dict.id;
           console.log('New id: ' + ws.id);
+          ws.send('{"event":"ack"}');
           break;
 
         case 'reconnection':
@@ -145,6 +146,27 @@
         console.log(ws.id + ' timed out');
         ws.terminate();
         clearInterval(pingpong);
+        clearTimeout(tm);
+
+        ws.connected = false;
+
+        var channel = ws.channel;
+        numberChannels[channel] -= 1;
+        console.log(ws.id + ' has left channel ' + channel);
+
+        if (channel != 'global' && hasStarted[channel] != true) {
+          lobbyState[ws.channel] -= ws.role;
+        }
+
+        if (hasStarted[channel] == true) {
+          console.log(ws.id + ' has been disconnected during a game');
+          hold_connection(ws);
+          return
+        }
+        var index = connections.indexOf(ws);
+        connections.splice(index, 1);
+
+        return console.log(ws.id + ' has been disconnected');
       }, 1000);
     }
 

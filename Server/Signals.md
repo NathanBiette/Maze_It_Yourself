@@ -30,6 +30,10 @@ Has a 'channel' associated with it
 
 * Sent to the players when the game is starting in 10 seconds
 
+**ack**
+
+* Sent to a new connection to acknowledge it
+
 
 *Player -> Server*
 

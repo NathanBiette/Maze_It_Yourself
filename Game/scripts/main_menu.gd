@@ -6,14 +6,6 @@ onready var parent = get_node("..")
 func _ready():
 	websocket = parent.websocket
 
-func _on_message_recieved(msg):
-	var dict = {}
-	dict.parse_json(msg)
-	if (dict.event == 'channel'):
-		channel = dict.channel
-	print(msg)
-
-
 func _on_start_architect_pressed():
 	var game_architect = preload("res://scenes/game_architect/game_architect.tscn")
 	var arch = game_architect.instance()
