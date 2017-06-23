@@ -16,7 +16,7 @@ var number_of_rooms = 0
 
 
 func _ready():
-	add_architect()
+	#add_architect()
 	#hero_exclusive
 	if get_node("../.").get_name() == "game_hero":
 		add_room(0)

@@ -44,6 +44,8 @@ func _on_message_recieved(msg):
 	if (dict.event == 'ack'):
 		connected = true
 		print('Connected')
+	if (dict.event == 'add_room'):
+		get_child(1).get_node("hero_floor").add_room(dict.room)
 
 
 func _on_timer_timeout():
