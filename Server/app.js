@@ -96,6 +96,10 @@
           ws.send('{"event":"ack"}');
           break;
 
+        case 'add_room':
+          multicast(event.data, ws);
+          break;
+
         case 'reconnection':
           ws.id = dict.id;
           console.log('Reconnection id: ' + ws.id);
