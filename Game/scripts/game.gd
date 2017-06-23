@@ -48,7 +48,8 @@ func _on_message_recieved(msg):
 		get_child(1).get_node("hero_floor").add_room(dict.room)
 	if dict.reason == 'close_spawns':
 		get_child(1).get_node("architect_floor").close_spawns(dict.room)
-	#if dict.reason == ''
+	if dict.reason == 'update':
+		get_child(1).get_node("hero_floor").update(dict.doors, dict.spawns)
 func _on_timer_timeout():
 	timer.stop()
 	print("Timed out")

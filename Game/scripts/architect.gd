@@ -29,7 +29,7 @@ func _on_Button_pressed():
 	get_node("../.").add_room(next_room)
 	update_doors(get_node("../.").get_doors())
 	update_spawn(get_node("../.").get_spawns())
-	#get_node("../..").websocket.send('{"event":"multicast","reason":"add_room","room":' + str(next_room) + '}')
+	get_node("../..").websocket.send('{"event":"multicast","reason":"add_room","room":' + str(next_room) + '}')
 
 func _on_connect_pressed():
 	var door1 = get_node("CanvasLayer/MenuButton/Panel/OptionButton_1").get_selected_ID()

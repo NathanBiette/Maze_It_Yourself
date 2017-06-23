@@ -23,14 +23,7 @@ func _ready():
 		get_node("architect").update_spawn(spawns)
 		get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
 
-#=============ARCHITECT ONLY==================#
-
-func add_architect():
-	var scene = load("res://scenes/game_architect/architect.tscn")
-	var node = scene.instance()
-	add_child(node)
-	
-#=============ARCHITECT ONLY END===============#
+#==============================
 
 func add_room(core_map_index):
 	
@@ -78,7 +71,7 @@ func add_room(core_map_index):
 	#updating for next_use
 	number_of_rooms += 1
 	room_node.set_pause_room(true)
-
+#================================
 func create_doors(active_room):
 	
 	#finds all doors in the the room and put at these locations a square for TP
@@ -90,6 +83,39 @@ func create_doors(active_room):
 		get_node("map_" + str(number_of_rooms)).add_child(node)
 		node.set_door_id(d[1][0],d[1][1])
 		node.set_global_pos(d[0])
+#================================
+func find_doors_in_room(x):
+	var l = []
+	for d in doors:
+		if (d[1][0] == x):
+			l.append(d)
+	return l
+#================================
+func get_my_door(door_id):
+	return doors[find_door_index(door_id)][2]
+#================================
+func find_door_index(id):
+	for i in range(doors.size()):
+		if (doors[i][1] == id):
+			return i
+#================================
+func get_doors():
+	return doors
+#================================
+func get_spawns():
+	return spawns
+#================================
+func get_spawn_index(id):
+	for i in range(spawns.size()):
+		if (spawns[i][0] == id):
+			return i
+#================================
+func find_spawns_in_room(x):
+	var l = []
+	for s in spawns:
+		if (s[0][0] == x):
+			l.append(s)
+	return l
 
 #=============HERO ONLY==================#
 
@@ -110,7 +136,7 @@ func change_room(door_id):
 			get_node("map_" + str(next_door_id[0]) + "/TileMap").add_child(enemy_node)
 			enemy_node.set_pos(Vector2(s[1][0]*100 +50,s[1][1]*100 +50))
 			s[2] = false
-	#get_node("../..").websocket.send('{"event":"multicast","reason":"close_spawns","room":' + str(next_door_id[0]) + '}')
+	get_node("..").websocket.send('{"event":"multicast","reason":"close_spawns","room":' + str(next_door_id[0]) + '}')
 	
 	if (next_door_id == [-1,-1]):
 		pass
@@ -133,44 +159,18 @@ func change_room(door_id):
 	get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
 	get_node("map_"+str(next_door_id[0])).close_doors()
 
-func update_hero_side(new_doors, new_spawns):
+func update(new_doors, new_spawns):
 	doors = new_doors
 	spawns = new_spawns
 
 #=============HERO ONLY END===============#
-func find_doors_in_room(x):
-	var l = []
-	for d in doors:
-		if (d[1][0] == x):
-			l.append(d)
-	return l
 
-func get_my_door(door_id):
-	return doors[find_door_index(door_id)][2]
-
-func find_door_index(id):
-	for i in range(doors.size()):
-		if (doors[i][1] == id):
-			return i
-
-func get_doors():
-	return doors
-
-func get_spawns():
-	return spawns
-
-func get_spawn_index(id):
-	for i in range(spawns.size()):
-		if (spawns[i][0] == id):
-			return i
-
-func find_spawns_in_room(x):
-	var l = []
-	for s in spawns:
-		if (s[0][0] == x):
-			l.append(s)
-	return l
 #===================ARCHITECT ONLY==========================#
+func add_architect():
+	var scene = load("res://scenes/game_architect/architect.tscn")
+	var node = scene.instance()
+	add_child(node)
+
 func connect(door_id1,door_id2):
 	var i = find_door_index(door_id1)
 	var j = find_door_index(door_id2)
@@ -193,6 +193,8 @@ func update_release():
 			edition_ok = false
 	if edition_ok == true:
 		doors = str2var(var2str(editable_doors))
+		print(str(doors))
+		get_node("..").websocket.send('{"event":"multicast","reason":"update","spawns":' + str(spawns) + ',"doors":' + str(doors) + '}')
 	else:
 		get_node("architect/CanvasLayer/WindowDialog").popup()
 
