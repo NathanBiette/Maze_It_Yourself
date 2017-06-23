@@ -10,7 +10,7 @@ var rooms = Array()
 var doors = Array()
 var editable_doors = Array() #editable version for architect only
 #spawns format : 
-#	[[id [room number, door_type], Vector2 global_pos, already used (bool), monster type (int)],[...],...]
+#	[[id [room number, spawn_index], Vector2 global_pos, already used (bool), monster type (int)],[...],...]
 var spawns = Array()
 var number_of_rooms = 0
 
@@ -21,6 +21,7 @@ func _ready():
 	if get_node("../.").get_name() == "game_hero":
 		add_room(0)
 		get_node("architect").update_doors(doors)
+		get_node("architect").update_spawn(spawns)
 		get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
 
 func add_architect():
@@ -128,14 +129,25 @@ func find_door_index(id):
 func get_doors():
 	return doors
 
+func get_spawns():
+	return spawns
+
+func get_spawn_index(id):
+	for i in range(spawns.size()):
+		if (spawns[i][0] == id):
+			return i
+
 func connect(door_id1,door_id2):
 	var i = find_door_index(door_id1)
 	var j = find_door_index(door_id2)
 	editable_doors[i][2] = door_id2
 	editable_doors[j][2] = door_id1
 
-func link(spawn, monster):
-	pass
+func link(spawn_id, monster):
+	var i = get_spawn_index(spawn_id)
+	if spawns[i][2] == false:
+		spawns[i][3] = monster
+		print(spawns[i])
 
 func update_release():
 	var edition_ok = true
@@ -148,3 +160,8 @@ func update_release():
 		doors = str2var(var2str(editable_doors))
 	else:
 		get_node("architect/CanvasLayer/WindowDialog").popup()
+	for i in range (spawns.size()):
+		if spawns[i][3] == -1:
+			pass
+		else :
+			spawns[i][2] = true
