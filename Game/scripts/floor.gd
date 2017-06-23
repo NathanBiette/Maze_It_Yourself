@@ -1,8 +1,7 @@
 extends Node
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+#/!\ I cheat, I am not sending messages to the architect or the hero and just using the fact that the architect is a local variable of game hero and has access to spawns and doors
+
 const OFFSET = 5000
 var rooms = Array()
 #doors format : 
@@ -10,14 +9,14 @@ var rooms = Array()
 var doors = Array()
 var editable_doors = Array() #editable version for architect only
 #spawns format : 
-#	[[id [room number, spawn_index], Vector2 global_pos, already used (bool), monster type (string)],[...],...]
+#	[[id [room number, spawn_index], Vector2 global_pos, hero_has_not_entered (bool), monster type (string)],[...],...]
 var spawns = Array()
 var number_of_rooms = 0
 
 
 func _ready():
 	add_architect()
-	add_room(0)
+	add_room(4)
 	#hero_exclusive
 	if get_node("../.").get_name() == "game_hero":
 		get_node("architect").update_doors(doors)
@@ -49,6 +48,7 @@ func add_room(core_map_index):
 	
 	room_node.set_name("map_" + str(number_of_rooms))
 	room_node.set_room_id(number_of_rooms)
+	room_node.initialize()
 	rooms.append(room_node)
 	room_node.get_node("TileMap").set_global_pos(Vector2(OFFSET * number_of_rooms, 0))
 	
@@ -66,14 +66,14 @@ func add_room(core_map_index):
 			
 			#if get_node("../.").get_name() == "game_architect":
 			editable_doors.append([Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]])
-			
+		
 	create_doors(number_of_rooms)
 	
 	#managing spawn locations
 	
 	var temp_spawn_locations = room_node.get_spawn_locations()
 	for i in range(temp_spawn_locations.size()):
-		spawns.append([[number_of_rooms, i], temp_spawn_locations[i], false, ""])
+		spawns.append([[number_of_rooms, i], temp_spawn_locations[i], true, ""])
 	
 	#updating for next_use
 	number_of_rooms += 1
@@ -104,11 +104,13 @@ func change_room(door_id):
 	for s in spawns_in_room:
 		if s[3] == "":
 			pass
-		else:
+		elif s[2]:
 			var enemy_scene = load("res://scenes/game_hero/enemies/" + s[3] + ".tscn")
 			var enemy_node = enemy_scene.instance()
 			get_node("map_" + str(next_door_id[0]) + "/TileMap").add_child(enemy_node)
 			enemy_node.set_pos(Vector2(s[1][0]*100 +50,s[1][1]*100 +50))
+			s[2] = false
+	#get_node("../..").websocket.send('{"event":"multicast","reason":"close_spawns","room":' + str(next_door_id[0]) + '}')
 	
 	if (next_door_id == [-1,-1]):
 		pass
@@ -129,6 +131,7 @@ func change_room(door_id):
 		get_node("../theseus").set_global_pos(Vector2(doors[next_door_index][0][0] - 100, doors[next_door_index][0][1]))
 		get_node("../theseus").set_current_room(next_door_id[0])
 	get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
+	get_node("map_"+str(next_door_id[0])).close_doors()
 
 func update_hero_side(new_doors, new_spawns):
 	doors = new_doors
@@ -176,7 +179,7 @@ func connect(door_id1,door_id2):
 
 func link(spawn_id, monster):
 	var i = get_spawn_index(spawn_id)
-	if spawns[i][2] == false:
+	if spawns[i][2] == true:
 		spawns[i][3] = monster
 
 func update_release():
@@ -192,4 +195,9 @@ func update_release():
 		doors = str2var(var2str(editable_doors))
 	else:
 		get_node("architect/CanvasLayer/WindowDialog").popup()
-	
+
+func close_spawns(room):
+	for s in spawns:
+		if s[0][0] == room:
+			s[2] = false
+	get_node("architect").remove_spawn_from_list(room)
