@@ -1,0 +1,33 @@
+[gd_scene format=1]
+
+[node name="WindowDialog" type="WindowDialog"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 115.0
+margin/top = 115.0
+margin/right = 396.0
+margin/bottom = 169.0
+popup/exclusive = false
+window/title = "Connection Impossible"
+
+[node name="Label" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 370.0
+margin/bottom = 40.0
+text = "Impossible to connect the doors you have 
+chosen together, at least one of them is
+already connected to another released door"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+

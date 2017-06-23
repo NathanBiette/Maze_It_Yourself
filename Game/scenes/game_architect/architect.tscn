@@ -1,8 +1,28 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://scripts/architect.gd" type="Script" id=1]
+[ext_resource path="res://scenes/game_architect/connection_error_popup.tscn" type="PackedScene" id=2]
 
 [sub_resource type="GDScript" id=1]
+
+script/source = "extends Panel
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+func _ready():
+	# Called every time the node is added to the scene.
+	hide()
+
+func _on_MenuButton_toggled( pressed ):
+	if pressed:
+		show()
+	else:
+		hide()
+"
+
+[sub_resource type="GDScript" id=2]
 
 script/source = "extends OptionButton
 
@@ -18,61 +38,109 @@ func _ready():
 func add(d):
 	var not_in_list = true
 	for i in range(get_item_count()):
-		if (d[0]*10+d[1] == get_item_ID(i)):
+		if (d[0]*100+d[1] == get_item_ID(i)):
 			not_in_list = false
 	if not_in_list:
 		if d[1] == 0:
-			add_item(\"Room \" +str(d[0])+\" north door\", d[0] * 10 + d[1])
+			add_item(\"Room \" +str(d[0])+\" north door\", d[0] * 100 + d[1])
 		if d[1] == 1:
-			add_item(\"Room \" +str(d[0])+\" west door\", d[0] * 10 + d[1])
+			add_item(\"Room \" +str(d[0])+\" west door\", d[0] * 100 + d[1])
 		if d[1] == 2:
-			add_item(\"Room \" +str(d[0])+\" south door\", d[0] * 10 + d[1])
+			add_item(\"Room \" +str(d[0])+\" south door\", d[0] * 100 + d[1])
 		if d[1] == 3:
-			add_item(\"Room \" +str(d[0])+\" east door\", d[0] * 10 + d[1])
+			add_item(\"Room \" +str(d[0])+\" east door\", d[0] * 100 + d[1])
 		
 "
+
+[sub_resource type="GDScript" id=3]
+
+script/source = "extends OptionButton
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+func _ready():
+	# Called every time the node is added to the scene.
+	# Initialization here
+	pass
+
+func add(s):
+	var not_in_list = true
+	for i in range(get_item_count()):
+		if (s[0]*100+s[1] == get_item_ID(i)):
+			not_in_list = false
+	if not_in_list:
+		add_item(\"Room : \" + str(s[0]) + \", Spawn n°\" + str(s[1]), s[0]*100+s[1])
+		"
 
 [node name="architect" type="Node"]
 
 script/script = ExtResource( 1 )
 
-[node name="Panel" type="Panel" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="MenuButton" type="CheckButton" parent="CanvasLayer"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = -10.0
-margin/right = 310.0
-margin/bottom = 96.0
+margin/top = 140.0
+margin/right = 179.0
+margin/bottom = 162.0
+toggle_mode = true
+click_on_press = true
+enabled_focus_mode = 0
+shortcut = null
+text = "Architect center"
+flat = true
+align = 0
 
-[node name="LineEdit" type="LineEdit" parent="Panel"]
+[node name="Panel" type="Panel" parent="CanvasLayer/MenuButton"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
+margin/top = 20.0
+margin/right = 320.0
+margin/bottom = 250.0
+script/script = SubResource( 1 )
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/MenuButton/Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 130.0
 margin/top = 0.0
 margin/right = 310.0
 margin/bottom = 24.0
-text = "res://scenes/game_hero/rooms/test_map.tscn"
+text = "0"
 placeholder/text = "path to room"
 placeholder/alpha = 0.6
 focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 
-[node name="create_room" type="Button" parent="Panel"]
+[node name="create_room" type="Button" parent="CanvasLayer/MenuButton/Panel"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 110.0
+margin/left = 100.0
 margin/top = 20.0
-margin/right = 204.0
+margin/right = 194.0
 margin/bottom = 40.0
 toggle_mode = false
 enabled_focus_mode = 2
@@ -80,7 +148,7 @@ shortcut = null
 text = "Create Room"
 flat = false
 
-[node name="OptionButton_1" type="OptionButton" parent="Panel"]
+[node name="OptionButton_1" type="OptionButton" parent="CanvasLayer/MenuButton/Panel"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -97,9 +165,9 @@ flat = false
 align = 0
 selected = -1
 items = [  ]
-script/script = SubResource( 1 )
+script/script = SubResource( 2 )
 
-[node name="OptionButton_2" type="OptionButton" parent="Panel"]
+[node name="OptionButton_2" type="OptionButton" parent="CanvasLayer/MenuButton/Panel"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -116,17 +184,17 @@ flat = false
 align = 0
 selected = -1
 items = [  ]
-script/script = SubResource( 1 )
+script/script = SubResource( 2 )
 
-[node name="connect" type="Button" parent="Panel"]
+[node name="connect" type="Button" parent="CanvasLayer/MenuButton/Panel"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 120.0
+margin/left = 110.0
 margin/top = 80.0
-margin/right = 200.0
+margin/right = 190.0
 margin/bottom = 100.0
 toggle_mode = false
 enabled_focus_mode = 2
@@ -134,8 +202,121 @@ shortcut = null
 text = "connect"
 flat = false
 
-[connection signal="pressed" from="Panel/create_room" to="." method="_on_Button_pressed"]
+[node name="Label" type="Label" parent="CanvasLayer/MenuButton/Panel"]
 
-[connection signal="pressed" from="Panel/connect" to="." method="_on_connect_pressed"]
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 4.0
+margin/right = 121.0
+margin/bottom = 24.0
+text = "Core room number:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="spawn_button" type="OptionButton" parent="CanvasLayer/MenuButton/Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 130.0
+margin/right = 130.0
+margin/bottom = 150.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+flat = false
+align = 0
+selected = -1
+items = [  ]
+script/script = SubResource( 3 )
+
+[node name="monster_button" type="OptionButton" parent="CanvasLayer/MenuButton/Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 160.0
+margin/top = 130.0
+margin/right = 280.0
+margin/bottom = 150.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+flat = false
+align = 0
+selected = -1
+items = [  ]
+
+[node name="link" type="Button" parent="CanvasLayer/MenuButton/Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 130.0
+margin/top = 160.0
+margin/right = 168.0
+margin/bottom = 180.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Link"
+flat = false
+
+[node name="Label 2" type="Label" parent="CanvasLayer/MenuButton/Panel"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 60.0
+margin/top = 110.0
+margin/right = 253.0
+margin/bottom = 124.0
+text = "Monster Spawn Control Center"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Release" type="Button" parent="CanvasLayer/MenuButton/Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 100.0
+margin/top = 200.0
+margin/right = 203.0
+margin/bottom = 220.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Release Room"
+flat = false
+
+[node name="WindowDialog" parent="CanvasLayer" instance=ExtResource( 2 )]
+
+visibility/visible = false
+margin/left = 340.0
+margin/top = 200.0
+margin/right = 620.0
+margin/bottom = 250.0
+
+[connection signal="toggled" from="CanvasLayer/MenuButton" to="CanvasLayer/MenuButton/Panel" method="_on_MenuButton_toggled"]
+
+[connection signal="pressed" from="CanvasLayer/MenuButton/Panel/create_room" to="." method="_on_Button_pressed"]
+
+[connection signal="pressed" from="CanvasLayer/MenuButton/Panel/connect" to="." method="_on_connect_pressed"]
+
+[connection signal="pressed" from="CanvasLayer/MenuButton/Panel/link" to="." method="_on_link_pressed"]
+
+[connection signal="pressed" from="CanvasLayer/MenuButton/Panel/Release" to="." method="_on_Release_pressed"]
 
 

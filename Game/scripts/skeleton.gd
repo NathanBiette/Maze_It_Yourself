@@ -19,7 +19,7 @@ func _ready():
 func interact(dir, node):
 	#interactions are specific to one enemy
 	if (dir=="up"):
-		get_node("Sprite/Skeleton_Death_Anim").play("death")
+		get_node("Sprite/Death_Anim").play("death")
 		#finishing an animation from the group death_anims deletes the skeleton node
 		get_node("CollisionShape2D").queue_free()
 		#the hitbox disapears first
