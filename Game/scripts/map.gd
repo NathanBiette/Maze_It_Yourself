@@ -28,21 +28,17 @@ func open_doors():
 	for d in range(doors_locations.size()):
 		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==1):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],2)
-			#changes the cell just above the door /!\ doesn't work if the door is on a top or bottom wall
 			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,10)
 		
 		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==5):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],6)
-			#changes the cell just above the door /!\ doesn't work if the door is on a top or bottom wall
 			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,10)
 		#NORTH
 		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==3):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],4)
-			#changes the cell just above the door /!\ doesn't work if the door is on a top or bottom wall
 		#SOUTH
 		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==7):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],8)
-			#changes the cell just above the door /!\ doesn't work if the door is on a top or bottom wall
 
 	is_open = true
 
@@ -50,6 +46,17 @@ func close_doors():
 	for d in range(doors_locations.size()):
 		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==2):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],1)
+			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,10)
+		
+		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==6):
+			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],5)
+			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,10)
+		#NORTH
+		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==4):
+			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],3)
+		#SOUTH
+		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==8):
+			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],7)
 
 func find_doors():
 	var tab = get_node("TileMap").get_used_cells()
