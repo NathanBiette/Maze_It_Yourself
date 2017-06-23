@@ -8,7 +8,9 @@
 custom_solver_bias = 0.0
 extents = Vector2( 44, 44 )
 
-[node name="Gorgon" type="KinematicBody2D"]
+[node name="Gorgon" type="KinematicBody2D" groups=[
+"enemies",
+]]
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )

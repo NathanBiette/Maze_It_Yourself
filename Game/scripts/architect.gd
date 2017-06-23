@@ -40,7 +40,8 @@ func _on_connect_pressed():
 func _on_link_pressed():
 	var spawn =  get_node("CanvasLayer/MenuButton/Panel/spawn_button").get_selected_ID()
 	var spawn_id = [int(spawn/100), spawn - int(spawn/100)*100]
-	var monster = get_node("CanvasLayer/MenuButton/Panel/monster_button").get_selected_ID()
+	var monster_index = get_node("CanvasLayer/MenuButton/Panel/monster_button").get_selected()
+	var monster = get_node("CanvasLayer/MenuButton/Panel/monster_button").get_item_text(monster_index)
 	get_node("../.").link(spawn_id, monster)
 
 func _on_Release_pressed():
