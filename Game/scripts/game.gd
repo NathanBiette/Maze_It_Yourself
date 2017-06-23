@@ -1,10 +1,10 @@
 extends Node
 
 var websocket
-var server_ip = 'warm-temple-69360.herokuapp.com'
-var port = 80
-#var server_ip = '137.194.23.194'
-#var port = 3000
+#var server_ip = 'warm-temple-69360.herokuapp.com'
+#var port = 80
+var server_ip = '137.194.23.194'
+var port = 3000
 var channel = 'global'
 var timer
 var reconnectionTries = 0
@@ -45,29 +45,31 @@ func _on_message_recieved(msg):
 		connected = true
 		print('Connected')
 
+
 func _on_timer_timeout():
 	timer.stop()
 	print("Timed out")
-	websocket.close()
 	connected = false
-	reconnectionTimer = Timer.new()
-	reconnectionTimer.connect("timeout",self,"_on_reconnection_timer_timeout")
-	reconnectionTimer.set_wait_time(3)
-	add_child(reconnectionTimer)
-	reconnectionTimer.start()
-	# Handle the disconnection
-
-func _on_reconnection_timer_timeout():
-	if (connected == true):
-		reconnectionTimer.stop()
-		remove_child(reconnectionTimer)
-		print('Reconnected')
-		return
-	websocket = preload('res://scripts/websocket.gd').new(self)
-	websocket.start(server_ip,port)
-	websocket.set_reciever(self,'_on_message_recieved')
-	websocket.send('{"event":"connection","id":"' + OS.get_unique_ID() + '"}')
-	reconnectionTimer.stop()
-	reconnectionTries += 1
-	reconnectionTimer.set_wait_time(3)
-	reconnectionTimer.start()
+#	
+#	reconnectionTimer = Timer.new()
+#	reconnectionTimer.connect("timeout",self,"_on_reconnection_timer_timeout")
+#	reconnectionTimer.set_wait_time(3)
+#	add_child(reconnectionTimer)
+#	reconnectionTimer.start()
+#	# Handle the disconnection
+#
+#func _on_reconnection_timer_timeout():
+#	if (connected == true):
+#		reconnectionTimer.stop()
+#		remove_child(reconnectionTimer)
+#		print('Reconnected')
+#		return
+#	websocket = preload('res://scripts/websocket.gd').new(self)
+#	websocket.start(server_ip,port)
+#	websocket.set_reciever(self,'_on_message_recieved')
+#	websocket.send('{"event":"connection","id":"' + OS.get_unique_ID() + '"}')
+#	get_child(1).websocket = websocket
+#	reconnectionTimer.stop()
+#	reconnectionTries += 1
+#	reconnectionTimer.set_wait_time(3)
+#	reconnectionTimer.start()

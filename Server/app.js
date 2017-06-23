@@ -41,7 +41,7 @@
     numberChannels[ws.channel] += 1;
 
     connections.push(ws);
-    var pingpong = setInterval(ping, 30000);
+    // var pingpong = setInterval(ping, 30000);
     console.log(numberChannels[ws.channel] + ' clients in channel ' + ws.channel);
 
     // Activated when receiving a message from a connection
@@ -133,9 +133,12 @@
       var index = connections.indexOf(ws);
       connections.splice(index, 1);
 
+      // clearInterval(pingpong);
+
       return console.log(ws.id + ' has been disconnected');
     };
 
+    /*
     function ping() {
       try {
         ws.send('{"event":"ping"}');
@@ -144,7 +147,7 @@
       }
       tm = setTimeout(function () {
         console.log(ws.id + ' timed out');
-        ws.terminate();
+        ws.close(42, 'Duh');
         clearInterval(pingpong);
         clearTimeout(tm);
 
@@ -173,6 +176,7 @@
     function pong() {
       clearTimeout(tm);
     }
+    */
 
     return
   });
