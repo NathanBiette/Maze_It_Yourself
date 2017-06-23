@@ -97,6 +97,7 @@
           break;
 
         case 'add_room':
+          console.log('add_room');
           multicast(event.data, ws);
           break;
 
@@ -194,7 +195,8 @@
     var channel = ws.channel;
     var id = ws.id;
     for (var i=0; i<connections.length; i++) {
-      if (connections[i].id != id && connections.channel == channel) {
+      if (connections[i].id != id && connections[i].channel == channel) {
+        console.log('multicasting');
         connections[i].send(message);
       }
     }

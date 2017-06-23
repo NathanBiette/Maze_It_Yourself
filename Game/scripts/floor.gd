@@ -16,10 +16,10 @@ var number_of_rooms = 0
 
 
 func _ready():
-	#add_architect()
+	add_architect()
+	add_room(0)
 	#hero_exclusive
 	if get_node("../.").get_name() == "game_hero":
-		add_room(0)
 		get_node("architect").update_doors(doors)
 		get_node("architect").update_spawn(spawns)
 		get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
