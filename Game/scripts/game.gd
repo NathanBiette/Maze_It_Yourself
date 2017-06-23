@@ -1,10 +1,10 @@
 extends Node
 
 var websocket
-var server_ip = 'warm-temple-69360.herokuapp.com'
-var port = 80
-#var server_ip = '137.194.23.194'
-#var port = 3000
+#var server_ip = 'warm-temple-69360.herokuapp.com'
+#var port = 80
+var server_ip = '137.194.23.194'
+var port = 3000
 var channel = 'global'
 var timer
 var reconnectionTries = 0
