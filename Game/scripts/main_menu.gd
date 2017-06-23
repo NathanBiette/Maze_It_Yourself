@@ -1,16 +1,10 @@
 extends Sprite
 
 var websocket
-var server_ip = 'warm-temple-69360.herokuapp.com'
-var channel = 'global'
 onready var parent = get_node("..")
 
 func _ready():
 	websocket = parent.websocket
-	websocket = preload('websocket.gd').new(self)
-	websocket.start(server_ip,80)
-	websocket.set_reciever(self,'_on_message_recieved')
-	websocket.send('{"event":"connection","id":"' + OS.get_unique_ID() + '"}')
 
 func _on_message_recieved(msg):
 	var dict = {}
