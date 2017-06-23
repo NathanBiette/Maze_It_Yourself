@@ -3,12 +3,10 @@ extends Sprite
 var websocket
 var server_ip = '137.194.23.37'
 var channel = 'global'
+onready var parent = get_node("..")
 
 func _ready():
-	websocket = preload('websocket.gd').new(self)
-	websocket.start('137.194.23.37',3000)
-	websocket.set_reciever(self,'_on_message_recieved')
-	websocket.send('{"event":"connection","id":"' + OS.get_unique_ID() + '"}')
+	websocket = parent.websocket
 
 func _on_message_recieved(msg):
 	var dict = {}
@@ -19,11 +17,17 @@ func _on_message_recieved(msg):
 
 
 func _on_start_architect_pressed():
-	get_tree().change_scene("res://scenes/game_architect/game_architect.tscn")
+	var game_architect = preload("res://scenes/game_architect/game_architect.tscn")
+	var arch = game_architect.instance()
+	get_node("..").add_child(arch)
+	queue_free()
 
 
 func _on_start_hero_pressed():
-	get_tree().change_scene("res://scenes/game_hero/game_hero.tscn")
+	var game_hero = preload("res://scenes/game_hero/game_hero.tscn")
+	var hero = game_hero.instance()
+	get_node("..").add_child(hero)
+	queue_free()
 
 
 func _on_disconnect_pressed():
