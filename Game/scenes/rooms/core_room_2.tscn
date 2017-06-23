@@ -3,7 +3,6 @@
 [ext_resource path="res://sets/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://scripts/core_room_script.gd" type="Script" id=2]
 
-
 [node name="TileMap" type="TileMap"]
 
 transform/pos = Vector2( 500, 400 )
