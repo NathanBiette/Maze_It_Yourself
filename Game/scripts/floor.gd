@@ -139,7 +139,7 @@ func change_room(door_id):
 			get_node("map_" + str(next_door_id[0]) + "/TileMap").add_child(enemy_node)
 			enemy_node.set_pos(Vector2(s[1][0]*100 +50,s[1][1]*100 +50))
 			s[2] = false
-	get_node("..").websocket.send('{"event":"multicast","reason":"close_spawns","room":' + str(next_door_id[0]) + '}')
+	#get_node("../..").websocket.send('{"event":"multicast","reason":"close_spawns","room":' + str(next_door_id[0]) + '}')
 	
 	if (next_door_id == [-1,-1]):
 		pass
@@ -202,7 +202,7 @@ func update_release():
 	if edition_ok == true:
 		doors = str2var(var2str(editable_doors))
 		print(str(doors))
-		get_node("..").websocket.send('{"event":"multicast","reason":"update","spawns":' + str(spawns) + ',"doors":' + str(doors) + '}')
+		#get_node("../..").websocket.send('{"event":"multicast","reason":"update","spawns":' + str(spawns) + ',"doors":' + str(doors) + '}')
 	else:
 		get_node("architect/CanvasLayer/WindowDialog").popup()
 
