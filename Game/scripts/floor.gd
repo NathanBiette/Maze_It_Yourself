@@ -19,7 +19,7 @@ func _ready():
 	add_room(4)
 	#hero_exclusive
 	if get_node("../.").get_name() == "game_hero":
-		#add_architect()
+		add_architect()
 		get_node("architect").update_doors(doors)
 		get_node("architect").update_spawn(spawns)
 		get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
@@ -28,11 +28,6 @@ func _ready():
 		add_architect()
 
 #==============================
-
-func add_architect_view():
-	var scene = load("res://scenes/game_architect/architect_view.tscn")
-	var node = scene.instance()
-	add_child(node)
 
 func add_room(core_map_index):
 	
@@ -176,6 +171,11 @@ func update(new_doors, new_spawns):
 #===================ARCHITECT ONLY==========================#
 func add_architect():
 	var scene = load("res://scenes/game_architect/architect.tscn")
+	var node = scene.instance()
+	add_child(node)
+
+func add_architect_view():
+	var scene = load("res://scenes/game_architect/architect_view.tscn")
 	var node = scene.instance()
 	add_child(node)
 
