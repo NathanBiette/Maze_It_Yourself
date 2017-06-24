@@ -1,13 +1,20 @@
-[gd_scene load_steps=13 format=1]
+[gd_scene load_steps=22 format=1]
 
 [ext_resource path="res://textures/level/floors/floor.tex" type="Texture" id=1]
-[ext_resource path="res://textures/level/doors/door.tex" type="Texture" id=2]
-[ext_resource path="res://textures/level/floors/sand.tex" type="Texture" id=3]
-[ext_resource path="res://textures/level/walls/greek_wall_white.tex" type="Texture" id=4]
-[ext_resource path="res://textures/level/walls/greek_wall_big_pattern.tex" type="Texture" id=5]
-[ext_resource path="res://textures/level/doors/wall_door.tex" type="Texture" id=6]
-[ext_resource path="res://icon.png" type="Texture" id=7]
-[ext_resource path="res://textures/level/floors/floor_clean.tex" type="Texture" id=8]
+[ext_resource path="res://textures/level/doors/greek_gate_side_E_closed.tex" type="Texture" id=2]
+[ext_resource path="res://textures/level/doors/greek_gate_side_E_open.tex" type="Texture" id=3]
+[ext_resource path="res://textures/level/doors/greek_gate_front.tex" type="Texture" id=4]
+[ext_resource path="res://textures/level/doors/greek_gate_front_open.tex" type="Texture" id=5]
+[ext_resource path="res://textures/level/doors/greek_gate_side_W_closed.tex" type="Texture" id=6]
+[ext_resource path="res://textures/level/doors/greek_gate_side_W_open.tex" type="Texture" id=7]
+[ext_resource path="res://textures/level/walls/greek_wall_white.tex" type="Texture" id=8]
+[ext_resource path="res://textures/level/walls/greek_wall_big_pattern.tex" type="Texture" id=9]
+[ext_resource path="res://textures/level/walls/greek_wall_side_E_closed.tex" type="Texture" id=10]
+[ext_resource path="res://icon.png" type="Texture" id=11]
+[ext_resource path="res://textures/level/floors/floor_clean.tex" type="Texture" id=12]
+[ext_resource path="res://textures/level/walls/greek_wall_side_W_closed.tex" type="Texture" id=13]
+[ext_resource path="res://textures/level/walls/greek_wall_side_E_open.tex" type="Texture" id=14]
+[ext_resource path="res://textures/level/walls/greek_wall_side_W_open.tex" type="Texture" id=15]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -19,12 +26,22 @@ points = Vector2Array( 50, -50, 50, 50, -50, 50, -50, -50 )
 custom_solver_bias = 0.0
 points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 
+[sub_resource type="ConvexPolygonShape2D" id=3]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
+
 [sub_resource type="ConvexPolygonShape2D" id=4]
 
 custom_solver_bias = 0.0
 points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 
-[sub_resource type="ConvexPolygonShape2D" id=3]
+[sub_resource type="ConvexPolygonShape2D" id=5]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
+
+[sub_resource type="ConvexPolygonShape2D" id=6]
 
 custom_solver_bias = 0.0
 points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
@@ -70,7 +87,7 @@ texture = ExtResource( 3 )
 [node name="door_close_N" type="Sprite" parent="."]
 
 transform/pos = Vector2( 450, 50 )
-texture = ExtResource( 2 )
+texture = ExtResource( 4 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="door_close_N"]
 
@@ -95,17 +112,17 @@ trigger = false
 [node name="door_open_N" type="Sprite" parent="."]
 
 transform/pos = Vector2( 450, 250 )
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
 
 [node name="door_close_W" type="Sprite" parent="."]
 
 transform/pos = Vector2( 650, 50 )
-texture = ExtResource( 2 )
+texture = ExtResource( 6 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="door_close_W"]
 
 input/pickable = false
-shapes/0/shape = SubResource( 2 )
+shapes/0/shape = SubResource( 3 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -125,17 +142,17 @@ trigger = false
 [node name="door_open_W" type="Sprite" parent="."]
 
 transform/pos = Vector2( 650, 250 )
-texture = ExtResource( 3 )
+texture = ExtResource( 7 )
 
 [node name="door_close_S" type="Sprite" parent="."]
 
 transform/pos = Vector2( 850, 50 )
-texture = ExtResource( 2 )
+texture = ExtResource( 4 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="door_close_S"]
 
 input/pickable = false
-shapes/0/shape = SubResource( 2 )
+shapes/0/shape = SubResource( 3 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -155,12 +172,12 @@ trigger = false
 [node name="door_open_S" type="Sprite" parent="."]
 
 transform/pos = Vector2( 850, 250 )
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
 
 [node name="wall1" type="Sprite" parent="."]
 
 transform/pos = Vector2( 1050, 250 )
-texture = ExtResource( 4 )
+texture = ExtResource( 8 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="wall1"]
 
@@ -185,12 +202,12 @@ trigger = false
 [node name="wall2" type="Sprite" parent="."]
 
 transform/pos = Vector2( 1050, 50 )
-texture = ExtResource( 5 )
+texture = ExtResource( 9 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="wall2"]
 
 input/pickable = false
-shapes/0/shape = SubResource( 2 )
+shapes/0/shape = SubResource( 3 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -207,15 +224,15 @@ polygon = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 shape_range = Vector2( 0, 0 )
 trigger = false
 
-[node name="wall3" type="Sprite" parent="."]
+[node name="wall_door_E_closed" type="Sprite" parent="."]
 
 transform/pos = Vector2( 1250, 50 )
-texture = ExtResource( 6 )
+texture = ExtResource( 10 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="wall3"]
+[node name="StaticBody2D" type="StaticBody2D" parent="wall_door_E_closed"]
 
 input/pickable = false
-shapes/0/shape = SubResource( 3 )
+shapes/0/shape = SubResource( 5 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -225,7 +242,7 @@ constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="wall3/StaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="wall_door_E_closed/StaticBody2D"]
 
 build_mode = 0
 polygon = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
@@ -235,12 +252,87 @@ trigger = false
 [node name="monster_spawn" type="Sprite" parent="."]
 
 transform/pos = Vector2( 50, 250 )
-texture = ExtResource( 7 )
+texture = ExtResource( 11 )
 modulate = Color( 1, 0, 0, 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="floor_clean" type="Sprite" parent="."]
+
+transform/pos = Vector2( 1650, 250 )
+texture = ExtResource( 12 )
+
+[node name="wall_door_W_closed" type="Sprite" parent="."]
 
 transform/pos = Vector2( 1250, 250 )
-texture = ExtResource( 8 )
+texture = ExtResource( 13 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="wall_door_W_closed"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 6 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="wall_door_W_closed/StaticBody2D"]
+
+build_mode = 0
+polygon = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+
+[node name="wall_door_E_open" type="Sprite" parent="."]
+
+transform/pos = Vector2( 1450, 50 )
+texture = ExtResource( 14 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="wall_door_E_open"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 6 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="wall_door_E_open/StaticBody2D"]
+
+build_mode = 0
+polygon = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+
+[node name="wall_door_W_open" type="Sprite" parent="."]
+
+transform/pos = Vector2( 1450, 250 )
+texture = ExtResource( 15 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="wall_door_W_open"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 6 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="wall_door_W_open/StaticBody2D"]
+
+build_mode = 0
+polygon = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
+shape_range = Vector2( 0, 0 )
+trigger = false
 
 
