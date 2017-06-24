@@ -28,11 +28,11 @@ func open_doors():
 	for d in range(doors_locations.size()):
 		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==1):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],2)
-			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,10)
+			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,15)
 		
 		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==5):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],6)
-			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,10)
+			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,16)
 		#NORTH
 		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==3):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],4)
@@ -46,11 +46,11 @@ func close_doors():
 	for d in range(doors_locations.size()):
 		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==2):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],1)
-			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,10)
+			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,11)
 		
 		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==6):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],5)
-			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,10)
+			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,14)
 		#NORTH
 		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==4):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],3)
