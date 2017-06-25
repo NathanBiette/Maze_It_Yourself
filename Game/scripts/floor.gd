@@ -194,7 +194,13 @@ func update_release():
 	if edition_ok == true:
 		doors = str2var(var2str(editable_doors))
 		print(str(doors))
-		get_node("..").websocket.send('{"event":"multicast","reason":"update","spawns":' + str(spawns) + ',"doors":' + str(doors) + '}')
+		get_node("..").websocket.send('{"event":"multicast","reason":"update","spawns":"hi"}')
+		get_node("..").websocket.send('{"event":"multicast","reason":"update","doors":"hi"}')
+		get_node("..").websocket.send('{"event":"multicast","reason":"update","spawns":"hi","doors":"hi"}')
+		get_node("..").websocket.send('{"event":"multicast","reason":"update","spawns":"hiiiiiiiiiiiiiiiiiiiiiiiiiiiii","doors":"hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"}')
+		var stringTest = '{"event":"multicast","reason":"update","spawns":"' + str(spawns) + '"}'
+		print(stringTest)
+		get_node("..").websocket.send(stringTest)
 	else:
 		get_node("architect/CanvasLayer/WindowDialog").popup()
 
