@@ -6,6 +6,7 @@ var movement_unit = 100
 var health
 var current_dir
 var facing
+var is_dead
 
 
 func _ready():
