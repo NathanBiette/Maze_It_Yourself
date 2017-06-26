@@ -30,7 +30,7 @@ func interact(dir, node):
 	#interactions are specific to one enemy
 	health -= node.attack
 	get_node("AnimatedSprite/TextureProgress").set_value((float(health)/float(10))*100.0)
-	node.get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + str(dir))
+	node.get_node("AnimatedSprite/Blocked_move_anims").play("blocked_move_" + str(dir))
 
 func _move(dir):
 	if facing == "left":

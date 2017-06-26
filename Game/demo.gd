@@ -55,7 +55,11 @@ func _ready():
 	var spawns = level_instance.get_spawns()
 	var k = 0
 	for k in range(spawns.size()):
-		level_instance.link(spawns[k][0],"skeleton")
+		var i = randi()%5+1
+		if (i==4):
+			level_instance.link(spawns[k][0],"giant")
+		else:
+			level_instance.link(spawns[k][0],"skeleton")
 	level_instance.update_release()
 
 func game_over():
