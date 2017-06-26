@@ -21,7 +21,17 @@
 custom_solver_bias = 0.0
 points = Vector2Array( 50, -50, 50, 50, -50, 50, -50, -50 )
 
+[sub_resource type="ConvexPolygonShape2D" id=2]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
+
 [sub_resource type="ConvexPolygonShape2D" id=3]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
+
+[sub_resource type="ConvexPolygonShape2D" id=4]
 
 custom_solver_bias = 0.0
 points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
@@ -32,16 +42,6 @@ custom_solver_bias = 0.0
 points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 
 [sub_resource type="ConvexPolygonShape2D" id=6]
-
-custom_solver_bias = 0.0
-points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
-
-[sub_resource type="ConvexPolygonShape2D" id=2]
-
-custom_solver_bias = 0.0
-points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
-
-[sub_resource type="ConvexPolygonShape2D" id=4]
 
 custom_solver_bias = 0.0
 points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
@@ -83,7 +83,7 @@ points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 3/occluder_offset = Vector2( 50, 50 )
 3/navigation_offset = Vector2( 50, 50 )
 3/shape_offset = Vector2( 50, 50 )
-3/shapes = [ SubResource( 2 ) ]
+3/shapes = [ SubResource( 5 ) ]
 4/name = "door_open_N"
 4/texture = ExtResource( 12 )
 4/tex_offset = Vector2( 0, 0 )
@@ -101,7 +101,7 @@ points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 5/occluder_offset = Vector2( 50, 50 )
 5/navigation_offset = Vector2( 50, 50 )
 5/shape_offset = Vector2( 50, 50 )
-5/shapes = [ SubResource( 3 ) ]
+5/shapes = [ SubResource( 2 ) ]
 6/name = "door_open_W"
 6/texture = ExtResource( 14 )
 6/tex_offset = Vector2( 0, 0 )
@@ -119,7 +119,7 @@ points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 7/occluder_offset = Vector2( 50, 50 )
 7/navigation_offset = Vector2( 50, 50 )
 7/shape_offset = Vector2( 50, 50 )
-7/shapes = [ SubResource( 3 ) ]
+7/shapes = [ SubResource( 2 ) ]
 8/name = "door_open_S"
 8/texture = ExtResource( 12 )
 8/tex_offset = Vector2( 0, 0 )
@@ -137,7 +137,7 @@ points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 9/occluder_offset = Vector2( 50, 50 )
 9/navigation_offset = Vector2( 50, 50 )
 9/shape_offset = Vector2( 50, 50 )
-9/shapes = [ SubResource( 4 ) ]
+9/shapes = [ SubResource( 6 ) ]
 10/name = "wall2"
 10/texture = ExtResource( 3 )
 10/tex_offset = Vector2( 0, 0 )
@@ -146,7 +146,7 @@ points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 10/occluder_offset = Vector2( 50, 50 )
 10/navigation_offset = Vector2( 50, 50 )
 10/shape_offset = Vector2( 50, 50 )
-10/shapes = [ SubResource( 3 ) ]
+10/shapes = [ SubResource( 2 ) ]
 11/name = "wall_door_E_closed"
 11/texture = ExtResource( 4 )
 11/tex_offset = Vector2( 0, 0 )
@@ -155,7 +155,7 @@ points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 11/occluder_offset = Vector2( 50, 50 )
 11/navigation_offset = Vector2( 50, 50 )
 11/shape_offset = Vector2( 50, 50 )
-11/shapes = [ SubResource( 5 ) ]
+11/shapes = [ SubResource( 3 ) ]
 12/name = "monster_spawn"
 12/texture = ExtResource( 5 )
 12/tex_offset = Vector2( 0, 0 )
@@ -182,7 +182,7 @@ points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 14/occluder_offset = Vector2( 50, 50 )
 14/navigation_offset = Vector2( 50, 50 )
 14/shape_offset = Vector2( 50, 50 )
-14/shapes = [ SubResource( 6 ) ]
+14/shapes = [ SubResource( 4 ) ]
 15/name = "wall_door_E_open"
 15/texture = ExtResource( 8 )
 15/tex_offset = Vector2( 0, 0 )
@@ -191,7 +191,7 @@ points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 15/occluder_offset = Vector2( 50, 50 )
 15/navigation_offset = Vector2( 50, 50 )
 15/shape_offset = Vector2( 50, 50 )
-15/shapes = [ SubResource( 6 ) ]
+15/shapes = [ SubResource( 4 ) ]
 16/name = "wall_door_W_open"
 16/texture = ExtResource( 9 )
 16/tex_offset = Vector2( 0, 0 )
@@ -200,5 +200,5 @@ points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 16/occluder_offset = Vector2( 50, 50 )
 16/navigation_offset = Vector2( 50, 50 )
 16/shape_offset = Vector2( 50, 50 )
-16/shapes = [ SubResource( 6 ) ]
+16/shapes = [ SubResource( 4 ) ]
 
