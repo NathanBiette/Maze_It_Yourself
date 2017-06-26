@@ -13,8 +13,9 @@ var current_dir
 func _ready():
 	original_pos = get_node(".").get_global_pos()
 	damage = 1
-	health = 1
+	health = 3
 	set_process(true)
+	get_node("Sprite/TextureProgress").set_value((float(health)/float(3))*100.0)
 
 func _process(delta):
 	if (health <= 0):
@@ -27,6 +28,7 @@ func _process(delta):
 func interact(dir, node):
 	#interactions are specific to one enemy
 	health -= node.attack
+	get_node("Sprite/TextureProgress").set_value((float(health)/float(3))*100.0)
 	node.get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + str(dir))
 
 func _move(dir):
