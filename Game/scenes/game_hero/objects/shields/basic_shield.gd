@@ -10,7 +10,7 @@ func defense():
 	return defense
 
 func active(current_room):
-	pass
+	return 0
 
 func _on_Area2D_area_enter(area):
 	var interacting_node = area.get_node("../")

@@ -31,6 +31,7 @@ func _ready():
 	var  doors=level_instance.get_doors()
 	print(doors)
 	var size = doors.size()
+	randomize()
 	while (doors.size()>0):
 		size=doors.size()
 		var end_early=true
@@ -59,7 +60,7 @@ func _ready():
 		if (i==4):
 			level_instance.link(spawns[k][0],"giant")
 		else:
-			level_instance.link(spawns[k][0],"skeleton")
+			level_instance.link(spawns[k][0],"giant")
 	level_instance.update_release()
 
 func game_over():
