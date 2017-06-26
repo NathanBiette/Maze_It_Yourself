@@ -21,6 +21,9 @@ var gold
 #is a movement animation over right now?
 var idle = true
 
+#is game over now ?
+var game_over = false
+
 #how many pixels theseus must move per swipe
 const MOVEMENT_UNIT = 100
 
@@ -93,8 +96,11 @@ func _move(dir):
 #function that can be called by enemies to change Theseus' attributes
 func lose_hp(damage):
 	current_HP -= damage
+	print(current_HP)
 	get_node("AnimatedSprite/Damage_anims").play("hp_lost")
 	get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100.0)
+	if (current_HP <= 0):
+		game_over()
 
 #function with potential (meaning useless for now)
 func get_movement_unit():
@@ -104,8 +110,6 @@ func get_movement_unit():
 func _on_Movement_anims_finished():
 	idle = true
 	if(looting or dropping):
-		######### need fix => split animation moves in two AnimationPlayers 
-		######### with inventory update at en of move animations  #####
 		update_inventory(previous_dir)
 
 #test idle state of theseus
@@ -208,3 +212,13 @@ func _on_touchBox_input_event( ev ):
 			_move("left")
 		if (angle < -2.456 or angle > 2.456) :
 			_move("down")
+
+func game_over():
+	if (!game_over):
+		get_node("Camera2D/CanvasLayer/AnimationPlayer").play("you_died")
+		game_over = true
+	
+func _on_AnimationPlayer_finished():
+	if (game_over):
+		print("animation finished")
+		get_node("..").game_over()

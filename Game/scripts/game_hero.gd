@@ -30,3 +30,7 @@ func _ready():
 
 func get_ENEMY_LIBRARY():
 	return ENEMY_LIBRARY
+
+func game_over():
+	get_node("..").game_over()
+	queue_free()

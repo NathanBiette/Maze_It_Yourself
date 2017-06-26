@@ -9,7 +9,7 @@
 [ext_resource path="res://textures/hero/hero_face_left_dash_100px.tex" type="Texture" id=7]
 [ext_resource path="res://textures/hero/hero_face_right_dash_100px.tex" type="Texture" id=8]
 [ext_resource path="res://textures/hero/hero_face_up_dash_100px.tex" type="Texture" id=9]
-[ext_resource path="res://textures/level/black_fade_away.tex" type="Texture" id=10]
+[ext_resource path="res://textures/menus/game_over.tex" type="Texture" id=10]
 [ext_resource path="res://textures/hero/health_bar_under.tex" type="Texture" id=11]
 [ext_resource path="res://textures/hero/health_bar_over.tex" type="Texture" id=12]
 [ext_resource path="res://textures/hero/health_bar_progress.tex" type="Texture" id=13]
@@ -268,8 +268,8 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=12]
 
-resource/name = "fade_to_black"
-length = 1.0
+resource/name = "you_died"
+length = 2.0
 loop = false
 step = 0.1
 tracks/0/type = "value"
@@ -277,10 +277,10 @@ tracks/0/path = NodePath("Sprite:visibility/opacity")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0, 0.2, 0.8, 1 ),
-"transitions": FloatArray( 1, 1, 1, 1 ),
+"times": FloatArray( 0, 1, 2 ),
+"transitions": FloatArray( 1, 1, 1 ),
 "update": 0,
-"values": [ 0.0, 1.0, 1.0, 0.0 ]
+"values": [ 0.0, 1.0, 1.0 ]
 }
 
 [sub_resource type="RectangleShape2D" id=13]
@@ -325,7 +325,6 @@ _update_shape_index = 0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 0, -30 )
 frames = SubResource( 2 )
 animation = "default"
@@ -362,7 +361,6 @@ autoplay = ""
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-visibility/visible = false
 anchor_mode = 1
 rotating = false
 current = true
@@ -382,7 +380,7 @@ drag_margin/bottom = 0.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
 
-layer = 1
+layer = 2
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 2, 2 )
@@ -392,7 +390,7 @@ scale = Vector2( 2, 2 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/fade_to_black = SubResource( 12 )
+anims/you_died = SubResource( 12 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -400,11 +398,10 @@ autoplay = ""
 
 [node name="Sprite" type="Sprite" parent="Camera2D/CanvasLayer"]
 
-visibility/visible = false
 visibility/opacity = 0.0
-transform/pos = Vector2( 200, 300 )
-transform/scale = Vector2( 10, 10 )
+transform/scale = Vector2( 0.927734, 0.916667 )
 texture = ExtResource( 10 )
+centered = false
 
 [node name="hud" type="CanvasLayer" parent="Camera2D"]
 
@@ -644,5 +641,7 @@ _update_shape_index = 0
 [connection signal="input_event" from="touchBox" to="." method="_on_touchBox_input_event"]
 
 [connection signal="finished" from="AnimatedSprite/Movement_anims" to="." method="_on_Movement_anims_finished"]
+
+[connection signal="finished" from="Camera2D/CanvasLayer/AnimationPlayer" to="." method="_on_AnimationPlayer_finished"]
 
 
