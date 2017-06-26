@@ -10,7 +10,7 @@
 [ext_resource path="res://textures/level/walls/greek_wall_white_shadowy.tex" type="Texture" id=8]
 [ext_resource path="res://textures/level/walls/greek_wall_big_pattern_shadowy.tex" type="Texture" id=9]
 [ext_resource path="res://textures/level/walls/greek_wall_side_E_closed.tex" type="Texture" id=10]
-[ext_resource path="res://icon.png" type="Texture" id=11]
+[ext_resource path="res://textures/level/floors/sand.tex" type="Texture" id=11]
 [ext_resource path="res://textures/level/floors/floor_clean.tex" type="Texture" id=12]
 [ext_resource path="res://textures/level/walls/greek_wall_side_W_closed.tex" type="Texture" id=13]
 [ext_resource path="res://textures/level/walls/greek_wall_side_E_open.tex" type="Texture" id=14]
@@ -253,7 +253,6 @@ trigger = false
 
 transform/pos = Vector2( 50, 250 )
 texture = ExtResource( 11 )
-modulate = Color( 1, 0, 0, 1 )
 
 [node name="floor_clean" type="Sprite" parent="."]
 
