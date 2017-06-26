@@ -17,7 +17,7 @@ func _ready():
 	health = 3
 	set_process(true)
 	get_node("Sprite/TextureProgress").set_value((float(health)/float(3))*100.0)
-	facing = "down"
+	facing = "left"
 
 func _process(delta):
 	if (health <= 0):
@@ -34,8 +34,12 @@ func interact(dir, node):
 	node.get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + str(dir))
 
 func _move(dir):
-	get_node("Sprite/Movement_anims").play("about_to_move")
-	current_dir = dir
+	if facing == "left":
+		get_node("Sprite/Movement_anims").play("about_to_move")
+		current_dir = dir
+	elif facing == "right":
+		get_node("Sprite/Movement_anims").play("about_to_move_right")
+		current_dir = dir
 
 #one move every timer finished
 func _on_Timer_timeout():
@@ -46,8 +50,10 @@ func _on_Timer_timeout():
 		_move("up")
 	if (angle <= -0.785 and angle >= -2.356):
 		_move("right")
+		facing = "right"
 	if (angle <= 2.356 and angle >= 0.785):
 		_move("left")
+		facing = "left"
 	if (angle < -2.356 or angle > 2.356) :
 		_move("down")
 
