@@ -18,6 +18,8 @@ var attack
 var defense
 var gold
 
+var invincibility = false
+
 #is a movement animation over right now?
 var idle = true
 
@@ -102,12 +104,13 @@ func _move(dir):
 		
 #function that can be called by enemies to change Theseus' attributes
 func lose_hp(damage):
-	current_HP -= damage
-	print(current_HP)
-	get_node("AnimatedSprite/Damage_anims").play("hp_lost")
-	get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100.0)
-	if (current_HP <= 0):
-		game_over()
+	if !invincibility:
+		current_HP -= damage
+		print(current_HP)
+		get_node("AnimatedSprite/Damage_anims").play("hp_lost")
+		get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100.0)
+		if (current_HP <= 0):
+			game_over()
 
 #function with potential (meaning useless for now)
 func get_movement_unit():
@@ -228,6 +231,19 @@ func _on_Game_over_finished():
 		print("animation finished")
 		get_node("..").game_over()
 
+
+func _on_Control_input_event( ev ):
+	if (ev.type == InputEvent.MOUSE_BUTTON):
+		print("Shield activated")
+		var timeLeft = shield.active(get_node("../hero_floor/map_"+str(current_room)))
+		if (timeLeft > 0):
+			var t = Timer.new()
+			t.set_wait_time(timeLeft)
+			t.set_one_shot(true)
+			self.add_child(t)
+			t.start()
+			yield(t, "timeout")
+			shield.active2(get_node("../hero_floor/map_"+str(current_room)))
 
 func _on_Blocked_move_anims_finished():
 	idle = true

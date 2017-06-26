@@ -9,6 +9,9 @@ func _ready():
 func defense():
 	return defense
 
+func active(current_room):
+	pass
+
 func _on_Area2D_area_enter(area):
 	var interacting_node = area.get_node("../")
 	if (interacting_node.get_name() == "theseus"):

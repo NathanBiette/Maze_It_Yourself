@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=1]
 
-[ext_resource path="res://scenes/game_hero/objects/items/necklace.gd" type="Script" id=1]
-[ext_resource path="res://textures/objects/items/necklace.tex" type="Texture" id=2]
+[ext_resource path="res://scenes/game_hero/objects/items/ambrosia_potion.gd" type="Script" id=1]
+[ext_resource path="res://textures/objects/items/ambrosia_potion.tex" type="Texture" id=2]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -43,7 +43,7 @@ tracks/1/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[node name="necklace" type="Node2D" groups=[
+[node name="ambrosia_potion" type="Node2D" groups=[
 "items",
 "lootable",
 ]]
