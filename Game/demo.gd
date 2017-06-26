@@ -60,7 +60,7 @@ func _ready():
 		if (i==4):
 			level_instance.link(spawns[k][0],"giant")
 		else:
-			level_instance.link(spawns[k][0],"skeleton")
+			level_instance.link(spawns[k][0],"giant")
 	level_instance.update_release()
 
 func game_over():
