@@ -49,7 +49,6 @@ func _ready():
 	shield = load("res://scenes/game_hero/objects/shields/" + str(Globals.get("shield")) + ".tscn").instance()
 	item = load("res://scenes/game_hero/objects/items/" + str(Globals.get("item")) + ".tscn").instance()
 	gold = Globals.get("gold")
-#	set_idle(true)
 
 	#compute attack and defense stats
 	attack = weapon.attack()
@@ -119,14 +118,6 @@ func _on_Movement_anims_finished():
 	idle = true
 	if(looting or dropping):
 		update_inventory(previous_dir)
-
-#test idle state of theseus
-func is_idle():
-	return idle
-
-#set idle state of theseus
-#func set_idle(enable):
-#	idle = enable
 
 #get the amount of hp of theseus
 func get_HP():
@@ -215,7 +206,7 @@ func stats_update():
 #####################################################################################
 
 func _on_touchBox_input_event( ev ):
-	if (is_idle() and (ev.type==InputEvent.SCREEN_TOUCH or ev.type==InputEvent.MOUSE_BUTTON)):
+	if (idle and (ev.type==InputEvent.SCREEN_TOUCH or ev.type==InputEvent.MOUSE_BUTTON)):
 		var angle = Vector2(750-ev.x, 600-ev.y).angle()
 		if (angle < 0.685 and angle > -0.685) :
 			_move("up")
