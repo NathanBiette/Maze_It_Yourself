@@ -1,13 +1,16 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=5 format=1]
 
-[ext_resource path="res://textures/level/black_fade_away.tex" type="Texture" id=1]
+[ext_resource path="res://textures/menus/Artwork MIY.tex" type="Texture" id=1]
 [ext_resource path="res://scripts/main_menu.gd" type="Script" id=2]
+[ext_resource path="res://textures/menus/Logo MIY.tex" type="Texture" id=3]
+[ext_resource path="res://textures/menus/font.fnt" type="BitmapFont" id=4]
 
 [node name="background" type="Sprite"]
 
-transform/pos = Vector2( 517.459, 363 )
-transform/scale = Vector2( 3.4362, 4.28099 )
+transform/pos = Vector2( 1.88855, 0.717836 )
+transform/scale = Vector2( 0.497664, 0.496782 )
 texture = ExtResource( 1 )
+centered = false
 script/script = ExtResource( 2 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -17,21 +20,12 @@ offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 2, 2 )
 
-[node name="Title" type="Label" parent="CanvasLayer"]
+[node name="Sprite" type="Sprite" parent="CanvasLayer"]
 
-rect/scale = Vector2( 5, 5 )
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 197.0
-margin/top = 26.0
-margin/right = 317.0
-margin/bottom = 40.0
-text = "MAZE IT YOURSELF"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+transform/pos = Vector2( 514.382, -2.52606 )
+transform/scale = Vector2( 0.446577, 0.388269 )
+texture = ExtResource( 3 )
+centered = false
 
 [node name="enter_channel" type="LineEdit" parent="CanvasLayer"]
 
@@ -39,10 +33,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 294.0
-margin/top = 244.0
-margin/right = 684.0
-margin/bottom = 268.0
+margin/left = 63.0
+margin/top = 206.0
+margin/right = 453.0
+margin/bottom = 230.0
 placeholder/alpha = 0.6
 focus_mode = 2
 caret/caret_blink = false
@@ -58,6 +52,8 @@ margin/left = 0.0
 margin/top = -43.0
 margin/right = 220.0
 margin/bottom = -11.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Enter IP and channel to connect to:"
 percent_visible = 1.0
 lines_skipped = 0
@@ -69,10 +65,11 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 534.0
-margin/top = 351.0
-margin/right = 676.0
-margin/bottom = 371.0
+margin/left = 301.0
+margin/top = 273.0
+margin/right = 484.0
+margin/bottom = 307.0
+custom_fonts/font = ExtResource( 4 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -85,10 +82,11 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 300.0
-margin/top = 351.0
-margin/right = 442.0
-margin/bottom = 371.0
+margin/left = 63.0
+margin/top = 275.0
+margin/right = 211.0
+margin/bottom = 309.0
+custom_fonts/font = ExtResource( 4 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -101,10 +99,11 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 448.0
-margin/top = 452.0
-margin/right = 532.0
-margin/bottom = 472.0
+margin/left = 214.0
+margin/top = 410.0
+margin/right = 318.0
+margin/bottom = 444.0
+custom_fonts/font = ExtResource( 4 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -117,10 +116,12 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 424.0
-margin/top = 419.0
-margin/right = 557.0
-margin/bottom = 450.0
+margin/left = 181.0
+margin/top = 379.0
+margin/right = 347.0
+margin/bottom = 410.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Status: disconnected"
 percent_visible = 1.0
 lines_skipped = 0
@@ -132,10 +133,11 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 297.0
-margin/top = 497.0
-margin/right = 443.0
-margin/bottom = 517.0
+margin/left = 66.0
+margin/top = 459.0
+margin/right = 212.0
+margin/bottom = 493.0
+custom_fonts/font = ExtResource( 4 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -148,10 +150,11 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 538.0
-margin/top = 496.0
-margin/right = 673.0
-margin/bottom = 516.0
+margin/left = 313.0
+margin/top = 458.0
+margin/right = 490.0
+margin/bottom = 492.0
+custom_fonts/font = ExtResource( 4 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -164,10 +167,11 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 450.0
-margin/top = 387.0
-margin/right = 538.0
-margin/bottom = 407.0
+margin/left = 208.0
+margin/top = 337.0
+margin/right = 316.0
+margin/bottom = 371.0
+custom_fonts/font = ExtResource( 4 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
