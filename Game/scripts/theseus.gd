@@ -199,7 +199,7 @@ func drop(dropping_object_name,dropping_object_type,dir):
 	elif (dir=="right"):
 		pos_of_drop[0] -= MOVEMENT_UNIT
 	dropping = false
-	get_node("../floor/map_"+str(current_room)).add_object(dropping_object_name,dropping_object_type,pos_of_drop)
+	get_node("../hero_floor/map_"+str(current_room)).add_object(dropping_object_name,dropping_object_type,pos_of_drop)
 	
 #to update stats of hero
 func stats_update():
