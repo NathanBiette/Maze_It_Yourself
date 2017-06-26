@@ -44,8 +44,8 @@ tracks/1/keys = {
 }
 
 [node name="basic_shield" type="KinematicBody2D" groups=[
-"weapons",
 "lootable",
+"shields",
 ]]
 
 input/pickable = false
