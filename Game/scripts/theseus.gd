@@ -18,6 +18,8 @@ var attack
 var defense
 var gold
 
+var invincibility = false
+
 #is a movement animation over right now?
 var idle = true
 
@@ -98,9 +100,10 @@ func _move(dir):
 		
 #function that can be called by enemies to change Theseus' attributes
 func lose_hp(damage):
-	current_HP -= damage
-	get_node("AnimatedSprite/Damage_anims").play("hp_lost")
-	get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100.0)
+	if !invincibility:
+		current_HP -= damage
+		get_node("AnimatedSprite/Damage_anims").play("hp_lost")
+		get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100.0)
 
 #function with potential (meaning useless for now)
 func get_movement_unit():
