@@ -9,7 +9,7 @@ func _ready():
 func defense():
 	return defense
 
-func active():
+func active(current_room):
 	return 0
 
 func _on_Area2D_area_enter(area):

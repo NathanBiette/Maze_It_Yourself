@@ -86,7 +86,10 @@ func set_pause(boolean):
 		set_process(false)
 	else:
 		get_node("Timer").start()
-		set_process(true)
+		if is_dead :
+			pass
+		else:
+			set_process(true)
 
 func _on_Movement_anims_finished():
 	advance(current_dir)
