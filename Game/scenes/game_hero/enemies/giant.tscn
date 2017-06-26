@@ -147,6 +147,7 @@ tracks/1/keys = {
 "enemies",
 ]]
 
+z/z = 1
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
@@ -233,6 +234,13 @@ process_mode = 1
 wait_time = 1.5
 one_shot = false
 autostart = true
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+
+enabled = true
+cast_to = Vector2( 200, 0 )
+layer_mask = 1
+type_mask = 2
 
 [connection signal="finished" from="AnimatedSprite/Death_Anim" to="." method="_on_Death_Anim_finished"]
 

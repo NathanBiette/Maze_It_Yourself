@@ -15,6 +15,8 @@ func _ready():
 	set_process(true)
 	get_node("AnimatedSprite/TextureProgress").set_value((float(health)/float(10))*100.0)
 	facing = "left"
+	get_node("RayCast2D").add_exception(get_node(".."))
+	get_node("RayCast2D").add_exception(get_node("."))
 
 func _process(delta):
 	if (health <= 0):
@@ -81,11 +83,21 @@ func set_pause(boolean):
 
 func _on_Movement_anims_finished():
 	advance(current_dir)
+	var current_pos = get_pos()
+	if (facing=="left"):
+		get_node("RayCast2D").set_cast_to(Vector2(-200,0))
+	elif (facing=="right"):
+		get_node("RayCast2D").set_cast_to(Vector2(200,0))
+	if get_node("RayCast2D").is_colliding():
+		var collider = get_node("RayCast2D").get_collider()
+		print(str(collider))
+		if (collider.is_in_group("theseus")):
+			collider.lose_hp(damage)
+	
 	if facing == "left":
 		get_node("AnimatedSprite/smash").queue("smash")
 	if facing == "right":
 		get_node("AnimatedSprite/smash").queue("smash_right")
-
 
 #loads automatically when death anim is over
 func _on_Death_Anim_finished():
