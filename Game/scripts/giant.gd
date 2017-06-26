@@ -10,16 +10,16 @@ var facing
 
 func _ready():
 	original_pos = get_node(".").get_global_pos()
-	damage = 1
-	health = 3
+	damage = 3
+	health = 10
 	set_process(true)
-	get_node("Sprite/TextureProgress").set_value((float(health)/float(3))*100.0)
+	get_node("AnimatedSprite/TextureProgress").set_value((float(health)/float(10))*100.0)
 	facing = "left"
 
 func _process(delta):
 	if (health <= 0):
 		get_node("CollisionShape2D").queue_free()
-		get_node("Sprite/Death_Anim").play("death")
+		get_node("AnimatedSprite/Death_Anim").play("death")
 		set_process(false)
 
 #fonction called when theseus collides with body from group enemies/traps 
@@ -27,15 +27,15 @@ func _process(delta):
 func interact(dir, node):
 	#interactions are specific to one enemy
 	health -= node.attack
-	get_node("Sprite/TextureProgress").set_value((float(health)/float(3))*100.0)
+	get_node("AnimatedSprite/TextureProgress").set_value((float(health)/float(10))*100.0)
 	node.get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + str(dir))
 
 func _move(dir):
 	if facing == "left":
-		get_node("Sprite/Movement_anims").play("about_to_move")
+		get_node("AnimatedSprite/Movement_anims").play("about_to_move")
 		current_dir = dir
 	elif facing == "right":
-		get_node("Sprite/Movement_anims").play("about_to_move_right")
+		get_node("AnimatedSprite/Movement_anims").play("about_to_move_right")
 		current_dir = dir
 
 #one move every timer finished
@@ -53,10 +53,6 @@ func _on_Timer_timeout():
 		facing = "left"
 	if (angle < -2.356 or angle > 2.356) :
 		_move("down")
-
-#loads automatically when death anim is over
-func _on_Skeleton_Death_Anim_finished():
-	get_node(".").queue_free()
 
 func advance(dir):
 	if (dir=="up"):
@@ -85,4 +81,12 @@ func set_pause(boolean):
 
 func _on_Movement_anims_finished():
 	advance(current_dir)
+	if facing == "left":
+		get_node("AnimatedSprite/smash").queue("smash")
+	if facing == "right":
+		get_node("AnimatedSprite/smash").queue("smash_right")
 
+
+#loads automatically when death anim is over
+func _on_Death_Anim_finished():
+	get_node(".").queue_free()
