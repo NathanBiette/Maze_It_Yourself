@@ -165,8 +165,12 @@ func _run(_self):
 			var byte = 0x80 # fin
 			byte = byte | 0x01 # text frame
 			put_8(byte)
-			byte = 0x80 | msg.length() # mask flag and payload size
-			put_u8(byte)
+			if(msg.length()<126):
+				byte = 0x80 | msg.length() # mask flag and payload size
+				put_u8(byte)
+			else:
+				put_u8(0x80 | 126)
+				put_u16(msg.length())
 			byte = randi() # mask 32 bit int
 			put_32(byte)
 			var masked = _mask(byte,msg)
