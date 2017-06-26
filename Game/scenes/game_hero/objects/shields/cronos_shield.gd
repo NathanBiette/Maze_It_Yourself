@@ -32,7 +32,7 @@ func _emit_timer_end_signal():
     emit_signal("timer_end")
 
 func _create_timer(object_target, float_wait_time, bool_is_oneshot, string_function):
-    timer = Timer.new()
+    var timer = Timer.new()
     timer.set_one_shot(bool_is_oneshot)
     timer.set_timer_process_mode(0)
     timer.set_wait_time(float_wait_time)
