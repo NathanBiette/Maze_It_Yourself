@@ -8,6 +8,7 @@ var damage
 var movement_unit = 100
 var health
 var current_dir
+var facing
 
 
 func _ready():
@@ -16,6 +17,7 @@ func _ready():
 	health = 3
 	set_process(true)
 	get_node("Sprite/TextureProgress").set_value((float(health)/float(3))*100.0)
+	facing = "down"
 
 func _process(delta):
 	if (health <= 0):
@@ -80,3 +82,4 @@ func set_pause(boolean):
 
 func _on_Movement_anims_finished():
 	advance(current_dir)
+
