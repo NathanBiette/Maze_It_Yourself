@@ -26,18 +26,19 @@ func _process(delta):
 
 func open_doors():
 	for d in range(doors_locations.size()):
-		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==1):
+		#East
+		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==1 and (get_node("..").get_my_door([room_id,3]) != [-1,-1])):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],2)
 			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,15)
-		
-		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==5):
+		#West
+		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==5 and (get_node("..").get_my_door([room_id,1]) != [-1,-1])):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],6)
 			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,16)
 		#NORTH
-		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==3):
+		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==3 and (get_node("..").get_my_door([room_id,0]) != [-1,-1])):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],4)
 		#SOUTH
-		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==7):
+		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==7 and (get_node("..").get_my_door([room_id,2]) != [-1,-1])):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],8)
 
 	is_open = true

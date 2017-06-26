@@ -19,6 +19,7 @@ func _ready():
 	is_dead = false
 	get_node("RayCast2D").add_exception(get_node(".."))
 	get_node("RayCast2D").add_exception(get_node("."))
+	randomize()
 
 func _process(delta):
 	if (health <= 0):
@@ -27,6 +28,12 @@ func _process(delta):
 		get_node("AnimatedSprite/Movement_anims").stop_all()
 		get_node("AnimatedSprite/smash").stop_all()
 		get_node("AnimatedSprite/Death_Anim").play("death")
+		var lib = get_node("../../../../..").get_ITEMS_LIBRARY()
+		var k = randi()%lib.size()
+		var item = load("res://scenes/game_hero/objects/"+str(lib[k][1])+".tscn")
+		var item_instance = item.instance()
+		get_node("..").add_child(item_instance)
+		item_instance.set_pos(get_node(".").get_pos())
 		set_process(false)
 
 #fonction called when theseus collides with body from group enemies/traps 
