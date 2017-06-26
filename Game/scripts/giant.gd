@@ -6,6 +6,7 @@ var movement_unit = 100
 var health
 var current_dir
 var facing
+var is_dead
 
 
 func _ready():
@@ -15,12 +16,16 @@ func _ready():
 	set_process(true)
 	get_node("AnimatedSprite/TextureProgress").set_value((float(health)/float(10))*100.0)
 	facing = "left"
+	is_dead = false
 	get_node("RayCast2D").add_exception(get_node(".."))
 	get_node("RayCast2D").add_exception(get_node("."))
 
 func _process(delta):
 	if (health <= 0):
+		is_dead = false
 		get_node("CollisionShape2D").queue_free()
+		get_node("AnimatedSprite/Movement_anims").stop_all()
+		get_node("AnimatedSprite/smash").stop_all()
 		get_node("AnimatedSprite/Death_Anim").play("death")
 		set_process(false)
 
@@ -33,12 +38,13 @@ func interact(dir, node):
 	node.get_node("AnimatedSprite/Blocked_move_anims").play("blocked_move_" + str(dir))
 
 func _move(dir):
-	if facing == "left":
-		get_node("AnimatedSprite/Movement_anims").play("about_to_move")
-		current_dir = dir
-	elif facing == "right":
-		get_node("AnimatedSprite/Movement_anims").play("about_to_move_right")
-		current_dir = dir
+	if !is_dead:
+		if facing == "left":
+			get_node("AnimatedSprite/Movement_anims").play("about_to_move")
+			current_dir = dir
+		elif facing == "right":
+			get_node("AnimatedSprite/Movement_anims").play("about_to_move_right")
+			current_dir = dir
 
 #one move every timer finished
 func _on_Timer_timeout():
