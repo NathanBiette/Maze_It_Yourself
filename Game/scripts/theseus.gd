@@ -215,10 +215,11 @@ func _on_touchBox_input_event( ev ):
 
 func game_over():
 	if (!game_over):
-		get_node("Camera2D/CanvasLayer/AnimationPlayer").play("you_died")
+		get_node("Camera2D/CanvasLayer/Game_over").play("you_died")
 		game_over = true
-	
-func _on_AnimationPlayer_finished():
+
+
+func _on_Game_over_finished():
 	if (game_over):
 		print("animation finished")
 		get_node("..").game_over()
