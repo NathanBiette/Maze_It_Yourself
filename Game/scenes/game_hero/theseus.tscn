@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=1]
+[gd_scene load_steps=33 format=1]
 
 [ext_resource path="res://scripts/theseus.gd" type="Script" id=1]
 [ext_resource path="res://textures/hero/hero_face_right_100px.tex" type="Texture" id=2]
@@ -9,15 +9,16 @@
 [ext_resource path="res://textures/hero/hero_face_left_dash_100px.tex" type="Texture" id=7]
 [ext_resource path="res://textures/hero/hero_face_right_dash_100px.tex" type="Texture" id=8]
 [ext_resource path="res://textures/hero/hero_face_up_dash_100px.tex" type="Texture" id=9]
-[ext_resource path="res://textures/level/black_fade_away.tex" type="Texture" id=10]
-[ext_resource path="res://textures/hero/health_bar_under.tex" type="Texture" id=11]
-[ext_resource path="res://textures/hero/health_bar_over.tex" type="Texture" id=12]
-[ext_resource path="res://textures/hero/health_bar_progress.tex" type="Texture" id=13]
-[ext_resource path="res://textures/objects/coin.tex" type="Texture" id=14]
-[ext_resource path="res://textures/menus/font.fnt" type="BitmapFont" id=15]
-[ext_resource path="res://textures/hero/itempanel.tex" type="Texture" id=16]
-[ext_resource path="res://textures/hero/item_bar_under.tex" type="Texture" id=17]
-[ext_resource path="res://textures/hero/item_bar_progress.tex" type="Texture" id=18]
+[ext_resource path="res://textures/menus/game_over.tex" type="Texture" id=10]
+[ext_resource path="res://textures/level/black_fade_away.tex" type="Texture" id=11]
+[ext_resource path="res://textures/hero/health_bar_under.tex" type="Texture" id=12]
+[ext_resource path="res://textures/hero/health_bar_over.tex" type="Texture" id=13]
+[ext_resource path="res://textures/hero/health_bar_progress.tex" type="Texture" id=14]
+[ext_resource path="res://textures/objects/coin.tex" type="Texture" id=15]
+[ext_resource path="res://textures/menus/font.fnt" type="BitmapFont" id=16]
+[ext_resource path="res://textures/hero/itempanel.tex" type="Texture" id=17]
+[ext_resource path="res://textures/hero/item_bar_under.tex" type="Texture" id=18]
+[ext_resource path="res://textures/hero/item_bar_progress.tex" type="Texture" id=19]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -39,110 +40,6 @@ animations = [ {
 } ]
 
 [sub_resource type="Animation" id=3]
-
-length = 0.3
-loop = false
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/imported = false
-tracks/0/keys = {
-"times": FloatArray( 0, 0.1, 0.2 ),
-"transitions": FloatArray( 1, 1, 1 ),
-"update": 1,
-"values": [ 2, 3, 2 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:offset")
-tracks/1/interp = 1
-tracks/1/imported = false
-tracks/1/keys = {
-"times": FloatArray( 0, 0.1, 0.2 ),
-"transitions": FloatArray( 1, 4, 0.25 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 30 ), Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=4]
-
-length = 0.3
-loop = false
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:offset")
-tracks/0/interp = 1
-tracks/0/imported = false
-tracks/0/keys = {
-"times": FloatArray( 0, 0.1, 0.2 ),
-"transitions": FloatArray( 1, 4, 0.25 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( -30, 0 ), Vector2( 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/imported = false
-tracks/1/keys = {
-"times": FloatArray( 0, 0.1, 0.2 ),
-"transitions": FloatArray( 1, 1, 1 ),
-"update": 1,
-"values": [ 1, 0, 1 ]
-}
-
-[sub_resource type="Animation" id=5]
-
-length = 0.3
-loop = false
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/imported = false
-tracks/0/keys = {
-"times": FloatArray( 0, 0.1, 0.2 ),
-"transitions": FloatArray( 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:offset")
-tracks/1/interp = 1
-tracks/1/imported = false
-tracks/1/keys = {
-"times": FloatArray( 0, 0.1, 0.2 ),
-"transitions": FloatArray( 1, 4, 0.25 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 30, 0 ), Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=6]
-
-length = 0.3
-loop = false
-step = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/imported = false
-tracks/0/keys = {
-"times": FloatArray( 0, 0.1, 0.2 ),
-"transitions": FloatArray( 1, 1, 1 ),
-"update": 1,
-"values": [ 3, 2, 3 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:offset")
-tracks/1/interp = 1
-tracks/1/imported = false
-tracks/1/keys = {
-"times": FloatArray( 0, 0.1, 0.2 ),
-"transitions": FloatArray( 1, 4, 0.25 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, -30 ), Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=7]
 
 resource/name = "movement_down_100px"
 length = 0.2
@@ -169,7 +66,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, -100 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=4]
 
 resource/name = "movement_left_100px"
 length = 0.2
@@ -206,7 +103,7 @@ tracks/2/keys = {
 "values": [ 0.7, 1.0 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=5]
 
 resource/name = "movement_right_100px"
 length = 0.2
@@ -233,7 +130,7 @@ tracks/1/keys = {
 "values": [ Vector2( -100, 0 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=6]
 
 resource/name = "movement_up_100px"
 length = 0.2
@@ -260,7 +157,7 @@ tracks/1/keys = {
 "values": [ 7, 3 ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=7]
 
 length = 1.0
 loop = false
@@ -276,6 +173,110 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="Animation" id=8]
+
+length = 0.3
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 3, 2 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 4, 0.25 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 30 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+
+length = 0.3
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 4, 0.25 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -30, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 0, 1 ]
+}
+
+[sub_resource type="Animation" id=10]
+
+length = 0.3
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 4, 0.25 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 30, 0 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=11]
+
+length = 0.3
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 2, 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.1, 0.2 ),
+"transitions": FloatArray( 1, 4, 0.25 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -30 ), Vector2( 0, 0 ) ]
+}
+
 [sub_resource type="Animation" id=12]
 
 resource/name = "fade_to_black"
@@ -287,7 +288,7 @@ tracks/0/path = NodePath("Sprite:visibility/opacity")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0, 0.2, 0.8, 1 ),
+"times": FloatArray( 0, 0.3, 0.7, 1 ),
 "transitions": FloatArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ 0.0, 1.0, 1.0, 0.0 ]
@@ -338,21 +339,17 @@ _update_shape_index = 0
 transform/pos = Vector2( 0, -30 )
 frames = SubResource( 2 )
 animation = "default"
-frame = 1
+frame = 3
 
 [node name="Movement_anims" type="AnimationPlayer" parent="AnimatedSprite"]
 
 playback/process_mode = 0
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/blocked_move_down = SubResource( 3 )
-anims/blocked_move_left = SubResource( 4 )
-anims/blocked_move_right = SubResource( 5 )
-anims/blocked_move_up = SubResource( 6 )
-anims/movement_down_100px = SubResource( 7 )
-anims/movement_left_100px = SubResource( 8 )
-anims/movement_right_100px = SubResource( 9 )
-anims/movement_up_100px = SubResource( 10 )
+anims/movement_down_100px = SubResource( 3 )
+anims/movement_left_100px = SubResource( 4 )
+anims/movement_right_100px = SubResource( 5 )
+anims/movement_up_100px = SubResource( 6 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -363,7 +360,21 @@ autoplay = ""
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/hp_lost = SubResource( 11 )
+anims/hp_lost = SubResource( 7 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+[node name="Blocked_move_anims" type="AnimationPlayer" parent="AnimatedSprite"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/blocked_move_down = SubResource( 8 )
+anims/blocked_move_left = SubResource( 9 )
+anims/blocked_move_right = SubResource( 10 )
+anims/blocked_move_up = SubResource( 11 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -371,7 +382,6 @@ autoplay = ""
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-visibility/visible = false
 anchor_mode = 1
 rotating = false
 current = true
@@ -391,12 +401,37 @@ drag_margin/bottom = 0.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
 
-layer = 1
+layer = 2
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 2, 2 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D/CanvasLayer"]
+[node name="Game_over" type="AnimationPlayer" parent="Camera2D/CanvasLayer"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/you_died = SubResource( 12 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+[node name="Sprite" type="Sprite" parent="Camera2D/CanvasLayer"]
+
+visibility/opacity = 0.0
+transform/scale = Vector2( 0.927734, 0.916667 )
+texture = ExtResource( 10 )
+centered = false
+
+[node name="Transition_screen" type="CanvasLayer" parent="Camera2D"]
+
+layer = 2
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 2, 2 )
+
+[node name="Fade_to_black" type="AnimationPlayer" parent="Camera2D/Transition_screen"]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
@@ -407,13 +442,12 @@ playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 
-[node name="Sprite" type="Sprite" parent="Camera2D/CanvasLayer"]
+[node name="Sprite" type="Sprite" parent="Camera2D/Transition_screen"]
 
-visibility/visible = false
 visibility/opacity = 0.0
-transform/pos = Vector2( 200, 300 )
-transform/scale = Vector2( 10, 10 )
-texture = ExtResource( 10 )
+transform/scale = Vector2( 3.16667, 3.27381 )
+texture = ExtResource( 11 )
+centered = false
 
 [node name="hud" type="CanvasLayer" parent="Camera2D"]
 
@@ -440,9 +474,9 @@ range/page = 0.0
 range/value = 1.0
 range/exp_edit = false
 range/rounded = false
-texture/under = ExtResource( 11 )
-texture/over = ExtResource( 12 )
-texture/progress = ExtResource( 13 )
+texture/under = ExtResource( 12 )
+texture/over = ExtResource( 13 )
+texture/progress = ExtResource( 14 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 0, 0 )
 
@@ -450,7 +484,7 @@ radial_fill/center_offset = Vector2( 0, 0 )
 
 transform/pos = Vector2( 52.8475, 105.006 )
 transform/scale = Vector2( 1.5, 1.5 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 
 [node name="coinLabel" type="Label" parent="Camera2D/hud/coinSprite"]
 
@@ -462,7 +496,7 @@ margin/left = 14.0
 margin/top = -9.0
 margin/right = 154.0
 margin/bottom = 19.0
-custom_fonts/font = ExtResource( 15 )
+custom_fonts/font = ExtResource( 16 )
 align = 2
 percent_visible = 1.0
 lines_skipped = 0
@@ -471,7 +505,7 @@ max_lines_visible = -1
 [node name="helmetPanel" type="Sprite" parent="Camera2D/hud"]
 
 transform/pos = Vector2( 1810, 125 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 
 [node name="helmetProgress" type="TextureProgress" parent="Camera2D/hud/helmetPanel"]
 
@@ -490,9 +524,9 @@ range/page = 0.0
 range/value = 1.0
 range/exp_edit = false
 range/rounded = false
-texture/under = ExtResource( 17 )
-texture/over = ExtResource( 17 )
-texture/progress = ExtResource( 18 )
+texture/under = ExtResource( 18 )
+texture/over = ExtResource( 18 )
+texture/progress = ExtResource( 19 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 10, 10 )
 
@@ -512,7 +546,7 @@ margin/bottom = 50.0
 [node name="shieldPanel" type="Sprite" parent="Camera2D/hud"]
 
 transform/pos = Vector2( 1810, 275 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 
 [node name="shieldProgress" type="TextureProgress" parent="Camera2D/hud/shieldPanel"]
 
@@ -531,9 +565,9 @@ range/page = 0.0
 range/value = 1.0
 range/exp_edit = false
 range/rounded = false
-texture/under = ExtResource( 17 )
-texture/over = ExtResource( 17 )
-texture/progress = ExtResource( 18 )
+texture/under = ExtResource( 18 )
+texture/over = ExtResource( 18 )
+texture/progress = ExtResource( 19 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 10, 10 )
 
@@ -553,7 +587,7 @@ margin/bottom = -100.0
 [node name="weaponPanel" type="Sprite" parent="Camera2D/hud"]
 
 transform/pos = Vector2( 1810, 425 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 
 [node name="weaponProgress" type="TextureProgress" parent="Camera2D/hud/weaponPanel"]
 
@@ -572,9 +606,9 @@ range/page = 0.0
 range/value = 1.0
 range/exp_edit = false
 range/rounded = false
-texture/under = ExtResource( 17 )
-texture/over = ExtResource( 17 )
-texture/progress = ExtResource( 18 )
+texture/under = ExtResource( 18 )
+texture/over = ExtResource( 18 )
+texture/progress = ExtResource( 19 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 10, 10 )
 
@@ -594,7 +628,7 @@ margin/bottom = -250.0
 [node name="itemPanel" type="Sprite" parent="Camera2D/hud"]
 
 transform/pos = Vector2( 1810, 575 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 
 [node name="itemProgress" type="TextureProgress" parent="Camera2D/hud/itemPanel"]
 
@@ -613,9 +647,9 @@ range/page = 0.0
 range/value = 1.0
 range/exp_edit = false
 range/rounded = false
-texture/under = ExtResource( 17 )
-texture/over = ExtResource( 17 )
-texture/progress = ExtResource( 18 )
+texture/under = ExtResource( 18 )
+texture/over = ExtResource( 18 )
+texture/progress = ExtResource( 19 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 10, 10 )
 
@@ -653,5 +687,9 @@ _update_shape_index = 0
 [connection signal="input_event" from="touchBox" to="." method="_on_touchBox_input_event"]
 
 [connection signal="finished" from="AnimatedSprite/Movement_anims" to="." method="_on_Movement_anims_finished"]
+
+[connection signal="finished" from="AnimatedSprite/Blocked_move_anims" to="." method="_on_Blocked_move_anims_finished"]
+
+[connection signal="finished" from="Camera2D/CanvasLayer/Game_over" to="." method="_on_Game_over_finished"]
 
 

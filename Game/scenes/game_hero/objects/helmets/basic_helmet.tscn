@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://scenes/game_hero/objects/helmets/basic_helmet.gd" type="Script" id=1]
-[ext_resource path="res://textures/objects/weapons/steel_sword.tex" type="Texture" id=2]
+[ext_resource path="res://textures/objects/helmets/basic_helmet.tex" type="Texture" id=2]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
@@ -17,7 +17,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 
 length = 1.0
 loop = true
@@ -45,11 +45,11 @@ tracks/1/keys = {
 
 [node name="basic_helmet" type="KinematicBody2D" groups=[
 "lootable",
-"weapons",
+"helmets",
 ]]
 
 input/pickable = false
-shapes/0/shape = SubResource( 1 )
+shapes/0/shape = SubResource( 3 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = true
 collision/layers = 1
@@ -59,7 +59,7 @@ script/script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 trigger = true
 _update_shape_index = 0
 
@@ -74,7 +74,7 @@ offset = Vector2( 0, -19.9708 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/idle = SubResource( 3 )
+anims/idle = SubResource( 4 )
 next/idle = "idle"
 playback/active = true
 playback/speed = 0.5

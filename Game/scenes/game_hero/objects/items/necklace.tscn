@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=1]
 
-[ext_resource path="res://scenes/game_hero/objects/weapons/steel_sword.gd" type="Script" id=1]
-[ext_resource path="res://textures/objects/weapons/steel_sword.tex" type="Texture" id=2]
+[ext_resource path="res://scenes/game_hero/objects/items/necklace.gd" type="Script" id=1]
+[ext_resource path="res://textures/objects/items/necklace.tex" type="Texture" id=2]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -43,7 +43,7 @@ tracks/1/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[node name="steel_sword" type="Node2D" groups=[
+[node name="necklace" type="Node2D" groups=[
 "lootable",
 "weapons",
 ]]
@@ -54,7 +54,7 @@ script/script = ExtResource( 1 )
 
 frames = SubResource( 1 )
 animation = "default"
-offset = Vector2( 0, -19.9708 )
+offset = Vector2( 0, -10 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatedSprite"]
 
