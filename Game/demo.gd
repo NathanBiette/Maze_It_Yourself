@@ -31,6 +31,7 @@ func _ready():
 	var  doors=level_instance.get_doors()
 	print(doors)
 	var size = doors.size()
+	randomize()
 	while (doors.size()>0):
 		size=doors.size()
 		var end_early=true
