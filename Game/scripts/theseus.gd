@@ -231,8 +231,10 @@ func _on_Game_over_finished():
 		print("animation finished")
 		get_node("..").game_over()
 
+func _on_Blocked_move_anims_finished():
+	idle = true
 
-func _on_Control_input_event( ev ):
+func _on_shield_control_input_event( ev ):
 	if (ev.type == InputEvent.MOUSE_BUTTON):
 		print("Shield activated")
 		var timeLeft = shield.active(get_node("../hero_floor/map_"+str(current_room)))
@@ -245,5 +247,44 @@ func _on_Control_input_event( ev ):
 			yield(t, "timeout")
 			shield.active2(get_node("../hero_floor/map_"+str(current_room)))
 
-func _on_Blocked_move_anims_finished():
-	idle = true
+
+func _on_helmet_control_input_event( ev ):
+	if (ev.type == InputEvent.MOUSE_BUTTON):
+		print("Helmet activated")
+		var timeLeft = helmet.active(get_node("../hero_floor/map_"+str(current_room)))
+		if (timeLeft > 0):
+			var t = Timer.new()
+			t.set_wait_time(timeLeft)
+			t.set_one_shot(true)
+			self.add_child(t)
+			t.start()
+			yield(t, "timeout")
+			helmet.active2(get_node("../hero_floor/map_"+str(current_room)))
+
+
+func _on_weapon_control_input_event( ev ):
+	if (ev.type == InputEvent.MOUSE_BUTTON):
+		print("Weapon activated")
+		var timeLeft = weapon.active(get_node("../hero_floor/map_"+str(current_room)))
+		if (timeLeft > 0):
+			var t = Timer.new()
+			t.set_wait_time(timeLeft)
+			t.set_one_shot(true)
+			self.add_child(t)
+			t.start()
+			yield(t, "timeout")
+			weapon.active2(get_node("../hero_floor/map_"+str(current_room)))
+
+
+func _on_item_control_input_event( ev ):
+	if (ev.type == InputEvent.MOUSE_BUTTON):
+		print("Item activated")
+		var timeLeft = item.active(get_node("../hero_floor/map_"+str(current_room)))
+		if (timeLeft > 0):
+			var t = Timer.new()
+			t.set_wait_time(timeLeft)
+			t.set_one_shot(true)
+			self.add_child(t)
+			t.start()
+			yield(t, "timeout")
+			item.active2(get_node("../hero_floor/map_"+str(current_room)))

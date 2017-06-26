@@ -530,7 +530,7 @@ texture/progress = ExtResource( 19 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 10, 10 )
 
-[node name="Control" type="Control" parent="Camera2D/hud/helmetPanel"]
+[node name="helmet_control" type="Control" parent="Camera2D/hud/helmetPanel"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -571,7 +571,7 @@ texture/progress = ExtResource( 19 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 10, 10 )
 
-[node name="Control" type="Control" parent="Camera2D/hud/shieldPanel"]
+[node name="shield_control" type="Control" parent="Camera2D/hud/shieldPanel"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -612,7 +612,7 @@ texture/progress = ExtResource( 19 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 10, 10 )
 
-[node name="Control" type="Control" parent="Camera2D/hud/weaponPanel"]
+[node name="weapon_control" type="Control" parent="Camera2D/hud/weaponPanel"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -653,7 +653,7 @@ texture/progress = ExtResource( 19 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 10, 10 )
 
-[node name="Control" type="Control" parent="Camera2D/hud/itemPanel"]
+[node name="item_control" type="Control" parent="Camera2D/hud/itemPanel"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -692,6 +692,12 @@ _update_shape_index = 0
 
 [connection signal="finished" from="Camera2D/CanvasLayer/Game_over" to="." method="_on_Game_over_finished"]
 
-[connection signal="input_event" from="Camera2D/hud/shieldPanel/Control" to="." method="_on_Control_input_event"]
+[connection signal="input_event" from="Camera2D/hud/helmetPanel/helmet_control" to="." method="_on_helmet_control_input_event"]
+
+[connection signal="input_event" from="Camera2D/hud/shieldPanel/shield_control" to="." method="_on_shield_control_input_event"]
+
+[connection signal="input_event" from="Camera2D/hud/weaponPanel/weapon_control" to="." method="_on_weapon_control_input_event"]
+
+[connection signal="input_event" from="Camera2D/hud/itemPanel/item_control" to="." method="_on_item_control_input_event"]
 
 

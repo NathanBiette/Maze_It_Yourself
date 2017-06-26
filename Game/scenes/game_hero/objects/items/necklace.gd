@@ -13,6 +13,9 @@ func attack():
 func defense():
 	return defense
 
+func active():
+	return 0
+
 func _on_Area2D_area_enter(area):
 	var interacting_node = area.get_node("../")
 	if (interacting_node.get_name() == "theseus"):

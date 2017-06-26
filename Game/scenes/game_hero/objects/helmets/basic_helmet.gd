@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Node2D
 
 const defense = 1
 #var position
@@ -9,8 +9,11 @@ func _ready():
 func defense():
 	return defense
 
+func active():
+	return 0
+
 func _on_Area2D_area_enter(area):
 	var interacting_node = area.get_node("../")
 	if (interacting_node.get_name() == "theseus"):
 		interacting_node.pick_up("basic_helmet", "helmets")
-		get_node(".").get_parent().kill(get_node("."))
+		queue_free()
