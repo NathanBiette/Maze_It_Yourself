@@ -28,14 +28,14 @@ func interact(dir, node):
 	#interactions are specific to one enemy
 	health -= node.attack
 	get_node("Sprite/TextureProgress").set_value((float(health)/float(3))*100.0)
-	node.get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + str(dir))
+	node.get_node("AnimatedSprite/Movement_anims").queue("blocked_move_" + str(dir))
 
 func _move(dir):
 	if facing == "left":
-		get_node("Sprite/Movement_anims").play("about_to_move")
+		get_node("Sprite/Movement_anims").queue("about_to_move")
 		current_dir = dir
 	elif facing == "right":
-		get_node("Sprite/Movement_anims").play("about_to_move_right")
+		get_node("Sprite/Movement_anims").queue("about_to_move_right")
 		current_dir = dir
 
 #one move every timer finished

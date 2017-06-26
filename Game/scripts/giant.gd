@@ -84,9 +84,13 @@ func set_pause(boolean):
 func _on_Movement_anims_finished():
 	advance(current_dir)
 	var current_pos = get_pos()
-	if (facing=="left"):
+	if (current_dir=="up"):
+		get_node("RayCast2D").set_cast_to(Vector2(0,0))
+	elif (current_dir=="down"):
+		get_node("RayCast2D").set_cast_to(Vector2(0,0))
+	elif (current_dir=="left"):
 		get_node("RayCast2D").set_cast_to(Vector2(-200,0))
-	elif (facing=="right"):
+	elif (current_dir=="right"):
 		get_node("RayCast2D").set_cast_to(Vector2(200,0))
 	if get_node("RayCast2D").is_colliding():
 		var collider = get_node("RayCast2D").get_collider()
