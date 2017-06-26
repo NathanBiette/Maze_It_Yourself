@@ -27,9 +27,6 @@ func _ready():
 	level_instance = level_scene.instance()
 	add_child(level_instance)
 
-func get_ENEMY_LIBRARY():
-	return ENEMY_LIBRARY
-
 func game_over():
 	get_node("..").game_over()
 	queue_free()
