@@ -1,14 +1,9 @@
 [gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://scenes/game_hero/objects/shields/basic_shield.gd" type="Script" id=1]
-[ext_resource path="res://textures/objects/weapons/steel_sword.tex" type="Texture" id=2]
+[ext_resource path="res://textures/objects/shields/basic_shield.tex" type="Texture" id=2]
 
-[sub_resource type="RectangleShape2D" id=1]
-
-custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
-
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=1]
 
 animations = [ {
 "frames": [ ExtResource( 2 ) ],
@@ -17,7 +12,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 
 length = 1.0
 loop = true
@@ -43,29 +38,21 @@ tracks/1/keys = {
 "values": [ 0.5, 1.0 ]
 }
 
-[node name="basic_shield" type="KinematicBody2D" groups=[
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[node name="basic_shield" type="Node2D" groups=[
+"shields",
 "lootable",
-"weapons",
 ]]
 
-input/pickable = false
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
-shapes/0/trigger = true
-collision/layers = 1
-collision/mask = 1
-collision/margin = 0.08
 script/script = ExtResource( 1 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-
-shape = SubResource( 1 )
-trigger = true
-_update_shape_index = 0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 
-frames = SubResource( 2 )
+frames = SubResource( 1 )
 animation = "default"
 offset = Vector2( 0, -19.9708 )
 
@@ -74,11 +61,30 @@ offset = Vector2( 0, -19.9708 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/idle = SubResource( 3 )
+anims/idle = SubResource( 2 )
 next/idle = "idle"
 playback/active = true
 playback/speed = 0.5
 blend_times = [  ]
 autoplay = "idle"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+input/pickable = true
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
+
+[connection signal="area_enter" from="Area2D" to="." method="_on_Area2D_area_enter"]
 
 

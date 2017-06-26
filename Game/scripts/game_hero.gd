@@ -4,7 +4,6 @@ var theseus_hero
 var theseus_instance
 var level_scene
 var level_instance
-const ENEMY_LIBRARY = [[1,"skeleton"],[2,"gorgon"]]
 
 func _ready():
 	
@@ -28,5 +27,7 @@ func _ready():
 	level_instance = level_scene.instance()
 	add_child(level_instance)
 
-func get_ENEMY_LIBRARY():
-	return ENEMY_LIBRARY
+func game_over():
+	get_node("..").game_over()
+	queue_free()
+

@@ -1,16 +1,19 @@
-extends KinematicBody2D
+extends Node2D
 
 const defense = 1
-var position
+#var position
 
 func _ready():
 	pass
-	
-func interact(node):
-	#interactions with lootable objects
-	node.loot(get_node())
-	#delete instance of lootable
-	get_node(".").queue_free()
 
 func defense():
 	return defense
+
+func active(current_room):
+	return 0
+
+func _on_Area2D_area_enter(area):
+	var interacting_node = area.get_node("../")
+	if (interacting_node.get_name() == "theseus"):
+		interacting_node.pick_up("basic_shield", "shields")
+		queue_free()

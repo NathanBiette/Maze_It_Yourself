@@ -15,7 +15,7 @@ func initialize():
 	doors_locations = [Vector2(-1,-1),Vector2(-1,-1),Vector2(-1,-1),Vector2(-1,-1)]
 	find_doors()
 	find_spawn()
-	if get_node("../../.").get_name() == "game_hero":
+	if (get_node("../../.").get_name() == "game_hero" or get_node("../../.").get_name() == "demo"):
 		close_doors()
 		set_process(true)
 
@@ -26,23 +26,20 @@ func _process(delta):
 
 func open_doors():
 	for d in range(doors_locations.size()):
-		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==1):
+		#East
+		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==1 and (get_node("..").get_my_door([room_id,3]) != [-1,-1])):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],2)
-			#changes the cell just above the door /!\ doesn't work if the door is on a top or bottom wall
-			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,10)
-		
-		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==5):
+			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,15)
+		#West
+		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==5 and (get_node("..").get_my_door([room_id,1]) != [-1,-1])):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],6)
-			#changes the cell just above the door /!\ doesn't work if the door is on a top or bottom wall
-			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,10)
+			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,16)
 		#NORTH
-		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==3):
+		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==3 and (get_node("..").get_my_door([room_id,0]) != [-1,-1])):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],4)
-			#changes the cell just above the door /!\ doesn't work if the door is on a top or bottom wall
 		#SOUTH
-		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==7):
+		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==7 and (get_node("..").get_my_door([room_id,2]) != [-1,-1])):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],8)
-			#changes the cell just above the door /!\ doesn't work if the door is on a top or bottom wall
 
 	is_open = true
 
@@ -50,6 +47,17 @@ func close_doors():
 	for d in range(doors_locations.size()):
 		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==2):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],1)
+			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,11)
+		
+		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==6):
+			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],5)
+			get_node("TileMap").set_cell(doors_locations[d][0] ,doors_locations[d][1] -1 ,14)
+		#NORTH
+		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==4):
+			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],3)
+		#SOUTH
+		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==8):
+			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],7)
 
 func find_doors():
 	var tab = get_node("TileMap").get_used_cells()
@@ -94,14 +102,8 @@ func is_open():
 
 
 ################LOOT#############################
-
-#free the node when is idling
-func kill(node_to_be_freed):
-	node_to_be_freed.queue_free()
-
 #add object to map (for drop)
 func add_object(object_name, object_type, object_pos):
-	print("res://scenes/game_hero/objects/"+object_type+"/"+object_name+".tscn")
 	var object = load("res://scenes/game_hero/objects/"+object_type+"/"+object_name+".tscn").instance()
 	object.set_pos(object_pos)
 	get_node(".").add_child(object)

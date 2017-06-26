@@ -1,8 +1,5 @@
 extends Node
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
 var next_room
 var doors_ids
 var library
@@ -11,7 +8,7 @@ func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
 	next_room = get_node("CanvasLayer/MenuButton/Panel/LineEdit").get_text()
-	library = get_node("../../.").get_ENEMY_LIBRARY()
+	library = get_node("../../../.").get_ENEMY_LIBRARY()
 	for e in library:
 		get_node("CanvasLayer/MenuButton/Panel/monster_button").add_item(e[1],e[0])
 
@@ -29,7 +26,7 @@ func _on_Button_pressed():
 	get_node("../.").add_room(next_room)
 	update_doors(get_node("../.").get_doors())
 	update_spawn(get_node("../.").get_spawns())
-	get_node("../..").websocket.send('{"event":"add_room","room":' + str(next_room) + '}')
+	#get_node("../..").websocket.send('{"event":"multicast","reason":"add_room","room":' + str(next_room) + '}')
 
 func _on_connect_pressed():
 	var door1 = get_node("CanvasLayer/MenuButton/Panel/OptionButton_1").get_selected_ID()
@@ -47,3 +44,6 @@ func _on_link_pressed():
 
 func _on_Release_pressed():
 	get_node("../.").update_release()
+
+func remove_spawn_from_list(room):
+	get_node("CanvasLayer/MenuButton/Panel/spawn_button").remove(room)

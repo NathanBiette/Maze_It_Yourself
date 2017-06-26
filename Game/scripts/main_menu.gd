@@ -36,3 +36,6 @@ func _on_connect_architect_pressed():
 
 func _on_leave_lobby_pressed():
 	websocket.send('{"event":"leave"}')
+
+func game_over():
+	

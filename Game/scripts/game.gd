@@ -1,16 +1,17 @@
 extends Node
 
 var websocket
-#var server_ip = 'warm-temple-69360.herokuapp.com'
-#var port = 80
-var server_ip = '137.194.23.194'
-var port = 3000
+var server_ip = 'warm-temple-69360.herokuapp.com'
+var port = 80
+#var server_ip = '137.194.23.194'
+#var port = 3000
 var channel = 'global'
 var timer
 var reconnectionTries = 0
 var reconnectionTimer
 var connected = false
 var ingame = false # Used to check if the player is in-game or not
+const ENEMY_LIBRARY = [[1,"skeleton"],[2,"giant"]]
 
 func _ready():
 	websocket = preload('res://scripts/websocket.gd').new(self)
@@ -44,14 +45,19 @@ func _on_message_recieved(msg):
 	if (dict.event == 'ack'):
 		connected = true
 		print('Connected')
-	if (dict.event == 'add_room'):
+	if (dict.reason == 'add_room'):
 		get_child(1).get_node("hero_floor").add_room(dict.room)
-
-
+	if dict.reason == 'close_spawns':
+		get_child(1).get_node("architect_floor").close_spawns(dict.room)
+	if dict.reason == 'update':
+		get_child(1).get_node("hero_floor").update(dict.doors, dict.spawns)
 func _on_timer_timeout():
 	timer.stop()
 	print("Timed out")
 	connected = false
+
+func get_ENEMY_LIBRARY():
+	return ENEMY_LIBRARY
 #	
 #	reconnectionTimer = Timer.new()
 #	reconnectionTimer.connect("timeout",self,"_on_reconnection_timer_timeout")
@@ -75,3 +81,8 @@ func _on_timer_timeout():
 #	reconnectionTries += 1
 #	reconnectionTimer.set_wait_time(3)
 #	reconnectionTimer.start()
+
+func game_over():
+	var main_menu = preload('res://scenes/main_menu.tscn')
+	var menu = main_menu.instance()
+	self.add_child(menu)
