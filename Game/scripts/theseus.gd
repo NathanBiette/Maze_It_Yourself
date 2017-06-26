@@ -46,6 +46,7 @@ func _ready():
 	shield = load("res://scenes/game_hero/objects/shields/" + str(Globals.get("shield")) + ".tscn").instance()
 	item = load("res://scenes/game_hero/objects/items/" + str(Globals.get("item")) + ".tscn").instance()
 	gold = Globals.get("gold")
+#	set_idle(true)
 
 	#compute attack and defense stats
 	attack = weapon.attack()
@@ -58,36 +59,41 @@ func _ready():
 
 #move script of theseus
 func _move(dir):
-	
 	#part called to move theseus
-	if (dir=="up"):
-		move(Vector2(0,-MOVEMENT_UNIT))
-	elif (dir=="down"):
-		move(Vector2(0,MOVEMENT_UNIT))
-	elif (dir=="left"):
-		move(Vector2(-MOVEMENT_UNIT,0))
-	elif (dir=="right"):
-		move(Vector2(MOVEMENT_UNIT,0))
-	previous_dir = dir
-	#part called when colliding with wall, trap, enemy, object
-	if (is_colliding()):
-		var collider = get_collider()
-		#part coding what happens with every kind of collider
-		if (collider.is_in_group("enemies")) :
-			revert_motion()
-			collider.interact(dir, get_node("."))
-		#collision with door
-		elif (collider.is_in_group("door")) :
-			revert_motion()
-			collider.shazaam()
-		else :
+	if idle:
+		if (dir=="up"):
+			move(Vector2(0,-MOVEMENT_UNIT))
 			idle = false
-			revert_motion()
-			get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + dir)
-	else:
-		
-		idle = false
-		get_node("AnimatedSprite/Movement_anims").play("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
+		elif (dir=="down"):
+			move(Vector2(0,MOVEMENT_UNIT))
+			idle = false
+		elif (dir=="left"):
+			move(Vector2(-MOVEMENT_UNIT,0))
+			idle = false
+		elif (dir=="right"):
+			move(Vector2(MOVEMENT_UNIT,0))
+			idle = false
+		previous_dir = dir
+		#part called when colliding with wall, trap, enemy, object
+		if (is_colliding()):
+			var collider = get_collider()
+			#part coding what happens with every kind of collider
+			if (collider.is_in_group("enemies")) :
+				idle = false
+				revert_motion()
+				collider.interact(dir, get_node("."))
+			#collision with door
+			elif (collider.is_in_group("door")) :
+				revert_motion()
+				collider.shazaam()
+				get_node("AnimatedSprite/Movement_anims").queue("blocked_move_" + dir)
+			else :
+				idle = false
+				revert_motion()
+				get_node("AnimatedSprite/Movement_anims").queue("blocked_move_" + dir)
+		else:
+			idle = false
+			get_node("AnimatedSprite/Movement_anims").queue("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
 
 		
 #function that can be called by enemies to change Theseus' attributes
@@ -113,8 +119,8 @@ func is_idle():
 	return idle
 
 #set idle state of theseus
-func set_idle(enable):
-	idle = enable
+#func set_idle(enable):
+#	idle = enable
 
 #get the amount of hp of theseus
 func get_HP():
