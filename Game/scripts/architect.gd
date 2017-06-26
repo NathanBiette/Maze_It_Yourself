@@ -8,7 +8,7 @@ func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
 	next_room = get_node("CanvasLayer/MenuButton/Panel/LineEdit").get_text()
-	library = get_node("../../.").get_ENEMY_LIBRARY()
+	library = get_node("../../../.").get_ENEMY_LIBRARY()
 	for e in library:
 		get_node("CanvasLayer/MenuButton/Panel/monster_button").add_item(e[1],e[0])
 
