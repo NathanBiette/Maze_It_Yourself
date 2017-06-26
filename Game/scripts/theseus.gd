@@ -51,7 +51,6 @@ func _ready():
 	shield = load("res://scenes/game_hero/objects/shields/" + str(Globals.get("shield")) + ".tscn").instance()
 	item = load("res://scenes/game_hero/objects/items/" + str(Globals.get("item")) + ".tscn").instance()
 	gold = Globals.get("gold")
-#	set_idle(true)
 
 	#compute attack and defense stats
 	attack = weapon.attack()
@@ -59,7 +58,9 @@ func _ready():
 
 	get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100)
 	get_node("Camera2D/hud/coinSprite/coinLabel").set_text(str(gold))
-	get_node("Camera2D/hud/weaponPanel/Sprite").set_texture(load("res://textures/objects/weapons/steel_sword.tex"))
+	get_node("Camera2D/hud/weaponPanel/Sprite").set_texture(load("res://textures/objects/weapons/"+weapon.get_name()+".tex"))
+	get_node("Camera2D/hud/helmetPanel/Sprite").set_texture(load("res://textures/objects/helmets/"+helmet.get_name()+".tex"))
+	get_node("Camera2D/hud/shieldPanel/Sprite").set_texture(load("res://textures/objects/shields/"+shield.get_name()+".tex"))
 	get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(100)
 
 #move script of theseus
@@ -91,11 +92,11 @@ func _move(dir):
 			elif (collider.is_in_group("door")) :
 				revert_motion()
 				collider.shazaam()
-				get_node("AnimatedSprite/Movement_anims").queue("blocked_move_" + dir)
+				get_node("AnimatedSprite/Blocked_move_anims").queue("blocked_move_" + dir)
 			else :
 				idle = false
 				revert_motion()
-				get_node("AnimatedSprite/Movement_anims").queue("blocked_move_" + dir)
+				get_node("AnimatedSprite/Blocked_move_anims").queue("blocked_move_" + dir)
 		else:
 			idle = false
 			get_node("AnimatedSprite/Movement_anims").queue("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
@@ -120,14 +121,6 @@ func _on_Movement_anims_finished():
 	idle = true
 	if(looting or dropping):
 		update_inventory(previous_dir)
-
-#test idle state of theseus
-func is_idle():
-	return idle
-
-#set idle state of theseus
-#func set_idle(enable):
-#	idle = enable
 
 #get the amount of hp of theseus
 func get_HP():
@@ -168,6 +161,7 @@ func loot(looting_object_name,looting_object_type):
 			#weapon.queue_free()
 			#load node of colliding item for it not to be destroyed on freeing from map
 			weapon = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
+			get_node("Camera2D/hud/weaponPanel/Sprite").set_texture(load("res://textures/objects/weapons/"+weapon.get_name()+".tex"))
 			#save weapon reference 
 			Globals.set("weapon", weapon.get_name())
 	if (looting_object_type == "shields"):
@@ -175,18 +169,21 @@ func loot(looting_object_name,looting_object_type):
 			dropping_object_type = "shields"
 			#shield.queue_free()
 			shield = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
+			get_node("Camera2D/hud/shieldPanel/Sprite").set_texture(load("res://textures/objects/shields/"+shield.get_name()+".tex"))
 			Globals.set("shield", helmet.get_name())
 	if (looting_object_type == "helmets"):
 			dropping_object_name = helmet.get_name()
 			dropping_object_type = "helmets"
 			#helmet.queue_free()
 			helmet = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
+			get_node("Camera2D/hud/helmetPanel/Sprite").set_texture(load("res://textures/objects/helmets/"+helmet.get_name()+".tex"))
 			Globals.set("helmet", helmet.get_name())
 	if (looting_object_type == "items"):
 			dropping_object_name = item.get_name()
 			dropping_object_type = "items"
 			#items.queue_free()
 			item = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
+			get_node("Camera2D/hud/itemPanel/Sprite").set_texture(load("res://textures/objects/items/"+item.get_name()+".tex"))
 			Globals.set("item", item.get_name())
 
 func drop(dropping_object_name,dropping_object_type,dir):
@@ -208,10 +205,11 @@ func drop(dropping_object_name,dropping_object_type,dir):
 func stats_update():
 	attack = weapon.attack()
 	defense = shield.defense() + helmet.defense()
+	print(str(attack) + " " + str(defense))
 #####################################################################################
 
 func _on_touchBox_input_event( ev ):
-	if (is_idle() and (ev.type==InputEvent.SCREEN_TOUCH or ev.type==InputEvent.MOUSE_BUTTON)):
+	if (idle and (ev.type==InputEvent.SCREEN_TOUCH or ev.type==InputEvent.MOUSE_BUTTON)):
 		var angle = Vector2(750-ev.x, 600-ev.y).angle()
 		if (angle < 0.685 and angle > -0.685) :
 			_move("up")
@@ -246,3 +244,6 @@ func _on_Control_input_event( ev ):
 			t.start()
 			yield(t, "timeout")
 			shield.active2(get_node("../hero_floor/map_"+str(current_room)))
+
+func _on_Blocked_move_anims_finished():
+	idle = true

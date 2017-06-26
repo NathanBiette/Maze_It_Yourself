@@ -1,14 +1,12 @@
 extends KinematicBody2D
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
 var original_pos
 var damage
 var movement_unit = 100
 var health
 var current_dir
 var facing
+var is_dead
 
 
 func _ready():
@@ -18,10 +16,13 @@ func _ready():
 	set_process(true)
 	get_node("Sprite/TextureProgress").set_value((float(health)/float(3))*100.0)
 	facing = "left"
+	is_dead = false
 
 func _process(delta):
 	if (health <= 0):
+		is_dead = true
 		get_node("CollisionShape2D").queue_free()
+		get_node("Sprite/Movement_anims").stop_all()
 		get_node("Sprite/Death_Anim").play("death")
 		set_process(false)
 
@@ -31,15 +32,16 @@ func interact(dir, node):
 	#interactions are specific to one enemy
 	health -= node.attack
 	get_node("Sprite/TextureProgress").set_value((float(health)/float(3))*100.0)
-	node.get_node("AnimatedSprite/Movement_anims").play("blocked_move_" + str(dir))
+	node.get_node("AnimatedSprite/Blocked_move_anims").play("blocked_move_" + str(dir))
 
 func _move(dir):
-	if facing == "left":
-		get_node("Sprite/Movement_anims").play("about_to_move")
-		current_dir = dir
-	elif facing == "right":
-		get_node("Sprite/Movement_anims").play("about_to_move_right")
-		current_dir = dir
+	if !is_dead:
+		if facing == "left":
+			get_node("Sprite/Movement_anims").queue("about_to_move")
+			current_dir = dir
+		elif facing == "right":
+			get_node("Sprite/Movement_anims").queue("about_to_move_right")
+			current_dir = dir
 
 #one move every timer finished
 func _on_Timer_timeout():

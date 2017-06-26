@@ -15,7 +15,7 @@ func initialize():
 	doors_locations = [Vector2(-1,-1),Vector2(-1,-1),Vector2(-1,-1),Vector2(-1,-1)]
 	find_doors()
 	find_spawn()
-	if get_node("../../.").get_name() == "game_hero":
+	if (get_node("../../.").get_name() == "game_hero" or get_node("../../.").get_name() == "demo"):
 		close_doors()
 		set_process(true)
 

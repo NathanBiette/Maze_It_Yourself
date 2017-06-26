@@ -4,7 +4,7 @@
 [ext_resource path="res://textures/level/doors/greek_gate_side_E_closed.tex" type="Texture" id=2]
 [ext_resource path="res://textures/level/walls/greek_wall_big_pattern_shadowy.tex" type="Texture" id=3]
 [ext_resource path="res://textures/level/walls/greek_wall_side_E_closed.tex" type="Texture" id=4]
-[ext_resource path="res://icon.png" type="Texture" id=5]
+[ext_resource path="res://textures/level/floors/sand.tex" type="Texture" id=5]
 [ext_resource path="res://textures/level/floors/floor_clean.tex" type="Texture" id=6]
 [ext_resource path="res://textures/level/walls/greek_wall_side_W_closed.tex" type="Texture" id=7]
 [ext_resource path="res://textures/level/walls/greek_wall_side_E_open.tex" type="Texture" id=8]
@@ -159,10 +159,10 @@ points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
 12/name = "monster_spawn"
 12/texture = ExtResource( 5 )
 12/tex_offset = Vector2( 0, 0 )
-12/modulate = Color( 1, 0, 0, 1 )
-12/region = Rect2( 0, 0, 64, 64 )
-12/occluder_offset = Vector2( 32, 32 )
-12/navigation_offset = Vector2( 32, 32 )
+12/modulate = Color( 1, 1, 1, 1 )
+12/region = Rect2( 0, 0, 100, 100 )
+12/occluder_offset = Vector2( 50, 50 )
+12/navigation_offset = Vector2( 50, 50 )
 12/shape_offset = Vector2( 0, 0 )
 12/shapes = [  ]
 13/name = "floor_clean"

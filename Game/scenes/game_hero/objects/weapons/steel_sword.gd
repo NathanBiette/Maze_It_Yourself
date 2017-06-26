@@ -1,6 +1,6 @@
 extends Node2D
 
-const attack = 1
+const attack = 2
 #var position
 
 func _ready():
