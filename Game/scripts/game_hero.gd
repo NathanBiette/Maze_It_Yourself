@@ -4,7 +4,6 @@ var theseus_hero
 var theseus_instance
 var level_scene
 var level_instance
-const ENEMY_LIBRARY = [[1,"skeleton"],[2,"gorgon"]]
 
 func _ready():
 	
@@ -34,3 +33,4 @@ func get_ENEMY_LIBRARY():
 func game_over():
 	get_node("..").game_over()
 	queue_free()
+

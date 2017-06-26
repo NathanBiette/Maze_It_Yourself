@@ -147,20 +147,24 @@ func change_room(door_id):
 	elif (next_door_id[1] == 0):
 		get_node("../theseus").set_global_pos(Vector2(doors[next_door_index][0][0], doors[next_door_index][0][1] + 100))
 		get_node("../theseus").set_current_room(next_door_id[0])
+		get_node("map_"+str(next_door_id[0])).close_doors()
 	#WEST CASE
 	elif (next_door_id[1] == 1):
 		get_node("../theseus").set_global_pos(Vector2(doors[next_door_index][0][0] + 100, doors[next_door_index][0][1]))
 		get_node("../theseus").set_current_room(next_door_id[0])
+		get_node("map_"+str(next_door_id[0])).close_doors()
 	#SOUTH CASE
 	elif (next_door_id[1] == 2):
 		get_node("../theseus").set_global_pos(Vector2(doors[next_door_index][0][0], doors[next_door_index][0][1] - 100))
 		get_node("../theseus").set_current_room(next_door_id[0])
+		get_node("map_"+str(next_door_id[0])).close_doors()
 	#EAST CASE
 	elif (next_door_id[1] == 3):
 		get_node("../theseus").set_global_pos(Vector2(doors[next_door_index][0][0] - 100, doors[next_door_index][0][1]))
 		get_node("../theseus").set_current_room(next_door_id[0])
+		get_node("map_"+str(next_door_id[0])).close_doors()
 	get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
-	get_node("map_"+str(next_door_id[0])).close_doors()
+	
 
 func update(new_doors, new_spawns):
 	doors = new_doors
@@ -204,6 +208,7 @@ func update_release():
 		print(str(doors))
 		#get_node("../..").websocket.send('{"event":"multicast","reason":"update","spawns":' + str(spawns) + ',"doors":' + str(doors) + '}')
 	else:
+		editable_doors = str2var(var2str(doors))
 		get_node("architect/CanvasLayer/WindowDialog").popup()
 
 func close_spawns(room):

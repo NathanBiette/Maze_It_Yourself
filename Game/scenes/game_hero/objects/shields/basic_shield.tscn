@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://scenes/game_hero/objects/shields/basic_shield.gd" type="Script" id=1]
-[ext_resource path="res://textures/objects/weapons/steel_sword.tex" type="Texture" id=2]
+[ext_resource path="res://textures/objects/shields/basic_shield.tex" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -44,8 +44,8 @@ tracks/1/keys = {
 }
 
 [node name="basic_shield" type="KinematicBody2D" groups=[
-"lootable",
 "weapons",
+"lootable",
 ]]
 
 input/pickable = false

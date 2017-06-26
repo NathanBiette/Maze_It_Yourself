@@ -11,6 +11,7 @@ var reconnectionTries = 0
 var reconnectionTimer
 var connected = false
 var ingame = false # Used to check if the player is in-game or not
+const ENEMY_LIBRARY = [[1,"skeleton"],[2,"gorgon"]]
 
 func _ready():
 	websocket = preload('res://scripts/websocket.gd').new(self)
@@ -54,6 +55,9 @@ func _on_timer_timeout():
 	timer.stop()
 	print("Timed out")
 	connected = false
+
+func get_ENEMY_LIBRARY():
+	return ENEMY_LIBRARY
 #	
 #	reconnectionTimer = Timer.new()
 #	reconnectionTimer.connect("timeout",self,"_on_reconnection_timer_timeout")
