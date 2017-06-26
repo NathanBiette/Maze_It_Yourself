@@ -5,7 +5,7 @@
 
 [node name="background" type="Sprite"]
 
-transform/pos = Vector2( 507.185, 363 )
+transform/pos = Vector2( 517.459, 363 )
 transform/scale = Vector2( 3.4362, 4.28099 )
 texture = ExtResource( 1 )
 script/script = ExtResource( 2 )
@@ -15,7 +15,7 @@ script/script = ExtResource( 2 )
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
-scale = Vector2( 1, 1 )
+scale = Vector2( 2, 2 )
 
 [node name="Title" type="Label" parent="CanvasLayer"]
 
