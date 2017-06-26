@@ -89,11 +89,11 @@ func _move(dir):
 			elif (collider.is_in_group("door")) :
 				revert_motion()
 				collider.shazaam()
-				get_node("AnimatedSprite/Movement_anims").queue("blocked_move_" + dir)
+				get_node("AnimatedSprite/Blocked_move_anims").queue("blocked_move_" + dir)
 			else :
 				idle = false
 				revert_motion()
-				get_node("AnimatedSprite/Movement_anims").queue("blocked_move_" + dir)
+				get_node("AnimatedSprite/Blocked_move_anims").queue("blocked_move_" + dir)
 		else:
 			idle = false
 			get_node("AnimatedSprite/Movement_anims").queue("movement_" + dir + "_" + str(MOVEMENT_UNIT) + "px")
@@ -229,3 +229,7 @@ func _on_Game_over_finished():
 	if (game_over):
 		print("animation finished")
 		get_node("..").game_over()
+
+
+func _on_Blocked_move_anims_finished():
+	idle = true
