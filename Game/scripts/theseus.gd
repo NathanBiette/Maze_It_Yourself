@@ -245,7 +245,8 @@ func _on_shield_control_input_event( ev ):
 			self.add_child(t)
 			t.start()
 			yield(t, "timeout")
-			shield.active2(get_node("../hero_floor/map_"+str(current_room)))
+			if shield.has("active2"):
+				shield.active2(get_node("../hero_floor/map_"+str(current_room)))
 
 
 func _on_helmet_control_input_event( ev ):
@@ -259,7 +260,8 @@ func _on_helmet_control_input_event( ev ):
 			self.add_child(t)
 			t.start()
 			yield(t, "timeout")
-			helmet.active2(get_node("../hero_floor/map_"+str(current_room)))
+			if helmet.has("active2"):
+				helmet.active2(get_node("../hero_floor/map_"+str(current_room)))
 
 
 func _on_weapon_control_input_event( ev ):
@@ -273,7 +275,8 @@ func _on_weapon_control_input_event( ev ):
 			self.add_child(t)
 			t.start()
 			yield(t, "timeout")
-			weapon.active2(get_node("../hero_floor/map_"+str(current_room)))
+			if weapon.has("active2"):
+				weapon.active2(get_node("../hero_floor/map_"+str(current_room)))
 
 
 func _on_item_control_input_event( ev ):
@@ -287,4 +290,5 @@ func _on_item_control_input_event( ev ):
 			self.add_child(t)
 			t.start()
 			yield(t, "timeout")
-			item.active2(get_node("../hero_floor/map_"+str(current_room)))
+			if item.has("active2"):
+				item.active2(get_node("../hero_floor/map_"+str(current_room)))
