@@ -44,8 +44,8 @@ custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
 [node name="necklace" type="Node2D" groups=[
-"lootable",
 "items",
+"lootable",
 ]]
 
 script/script = ExtResource( 1 )

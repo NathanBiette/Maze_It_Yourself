@@ -24,7 +24,7 @@ func _on_Area2D_area_enter(area):
 	var interacting_node = area.get_node("../")
 	if (interacting_node.get_name() == "theseus"):
 		interacting_node.pick_up("ambrosia_potion", "items")
-		get_node(".").get_parent().kill(get_node("."))
+		queue_free()
 
 func _wait( seconds ):
     self._create_timer(self, seconds, true, "_emit_timer_end_signal")

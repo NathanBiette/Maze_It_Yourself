@@ -232,3 +232,17 @@ func _on_Game_over_finished():
 	if (game_over):
 		print("animation finished")
 		get_node("..").game_over()
+
+
+func _on_Control_input_event( ev ):
+	if (ev.type == InputEvent.MOUSE_BUTTON):
+		print("Shield activated")
+		var timeLeft = shield.active(get_node("../hero_floor/map_"+str(current_room)))
+		if (timeLeft > 0):
+			var t = Timer.new()
+			t.set_wait_time(timeLeft)
+			t.set_one_shot(true)
+			self.add_child(t)
+			t.start()
+			yield(t, "timeout")
+			shield.active2(get_node("../hero_floor/map_"+str(current_room)))
