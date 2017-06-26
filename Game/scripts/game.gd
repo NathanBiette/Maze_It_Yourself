@@ -81,3 +81,8 @@ func get_ENEMY_LIBRARY():
 #	reconnectionTries += 1
 #	reconnectionTimer.set_wait_time(3)
 #	reconnectionTimer.start()
+
+func game_over():
+	var main_menu = preload('res://scenes/main_menu.tscn')
+	var menu = main_menu.instance()
+	self.add_child(menu)

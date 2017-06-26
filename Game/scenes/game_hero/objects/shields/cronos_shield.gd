@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Node2D
 
 const defense = 1
 var timeStopped = false

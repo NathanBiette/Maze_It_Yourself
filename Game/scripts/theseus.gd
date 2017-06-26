@@ -23,6 +23,9 @@ var invincibility = false
 #is a movement animation over right now?
 var idle = true
 
+#is game over now ?
+var game_over = false
+
 #how many pixels theseus must move per swipe
 const MOVEMENT_UNIT = 100
 
@@ -102,8 +105,11 @@ func _move(dir):
 func lose_hp(damage):
 	if !invincibility:
 		current_HP -= damage
+		print(current_HP)
 		get_node("AnimatedSprite/Damage_anims").play("hp_lost")
 		get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100.0)
+		if (current_HP <= 0):
+			game_over()
 
 #function with potential (meaning useless for now)
 func get_movement_unit():
@@ -113,8 +119,6 @@ func get_movement_unit():
 func _on_Movement_anims_finished():
 	idle = true
 	if(looting or dropping):
-		######### need fix => split animation moves in two AnimationPlayers 
-		######### with inventory update at en of move animations  #####
 		update_inventory(previous_dir)
 
 #test idle state of theseus
@@ -198,7 +202,7 @@ func drop(dropping_object_name,dropping_object_type,dir):
 	elif (dir=="right"):
 		pos_of_drop[0] -= MOVEMENT_UNIT
 	dropping = false
-	get_node("../floor/map_"+str(current_room)).add_object(dropping_object_name,dropping_object_type,pos_of_drop)
+	get_node("../hero_floor/map_"+str(current_room)).add_object(dropping_object_name,dropping_object_type,pos_of_drop)
 	
 #to update stats of hero
 func stats_update():
@@ -217,3 +221,14 @@ func _on_touchBox_input_event( ev ):
 			_move("left")
 		if (angle < -2.456 or angle > 2.456) :
 			_move("down")
+
+func game_over():
+	if (!game_over):
+		get_node("Camera2D/CanvasLayer/Game_over").play("you_died")
+		game_over = true
+
+
+func _on_Game_over_finished():
+	if (game_over):
+		print("animation finished")
+		get_node("..").game_over()

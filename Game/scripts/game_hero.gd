@@ -26,3 +26,8 @@ func _ready():
 	level_scene = load("res://scenes/game_hero/hero_floor.tscn")
 	level_instance = level_scene.instance()
 	add_child(level_instance)
+
+func game_over():
+	get_node("..").game_over()
+	queue_free()
+
