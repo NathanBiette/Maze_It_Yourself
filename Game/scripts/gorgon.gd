@@ -27,6 +27,7 @@ func _process(delta):
 		get_node("CollisionShape2D").queue_free()
 		get_node("AnimatedSprite/AnimationPlayer").stop_all()
 		get_node("AnimatedSprite/death_anim").play("death")
+		get_node("SamplePlayer2D").play("death")
 		set_process(false)
 
 #fonction called when theseus collides with body from group enemies/traps 
@@ -109,11 +110,13 @@ func petrify(dir):
 		get_node("AnimatedSprite/laugh_anim").play("laugh_right")
 	else:
 		get_node("AnimatedSprite/laugh_anim").play("laugh_left")
+	get_node("SamplePlayer2D").play("laugh")
 
 func _on_laugh_anim_finished():
 	var theseus_pos = get_node("../../../../theseus").get_global_pos()
 	var dx=(get_node(".").get_global_pos().x - theseus_pos.x)
 	var dy = (get_node(".").get_global_pos().y - theseus_pos.y)
+	get_node("SamplePlayer2D").play("petrify")
 	if (current_dir == "right"):
 		get_node("AnimatedSprite/petrif_anim").play("petrify_right")
 		if(dx<0 and dx>-400 and dy==0):
@@ -134,6 +137,7 @@ func _on_laugh_anim_finished():
 	get_node("duration").start()
 	get_node("cooldown").set_active(true)
 	get_node("cooldown").start()
+
 
 
 func _on_duration_timeout():
