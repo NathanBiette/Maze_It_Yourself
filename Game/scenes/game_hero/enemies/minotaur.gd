@@ -16,9 +16,9 @@ func _ready():
 	get_node("attack_ray1").add_exception(self)
 	get_node("attack_ray1").add_exception(get_node(".."))
 
-	get_node("attack_ray2").set_enabled(true)
-	get_node("attack_ray2").add_exception(self)
-	get_node("attack_ray2").add_exception(get_node(".."))
+#	get_node("attack_ray2").set_enabled(true)
+#	get_node("attack_ray2").add_exception(self)
+#	get_node("attack_ray2").add_exception(get_node(".."))
 
 	get_node("AnimatedSprite/TextureProgress").set_value(100)
 
@@ -41,6 +41,7 @@ func _process(delta):
 		get_node("AnimatedSprite/Circular_strike_windup").queue_free()
 		get_node("AnimatedSprite/Idle_anims").queue_free()
 		get_node("AnimatedSprite/Death_anims").play("death_"+str(facing))
+		get_node("../../../../theseus/Camera2D/CanvasLayer1/end_game").play("you_win")
 		set_process(false)
 
 func interact(dir, node):
