@@ -259,8 +259,12 @@ func drop(dropping_object_name,dropping_object_type,dir):
 	
 #to update stats of hero
 func stats_update():
-	attack = weapon.attack() + item.attack()
-	defense = shield.defense() + helmet.defense() + item.defense()
+	if item != null:
+		attack = weapon.attack() + item.attack()
+		defense = shield.defense() + helmet.defense() + item.defense()
+	else:
+		attack = weapon.attack()
+		defense = shield.defense() + helmet.defense()
 	print(str(attack) + " " + str(defense))
 
 #to heal the hero
