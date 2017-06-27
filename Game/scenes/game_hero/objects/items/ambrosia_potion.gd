@@ -2,6 +2,9 @@ extends Node2D
 
 const attack = 0
 const defense = 0
+const one_use = true
+const cooldown = 0
+const active = 3
 #var position
 
 func _ready():
@@ -13,9 +16,15 @@ func attack():
 func defense():
 	return defense
 
+func is_one_use():
+	return one_use
+
+func cooldown():
+	return cooldown
+
 func active(current_room):
 	current_room.get_node("../../theseus").invincibility = true
-	return 3
+	return active
 
 func active2(current_room):
 	current_room.get_node("../../theseus").invincibility = false

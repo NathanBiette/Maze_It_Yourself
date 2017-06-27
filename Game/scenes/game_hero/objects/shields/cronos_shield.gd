@@ -1,6 +1,8 @@
 extends Node2D
 
 const defense = 1
+const cooldown = 10
+const active = 3
 var timeStopped = false
 #var position
 
@@ -12,9 +14,12 @@ func _ready():
 func defense():
 	return defense
 
+func cooldown():
+	return cooldown
+
 func active(current_room):
 	current_room.set_pause_room(true)
-	return 3
+	return active
 
 func active2(current_room):
 	current_room.set_pause_room(false)

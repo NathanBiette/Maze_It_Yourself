@@ -1,6 +1,8 @@
 extends Node2D
 
 const defense = 1
+const active = 0
+const cooldown = 0
 #var position
 
 func _ready():
@@ -10,7 +12,10 @@ func defense():
 	return defense
 
 func active(current_room):
-	return 0
+	return active
+
+func cooldown():
+	return cooldown
 
 func _on_Area2D_area_enter(area):
 	var interacting_node = area.get_node("../")
