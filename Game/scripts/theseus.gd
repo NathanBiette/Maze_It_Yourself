@@ -475,3 +475,6 @@ func _on_popup_about_to_show():
 
 func _on_popup_popup_hide():
 	get_node("../hero_floor/map_"+str(current_room)).set_pause_room(false)
+	
+func set_idle(boolean):
+	idle=boolean

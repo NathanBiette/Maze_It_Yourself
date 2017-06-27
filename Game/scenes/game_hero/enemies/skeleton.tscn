@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=1]
+[gd_scene load_steps=51 format=1]
 
 [ext_resource path="res://scripts/skeleton.gd" type="Script" id=1]
 [ext_resource path="res://textures/enemies/basic_enemies/Skeleton_animated_sprite/walk/walk (1).tex" type="Texture" id=2]
@@ -40,11 +40,10 @@
 [ext_resource path="res://textures/enemies/basic_enemies/Skeleton_animated_sprite/death/dead (7).tex" type="Texture" id=38]
 [ext_resource path="res://textures/enemies/basic_enemies/Skeleton_animated_sprite/death/dead (8).tex" type="Texture" id=39]
 [ext_resource path="res://textures/enemies/basic_enemies/Skeleton_animated_sprite/death/dead (9).tex" type="Texture" id=40]
-[ext_resource path="res://textures/hero/item_bar_under.tex" type="Texture" id=41]
-[ext_resource path="res://textures/hero/item_bar_progress.tex" type="Texture" id=42]
-[ext_resource path="res://sounds/202091__spookymodem__falling-bones.smp" type="Sample" id=43]
-[ext_resource path="res://sounds/188034__antumdeluge__bones-2.smp" type="Sample" id=44]
-[ext_resource path="res://textures/objects/coin.tex" type="Texture" id=45]
+[ext_resource path="res://scenes/game_hero/enemies/enemyhealtbar.tscn" type="PackedScene" id=41]
+[ext_resource path="res://sounds/202091__spookymodem__falling-bones.smp" type="Sample" id=42]
+[ext_resource path="res://sounds/188034__antumdeluge__bones-2.smp" type="Sample" id=43]
+[ext_resource path="res://scenes/game_hero/enemies/coin_fountain.tscn" type="PackedScene" id=44]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -125,13 +124,13 @@ samples/falling_bone = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 43 )
+"sample": ExtResource( 42 )
 }
 samples/funny_bone = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 44 )
+"sample": ExtResource( 43 )
 }
 
 [node name="Skeleton" type="KinematicBody2D" groups=[
@@ -177,28 +176,7 @@ playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 
-[node name="TextureProgress" type="TextureProgress" parent="Sprite"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = -59.0
-margin/top = -84.0
-margin/right = 46.0
-margin/bottom = -74.0
-range/min = 0.0
-range/max = 100.0
-range/step = 1.0
-range/page = 0.0
-range/value = 1.0
-range/exp_edit = false
-range/rounded = false
-texture/under = ExtResource( 41 )
-texture/over = null
-texture/progress = ExtResource( 42 )
-radial_fill/fill_degrees = 360.0
-radial_fill/center_offset = Vector2( 0, 0 )
+[node name="TextureProgress" parent="Sprite" instance=ExtResource( 41 )]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
@@ -224,31 +202,7 @@ config/polyphony = 1
 config/samples = SubResource( 6 )
 config/pitch_random = 0.0
 
-[node name="Particles2D" type="Particles2D" parent="."]
-
-config/amount = 32
-config/lifetime = 1.0
-config/emitting = false
-config/process_mode = 1
-config/texture = ExtResource( 45 )
-params/direction = 180.0
-params/spread = 111.28
-params/linear_velocity = 204.8
-params/spin_velocity = 279.27
-params/orbit_velocity = 0.0
-params/gravity_direction = 0.0
-params/gravity_strength = 9.8
-params/radial_accel = 0.0
-params/tangential_accel = 0.0
-params/damping = 0.0
-params/initial_angle = 0.0
-params/initial_size = 1.0
-params/final_size = 1.0
-params/hue_variation = 0.0
-params/anim_speed_scale = 1.0
-params/anim_initial_pos = 0.0
-randomness/direction = 2.0
-randomness/initial_size = 0.27
+[node name="Particles2D" parent="." instance=ExtResource( 44 )]
 
 [connection signal="finished" from="Sprite/Death_Anim" to="." method="_on_Skeleton_Death_Anim_finished"]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=1]
+[gd_scene load_steps=31 format=1]
 
 [ext_resource path="res://scripts/giant.gd" type="Script" id=1]
 [ext_resource path="res://textures/enemies/basic_enemies/Giant/Giant_1_idle.tex" type="Texture" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://sounds/76959__michel88__deathe.smp" type="Sample" id=19]
 [ext_resource path="res://sounds/370036__punisherman__grunt.smp" type="Sample" id=20]
 [ext_resource path="res://sounds/76187__movingplaid__concrete-step-1.smp" type="Sample" id=21]
+[ext_resource path="res://scenes/game_hero/enemies/coin_fountain.tscn" type="PackedScene" id=22]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -313,6 +314,8 @@ params/attenuation/distance_exp = 1.0
 config/polyphony = 1
 config/samples = SubResource( 8 )
 config/pitch_random = 0.0
+
+[node name="Particles2D" parent="." instance=ExtResource( 22 )]
 
 [connection signal="finished" from="AnimatedSprite/Death_Anim" to="." method="_on_Death_Anim_finished"]
 
