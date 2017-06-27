@@ -157,6 +157,7 @@ func update_inventory(dir):
 	stats_update()
 
 func loot(looting_object_name,looting_object_type):
+	get_node("SamplePlayer2D").play("loot")
 	if (looting_object_type == "weapons"):
 			dropping_object_name = weapon.get_name()
 			dropping_object_type = "weapons"
