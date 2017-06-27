@@ -5,7 +5,6 @@
 
 [node name="TileMap" type="TileMap"]
 
-transform/pos = Vector2( -70, 10 )
 z/z = -1
 mode = 0
 tile_set = ExtResource( 1 )

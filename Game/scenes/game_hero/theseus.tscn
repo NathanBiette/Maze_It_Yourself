@@ -32,19 +32,19 @@
 [sub_resource type="RectangleShape2D" id=16]
 
 custom_solver_bias = 0.0
-extents = Vector2( 48, 48 )
+extents = Vector2( 30, 30 )
 
 [sub_resource type="SpriteFrames" id=17]
 
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-}, {
 "frames": [  ],
 "loop": true,
 "name": "New Anim",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "default",
 "speed": 5.0
 } ]
 
