@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=1]
+[gd_scene load_steps=37 format=1]
 
 [ext_resource path="res://scripts/theseus.gd" type="Script" id=1]
 [ext_resource path="res://textures/hero/hero_face_right_100px.tex" type="Texture" id=2]
@@ -19,6 +19,9 @@
 [ext_resource path="res://textures/hero/itempanel.tex" type="Texture" id=17]
 [ext_resource path="res://textures/hero/item_bar_under.tex" type="Texture" id=18]
 [ext_resource path="res://textures/hero/item_bar_progress.tex" type="Texture" id=19]
+[ext_resource path="res://sounds/163441__under7dude__man-getting-hit.smp" type="Sample" id=20]
+[ext_resource path="res://sounds/268758__deleted-user-5093904__footsteps.smp" type="Sample" id=21]
+[ext_resource path="res://sounds/52458__audione__sword-01.smp" type="Sample" id=22]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -299,6 +302,27 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
+[sub_resource type="SampleLibrary" id=14]
+
+samples/ouch = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 20 )
+}
+samples/step = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 21 )
+}
+samples/sword = {
+"db": 0.0,
+"pitch": 2.0,
+"priority": 0,
+"sample": ExtResource( 22 )
+}
+
 [node name="theseus" type="KinematicBody2D" groups=[
 "theseus",
 ]]
@@ -336,6 +360,7 @@ _update_shape_index = 0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 0, -30 )
 frames = SubResource( 2 )
 animation = "default"
@@ -382,6 +407,7 @@ autoplay = ""
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
+editor/display_folded = true
 anchor_mode = 1
 rotating = false
 current = true
@@ -668,6 +694,7 @@ margin/bottom = 49.0
 
 [node name="Area2D" type="Area2D" parent="."]
 
+editor/display_folded = true
 input/pickable = true
 shapes/0/shape = SubResource( 13 )
 shapes/0/transform = Matrix32( 3.84615, 0, 0, 3.19231, -3.8147e-06, -8.5 )
@@ -684,6 +711,17 @@ transform/scale = Vector2( 3.84615, 3.19231 )
 shape = SubResource( 13 )
 trigger = true
 _update_shape_index = 0
+
+[node name="SamplePlayer2D" type="SamplePlayer2D" parent="."]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 14 )
+config/pitch_random = 0.0
 
 [connection signal="input_event" from="touchBox" to="." method="_on_touchBox_input_event"]
 

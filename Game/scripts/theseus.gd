@@ -67,6 +67,7 @@ func _ready():
 func _move(dir):
 	#part called to move theseus
 	if idle:
+		get_node("SamplePlayer2D").play("move")
 		if (dir=="up"):
 			move(Vector2(0,-MOVEMENT_UNIT))
 			idle = false
@@ -85,6 +86,7 @@ func _move(dir):
 			var collider = get_collider()
 			#part coding what happens with every kind of collider
 			if (collider.is_in_group("enemies")) :
+				get_node("SamplePlayer2D").play("sword")
 				idle = false
 				revert_motion()
 				collider.interact(dir, get_node("."))
@@ -106,6 +108,7 @@ func _move(dir):
 func lose_hp(damage):
 	if !invincibility:
 		current_HP -= damage
+		get_node("SamplePlayer2D").play("ouch")
 		print(current_HP)
 		get_node("AnimatedSprite/Damage_anims").play("hp_lost")
 		get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100.0)
