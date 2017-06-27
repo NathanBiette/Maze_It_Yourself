@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=1]
+[gd_scene load_steps=44 format=1]
 
 [ext_resource path="res://scripts/theseus.gd" type="Script" id=1]
 [ext_resource path="res://textures/hero/hero_face_right_100px.tex" type="Texture" id=2]
@@ -24,12 +24,10 @@
 [ext_resource path="res://textures/hero/key_arrow_left.tex" type="Texture" id=22]
 [ext_resource path="res://textures/hero/key_arrow_up.tex" type="Texture" id=23]
 [ext_resource path="res://textures/hero/key_arrow_down.tex" type="Texture" id=24]
-[ext_resource path="res://sounds/377303__rensvdmeijs__deep-cinematic-impact.smp" type="Sample" id=25]
-[ext_resource path="res://sounds/268880__sfx4animation__moved-02-dark.smp" type="Sample" id=26]
-[ext_resource path="res://sounds/162168__hunterscrossbow__aah2.smp" type="Sample" id=27]
-[ext_resource path="res://sounds/163441__under7dude__man-getting-hit.smp" type="Sample" id=28]
-[ext_resource path="res://sounds/268758__deleted-user-5093904__footsteps.smp" type="Sample" id=29]
-[ext_resource path="res://sounds/52458__audione__sword-01.smp" type="Sample" id=30]
+[ext_resource path="res://sounds/162168__hunterscrossbow__aah2.smp" type="Sample" id=25]
+[ext_resource path="res://sounds/163441__under7dude__man-getting-hit.smp" type="Sample" id=26]
+[ext_resource path="res://sounds/268758__deleted-user-5093904__footsteps.smp" type="Sample" id=27]
+[ext_resource path="res://sounds/52458__audione__sword-01.smp" type="Sample" id=28]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -327,43 +325,31 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[sub_resource type="SampleLibrary" id=14]
+[sub_resource type="SampleLibrary" id=15]
 
-samples/377303__rensvdmeijs__deep-cinematic-impact = {
+samples/loot = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 20 )
-}
-samples/gameover = {
-"db": 0.0,
-"pitch": 1.0,
-"priority": 1,
-"sample": ExtResource( 21 )
-}
-samples/loot = {
-"db": -2.0,
-"pitch": 0.85,
-"priority": 2,
-"sample": ExtResource( 22 )
+"sample": ExtResource( 25 )
 }
 samples/ouch = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 23 )
+"sample": ExtResource( 26 )
 }
 samples/step = {
-"db": -2.0,
+"db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 24 )
+"sample": ExtResource( 27 )
 }
 samples/sword = {
 "db": 0.0,
-"pitch": 2.0,
+"pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 25 )
+"sample": ExtResource( 28 )
 }
 
 [node name="theseus" type="KinematicBody2D" groups=[
@@ -843,10 +829,8 @@ params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
 config/polyphony = 1
-config/samples = SubResource( 14 )
+config/samples = SubResource( 15 )
 config/pitch_random = 0.0
-
-[connection signal="input_event" from="touchBox" to="." method="_on_touchBox_input_event"]
 
 [connection signal="finished" from="AnimatedSprite/Movement_anims" to="." method="_on_Movement_anims_finished"]
 
