@@ -3,6 +3,7 @@ extends Node2D
 const defense = 1
 const cooldown = 10
 const active = 3
+const description = "Cronos shieldDefense: 1\nActive effect: Stops time for 3 seconds (10 secs cooldown)\n\nThe shield of Cronos, the ancient titan of time. It holds a fragment of Cronos' time powers."
 var timeStopped = false
 #var position
 
@@ -11,6 +12,9 @@ var timer
 
 func _ready():
 	pass
+
+func description():
+	return description
 
 func defense():
 	return defense

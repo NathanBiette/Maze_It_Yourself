@@ -3,6 +3,7 @@ extends Node2D
 const defense = 2
 const active = 0
 const cooldown = 0
+const description = "Barbute helmet\n\nDefense: 2\n\nThis ancient helmet is told to be the crown of an ancient king"
 #var position
 
 var on_cooldown = false
@@ -10,6 +11,9 @@ var timer
 
 func _ready():
 	pass
+
+func description():
+	return description
 
 func defense():
 	return defense

@@ -5,6 +5,7 @@ const defense = 0
 const one_use = true
 const cooldown = 0
 const active = 3
+const description = "Ambrosia potion\n\nActive effect: Makes you invincible for 3 seconds\n\nThe God's beverage. It is told to cure every disease."
 #var position
 
 var on_cooldown = false
@@ -12,6 +13,9 @@ var timer
 
 func _ready():
 	pass
+
+func description():
+	return description
 
 func attack():
 	return attack
