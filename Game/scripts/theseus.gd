@@ -105,7 +105,8 @@ func _move(dir):
 #function that can be called by enemies to change Theseus' attributes
 func lose_hp(damage):
 	if !invincibility:
-		current_HP -= damage
+		var effective_damage = max(1, damage - defense)
+		current_HP -= effective_damage
 		print(current_HP)
 		get_node("AnimatedSprite/Damage_anims").play("hp_lost")
 		get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100.0)
@@ -206,6 +207,12 @@ func stats_update():
 	attack = weapon.attack() + item.attack()
 	defense = shield.defense() + helmet.defense() + item.defense()
 	print(str(attack) + " " + str(defense))
+
+#to heal the hero
+func heal(value):
+	current_HP = min(max_HP, current_HP + value)
+	get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100.0)
+
 #####################################################################################
 
 func _on_touchBox_input_event( ev ):
@@ -239,13 +246,14 @@ func _on_shield_control_input_event( ev ):
 		print("Shield activated")
 		var timeLeft = shield.active(get_node("../hero_floor/map_"+str(current_room)))
 		if (timeLeft > 0):
+			var shieldUsed = shield
 			var t = Timer.new()
 			t.set_wait_time(timeLeft)
 			t.set_one_shot(true)
 			self.add_child(t)
 			t.start()
 			yield(t, "timeout")
-			shield.active2(get_node("../hero_floor/map_"+str(current_room)))
+			shieldUsed.active2(get_node("../hero_floor/map_"+str(current_room)))
 
 
 func _on_helmet_control_input_event( ev ):
@@ -253,13 +261,14 @@ func _on_helmet_control_input_event( ev ):
 		print("Helmet activated")
 		var timeLeft = helmet.active(get_node("../hero_floor/map_"+str(current_room)))
 		if (timeLeft > 0):
+			var helmetUsed = helmet
 			var t = Timer.new()
 			t.set_wait_time(timeLeft)
 			t.set_one_shot(true)
 			self.add_child(t)
 			t.start()
 			yield(t, "timeout")
-			helmet.active2(get_node("../hero_floor/map_"+str(current_room)))
+			helmetUsed.active2(get_node("../hero_floor/map_"+str(current_room)))
 
 
 func _on_weapon_control_input_event( ev ):
@@ -267,13 +276,14 @@ func _on_weapon_control_input_event( ev ):
 		print("Weapon activated")
 		var timeLeft = weapon.active(get_node("../hero_floor/map_"+str(current_room)))
 		if (timeLeft > 0):
+			var weaponUsed = weapon
 			var t = Timer.new()
 			t.set_wait_time(timeLeft)
 			t.set_one_shot(true)
 			self.add_child(t)
 			t.start()
 			yield(t, "timeout")
-			weapon.active2(get_node("../hero_floor/map_"+str(current_room)))
+			weaponUsed.active2(get_node("../hero_floor/map_"+str(current_room)))
 
 
 func _on_item_control_input_event( ev ):
@@ -281,10 +291,11 @@ func _on_item_control_input_event( ev ):
 		print("Item activated")
 		var timeLeft = item.active(get_node("../hero_floor/map_"+str(current_room)))
 		if (timeLeft > 0):
+			var itemUsed = item
 			var t = Timer.new()
 			t.set_wait_time(timeLeft)
 			t.set_one_shot(true)
 			self.add_child(t)
 			t.start()
 			yield(t, "timeout")
-			item.active2(get_node("../hero_floor/map_"+str(current_room)))
+			itemUsed.active2(get_node("../hero_floor/map_"+str(current_room)))
