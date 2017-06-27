@@ -1,7 +1,6 @@
 extends Node2D
 
-const defense = 0
-const attack = 0
+const defense = 2
 #var position
 
 func _ready():
@@ -10,14 +9,11 @@ func _ready():
 func defense():
 	return defense
 
-func attack():
-	return attack
-
 func active(current_room):
 	return 0
 
-func _on_Area2D_area_enter( area ):
+func _on_Area2D_area_enter(area):
 	var interacting_node = area.get_node("../")
 	if (interacting_node.get_name() == "theseus"):
-		interacting_node.pick_up("basic_item", "items")
+		interacting_node.pick_up("barbute_helmet", "helmets")
 		queue_free()

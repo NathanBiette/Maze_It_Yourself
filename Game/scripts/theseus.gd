@@ -203,8 +203,8 @@ func drop(dropping_object_name,dropping_object_type,dir):
 	
 #to update stats of hero
 func stats_update():
-	attack = weapon.attack()
-	defense = shield.defense() + helmet.defense()
+	attack = weapon.attack() + item.attack()
+	defense = shield.defense() + helmet.defense() + item.defense()
 	print(str(attack) + " " + str(defense))
 #####################################################################################
 
