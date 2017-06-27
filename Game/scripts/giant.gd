@@ -24,6 +24,7 @@ func _ready():
 func _process(delta):
 	if (health <= 0):
 		is_dead = false
+		get_node("Particles2D").set_emitting(true)
 		get_node("CollisionShape2D").queue_free()
 		get_node("AnimatedSprite/Movement_anims").stop_all()
 		get_node("AnimatedSprite/smash").stop_all()
