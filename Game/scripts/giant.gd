@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const gold = 30
+
 var original_pos
 var damage
 var movement_unit = 100
@@ -16,14 +18,21 @@ func _ready():
 	set_process(true)
 	get_node("AnimatedSprite/TextureProgress").set_value((float(health)/float(10))*100.0)
 	facing = "left"
+	is_dead = false
 	get_node("RayCast2D").add_exception(get_node(".."))
 	get_node("RayCast2D").add_exception(get_node("."))
 	randomize()
 
 func _process(delta):
 	if (health <= 0):
+		is_dead = false
+		Globals.set("gold", Globals.get("gold") + gold)
+		get_node("Particles2D").set_emitting(true)
 		get_node("CollisionShape2D").queue_free()
+		get_node("AnimatedSprite/Movement_anims").stop_all()
+		get_node("AnimatedSprite/smash").stop_all()
 		get_node("AnimatedSprite/Death_Anim").play("death")
+		get_node("SamplePlayer2D").play("death")
 		var lib = get_node("../../../../..").get_ITEMS_LIBRARY()
 		var k = randi()%lib.size()
 		var item = load("res://scenes/game_hero/objects/"+str(lib[k][1])+".tscn")
@@ -41,12 +50,13 @@ func interact(dir, node):
 	node.get_node("AnimatedSprite/Blocked_move_anims").play("blocked_move_" + str(dir))
 
 func _move(dir):
-	if facing == "left":
-		get_node("AnimatedSprite/Movement_anims").play("about_to_move")
-		current_dir = dir
-	elif facing == "right":
-		get_node("AnimatedSprite/Movement_anims").play("about_to_move_right")
-		current_dir = dir
+	if !is_dead:
+		if facing == "left":
+			get_node("AnimatedSprite/Movement_anims").play("about_to_move")
+			current_dir = dir
+		elif facing == "right":
+			get_node("AnimatedSprite/Movement_anims").play("about_to_move_right")
+			current_dir = dir
 
 #one move every timer finished
 func _on_Timer_timeout():
@@ -95,6 +105,7 @@ func set_pause(boolean):
 func _on_Movement_anims_finished():
 	advance(current_dir)
 	var current_pos = get_pos()
+	get_node("SamplePlayer2D").play("move")
 	if (current_dir=="up"):
 		get_node("RayCast2D").set_cast_to(Vector2(0,0))
 	elif (current_dir=="down"):

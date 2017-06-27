@@ -7,6 +7,7 @@ var is_open = false
 var room_id = 0
 const hero_speed = 50
 var spawn_locations = []
+var looters_location = []
 
 func _ready():
 	pass
@@ -15,6 +16,7 @@ func initialize():
 	doors_locations = [Vector2(-1,-1),Vector2(-1,-1),Vector2(-1,-1),Vector2(-1,-1)]
 	find_doors()
 	find_spawn()
+	find_looters()
 	if (get_node("../../.").get_name() == "game_hero" or get_node("../../.").get_name() == "demo"):
 		close_doors()
 		set_process(true)
@@ -83,6 +85,15 @@ func find_spawn():
 
 func get_spawn_locations():
 	return spawn_locations
+
+func find_looters():
+	var tab = get_node("TileMap").get_used_cells()
+	for t in range(tab.size()):
+		if (get_node("TileMap").get_cell(tab[t][0],tab[t][1]) >= 17 and get_node("TileMap").get_cell(tab[t][0],tab[t][1]) < 23):
+			looters_location.append(tab[t])
+
+func get_looters_locations():
+	return looters_location
 
 func update_global_pos(room_number):
 	for i in doors_locations:

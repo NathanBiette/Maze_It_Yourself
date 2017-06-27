@@ -12,6 +12,19 @@ var weapon
 var shield
 var item
 
+var hasItem = true
+
+#cooldowns
+var helmet_on_cooldown = false
+var weapon_on_cooldown = false
+var shield_on_cooldown = false
+var item_on_cooldown = false
+
+var helmet_timer
+var weapon_timer
+var shield_timer
+var item_timer
+
 #stats
 var current_HP
 var attack
@@ -50,23 +63,69 @@ func _ready():
 	weapon = load("res://scenes/game_hero/objects/weapons/" + str(Globals.get("weapon")) + ".tscn").instance()
 	shield = load("res://scenes/game_hero/objects/shields/" + str(Globals.get("shield")) + ".tscn").instance()
 	item = load("res://scenes/game_hero/objects/items/" + str(Globals.get("item")) + ".tscn").instance()
-	gold = Globals.get("gold")
 
 	#compute attack and defense stats
 	attack = weapon.attack()
 	defense = shield.defense() + helmet.defense()
 
 	get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100)
-	get_node("Camera2D/hud/coinSprite/coinLabel").set_text(str(gold))
+	get_node("Camera2D/hud/coinSprite/coinLabel").set_text(str(Globals.get("gold")))
 	get_node("Camera2D/hud/weaponPanel/Sprite").set_texture(load("res://textures/objects/weapons/"+weapon.get_name()+".tex"))
 	get_node("Camera2D/hud/helmetPanel/Sprite").set_texture(load("res://textures/objects/helmets/"+helmet.get_name()+".tex"))
 	get_node("Camera2D/hud/shieldPanel/Sprite").set_texture(load("res://textures/objects/shields/"+shield.get_name()+".tex"))
-	get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(100)
+	get_node("Camera2D/hud/itemPanel/Sprite").set_texture(load("res://textures/objects/items/"+item.get_name()+".tex"))
+	
+	set_process(true)
+
+func _process(delta):
+	
+	get_node("Camera2D/hud/coinSprite/coinLabel").set_text(str(Globals.get("gold")))
+	
+	shield_on_cooldown = shield.is_on_cooldown()
+	helmet_on_cooldown = helmet.is_on_cooldown()
+	weapon_on_cooldown = weapon.is_on_cooldown()
+	if item != null:
+		item_on_cooldown = item.is_on_cooldown()
+	else:
+		item_on_cooldown = false
+	
+	if shield.cooldown() > 0: 
+		if shield_on_cooldown:
+			get_node("Camera2D/hud/shieldPanel/shieldProgress").set_value(100.0-float(shield_timer.get_time_left())/float(shield.cooldown())*100.0)
+		else:
+			get_node("Camera2D/hud/shieldPanel/shieldProgress").set_value(100)
+	else:
+		get_node("Camera2D/hud/shieldPanel/shieldProgress").set_value(0)
+		
+	if helmet.cooldown() > 0:
+		if helmet_on_cooldown:
+			get_node("Camera2D/hud/helmetPanel/helmetProgress").set_value(100.0-float(helmet_timer.get_time_left())/float(helmet.cooldown())*100.0)
+		else:
+			get_node("Camera2D/hud/helmetPanel/helmetProgress").set_value(100)
+	else:
+		get_node("Camera2D/hud/helmetPanel/helmetProgress").set_value(0)
+		
+	if weapon.cooldown() > 0:
+		if weapon_on_cooldown:
+			get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(100.0-float(weapon_timer.get_time_left())/float(weapon.cooldown())*100.0)
+		else:
+			get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(100)
+	else:
+		get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(0)
+	if item != null:
+		if item.cooldown() > 0:
+			if item_on_cooldown:
+				get_node("Camera2D/hud/itemPanel/itemProgress").set_value(100.0-float(item_timer.get_time_left())/float(item.cooldown())*100.0)
+			else:
+				get_node("Camera2D/hud/itemPanel/itemProgress").set_value(100)
+		else:
+			get_node("Camera2D/hud/itemPanel/itemProgress").set_value(0)
 
 #move script of theseus
 func _move(dir):
 	#part called to move theseus
 	if idle:
+		get_node("SamplePlayer2D").play("step")
 		if (dir=="up"):
 			move(Vector2(0,-MOVEMENT_UNIT))
 			idle = false
@@ -85,6 +144,7 @@ func _move(dir):
 			var collider = get_collider()
 			#part coding what happens with every kind of collider
 			if (collider.is_in_group("enemies")) :
+				get_node("SamplePlayer2D").play("sword")
 				idle = false
 				revert_motion()
 				collider.interact(dir, get_node("."))
@@ -92,6 +152,10 @@ func _move(dir):
 			elif (collider.is_in_group("door")) :
 				revert_motion()
 				collider.shazaam()
+				get_node("AnimatedSprite/Blocked_move_anims").queue("blocked_move_" + dir)
+			elif(collider.is_in_group("looter")) :
+				revert_motion()
+				collider.give_loot(current_room)
 				get_node("AnimatedSprite/Blocked_move_anims").queue("blocked_move_" + dir)
 			else :
 				idle = false
@@ -105,7 +169,9 @@ func _move(dir):
 #function that can be called by enemies to change Theseus' attributes
 func lose_hp(damage):
 	if !invincibility:
-		current_HP -= damage
+		var effective_damage = max(1, damage - defense)
+		current_HP -= effective_damage
+		get_node("SamplePlayer2D").play("ouch")
 		print(current_HP)
 		get_node("AnimatedSprite/Damage_anims").play("hp_lost")
 		get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100.0)
@@ -145,7 +211,11 @@ func pick_up(object_name, object_type):
 
 func update_inventory(dir):
 	if(dropping):
-		drop(dropping_object_name,dropping_object_type,dir)
+		if hasItem:
+			drop(dropping_object_name,dropping_object_type,dir)
+		else:
+			dropping = false
+			hasItem = true
 	if (looting):
 		loot(looting_object_name, looting_object_type)
 		looting = false
@@ -154,6 +224,8 @@ func update_inventory(dir):
 	stats_update()
 
 func loot(looting_object_name,looting_object_type):
+	get_node("SamplePlayer2D").play("loot")
+	get_node("Camera2D/hud/popup").add_font_override("",load("res://textures/menus/font.fnt"))
 	if (looting_object_type == "weapons"):
 			dropping_object_name = weapon.get_name()
 			dropping_object_type = "weapons"
@@ -162,6 +234,9 @@ func loot(looting_object_name,looting_object_type):
 			#load node of colliding item for it not to be destroyed on freeing from map
 			weapon = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
 			get_node("Camera2D/hud/weaponPanel/Sprite").set_texture(load("res://textures/objects/weapons/"+weapon.get_name()+".tex"))
+			get_node("Camera2D/hud/popup").set_text(weapon.description())
+			if (weapon.cooldown() > 0):
+				weapon_cooldown(weapon)
 			#save weapon reference 
 			Globals.set("weapon", weapon.get_name())
 	if (looting_object_type == "shields"):
@@ -170,6 +245,9 @@ func loot(looting_object_name,looting_object_type):
 			#shield.queue_free()
 			shield = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
 			get_node("Camera2D/hud/shieldPanel/Sprite").set_texture(load("res://textures/objects/shields/"+shield.get_name()+".tex"))
+			get_node("Camera2D/hud/popup").set_text(shield.description())
+			if (shield.cooldown() > 0):
+				shield_cooldown(shield)
 			Globals.set("shield", helmet.get_name())
 	if (looting_object_type == "helmets"):
 			dropping_object_name = helmet.get_name()
@@ -177,14 +255,22 @@ func loot(looting_object_name,looting_object_type):
 			#helmet.queue_free()
 			helmet = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
 			get_node("Camera2D/hud/helmetPanel/Sprite").set_texture(load("res://textures/objects/helmets/"+helmet.get_name()+".tex"))
+			get_node("Camera2D/hud/popup").set_text(helmet.description())
+			if (helmet.cooldown() > 0):
+				helmet_cooldown(helmet)
 			Globals.set("helmet", helmet.get_name())
 	if (looting_object_type == "items"):
-			dropping_object_name = item.get_name()
-			dropping_object_type = "items"
+			if item != null:
+				dropping_object_name = item.get_name()
+				dropping_object_type = "items"
 			#items.queue_free()
 			item = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
 			get_node("Camera2D/hud/itemPanel/Sprite").set_texture(load("res://textures/objects/items/"+item.get_name()+".tex"))
+			get_node("Camera2D/hud/popup").set_text(item.description())
+			if (item.cooldown() > 0):
+				item_cooldown(item)
 			Globals.set("item", item.get_name())
+	get_node("Camera2D/hud/popup").popup_centered_ratio(0.5)
 
 func drop(dropping_object_name,dropping_object_type,dir):
 	print("dropping " + dropping_object_name)
@@ -203,32 +289,30 @@ func drop(dropping_object_name,dropping_object_type,dir):
 	
 #to update stats of hero
 func stats_update():
-	attack = weapon.attack()
-	defense = shield.defense() + helmet.defense()
+	if item != null:
+		attack = weapon.attack() + item.attack()
+		defense = shield.defense() + helmet.defense() + item.defense()
+	else:
+		attack = weapon.attack()
+		defense = shield.defense() + helmet.defense()
 	print(str(attack) + " " + str(defense))
-#####################################################################################
 
-func _on_touchBox_input_event( ev ):
-	if (idle and (ev.type==InputEvent.SCREEN_TOUCH or ev.type==InputEvent.MOUSE_BUTTON)):
-		var angle = Vector2(750-ev.x, 600-ev.y).angle()
-		if (angle < 0.685 and angle > -0.685) :
-			_move("up")
-		if (angle <= -0.885 and angle >= -2.256):
-			_move("right")
-		if (angle <= 2.256 and angle >= 0.885):
-			_move("left")
-		if (angle < -2.456 or angle > 2.456) :
-			_move("down")
+#to heal the hero
+func heal(value):
+	current_HP = min(max_HP, current_HP + value)
+	get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100.0)
+
+#####################################################################################
 
 func game_over():
 	if (!game_over):
 		get_node("Camera2D/CanvasLayer/Game_over").play("you_died")
+		get_node("SamplePlayer2D").play("gameover")
 		game_over = true
 
 
 func _on_Game_over_finished():
 	if (game_over):
-		print("animation finished")
 		get_node("..").game_over()
 
 func _on_Blocked_move_anims_finished():
@@ -236,8 +320,16 @@ func _on_Blocked_move_anims_finished():
 
 func _on_shield_control_input_event( ev ):
 	if (ev.type == InputEvent.MOUSE_BUTTON):
+		if shield_on_cooldown:
+			return
 		print("Shield activated")
+		if (shield == null):
+			return
 		var timeLeft = shield.active(get_node("../hero_floor/map_"+str(current_room)))
+		var cooldown = shield.cooldown()
+		var shieldUsed = shield
+		if (cooldown > 0):
+			shield_cooldown(shield)
 		if (timeLeft > 0):
 			var t = Timer.new()
 			t.set_wait_time(timeLeft)
@@ -245,14 +337,19 @@ func _on_shield_control_input_event( ev ):
 			self.add_child(t)
 			t.start()
 			yield(t, "timeout")
-			if shield.has("active2"):
-				shield.active2(get_node("../hero_floor/map_"+str(current_room)))
+			shieldUsed.active2(get_node("../hero_floor/map_"+str(current_room)))
 
 
 func _on_helmet_control_input_event( ev ):
 	if (ev.type == InputEvent.MOUSE_BUTTON):
 		print("Helmet activated")
+		if (helmet == null):
+			return
 		var timeLeft = helmet.active(get_node("../hero_floor/map_"+str(current_room)))
+		var cooldown = helmet.cooldown()
+		var helmetUsed = helmet
+		if (cooldown > 0):
+			helmet_cooldown(helmet)
 		if (timeLeft > 0):
 			var t = Timer.new()
 			t.set_wait_time(timeLeft)
@@ -260,14 +357,19 @@ func _on_helmet_control_input_event( ev ):
 			self.add_child(t)
 			t.start()
 			yield(t, "timeout")
-			if helmet.has("active2"):
-				helmet.active2(get_node("../hero_floor/map_"+str(current_room)))
+			helmetUsed.active2(get_node("../hero_floor/map_"+str(current_room)))
 
 
 func _on_weapon_control_input_event( ev ):
 	if (ev.type == InputEvent.MOUSE_BUTTON):
 		print("Weapon activated")
+		if (weapon == null):
+			return
 		var timeLeft = weapon.active(get_node("../hero_floor/map_"+str(current_room)))
+		var cooldown = weapon.cooldown()
+		var weaponUsed = weapon
+		if (cooldown > 0):
+			weapon_cooldown(weapon)
 		if (timeLeft > 0):
 			var t = Timer.new()
 			t.set_wait_time(timeLeft)
@@ -275,14 +377,24 @@ func _on_weapon_control_input_event( ev ):
 			self.add_child(t)
 			t.start()
 			yield(t, "timeout")
-			if weapon.has("active2"):
-				weapon.active2(get_node("../hero_floor/map_"+str(current_room)))
+			weaponUsed.active2(get_node("../hero_floor/map_"+str(current_room)))
 
 
 func _on_item_control_input_event( ev ):
 	if (ev.type == InputEvent.MOUSE_BUTTON):
 		print("Item activated")
+		if (item == null):
+			return
 		var timeLeft = item.active(get_node("../hero_floor/map_"+str(current_room)))
+		var cooldown = item.cooldown()
+		var itemUsed = item
+		if (cooldown > 0):
+			item_cooldown(item)
+		if item.is_one_use():
+			item = null
+			hasItem = false
+			get_node("Camera2D/hud/itemPanel/Sprite").set_texture(null)
+			Globals.set("item", null)
 		if (timeLeft > 0):
 			var t = Timer.new()
 			t.set_wait_time(timeLeft)
@@ -290,5 +402,79 @@ func _on_item_control_input_event( ev ):
 			self.add_child(t)
 			t.start()
 			yield(t, "timeout")
-			if item.has("active2"):
-				item.active2(get_node("../hero_floor/map_"+str(current_room)))
+			itemUsed.active2(get_node("../hero_floor/map_"+str(current_room)))
+
+func shield_cooldown(sh):
+	shield_timer = Timer.new()
+	shield_timer.set_wait_time(sh.cooldown())
+	shield_timer.set_one_shot(true)
+	self.add_child(shield_timer)
+	shield_timer.start()
+	sh.set_timer(shield_timer)
+	sh.set_on_cooldown(true)
+	yield(shield_timer, "timeout")
+	sh.set_on_cooldown(false)
+
+func helmet_cooldown(he):
+	helmet_timer = Timer.new()
+	helmet_timer.set_wait_time(he.cooldown())
+	helmet_timer.set_one_shot(true)
+	self.add_child(helmet_timer)
+	helmet_timer.start()
+	he.set_timer(helmet_timer)
+	he.set_on_cooldown(true)
+	yield(helmet_timer, "timeout")
+	he.set_on_cooldown(false)
+
+func weapon_cooldown(we):
+	weapon_timer = Timer.new()
+	weapon_timer.set_wait_time(we.cooldown())
+	weapon_timer.set_one_shot(true)
+	self.add_child(weapon_timer)
+	weapon_timer.start()
+	we.set_timer(weapon_timer)
+	we.set_on_cooldown(true)
+	yield(weapon_timer, "timeout")
+	we.set_on_cooldown(false)
+
+func item_cooldown(it):
+	item_timer = Timer.new()
+	item_timer.set_wait_time(it.cooldown())
+	item_timer.set_one_shot(true)
+	self.add_child(item_timer)
+	item_timer.start()
+	it.set_timer(item_timer)
+	it.set_on_cooldown(true)
+	yield(item_timer, "timeout")
+	it.set_on_cooldown(false)
+
+func _on_right_input_event( ev ):
+	if(ev.type == InputEvent.MOUSE_BUTTON):
+		_move("right")
+
+func _on_left_input_event( ev ):
+	if(ev.type == InputEvent.MOUSE_BUTTON):
+		_move("left")
+
+func _on_up_input_event( ev ):
+	if(ev.type == InputEvent.MOUSE_BUTTON):
+		_move("up")
+
+func _on_down_input_event( ev ):
+	if(ev.type == InputEvent.MOUSE_BUTTON):
+		_move("down")
+
+
+func _on_end_game_finished():
+	get_node("..").game_over()
+
+
+func _on_popup_about_to_show():
+	get_node("../hero_floor/map_"+str(current_room)).set_pause_room(true)
+
+
+func _on_popup_popup_hide():
+	get_node("../hero_floor/map_"+str(current_room)).set_pause_room(false)
+	
+func set_idle(boolean):
+	idle=boolean
