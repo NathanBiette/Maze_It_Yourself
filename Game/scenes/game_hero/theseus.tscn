@@ -29,26 +29,26 @@
 [ext_resource path="res://sounds/268758__deleted-user-5093904__footsteps.smp" type="Sample" id=27]
 [ext_resource path="res://sounds/52458__audione__sword-01.smp" type="Sample" id=28]
 
-[sub_resource type="RectangleShape2D" id=16]
+[sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 30, 30 )
 
-[sub_resource type="SpriteFrames" id=17]
+[sub_resource type="SpriteFrames" id=2]
 
 animations = [ {
-"frames": [  ],
-"loop": true,
-"name": "New Anim",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "New Anim",
+"speed": 5.0
 } ]
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=3]
 
 resource/name = "movement_down_100px"
 length = 0.2
@@ -75,7 +75,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, -100 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=4]
 
 resource/name = "movement_left_100px"
 length = 0.2
@@ -112,7 +112,7 @@ tracks/2/keys = {
 "values": [ 0.7, 1.0 ]
 }
 
-[sub_resource type="Animation" id=20]
+[sub_resource type="Animation" id=5]
 
 resource/name = "movement_right_100px"
 length = 0.2
@@ -139,7 +139,7 @@ tracks/1/keys = {
 "values": [ Vector2( -100, 0 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=6]
 
 resource/name = "movement_up_100px"
 length = 0.2
@@ -166,7 +166,7 @@ tracks/1/keys = {
 "values": [ 7, 3 ]
 }
 
-[sub_resource type="Animation" id=22]
+[sub_resource type="Animation" id=7]
 
 length = 1.0
 loop = false
@@ -182,7 +182,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=23]
+[sub_resource type="Animation" id=8]
 
 length = 0.3
 loop = false
@@ -208,7 +208,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, 30 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=24]
+[sub_resource type="Animation" id=9]
 
 length = 0.3
 loop = false
@@ -234,7 +234,7 @@ tracks/1/keys = {
 "values": [ 1, 0, 1 ]
 }
 
-[sub_resource type="Animation" id=25]
+[sub_resource type="Animation" id=10]
 
 length = 0.3
 loop = false
@@ -260,7 +260,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 30, 0 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=26]
+[sub_resource type="Animation" id=11]
 
 length = 0.3
 loop = false
@@ -286,7 +286,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, -30 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=27]
+[sub_resource type="Animation" id=12]
 
 resource/name = "you_win"
 length = 2.0
@@ -303,7 +303,7 @@ tracks/0/keys = {
 "values": [ 0.0, 1.0, 1.0 ]
 }
 
-[sub_resource type="Animation" id=28]
+[sub_resource type="Animation" id=13]
 
 resource/name = "you_win"
 length = 1.0
@@ -320,7 +320,7 @@ tracks/0/keys = {
 "values": [ 0.0, 1.0, 1.0, 0.0 ]
 }
 
-[sub_resource type="RectangleShape2D" id=29]
+[sub_resource type="RectangleShape2D" id=14]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
@@ -359,7 +359,7 @@ samples/sword = {
 transform/pos = Vector2( 150, 150 )
 z/z = 1
 input/pickable = false
-shapes/0/shape = SubResource( 16 )
+shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 1, 1 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -370,14 +370,14 @@ script/script = ExtResource( 1 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
 transform/pos = Vector2( 1, 1 )
-shape = SubResource( 16 )
+shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 
 transform/pos = Vector2( 0, -30 )
-frames = SubResource( 17 )
+frames = SubResource( 2 )
 animation = "default"
 frame = 3
 
@@ -386,10 +386,10 @@ frame = 3
 playback/process_mode = 0
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/movement_down_100px = SubResource( 18 )
-anims/movement_left_100px = SubResource( 19 )
-anims/movement_right_100px = SubResource( 20 )
-anims/movement_up_100px = SubResource( 21 )
+anims/movement_down_100px = SubResource( 3 )
+anims/movement_left_100px = SubResource( 4 )
+anims/movement_right_100px = SubResource( 5 )
+anims/movement_up_100px = SubResource( 6 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -400,7 +400,7 @@ autoplay = ""
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/hp_lost = SubResource( 22 )
+anims/hp_lost = SubResource( 7 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -411,10 +411,10 @@ autoplay = ""
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/blocked_move_down = SubResource( 23 )
-anims/blocked_move_left = SubResource( 24 )
-anims/blocked_move_right = SubResource( 25 )
-anims/blocked_move_up = SubResource( 26 )
+anims/blocked_move_down = SubResource( 8 )
+anims/blocked_move_left = SubResource( 9 )
+anims/blocked_move_right = SubResource( 10 )
+anims/blocked_move_up = SubResource( 11 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -451,7 +451,7 @@ scale = Vector2( 2, 2 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/you_died = SubResource( 27 )
+anims/you_died = SubResource( 12 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -476,7 +476,7 @@ scale = Vector2( 2, 2 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/you_win = SubResource( 27 )
+anims/you_win = SubResource( 12 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -501,7 +501,7 @@ scale = Vector2( 2, 2 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/fade_to_black = SubResource( 28 )
+anims/fade_to_black = SubResource( 13 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -802,7 +802,7 @@ centered = false
 [node name="Area2D" type="Area2D" parent="."]
 
 input/pickable = true
-shapes/0/shape = SubResource( 29 )
+shapes/0/shape = SubResource( 14 )
 shapes/0/transform = Matrix32( 3.84615, 0, 0, 3.19231, -3.8147e-06, -8.5 )
 shapes/0/trigger = true
 gravity_vec = Vector2( 0, 1 )
@@ -814,7 +814,7 @@ angular_damp = 1.0
 
 transform/pos = Vector2( -3.8147e-06, -8.5 )
 transform/scale = Vector2( 3.84615, 3.19231 )
-shape = SubResource( 29 )
+shape = SubResource( 14 )
 trigger = true
 _update_shape_index = 0
 

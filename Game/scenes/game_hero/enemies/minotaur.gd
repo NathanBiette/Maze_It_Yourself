@@ -29,7 +29,7 @@ func _process(delta):
 	if health <= 0:
 		is_dead = true
 		get_node("CollisionShape2D").queue_free()
-		get_node("AnimatedSprite/main_anims").stop_all()
+		get_node("AnimatedSprite/Movement_anims").stop_all()
 		get_node("AnimatedSprite/Death_anims").play("death_"+str(facing))
 		set_process(false)
 
@@ -43,24 +43,24 @@ func next_action():
 	var theseus_pos = get_node("../../../../theseus").get_global_pos() 
 	var guideline = get_node(".").get_global_pos() - theseus_pos
 	var angle = guideline.angle()
-	get_node("theseus_detection_ray").set_cast_to(-guideline.normalized() * 212)
+	get_node("theseus_detection_ray").set_cast_to(-guideline.normalized() * 150)
 	if get_node("theseus_detection_ray").is_colliding():
 		#Minautor attacks
 		if (angle < 0.785 and angle > -0.785) :
 			#UP
-			get_node("AnimatedSprite/main_anims/Attack_anims_windup").play("attack_up_windup")
+			get_node("AnimatedSprite/Attack_anims_windup").play("attack_up_windup")
 			facing = "up"
 		if (angle <= -0.785 and angle >= -2.356):
 			#RIGHT
-			get_node("AnimatedSprite/main_anims/Attack_anims_windup").play("attack_right_windup")
+			get_node("AnimatedSprite/Attack_anims_windup").play("attack_right_windup")
 			facing = "right"
 		if (angle <= 2.356 and angle >= 0.785):
 			#LEFT
-			get_node("AnimatedSprite/main_anims/Attack_anims_windup").play("attack_left_windup")
+			get_node("AnimatedSprite/Attack_anims_windup").play("attack_left_windup")
 			facing = "left"
 		if (angle < -2.356 or angle > 2.356) :
 			#DOWN
-			get_node("AnimatedSprite/main_anims/Attack_anims_windup").play("attack_down_windup")
+			get_node("AnimatedSprite/Attack_anims_windup").play("attack_down_windup")
 			facing = "down"
 	elif (get_node("theseus_detection_ray").get_cast_to().x == 0 or get_node("theseus_detection_ray").get_cast_to().y == 0):
 		pass
@@ -69,25 +69,25 @@ func next_action():
 			#UP
 			move(Vector2(0,-200))
 			get_node("AnimatedSprite").set_offset(Vector2(0,100))
-			get_node("AnimatedSprite/main_anims/Movement_anims").play("up_walk")
+			get_node("AnimatedSprite/Movement_anims").play("up_walk")
 			facing = "up"
 		if (angle <= -0.785 and angle >= -2.356):
 			#RIGHT
 			move(Vector2(200,0))
 			get_node("AnimatedSprite").set_offset(Vector2(-100,0))
-			get_node("AnimatedSprite/main_anims/Movement_anims").play("right_walk")
+			get_node("AnimatedSprite/Movement_anims").play("right_walk")
 			facing = "right"
 		if (angle <= 2.356 and angle >= 0.785):
 			#LEFT
 			move(Vector2(-200,0))
 			get_node("AnimatedSprite").set_offset(Vector2(100,0))
-			get_node("AnimatedSprite/main_anims/Movement_anims").play("left_walk")
+			get_node("AnimatedSprite/Movement_anims").play("left_walk")
 			facing = "left"
 		if (angle < -2.356 or angle > 2.356) :
 			#DOWN
 			move(Vector2(0,200))
 			get_node("AnimatedSprite").set_offset(Vector2(0,-100))
-			get_node("AnimatedSprite/main_anims/Movement_anims").play("down_walk")
+			get_node("AnimatedSprite/Movement_anims").play("down_walk")
 			facing = "down"
 
 #================Movement=======================
@@ -124,7 +124,7 @@ func _on_Attack_anims_windup_finished():
 		print(str(collider))
 		if (collider.is_in_group("theseus")):
 			collider.lose_hp(damage)
-	get_node("AnimatedSprite/main_anims/Attack_anims").play("attack_"+str(facing))
+	get_node("AnimatedSprite/Attack_anims").play("attack_"+str(facing))
 
 func _on_Attack_anims_finished():
 	next_action()
@@ -132,7 +132,7 @@ func _on_Attack_anims_finished():
 #================Circular Strike==================
 
 func _on_Circular_strike_windup_finished():
-	get_node("AnimatedSprite/main_anims/Circular_strike_anim").play("circular_strike")
+	get_node("AnimatedSprite/Circular_strike_anim").play("circular_strike")
 	var theseus_pos = get_node("../../../../theseus").get_global_pos() 
 	var guideline = get_node(".").get_global_pos() - theseus_pos
 	if guideline.length() < 250:
