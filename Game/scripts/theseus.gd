@@ -293,3 +293,6 @@ func _on_item_control_input_event( ev ):
 			t.start()
 			yield(t, "timeout")
 			item.active2(get_node("../hero_floor/map_"+str(current_room)))
+
+func set_idle(boolean):
+	idle=boolean
