@@ -6,6 +6,7 @@ const active = 3
 var timeStopped = false
 #var position
 
+var on_cooldown = false
 var timer
 
 func _ready():
@@ -16,6 +17,15 @@ func defense():
 
 func cooldown():
 	return cooldown
+
+func is_on_cooldown():
+	return on_cooldown
+
+func set_on_cooldown(on_cd):
+	on_cooldown = on_cd
+
+func set_timer(t):
+	timer = t
 
 func active(current_room):
 	current_room.set_pause_room(true)

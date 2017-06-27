@@ -79,10 +79,31 @@ func _ready():
 	set_process(true)
 
 func _process(delta):
+	
+	shield_on_cooldown = shield.is_on_cooldown()
+	helmet_on_cooldown = helmet.is_on_cooldown()
+	weapon_on_cooldown = weapon.is_on_cooldown()
+	if item != null:
+		item_on_cooldown = item.is_on_cooldown()
+	else:
+		item_on_cooldown = false
+	
 	if shield_on_cooldown:
 		get_node("Camera2D/hud/shieldPanel/shieldProgress").set_value(100.0-float(shield_timer.get_time_left())/float(shield.cooldown())*100.0)
 	else:
 		get_node("Camera2D/hud/shieldPanel/shieldProgress").set_value(100)
+	if helmet_on_cooldown:
+		get_node("Camera2D/hud/helmetPanel/helmetProgress").set_value(100.0-float(helmet_timer.get_time_left())/float(helmet.cooldown())*100.0)
+	else:
+		get_node("Camera2D/hud/helmetPanel/helmetProgress").set_value(100)
+	if weapon_on_cooldown:
+		get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(100.0-float(weapon_timer.get_time_left())/float(weapon.cooldown())*100.0)
+	else:
+		get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(100)
+	if item_on_cooldown:
+		get_node("Camera2D/hud/itemPanel/itemProgress").set_value(100.0-float(item_timer.get_time_left())/float(item.cooldown())*100.0)
+	else:
+		get_node("Camera2D/hud/itemPanel/itemProgress").set_value(100)
 
 #move script of theseus
 func _move(dir):
@@ -188,6 +209,8 @@ func loot(looting_object_name,looting_object_type):
 			#load node of colliding item for it not to be destroyed on freeing from map
 			weapon = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
 			get_node("Camera2D/hud/weaponPanel/Sprite").set_texture(load("res://textures/objects/weapons/"+weapon.get_name()+".tex"))
+			if (weapon.cooldown() > 0):
+				weapon_cooldown(weapon)
 			#save weapon reference 
 			Globals.set("weapon", weapon.get_name())
 	if (looting_object_type == "shields"):
@@ -196,6 +219,8 @@ func loot(looting_object_name,looting_object_type):
 			#shield.queue_free()
 			shield = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
 			get_node("Camera2D/hud/shieldPanel/Sprite").set_texture(load("res://textures/objects/shields/"+shield.get_name()+".tex"))
+			if (shield.cooldown() > 0):
+				shield_cooldown(shield)
 			Globals.set("shield", helmet.get_name())
 	if (looting_object_type == "helmets"):
 			dropping_object_name = helmet.get_name()
@@ -203,6 +228,8 @@ func loot(looting_object_name,looting_object_type):
 			#helmet.queue_free()
 			helmet = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
 			get_node("Camera2D/hud/helmetPanel/Sprite").set_texture(load("res://textures/objects/helmets/"+helmet.get_name()+".tex"))
+			if (helmet.cooldown() > 0):
+				helmet_cooldown(helmet)
 			Globals.set("helmet", helmet.get_name())
 	if (looting_object_type == "items"):
 			if item != null:
@@ -211,6 +238,8 @@ func loot(looting_object_name,looting_object_type):
 			#items.queue_free()
 			item = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
 			get_node("Camera2D/hud/itemPanel/Sprite").set_texture(load("res://textures/objects/items/"+item.get_name()+".tex"))
+			if (item.cooldown() > 0):
+				item_cooldown(item)
 			Globals.set("item", item.get_name())
 
 func drop(dropping_object_name,dropping_object_type,dir):
@@ -266,7 +295,7 @@ func _on_shield_control_input_event( ev ):
 		var cooldown = shield.cooldown()
 		var shieldUsed = shield
 		if (cooldown > 0):
-			shield_cooldown(cooldown)
+			shield_cooldown(shield)
 		if (timeLeft > 0):
 			var t = Timer.new()
 			t.set_wait_time(timeLeft)
@@ -283,7 +312,10 @@ func _on_helmet_control_input_event( ev ):
 		if (helmet == null):
 			return
 		var timeLeft = helmet.active(get_node("../hero_floor/map_"+str(current_room)))
+		var cooldown = helmet.cooldown()
 		var helmetUsed = helmet
+		if (cooldown > 0):
+			helmet_cooldown(helmet)
 		if (timeLeft > 0):
 			var t = Timer.new()
 			t.set_wait_time(timeLeft)
@@ -300,7 +332,10 @@ func _on_weapon_control_input_event( ev ):
 		if (weapon == null):
 			return
 		var timeLeft = weapon.active(get_node("../hero_floor/map_"+str(current_room)))
+		var cooldown = weapon.cooldown()
 		var weaponUsed = weapon
+		if (cooldown > 0):
+			weapon_cooldown(weapon)
 		if (timeLeft > 0):
 			var t = Timer.new()
 			t.set_wait_time(timeLeft)
@@ -320,7 +355,7 @@ func _on_item_control_input_event( ev ):
 		var cooldown = item.cooldown()
 		var itemUsed = item
 		if (cooldown > 0):
-			item_cooldown(cooldown)
+			item_cooldown(item)
 		if item.is_one_use():
 			item = null
 			hasItem = false
@@ -335,16 +370,49 @@ func _on_item_control_input_event( ev ):
 			yield(t, "timeout")
 			itemUsed.active2(get_node("../hero_floor/map_"+str(current_room)))
 
-func shield_cooldown(cooldown):
-	shield_on_cooldown = true
+func shield_cooldown(sh):
 	shield_timer = Timer.new()
-	shield_timer.set_wait_time(cooldown)
+	shield_timer.set_wait_time(sh.cooldown())
 	shield_timer.set_one_shot(true)
 	self.add_child(shield_timer)
 	shield_timer.start()
+	sh.set_timer(shield_timer)
+	sh.set_on_cooldown(true)
 	yield(shield_timer, "timeout")
-	shield_on_cooldown = false
-	
+	sh.set_on_cooldown(false)
+
+func helmet_cooldown(he):
+	helmet_timer = Timer.new()
+	helmet_timer.set_wait_time(he.cooldown())
+	helmet_timer.set_one_shot(true)
+	self.add_child(helmet_timer)
+	helmet_timer.start()
+	he.set_timer(helmet_timer)
+	he.set_on_cooldown(true)
+	yield(helmet_timer, "timeout")
+	he.set_on_cooldown(false)
+
+func weapon_cooldown(we):
+	weapon_timer = Timer.new()
+	weapon_timer.set_wait_time(we.cooldown())
+	weapon_timer.set_one_shot(true)
+	self.add_child(weapon_timer)
+	weapon_timer.start()
+	we.set_timer(weapon_timer)
+	we.set_on_cooldown(true)
+	yield(weapon_timer, "timeout")
+	we.set_on_cooldown(false)
+
+func item_cooldown(it):
+	item_timer = Timer.new()
+	item_timer.set_wait_time(it.cooldown())
+	item_timer.set_one_shot(true)
+	self.add_child(item_timer)
+	item_timer.start()
+	it.set_timer(item_timer)
+	it.set_on_cooldown(true)
+	yield(item_timer, "timeout")
+	it.set_on_cooldown(false)
 
 func _on_right_input_event( ev ):
 	if(ev.type == InputEvent.MOUSE_BUTTON):
