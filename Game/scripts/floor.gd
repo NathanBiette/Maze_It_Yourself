@@ -11,6 +11,7 @@ var editable_doors = Array() #editable version for architect only
 #spawns format : 
 #	[[id [room number, spawn_index], Vector2 global_pos, hero_has_not_entered (bool), monster type (string)],[...],...]
 var spawns = Array()
+var looters = Array()
 var number_of_rooms = 0
 
 
@@ -64,7 +65,7 @@ func add_room(core_map_index):
 			editable_doors.append([Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]])
 		
 	create_doors(number_of_rooms)
-	
+	create_looters(number_of_rooms)
 	#managing spawn locations
 	
 	var temp_spawn_locations = room_node.get_spawn_locations()
@@ -86,6 +87,15 @@ func create_doors(active_room):
 		get_node("map_" + str(number_of_rooms)).add_child(node)
 		node.set_door_id(d[1][0],d[1][1])
 		node.set_global_pos(d[0])
+#===============================
+func create_looters(active_room):
+	var looters_to_set = get_node("map_" + str(active_room)).get_looters_locations()
+	for location in looters_to_set:
+		var scene = load("res://scenes/game_hero/rooms/looter.tscn")
+		var node = scene.instance()
+		get_node("map_" + str(number_of_rooms)).add_child(node)
+		node.set_location(location)
+		node.set_global_pos(Vector2(location[0]*100+50 + OFFSET * number_of_rooms,location[1]*100+50))
 #================================
 func find_doors_in_room(x):
 	var l = []
@@ -119,7 +129,9 @@ func find_spawns_in_room(x):
 		if (s[0][0] == x):
 			l.append(s)
 	return l
-
+#================================
+func get_looters():
+	return looters
 #=============HERO ONLY==================#
 
 func change_room(door_id):
