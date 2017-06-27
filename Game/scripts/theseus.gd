@@ -67,7 +67,7 @@ func _ready():
 func _move(dir):
 	#part called to move theseus
 	if idle:
-		get_node("SamplePlayer2D").play("move")
+		get_node("SamplePlayer2D").play("step")
 		if (dir=="up"):
 			move(Vector2(0,-MOVEMENT_UNIT))
 			idle = false

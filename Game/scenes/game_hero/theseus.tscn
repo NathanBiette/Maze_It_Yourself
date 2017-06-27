@@ -311,7 +311,7 @@ samples/ouch = {
 "sample": ExtResource( 20 )
 }
 samples/step = {
-"db": 0.0,
+"db": -2.0,
 "pitch": 1.0,
 "priority": 0,
 "sample": ExtResource( 21 )
