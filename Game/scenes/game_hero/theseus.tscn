@@ -521,7 +521,7 @@ texture/progress = ExtResource( 19 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 10, 10 )
 
-[node name="Control" type="Control" parent="Camera2D/hud/helmetPanel"]
+[node name="helmet_control" type="Control" parent="Camera2D/hud/helmetPanel"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -562,16 +562,16 @@ texture/progress = ExtResource( 19 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 10, 10 )
 
-[node name="Control" type="Control" parent="Camera2D/hud/shieldPanel"]
+[node name="shield_control" type="Control" parent="Camera2D/hud/shieldPanel"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = -50.0
-margin/top = -200.0
+margin/top = -51.0
 margin/right = 50.0
-margin/bottom = -100.0
+margin/bottom = 49.0
 
 [node name="Sprite" type="Sprite" parent="Camera2D/hud/shieldPanel"]
 
@@ -603,16 +603,16 @@ texture/progress = ExtResource( 19 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 10, 10 )
 
-[node name="Control" type="Control" parent="Camera2D/hud/weaponPanel"]
+[node name="weapon_control" type="Control" parent="Camera2D/hud/weaponPanel"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = -50.0
-margin/top = -350.0
+margin/top = -52.0
 margin/right = 50.0
-margin/bottom = -250.0
+margin/bottom = 48.0
 
 [node name="Sprite" type="Sprite" parent="Camera2D/hud/weaponPanel"]
 
@@ -644,16 +644,16 @@ texture/progress = ExtResource( 19 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 10, 10 )
 
-[node name="Control" type="Control" parent="Camera2D/hud/itemPanel"]
+[node name="item_control" type="Control" parent="Camera2D/hud/itemPanel"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = -50.0
-margin/top = -500.0
+margin/top = -51.0
 margin/right = 50.0
-margin/bottom = -400.0
+margin/bottom = 49.0
 
 [node name="Sprite" type="Sprite" parent="Camera2D/hud/itemPanel"]
 
@@ -757,5 +757,14 @@ _update_shape_index = 0
 [connection signal="input_event" from="Camera2D/hud/up" to="." method="_on_up_input_event"]
 
 [connection signal="input_event" from="Camera2D/hud/down" to="." method="_on_down_input_event"]
+
+[connection signal="input_event" from="Camera2D/hud/helmetPanel/helmet_control" to="." method="_on_helmet_control_input_event"]
+
+[connection signal="input_event" from="Camera2D/hud/shieldPanel/shield_control" to="." method="_on_shield_control_input_event"]
+
+[connection signal="input_event" from="Camera2D/hud/weaponPanel/weapon_control" to="." method="_on_weapon_control_input_event"]
+
+[connection signal="input_event" from="Camera2D/hud/itemPanel/item_control" to="." method="_on_item_control_input_event"]
+
 
 

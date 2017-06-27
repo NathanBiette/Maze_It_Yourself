@@ -1,6 +1,6 @@
 extends Node2D
 
-const defense = 1
+const defense = 0
 const attack = 0
 #var position
 
