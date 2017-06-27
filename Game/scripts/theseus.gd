@@ -278,7 +278,6 @@ func game_over():
 
 func _on_Game_over_finished():
 	if (game_over):
-		print("animation finished")
 		get_node("..").game_over()
 
 func _on_Blocked_move_anims_finished():
@@ -429,3 +428,7 @@ func _on_up_input_event( ev ):
 func _on_down_input_event( ev ):
 	if(ev.type == InputEvent.MOUSE_BUTTON):
 		_move("down")
+
+
+func _on_end_game_finished():
+	get_node("..").game_over()
