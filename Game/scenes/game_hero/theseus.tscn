@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=1]
+[gd_scene load_steps=46 format=1]
 
 [ext_resource path="res://scripts/theseus.gd" type="Script" id=1]
 [ext_resource path="res://textures/hero/hero_face_right_100px.tex" type="Texture" id=2]
@@ -300,6 +300,23 @@ tracks/0/keys = {
 "values": [ 0.0, 1.0, 1.0 ]
 }
 
+[sub_resource type="Animation" id=20]
+
+resource/name = "you_win"
+length = 3.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:visibility/opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.8, 3 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0, 1.0 ]
+}
+
 [sub_resource type="Animation" id=13]
 
 resource/name = "you_win"
@@ -326,7 +343,7 @@ size = Vector2( 500, 75 )
 storage = 1
 lossy_quality = 0.7
 
-[sub_resource type="ImageTexture" id=18]
+[sub_resource type="ImageTexture" id=15]
 
 resource/name = "health_bar_over.png"
 flags = 4
@@ -335,7 +352,7 @@ size = Vector2( 500, 75 )
 storage = 1
 lossy_quality = 0.7
 
-[sub_resource type="ImageTexture" id=19]
+[sub_resource type="ImageTexture" id=16]
 
 resource/name = "health_bar_progress.png"
 flags = 4
@@ -344,16 +361,16 @@ size = Vector2( 500, 75 )
 storage = 1
 lossy_quality = 0.7
 
-[sub_resource type="Theme" id=15]
+[sub_resource type="Theme" id=17]
 
 default_font = ExtResource( 14 )
 
-[sub_resource type="RectangleShape2D" id=16]
+[sub_resource type="RectangleShape2D" id=18]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[sub_resource type="SampleLibrary" id=17]
+[sub_resource type="SampleLibrary" id=19]
 
 samples/loot = {
 "db": 0.0,
@@ -504,7 +521,7 @@ scale = Vector2( 2, 2 )
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/you_win = SubResource( 12 )
+anims/you_win = SubResource( 20 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -568,8 +585,8 @@ range/value = 1.0
 range/exp_edit = false
 range/rounded = false
 texture/under = SubResource( 14 )
-texture/over = SubResource( 18 )
-texture/progress = SubResource( 19 )
+texture/over = SubResource( 15 )
+texture/progress = SubResource( 16 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 0, 0 )
 
@@ -834,7 +851,7 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-theme/theme = SubResource( 15 )
+theme/theme = SubResource( 17 )
 margin/left = 129.0
 margin/top = 121.0
 margin/right = 169.0
@@ -847,7 +864,7 @@ dialog/hide_on_ok = true
 [node name="Area2D" type="Area2D" parent="."]
 
 input/pickable = true
-shapes/0/shape = SubResource( 16 )
+shapes/0/shape = SubResource( 18 )
 shapes/0/transform = Matrix32( 3.84615, 0, 0, 3.19231, -3.8147e-06, -8.5 )
 shapes/0/trigger = true
 gravity_vec = Vector2( 0, 1 )
@@ -859,7 +876,7 @@ angular_damp = 1.0
 
 transform/pos = Vector2( -3.8147e-06, -8.5 )
 transform/scale = Vector2( 3.84615, 3.19231 )
-shape = SubResource( 16 )
+shape = SubResource( 18 )
 trigger = true
 _update_shape_index = 0
 
@@ -871,7 +888,7 @@ params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
 config/polyphony = 1
-config/samples = SubResource( 17 )
+config/samples = SubResource( 19 )
 config/pitch_random = 0.0
 
 [connection signal="finished" from="AnimatedSprite/Movement_anims" to="." method="_on_Movement_anims_finished"]
