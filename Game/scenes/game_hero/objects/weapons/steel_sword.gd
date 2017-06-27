@@ -1,7 +1,12 @@
 extends Node2D
 
 const attack = 2
+const cooldown = 0
+const active = 0
 #var position
+
+var on_cooldown = false
+var timer
 
 func _ready():
 	pass
@@ -9,8 +14,20 @@ func _ready():
 func attack():
 	return attack
 
+func cooldown():
+	return cooldown
+
+func is_on_cooldown():
+	return on_cooldown
+
+func set_on_cooldown(on_cd):
+	on_cooldown = on_cd
+
+func set_timer(t):
+	timer = t
+
 func active(current_room):
-	return 0
+	return active
 
 func _on_Area2D_area_enter(area):
 	var interacting_node = area.get_node("../")
