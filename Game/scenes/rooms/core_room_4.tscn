@@ -26,6 +26,6 @@ script/script = ExtResource( 2 )
 
 [node name="minotaur" parent="." instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 500, 450 )
+transform/pos = Vector2( 500, 500 )
 
 

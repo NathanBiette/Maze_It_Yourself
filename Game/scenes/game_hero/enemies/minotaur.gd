@@ -22,6 +22,7 @@ func _ready():
 
 	get_node("AnimatedSprite/TextureProgress").set_value(100)
 
+	randomize()
 	set_process(true)
 
 	next_action()
@@ -54,6 +55,7 @@ func next_action():
 	var angle = guideline.angle()
 	get_node("theseus_detection_ray").set_cast_to(-guideline.normalized() * 200)
 	if get_node("theseus_detection_ray").is_colliding():
+		var this_one = randi()%7
 		#Minautor attacks
 		if (angle < 0.785 and angle > -0.785) :
 			#UP
@@ -65,8 +67,8 @@ func next_action():
 			facing = "right"
 		if (angle <= 2.356 and angle >= 0.785):
 			#LEFT
-			get_node("AnimatedSprite/Attack_anims_windup").play("attack_left_windup")
 			facing = "left"
+			get_node("AnimatedSprite/Attack_anims_windup").play("attack_left_windup")
 		if (angle < -2.356 or angle > 2.356) :
 			#DOWN
 			get_node("AnimatedSprite/Attack_anims_windup").play("attack_down_windup")
@@ -128,17 +130,17 @@ func _on_Idle_anims_finished():
 
 func _on_Attack_anims_windup_finished():
 	if facing == "up":
-		get_node("attack_ray1").set_cast_to(Vector2(-50,-150))
-		get_node("attack_ray2").set_cast_to(Vector2(50,-150))
+		get_node("attack_ray1").set_pos(Vector2(-175,-150))
+		get_node("attack_ray1").set_cast_to(Vector2(350,0))
 	if facing == "left":
-		get_node("attack_ray1").set_cast_to(Vector2(-150,50))
-		get_node("attack_ray2").set_cast_to(Vector2(-150,-50))
+		get_node("attack_ray1").set_pos(Vector2(-150,-175))
+		get_node("attack_ray1").set_cast_to(Vector2(0,350))
 	if facing == "down":
-		get_node("attack_ray1").set_cast_to(Vector2(-50,150))
-		get_node("attack_ray2").set_cast_to(Vector2(50,150))
+		get_node("attack_ray1").set_pos(Vector2(-175,150))
+		get_node("attack_ray1").set_cast_to(Vector2(350,0))
 	if facing == "right":
-		get_node("attack_ray1").set_cast_to(Vector2(150,50))
-		get_node("attack_ray2").set_cast_to(Vector2(150,-50))
+		get_node("attack_ray1").set_pos(Vector2(150,-175))
+		get_node("attack_ray1").set_cast_to(Vector2(0,350))
 
 	if (get_node("attack_ray1").is_colliding()):
 		var collider = get_node("attack_ray1").get_collider()

@@ -1080,8 +1080,9 @@ type_mask = 15
 
 [node name="attack_ray1" type="RayCast2D" parent="."]
 
+transform/pos = Vector2( -150, -175 )
 enabled = false
-cast_to = Vector2( 0, 50 )
+cast_to = Vector2( 0, 350 )
 layer_mask = 1
 type_mask = 15
 
