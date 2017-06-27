@@ -137,7 +137,7 @@ func _move(dir):
 				get_node("AnimatedSprite/Blocked_move_anims").queue("blocked_move_" + dir)
 			elif(collider.is_in_group("looter")) :
 				revert_motion()
-				collider.give_loot()
+				collider.give_loot(current_room)
 				get_node("AnimatedSprite/Blocked_move_anims").queue("blocked_move_" + dir)
 			else :
 				idle = false
