@@ -24,6 +24,7 @@ func _process(delta):
 		get_node("CollisionShape2D").queue_free()
 		get_node("Sprite/Movement_anims").stop_all()
 		get_node("Sprite/Death_Anim").play("death")
+		get_node("SamplePlayer2D").play("falling_bone")
 		set_process(false)
 
 #fonction called when theseus collides with body from group enemies/traps 

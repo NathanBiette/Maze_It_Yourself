@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=1]
+[gd_scene load_steps=51 format=1]
 
 [ext_resource path="res://scripts/skeleton.gd" type="Script" id=1]
 [ext_resource path="res://textures/enemies/basic_enemies/Skeleton_animated_sprite/walk/walk (1).tex" type="Texture" id=2]
@@ -42,6 +42,8 @@
 [ext_resource path="res://textures/enemies/basic_enemies/Skeleton_animated_sprite/death/dead (9).tex" type="Texture" id=40]
 [ext_resource path="res://textures/hero/item_bar_under.tex" type="Texture" id=41]
 [ext_resource path="res://textures/hero/item_bar_progress.tex" type="Texture" id=42]
+[ext_resource path="res://sounds/202091__spookymodem__falling-bones.smp" type="Sample" id=43]
+[ext_resource path="res://sounds/188034__antumdeluge__bones-2.smp" type="Sample" id=44]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -114,6 +116,21 @@ tracks/0/keys = {
 "transitions": FloatArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 21, 22, 23, 24, 25, 26, 27, 28, 29 ]
+}
+
+[sub_resource type="SampleLibrary" id=6]
+
+samples/falling_bone = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 43 )
+}
+samples/funny_bone = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 44 )
 }
 
 [node name="Skeleton" type="KinematicBody2D" groups=[
@@ -194,6 +211,17 @@ process_mode = 1
 wait_time = 1.0
 one_shot = false
 autostart = true
+
+[node name="SamplePlayer2D" type="SamplePlayer2D" parent="."]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 6 )
+config/pitch_random = 0.0
 
 [connection signal="finished" from="Sprite/Death_Anim" to="." method="_on_Skeleton_Death_Anim_finished"]
 
