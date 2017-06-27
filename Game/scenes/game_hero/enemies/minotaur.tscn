@@ -1086,13 +1086,6 @@ cast_to = Vector2( 0, 350 )
 layer_mask = 1
 type_mask = 15
 
-[node name="attack_ray2" type="RayCast2D" parent="."]
-
-enabled = false
-cast_to = Vector2( 0, 50 )
-layer_mask = 1
-type_mask = 15
-
 [connection signal="finished" from="AnimatedSprite/Movement_anims" to="." method="_on_Movement_anims_finished"]
 
 [connection signal="finished" from="AnimatedSprite/Attack_anims" to="." method="_on_Attack_anims_finished"]

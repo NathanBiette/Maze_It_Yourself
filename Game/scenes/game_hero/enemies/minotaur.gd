@@ -147,11 +147,6 @@ func _on_Attack_anims_windup_finished():
 		print(str(collider))
 		if (collider.is_in_group("theseus")):
 			collider.lose_hp(damage)
-	elif get_node("attack_ray2").is_colliding():
-		var collider = get_node("attack_ray2").get_collider()
-		print(str(collider))
-		if (collider.is_in_group("theseus")):
-			collider.lose_hp(damage)
 	get_node("AnimatedSprite/Attack_anims").play("attack_"+str(facing))
 
 func _on_Attack_anims_finished():
