@@ -121,6 +121,7 @@ func _process(delta):
 func _move(dir):
 	#part called to move theseus
 	if idle:
+		get_node("SamplePlayer2D").play("step")
 		if (dir=="up"):
 			move(Vector2(0,-MOVEMENT_UNIT))
 			idle = false
@@ -139,6 +140,7 @@ func _move(dir):
 			var collider = get_collider()
 			#part coding what happens with every kind of collider
 			if (collider.is_in_group("enemies")) :
+				get_node("SamplePlayer2D").play("sword")
 				idle = false
 				revert_motion()
 				collider.interact(dir, get_node("."))
@@ -165,6 +167,7 @@ func lose_hp(damage):
 	if !invincibility:
 		var effective_damage = max(1, damage - defense)
 		current_HP -= effective_damage
+		get_node("SamplePlayer2D").play("ouch")
 		print(current_HP)
 		get_node("AnimatedSprite/Damage_anims").play("hp_lost")
 		get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100.0)
@@ -217,6 +220,7 @@ func update_inventory(dir):
 	stats_update()
 
 func loot(looting_object_name,looting_object_type):
+	get_node("SamplePlayer2D").play("loot")
 	if (looting_object_type == "weapons"):
 			dropping_object_name = weapon.get_name()
 			dropping_object_type = "weapons"
@@ -293,6 +297,7 @@ func heal(value):
 func game_over():
 	if (!game_over):
 		get_node("Camera2D/CanvasLayer/Game_over").play("you_died")
+		get_node("SamplePlayer2D").play("gameover")
 		game_over = true
 
 
