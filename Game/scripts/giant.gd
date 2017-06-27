@@ -28,6 +28,7 @@ func _process(delta):
 		get_node("AnimatedSprite/Movement_anims").stop_all()
 		get_node("AnimatedSprite/smash").stop_all()
 		get_node("AnimatedSprite/Death_Anim").play("death")
+		get_node("SamplePlayer2D").play("death")
 		var lib = get_node("../../../../..").get_ITEMS_LIBRARY()
 		var k = randi()%lib.size()
 		var item = load("res://scenes/game_hero/objects/"+str(lib[k][1])+".tscn")
@@ -100,6 +101,7 @@ func set_pause(boolean):
 func _on_Movement_anims_finished():
 	advance(current_dir)
 	var current_pos = get_pos()
+	get_node("SamplePlayer2D").play("move")
 	if (current_dir=="up"):
 		get_node("RayCast2D").set_cast_to(Vector2(0,0))
 	elif (current_dir=="down"):
