@@ -26,7 +26,7 @@ func _ready():
 	level_scene = load("res://scenes/game_hero/hero_floor.tscn")
 	level_instance = level_scene.instance()
 	add_child(level_instance)
-	for k in range(0,4):
+	for k in range(0,7):
 		level_instance.add_room(k)
 	var  doors=level_instance.get_doors()
 	print(doors)
