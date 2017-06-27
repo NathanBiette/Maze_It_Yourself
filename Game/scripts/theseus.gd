@@ -208,18 +208,6 @@ func stats_update():
 	print(str(attack) + " " + str(defense))
 #####################################################################################
 
-func _on_touchBox_input_event( ev ):
-	if (idle and (ev.type==InputEvent.SCREEN_TOUCH or ev.type==InputEvent.MOUSE_BUTTON)):
-		var angle = Vector2(750-ev.x, 600-ev.y).angle()
-		if (angle < 0.685 and angle > -0.685) :
-			_move("up")
-		if (angle <= -0.885 and angle >= -2.256):
-			_move("right")
-		if (angle <= 2.256 and angle >= 0.885):
-			_move("left")
-		if (angle < -2.456 or angle > 2.456) :
-			_move("down")
-
 func game_over():
 	if (!game_over):
 		get_node("Camera2D/CanvasLayer/Game_over").play("you_died")
@@ -292,3 +280,20 @@ func _on_item_control_input_event( ev ):
 			yield(t, "timeout")
 			if item.has("active2"):
 				item.active2(get_node("../hero_floor/map_"+str(current_room)))
+
+
+func _on_right_input_event( ev ):
+	if(ev.type == InputEvent.MOUSE_BUTTON):
+		_move("right")
+
+func _on_left_input_event( ev ):
+	if(ev.type == InputEvent.MOUSE_BUTTON):
+		_move("left")
+
+func _on_up_input_event( ev ):
+	if(ev.type == InputEvent.MOUSE_BUTTON):
+		_move("up")
+
+func _on_down_input_event( ev ):
+	if(ev.type == InputEvent.MOUSE_BUTTON):
+		_move("down")
