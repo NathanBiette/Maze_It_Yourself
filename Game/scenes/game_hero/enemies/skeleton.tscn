@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=1]
+[gd_scene load_steps=52 format=1]
 
 [ext_resource path="res://scripts/skeleton.gd" type="Script" id=1]
 [ext_resource path="res://textures/enemies/basic_enemies/Skeleton_animated_sprite/walk/walk (1).tex" type="Texture" id=2]
@@ -42,6 +42,9 @@
 [ext_resource path="res://textures/enemies/basic_enemies/Skeleton_animated_sprite/death/dead (9).tex" type="Texture" id=40]
 [ext_resource path="res://textures/hero/item_bar_under.tex" type="Texture" id=41]
 [ext_resource path="res://textures/hero/item_bar_progress.tex" type="Texture" id=42]
+[ext_resource path="res://sounds/202091__spookymodem__falling-bones.smp" type="Sample" id=43]
+[ext_resource path="res://sounds/188034__antumdeluge__bones-2.smp" type="Sample" id=44]
+[ext_resource path="res://textures/objects/coin.tex" type="Texture" id=45]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -114,6 +117,21 @@ tracks/0/keys = {
 "transitions": FloatArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 21, 22, 23, 24, 25, 26, 27, 28, 29 ]
+}
+
+[sub_resource type="SampleLibrary" id=6]
+
+samples/falling_bone = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 43 )
+}
+samples/funny_bone = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 44 )
 }
 
 [node name="Skeleton" type="KinematicBody2D" groups=[
@@ -194,6 +212,43 @@ process_mode = 1
 wait_time = 1.0
 one_shot = false
 autostart = true
+
+[node name="SamplePlayer2D" type="SamplePlayer2D" parent="."]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 6 )
+config/pitch_random = 0.0
+
+[node name="Particles2D" type="Particles2D" parent="."]
+
+config/amount = 32
+config/lifetime = 1.0
+config/emitting = false
+config/process_mode = 1
+config/texture = ExtResource( 45 )
+params/direction = 180.0
+params/spread = 111.28
+params/linear_velocity = 204.8
+params/spin_velocity = 279.27
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 9.8
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 1.0
+params/final_size = 1.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+randomness/direction = 2.0
+randomness/initial_size = 0.27
 
 [connection signal="finished" from="Sprite/Death_Anim" to="." method="_on_Skeleton_Death_Anim_finished"]
 

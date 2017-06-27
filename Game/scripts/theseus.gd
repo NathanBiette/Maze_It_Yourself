@@ -63,22 +63,23 @@ func _ready():
 	weapon = load("res://scenes/game_hero/objects/weapons/" + str(Globals.get("weapon")) + ".tscn").instance()
 	shield = load("res://scenes/game_hero/objects/shields/" + str(Globals.get("shield")) + ".tscn").instance()
 	item = load("res://scenes/game_hero/objects/items/" + str(Globals.get("item")) + ".tscn").instance()
-	gold = Globals.get("gold")
 
 	#compute attack and defense stats
 	attack = weapon.attack()
 	defense = shield.defense() + helmet.defense()
 
 	get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100)
-	get_node("Camera2D/hud/coinSprite/coinLabel").set_text(str(gold))
+	get_node("Camera2D/hud/coinSprite/coinLabel").set_text(str(Globals.get("gold")))
 	get_node("Camera2D/hud/weaponPanel/Sprite").set_texture(load("res://textures/objects/weapons/"+weapon.get_name()+".tex"))
 	get_node("Camera2D/hud/helmetPanel/Sprite").set_texture(load("res://textures/objects/helmets/"+helmet.get_name()+".tex"))
 	get_node("Camera2D/hud/shieldPanel/Sprite").set_texture(load("res://textures/objects/shields/"+shield.get_name()+".tex"))
-	get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(100)
+	get_node("Camera2D/hud/itemPanel/Sprite").set_texture(load("res://textures/objects/items/"+item.get_name()+".tex"))
 	
 	set_process(true)
 
 func _process(delta):
+	
+	get_node("Camera2D/hud/coinSprite/coinLabel").set_text(str(Globals.get("gold")))
 	
 	shield_on_cooldown = shield.is_on_cooldown()
 	helmet_on_cooldown = helmet.is_on_cooldown()
@@ -88,27 +89,43 @@ func _process(delta):
 	else:
 		item_on_cooldown = false
 	
-	if shield_on_cooldown:
-		get_node("Camera2D/hud/shieldPanel/shieldProgress").set_value(100.0-float(shield_timer.get_time_left())/float(shield.cooldown())*100.0)
+	if shield.cooldown() > 0: 
+		if shield_on_cooldown:
+			get_node("Camera2D/hud/shieldPanel/shieldProgress").set_value(100.0-float(shield_timer.get_time_left())/float(shield.cooldown())*100.0)
+		else:
+			get_node("Camera2D/hud/shieldPanel/shieldProgress").set_value(100)
 	else:
-		get_node("Camera2D/hud/shieldPanel/shieldProgress").set_value(100)
-	if helmet_on_cooldown:
-		get_node("Camera2D/hud/helmetPanel/helmetProgress").set_value(100.0-float(helmet_timer.get_time_left())/float(helmet.cooldown())*100.0)
+		get_node("Camera2D/hud/shieldPanel/shieldProgress").set_value(0)
+		
+	if helmet.cooldown() > 0:
+		if helmet_on_cooldown:
+			get_node("Camera2D/hud/helmetPanel/helmetProgress").set_value(100.0-float(helmet_timer.get_time_left())/float(helmet.cooldown())*100.0)
+		else:
+			get_node("Camera2D/hud/helmetPanel/helmetProgress").set_value(100)
 	else:
-		get_node("Camera2D/hud/helmetPanel/helmetProgress").set_value(100)
-	if weapon_on_cooldown:
-		get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(100.0-float(weapon_timer.get_time_left())/float(weapon.cooldown())*100.0)
+		get_node("Camera2D/hud/helmetPanel/helmetProgress").set_value(0)
+		
+	if weapon.cooldown() > 0:
+		if weapon_on_cooldown:
+			get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(100.0-float(weapon_timer.get_time_left())/float(weapon.cooldown())*100.0)
+		else:
+			get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(100)
 	else:
-		get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(100)
-	if item_on_cooldown:
-		get_node("Camera2D/hud/itemPanel/itemProgress").set_value(100.0-float(item_timer.get_time_left())/float(item.cooldown())*100.0)
-	else:
-		get_node("Camera2D/hud/itemPanel/itemProgress").set_value(100)
+		get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(0)
+	if item != null:
+		if item.cooldown() > 0:
+			if item_on_cooldown:
+				get_node("Camera2D/hud/itemPanel/itemProgress").set_value(100.0-float(item_timer.get_time_left())/float(item.cooldown())*100.0)
+			else:
+				get_node("Camera2D/hud/itemPanel/itemProgress").set_value(100)
+		else:
+			get_node("Camera2D/hud/itemPanel/itemProgress").set_value(0)
 
 #move script of theseus
 func _move(dir):
 	#part called to move theseus
 	if idle:
+		get_node("SamplePlayer2D").play("step")
 		if (dir=="up"):
 			move(Vector2(0,-MOVEMENT_UNIT))
 			idle = false
@@ -127,6 +144,7 @@ func _move(dir):
 			var collider = get_collider()
 			#part coding what happens with every kind of collider
 			if (collider.is_in_group("enemies")) :
+				get_node("SamplePlayer2D").play("sword")
 				idle = false
 				revert_motion()
 				collider.interact(dir, get_node("."))
@@ -153,6 +171,7 @@ func lose_hp(damage):
 	if !invincibility:
 		var effective_damage = max(1, damage - defense)
 		current_HP -= effective_damage
+		get_node("SamplePlayer2D").play("ouch")
 		print(current_HP)
 		get_node("AnimatedSprite/Damage_anims").play("hp_lost")
 		get_node("Camera2D/hud/healthBar").set_value((float(current_HP)/float(max_HP))*100.0)
@@ -205,6 +224,7 @@ func update_inventory(dir):
 	stats_update()
 
 func loot(looting_object_name,looting_object_type):
+	get_node("SamplePlayer2D").play("loot")
 	if (looting_object_type == "weapons"):
 			dropping_object_name = weapon.get_name()
 			dropping_object_type = "weapons"
@@ -281,6 +301,7 @@ func heal(value):
 func game_over():
 	if (!game_over):
 		get_node("Camera2D/CanvasLayer/Game_over").play("you_died")
+		get_node("SamplePlayer2D").play("gameover")
 		game_over = true
 
 
