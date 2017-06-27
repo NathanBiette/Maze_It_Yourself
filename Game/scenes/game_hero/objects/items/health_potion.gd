@@ -5,6 +5,7 @@ const attack = 0
 const cooldown = 0
 const active = 0
 const one_use = true
+const description = "Health potion\n\nActive effect: Heals Theseus for a certain amount\n\nA potion made by the gods to treat wounds."
 #var position
 
 var on_cooldown = false
@@ -12,6 +13,9 @@ var timer
 
 func _ready():
 	pass
+
+func description():
+	return description
 
 func defense():
 	return defense

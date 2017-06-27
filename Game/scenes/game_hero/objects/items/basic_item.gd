@@ -5,6 +5,7 @@ const attack = 0
 const one_use = false
 const cooldown = 0
 const active = 0
+const description = "Theseus' pendant\n\nDefense: 0\nAttack: 0\n\nA lucky charm given to Theseus by his mother. It is actually made in plastic and has no effect whatsoever."
 #var position
 
 var on_cooldown = false
@@ -12,6 +13,9 @@ var timer
 
 func _ready():
 	pass
+
+func description():
+	return description
 
 func defense():
 	return defense

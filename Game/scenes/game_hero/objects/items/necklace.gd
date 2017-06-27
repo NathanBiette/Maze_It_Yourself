@@ -5,6 +5,7 @@ const defense = 1
 const cooldown = 0
 const active = 0
 const one_use = false
+const description = "Necklace of courage\n\nDefense: 1\nAttack: 1\n\nThe necklace of courage is only worn by the mightiest of warriors who can wield its power."
 #var position
 
 var on_cooldown = false
@@ -12,6 +13,9 @@ var timer
 
 func _ready():
 	pass
+
+func description():
+	return description
 
 func attack():
 	return attack

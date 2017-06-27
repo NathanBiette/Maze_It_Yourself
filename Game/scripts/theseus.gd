@@ -225,6 +225,7 @@ func update_inventory(dir):
 
 func loot(looting_object_name,looting_object_type):
 	get_node("SamplePlayer2D").play("loot")
+	get_node("Camera2D/hud/popup").add_font_override("",load("res://textures/menus/font.fnt"))
 	if (looting_object_type == "weapons"):
 			dropping_object_name = weapon.get_name()
 			dropping_object_type = "weapons"
@@ -233,6 +234,7 @@ func loot(looting_object_name,looting_object_type):
 			#load node of colliding item for it not to be destroyed on freeing from map
 			weapon = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
 			get_node("Camera2D/hud/weaponPanel/Sprite").set_texture(load("res://textures/objects/weapons/"+weapon.get_name()+".tex"))
+			get_node("Camera2D/hud/popup").set_text(weapon.description())
 			if (weapon.cooldown() > 0):
 				weapon_cooldown(weapon)
 			#save weapon reference 
@@ -243,6 +245,7 @@ func loot(looting_object_name,looting_object_type):
 			#shield.queue_free()
 			shield = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
 			get_node("Camera2D/hud/shieldPanel/Sprite").set_texture(load("res://textures/objects/shields/"+shield.get_name()+".tex"))
+			get_node("Camera2D/hud/popup").set_text(shield.description())
 			if (shield.cooldown() > 0):
 				shield_cooldown(shield)
 			Globals.set("shield", helmet.get_name())
@@ -252,6 +255,7 @@ func loot(looting_object_name,looting_object_type):
 			#helmet.queue_free()
 			helmet = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
 			get_node("Camera2D/hud/helmetPanel/Sprite").set_texture(load("res://textures/objects/helmets/"+helmet.get_name()+".tex"))
+			get_node("Camera2D/hud/popup").set_text(helmet.description())
 			if (helmet.cooldown() > 0):
 				helmet_cooldown(helmet)
 			Globals.set("helmet", helmet.get_name())
@@ -262,9 +266,11 @@ func loot(looting_object_name,looting_object_type):
 			#items.queue_free()
 			item = load("res://scenes/game_hero/objects/"+looting_object_type+"/"+looting_object_name+".tscn").instance()
 			get_node("Camera2D/hud/itemPanel/Sprite").set_texture(load("res://textures/objects/items/"+item.get_name()+".tex"))
+			get_node("Camera2D/hud/popup").set_text(item.description())
 			if (item.cooldown() > 0):
 				item_cooldown(item)
 			Globals.set("item", item.get_name())
+	get_node("Camera2D/hud/popup").popup_centered_ratio(0.5)
 
 func drop(dropping_object_name,dropping_object_type,dir):
 	print("dropping " + dropping_object_name)
@@ -461,3 +467,11 @@ func _on_down_input_event( ev ):
 
 func _on_end_game_finished():
 	get_node("..").game_over()
+
+
+func _on_popup_about_to_show():
+	get_node("../hero_floor/map_"+str(current_room)).set_pause_room(true)
+
+
+func _on_popup_popup_hide():
+	get_node("../hero_floor/map_"+str(current_room)).set_pause_room(false)

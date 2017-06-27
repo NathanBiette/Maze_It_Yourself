@@ -3,6 +3,7 @@ extends Node2D
 const attack = 1
 const cooldown = 0
 const active = 0
+const description = "Basic spear\n\nAttack: 1\n\nThe most basic spear for a hoplite."
 #var position
 
 var on_cooldown = false
@@ -10,6 +11,9 @@ var timer
 
 func _ready():
 	pass
+
+func description():
+	return description
 
 func attack():
 	return attack

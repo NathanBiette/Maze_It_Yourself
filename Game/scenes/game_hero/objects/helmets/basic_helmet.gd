@@ -3,6 +3,7 @@ extends Node2D
 const defense = 1
 const active = 0
 const cooldown = 0
+const description = "Basic helmet\n\nDefense: 1\n\nThe most basic helmet for a hoplite"
 #var position
 
 var on_cooldown = false
@@ -10,6 +11,9 @@ var timer
 
 func _ready():
 	pass
+
+func description():
+	return description
 
 func defense():
 	return defense
