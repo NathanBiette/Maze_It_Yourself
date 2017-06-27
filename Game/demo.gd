@@ -59,8 +59,10 @@ func _ready():
 		var i = randi()%5+1
 		if (i==4):
 			level_instance.link(spawns[k][0],"giant")
-		else:
+		if (i==3):
 			level_instance.link(spawns[k][0],"gorgon")
+		else:
+			level_instance.link(spawns[k][0],"skeleton")
 	level_instance.update_release()
 
 func game_over():

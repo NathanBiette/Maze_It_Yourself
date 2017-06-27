@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const gold = 30
+
 var original_pos
 var damage
 var movement_unit = 100
@@ -23,6 +25,7 @@ func _ready():
 func _process(delta):
 	if (health <= 0):
 		is_dead = true
+		Globals.set("gold", Globals.get("gold") + gold)
 		get_node("Particles2D").set_emitting(true)
 		get_node("CollisionShape2D").queue_free()
 		get_node("AnimatedSprite/AnimationPlayer").stop_all()

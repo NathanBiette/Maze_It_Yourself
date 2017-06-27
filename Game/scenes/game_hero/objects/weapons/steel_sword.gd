@@ -3,7 +3,7 @@ extends Node2D
 const attack = 2
 const cooldown = 0
 const active = 0
-const description = "Steel swordAttack: 2\n\nA sword forged in the blazing fire of Tartaros, the land of the deads."
+const description = "Steel sword\n\nAttack: 2\n\nA sword forged in the blazing fire of Tartaros, the land of the deads."
 #var position
 
 var on_cooldown = false
