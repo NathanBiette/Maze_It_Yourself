@@ -74,7 +74,7 @@ func _ready():
 	get_node("Camera2D/hud/weaponPanel/Sprite").set_texture(load("res://textures/objects/weapons/"+weapon.get_name()+".tex"))
 	get_node("Camera2D/hud/helmetPanel/Sprite").set_texture(load("res://textures/objects/helmets/"+helmet.get_name()+".tex"))
 	get_node("Camera2D/hud/shieldPanel/Sprite").set_texture(load("res://textures/objects/shields/"+shield.get_name()+".tex"))
-	get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(100)
+	get_node("Camera2D/hud/itemPanel/Sprite").set_texture(load("res://textures/objects/items/"+item.get_name()+".tex"))
 	
 	set_process(true)
 
@@ -88,20 +88,32 @@ func _process(delta):
 	else:
 		item_on_cooldown = false
 	
-	if shield_on_cooldown:
-		get_node("Camera2D/hud/shieldPanel/shieldProgress").set_value(100.0-float(shield_timer.get_time_left())/float(shield.cooldown())*100.0)
+	if shield.cooldown() > 0: 
+		if shield_on_cooldown:
+			get_node("Camera2D/hud/shieldPanel/shieldProgress").set_value(100.0-float(shield_timer.get_time_left())/float(shield.cooldown())*100.0)
+		else:
+			get_node("Camera2D/hud/shieldPanel/shieldProgress").set_value(100)
 	else:
-		get_node("Camera2D/hud/shieldPanel/shieldProgress").set_value(100)
-	if helmet_on_cooldown:
-		get_node("Camera2D/hud/helmetPanel/helmetProgress").set_value(100.0-float(helmet_timer.get_time_left())/float(helmet.cooldown())*100.0)
+		get_node("Camera2D/hud/shieldPanel/shieldProgress").set_value(0)
+	if helmet.cooldown() > 0:
+		if helmet_on_cooldown:
+			get_node("Camera2D/hud/helmetPanel/helmetProgress").set_value(100.0-float(helmet_timer.get_time_left())/float(helmet.cooldown())*100.0)
+		else:
+			get_node("Camera2D/hud/helmetPanel/helmetProgress").set_value(100)
 	else:
-		get_node("Camera2D/hud/helmetPanel/helmetProgress").set_value(100)
-	if weapon_on_cooldown:
-		get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(100.0-float(weapon_timer.get_time_left())/float(weapon.cooldown())*100.0)
+		get_node("Camera2D/hud/helmetPanel/helmetProgress").set_value(0)
+	if weapon.cooldown() > 0:
+		if weapon_on_cooldown:
+			get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(100.0-float(weapon_timer.get_time_left())/float(weapon.cooldown())*100.0)
+		else:
+			get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(100)
 	else:
 		get_node("Camera2D/hud/weaponPanel/weaponProgress").set_value(100)
-	if item_on_cooldown:
-		get_node("Camera2D/hud/itemPanel/itemProgress").set_value(100.0-float(item_timer.get_time_left())/float(item.cooldown())*100.0)
+	if item.cooldown() > 0:
+		if item_on_cooldown:
+			get_node("Camera2D/hud/itemPanel/itemProgress").set_value(100.0-float(item_timer.get_time_left())/float(item.cooldown())*100.0)
+		else:
+			get_node("Camera2D/hud/itemPanel/itemProgress").set_value(100)
 	else:
 		get_node("Camera2D/hud/itemPanel/itemProgress").set_value(100)
 
