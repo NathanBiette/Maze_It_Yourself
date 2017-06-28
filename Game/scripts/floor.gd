@@ -40,15 +40,14 @@ func add_room(core_map_index):
 	
 	var tile_map_scene = load("res://scenes/rooms/core_room_" + str(core_map_index) + ".tscn")
 	var tile_map_node = tile_map_scene.instance()
-	room_node.add_child(tile_map_node)
-	
-	#setting up the room
+	tile_map_node.set_global_pos(Vector2(OFFSET * number_of_rooms, 0))
+		#setting up the room
 	
 	room_node.set_name("map_" + str(number_of_rooms))
 	room_node.set_room_id(number_of_rooms)
 	rooms.append(room_node)
-	room_node.get_node("TileMap").set_global_pos(Vector2(OFFSET * number_of_rooms, 0))
 	
+	room_node.add_child(tile_map_node)
 	#managing doors
 	
 	var temp_doors_locations = room_node.get_doors_locations()
@@ -84,18 +83,19 @@ func create_doors(active_room):
 	for d in doors_to_set:
 		var scene = load("res://scenes/game_hero/rooms/door.tscn")
 		var node = scene.instance()
-		get_node("map_" + str(number_of_rooms)).add_child(node)
 		node.set_door_id(d[1][0],d[1][1])
 		node.set_global_pos(d[0])
+		get_node("map_" + str(number_of_rooms)).add_child(node)
 #===============================
 func create_looters(active_room):
 	var looters_to_set = get_node("map_" + str(active_room)).get_looters_locations()
 	for location in looters_to_set:
 		var scene = load("res://scenes/game_hero/rooms/looter.tscn")
 		var node = scene.instance()
-		get_node("map_" + str(number_of_rooms)).add_child(node)
 		node.set_location(location)
 		node.set_global_pos(Vector2(location[0]*100+50 + OFFSET * number_of_rooms,location[1]*100+50))
+		get_node("map_" + str(number_of_rooms)).add_child(node)
+
 #================================
 func find_doors_in_room(x):
 	var l = []
