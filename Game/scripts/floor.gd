@@ -26,11 +26,16 @@ var second_door_button = null
 func _ready():
 	
 	#hero_exclusive
-	if (get_node("../.").get_name() == "game_hero" or get_node("../.").get_name() == "demo"):
+	if (get_node("../.").get_name() == "demo"):
+	add_room(4)
+	get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
+
+
+func first_room():
+	if get_node("../.").get_name() == "game_hero":
+>>>>>>> origin/architect_floor
 		add_room(4)
 		get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
-	elif get_node("../.").get_name() == "game_architect":
-		add_architect_view()
 
 #==============================
 
@@ -257,7 +262,6 @@ func update_release():
 			edition_ok = false
 	if edition_ok == true:
 		doors = str2var(var2str(editable_doors))
-		print(str(doors))
 		get_node("../..").websocket.send('{"event":"multicast","reason":"update","spawns":"' + var2str(var2bytes(spawns)) + '","doors":"' + var2str(var2bytes(doors)) + '"}')
 	else:
 		editable_doors = str2var(var2str(doors))
@@ -278,4 +282,3 @@ func _on_pressed_button(button):
 		second_door_button = first_door_button
 		first_door_button = button
 		first_door_button.set_opacity(0.5)
-	
