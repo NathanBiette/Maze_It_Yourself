@@ -64,6 +64,9 @@ func _on_message_recieved(msg):
 		get_child(1).get_node("architect_floor").close_spawns(dict.room)
 	if dict.reason == 'update':
 		get_child(1).get_node("hero_floor").update(bytes2var(str2var(dict.doors)), bytes2var(str2var(dict.spawns)))
+	if dict.reason == 'room_finished':
+		print('recieved room_finished')
+		#to do: switch in slow resource mode
 
 
 
