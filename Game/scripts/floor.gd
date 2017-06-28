@@ -257,10 +257,29 @@ func create_doors_buttons(active_room):
 		node.connect("pressed_button", self, "_on_pressed_button")
 
 func connect(door_id1,door_id2):
+	if door_id1[0] == door_id2[0]:
+		print("UWOTM8")
+		return
 	var i = find_door_index(door_id1)
 	var j = find_door_index(door_id2)
 	editable_doors[i][2] = door_id2
 	editable_doors[j][2] = door_id1
+
+func connect_architect(room):
+	if second_door_button != null:
+		var door_id1 = first_door_button.get_door_button_id()
+		var door_id2 = second_door_button.get_door_button_id()
+		if (door_id1[0] != room and door_id2[0] != room):
+			return false
+		if door_id1[0] == door_id2[0]:
+			print("UWOTM8")
+			return false
+		var i = find_door_index(door_id1)
+		var j = find_door_index(door_id2)
+		editable_doors[i][2] = door_id2
+		editable_doors[j][2] = door_id1
+		return true
+	return false
 
 func link(spawn_id, monster):
 	var i = get_spawn_index(spawn_id)

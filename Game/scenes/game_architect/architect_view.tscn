@@ -91,6 +91,7 @@ script/script = ExtResource( 2 )
 
 [node name="map_selector" type="ScrollContainer" parent="CanvasLayer"]
 
+editor/display_folded = true
 anchor/top = 1
 anchor/bottom = 1
 rect/min_size = Vector2( 700, 0 )
@@ -107,6 +108,7 @@ scroll/vertical = false
 
 [node name="GridContainer" type="GridContainer" parent="CanvasLayer/map_selector"]
 
+editor/display_folded = true
 rect/min_size = Vector2( 0, 150 )
 focus/ignore_mouse = false
 focus/stop_mouse = false
@@ -273,6 +275,7 @@ centered = false
 
 [node name="monster_selector" type="ScrollContainer" parent="CanvasLayer"]
 
+editor/display_folded = true
 anchor/left = 1
 anchor/right = 1
 rect/min_size = Vector2( 150, 0 )
@@ -353,6 +356,7 @@ centered = false
 
 [node name="boss_selector" type="ScrollContainer" parent="CanvasLayer"]
 
+editor/display_folded = true
 anchor/left = 1
 anchor/right = 1
 rect/min_size = Vector2( 150, 0 )
@@ -534,6 +538,8 @@ debug_mode = false
 [connection signal="pressed" from="CanvasLayer/add_boss" to="CanvasLayer" method="_on_add_boss_pressed"]
 
 [connection signal="pressed" from="CanvasLayer/release" to="CanvasLayer" method="_on_release_pressed"]
+
+[connection signal="pressed" from="CanvasLayer/link" to="CanvasLayer" method="_on_link_pressed"]
 
 [connection signal="swipe_started" from="swipe" to="." method="_on_swipe_swipe_started"]
 
