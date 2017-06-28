@@ -175,4 +175,4 @@ func _on_Circular_strike_anim_finished():
 
 
 func _on_Death_anims_finished():
-	self.free()
+	get_node(".").queue_free()
