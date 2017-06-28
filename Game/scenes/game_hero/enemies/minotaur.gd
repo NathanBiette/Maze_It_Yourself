@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 var facing = "down"
-var damage = 2
+var damage = 4
 var health
 var gold = 100
 var is_dead = false
@@ -25,7 +25,6 @@ func _ready():
 	randomize()
 	set_process(true)
 
-	next_action()
 
 func _process(delta):
 	if health <= 0:
@@ -41,8 +40,10 @@ func _process(delta):
 		get_node("AnimatedSprite/Circular_strike_windup").queue_free()
 		get_node("AnimatedSprite/Idle_anims").queue_free()
 		get_node("AnimatedSprite/Death_anims").play("death_"+str(facing))
-		get_node("../../../../theseus/Camera2D/CanvasLayer1/end_game").play("you_win")
 		set_process(false)
+
+func _on_Timer_timeout():
+	next_action()
 
 func interact(dir, node):
 	#interactions are specific to one enemy
@@ -56,24 +57,29 @@ func next_action():
 	var angle = guideline.angle()
 	get_node("theseus_detection_ray").set_cast_to(-guideline.normalized() * 200)
 	if get_node("theseus_detection_ray").is_colliding():
-		var this_one = randi()%7
-		#Minautor attacks
-		if (angle < 0.785 and angle > -0.785) :
-			#UP
-			get_node("AnimatedSprite/Attack_anims_windup").play("attack_up_windup")
-			facing = "up"
-		if (angle <= -0.785 and angle >= -2.356):
-			#RIGHT
-			get_node("AnimatedSprite/Attack_anims_windup").play("attack_right_windup")
-			facing = "right"
-		if (angle <= 2.356 and angle >= 0.785):
-			#LEFT
-			facing = "left"
-			get_node("AnimatedSprite/Attack_anims_windup").play("attack_left_windup")
-		if (angle < -2.356 or angle > 2.356) :
-			#DOWN
-			get_node("AnimatedSprite/Attack_anims_windup").play("attack_down_windup")
-			facing = "down"
+		var this_time = randi()%7
+		if this_time < 2:
+			get_node("AnimatedSprite/Idle_anims").play("idle_"+str(facing))
+		elif (this_time < 6) and (this_time > 1):
+			#Minautor attacks
+			if (angle < 0.785 and angle > -0.785) :
+				#UP
+				get_node("AnimatedSprite/Attack_anims_windup").play("attack_up_windup")
+				facing = "up"
+			if (angle <= -0.785 and angle >= -2.356):
+				#RIGHT
+				get_node("AnimatedSprite/Attack_anims_windup").play("attack_right_windup")
+				facing = "right"
+			if (angle <= 2.356 and angle >= 0.785):
+				#LEFT
+				facing = "left"
+				get_node("AnimatedSprite/Attack_anims_windup").play("attack_left_windup")
+			if (angle < -2.356 or angle > 2.356) :
+				#DOWN
+				get_node("AnimatedSprite/Attack_anims_windup").play("attack_down_windup")
+				facing = "down"
+		elif (this_time > 5):
+			get_node("AnimatedSprite/Circular_strike_windup").play("circular_strike_windup")
 	elif (get_node("theseus_detection_ray").get_cast_to().x == 0 or get_node("theseus_detection_ray").get_cast_to().y == 0):
 		get_node("AnimatedSprite/Idle_anims").play("idle_"+str(facing))
 	else:
@@ -160,4 +166,12 @@ func _on_Circular_strike_windup_finished():
 	var theseus_pos = get_node("../../../../theseus").get_global_pos() 
 	var guideline = get_node(".").get_global_pos() - theseus_pos
 	if guideline.length() < 250:
-		get_node("../../../../theseus").lose_hp(4)
+		get_node("../../../../theseus").lose_hp(6)
+
+
+func _on_Circular_strike_anim_finished():
+	next_action()
+
+
+func _on_Death_anims_finished():
+	get_node("../../../../theseus/Camera2D/CanvasLayer1/end_game").play("you_win")
