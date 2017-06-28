@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=1]
+[gd_scene load_steps=49 format=1]
 
 [ext_resource path="res://scripts/theseus.gd" type="Script" id=1]
 [ext_resource path="res://textures/hero/hero_face_right_100px.tex" type="Texture" id=2]
@@ -21,10 +21,12 @@
 [ext_resource path="res://textures/hero/key_arrow_left.tex" type="Texture" id=19]
 [ext_resource path="res://textures/hero/key_arrow_up.tex" type="Texture" id=20]
 [ext_resource path="res://textures/hero/key_arrow_down.tex" type="Texture" id=21]
-[ext_resource path="res://sounds/162168__hunterscrossbow__aah2.smp" type="Sample" id=22]
-[ext_resource path="res://sounds/163441__under7dude__man-getting-hit.smp" type="Sample" id=23]
-[ext_resource path="res://sounds/268758__deleted-user-5093904__footsteps.smp" type="Sample" id=24]
-[ext_resource path="res://sounds/52458__audione__sword-01.smp" type="Sample" id=25]
+[ext_resource path="res://textures/menus/font_50.fnt" type="BitmapFont" id=22]
+[ext_resource path="res://textures/menus/font_30.fnt" type="BitmapFont" id=23]
+[ext_resource path="res://sounds/162168__hunterscrossbow__aah2.smp" type="Sample" id=24]
+[ext_resource path="res://sounds/163441__under7dude__man-getting-hit.smp" type="Sample" id=25]
+[ext_resource path="res://sounds/268758__deleted-user-5093904__footsteps.smp" type="Sample" id=26]
+[ext_resource path="res://sounds/52458__audione__sword-01.smp" type="Sample" id=27]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -359,38 +361,42 @@ lossy_quality = 0.7
 
 [sub_resource type="Theme" id=18]
 
-default_font = ExtResource( 14 )
+default_font = ExtResource( 22 )
 
-[sub_resource type="RectangleShape2D" id=19]
+[sub_resource type="Theme" id=19]
+
+default_font = ExtResource( 23 )
+
+[sub_resource type="RectangleShape2D" id=20]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[sub_resource type="SampleLibrary" id=20]
+[sub_resource type="SampleLibrary" id=21]
 
 samples/loot = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 22 )
+"sample": ExtResource( 24 )
 }
 samples/ouch = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 23 )
+"sample": ExtResource( 25 )
 }
 samples/step = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 24 )
+"sample": ExtResource( 26 )
 }
 samples/sword = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 25 )
+"sample": ExtResource( 27 )
 }
 
 [node name="theseus" type="KinematicBody2D" groups=[
@@ -853,14 +859,29 @@ margin/top = 121.0
 margin/right = 169.0
 margin/bottom = 161.0
 popup/exclusive = true
-window/title = "Item information"
-dialog/text = "HEY GUYS I'M A POPUP LOOK AT ME"
+window/title = ""
 dialog/hide_on_ok = true
+
+[node name="stopwatch" type="Label" parent="Camera2D/hud"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+theme/theme = SubResource( 19 )
+margin/left = 39.0
+margin/top = 136.0
+margin/right = 145.0
+margin/bottom = 192.0
+text = "00:00"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [node name="Area2D" type="Area2D" parent="."]
 
 input/pickable = true
-shapes/0/shape = SubResource( 19 )
+shapes/0/shape = SubResource( 20 )
 shapes/0/transform = Matrix32( 3.84615, 0, 0, 3.19231, -3.8147e-06, -8.5 )
 shapes/0/trigger = true
 gravity_vec = Vector2( 0, 1 )
@@ -872,7 +893,7 @@ angular_damp = 1.0
 
 transform/pos = Vector2( -3.8147e-06, -8.5 )
 transform/scale = Vector2( 3.84615, 3.19231 )
-shape = SubResource( 19 )
+shape = SubResource( 20 )
 trigger = true
 _update_shape_index = 0
 
@@ -884,7 +905,7 @@ params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
 config/polyphony = 1
-config/samples = SubResource( 20 )
+config/samples = SubResource( 21 )
 config/pitch_random = 0.0
 
 [connection signal="finished" from="AnimatedSprite/Movement_anims" to="." method="_on_Movement_anims_finished"]
