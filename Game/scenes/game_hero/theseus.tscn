@@ -360,7 +360,7 @@ lossy_quality = 0.7
 
 [sub_resource type="Theme" id=18]
 
-default_font = ExtResource( 14 )
+default_font = ExtResource( 22 )
 
 [sub_resource type="Theme" id=19]
 
