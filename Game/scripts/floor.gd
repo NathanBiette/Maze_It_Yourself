@@ -25,7 +25,7 @@ var second_door_button = null
 func _ready():
 	
 	#hero_exclusive
-	if get_node("../.").get_name() == "game_hero":
+	if (get_node("../.").get_name() == "game_hero" or get_node("../.").get_name() == "demo"):
 		add_room(4)
 		get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
 	elif get_node("../.").get_name() == "game_architect":

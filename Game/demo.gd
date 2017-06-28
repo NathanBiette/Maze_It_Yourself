@@ -26,8 +26,9 @@ func _ready():
 	level_scene = load("res://scenes/game_hero/hero_floor.tscn")
 	level_instance = level_scene.instance()
 	add_child(level_instance)
-	for k in range(0,7):
-		level_instance.add_room(k)
+	for k in range(0,8):
+		if k != 4:
+			level_instance.add_room(k)
 	var  doors=level_instance.get_doors()
 	print(doors)
 	var size = doors.size()
@@ -56,12 +57,13 @@ func _ready():
 	var spawns = level_instance.get_spawns()
 	var k = 0
 	for k in range(spawns.size()):
-		var i = randi()%5+1
-		if (i==4):
-			level_instance.link(spawns[k][0],"giant")
-		if (i==3):
+		randomize()
+		var i = round(rand_range(1,7))
+		if (i==5):
 			level_instance.link(spawns[k][0],"gorgon")
-		else:
+		elif (i==4):
+			level_instance.link(spawns[k][0],"giant")
+		elif(i==2 or i ==3):
 			level_instance.link(spawns[k][0],"skeleton")
 	level_instance.update_release()
 

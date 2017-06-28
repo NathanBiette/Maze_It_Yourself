@@ -70,6 +70,9 @@ func _on_message_recieved(msg):
 	if dict.reason == 'game_over':
 		print('game_over')
 		#to do: end the architect game, saying he's won the game
+	if dict.reason == 'game_won':
+		print('game_won')
+		#to do: end the architect game, saying he's lost the game
 
 
 

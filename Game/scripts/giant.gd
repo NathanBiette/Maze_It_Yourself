@@ -33,12 +33,6 @@ func _process(delta):
 		get_node("AnimatedSprite/smash").stop_all()
 		get_node("AnimatedSprite/Death_Anim").play("death")
 		get_node("SamplePlayer2D").play("death")
-		var lib = get_node("../../../../..").get_ITEMS_LIBRARY()
-		var k = randi()%lib.size()
-		var item = load("res://scenes/game_hero/objects/"+str(lib[k][1])+".tscn")
-		var item_instance = item.instance()
-		get_node("..").add_child(item_instance)
-		item_instance.set_pos(get_node(".").get_pos())
 		set_process(false)
 
 #fonction called when theseus collides with body from group enemies/traps 

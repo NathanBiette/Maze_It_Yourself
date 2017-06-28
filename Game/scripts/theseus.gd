@@ -355,7 +355,7 @@ func game_over():
 
 
 func _on_Game_over_finished():
-	websocket.send('{"event":"multicast","reason":"game_over"}')
+	get_node("../..").websocket.send('{"event":"multicast","reason":"game_over"}')
 	if (game_over):
 		get_node("..").game_over()
 
