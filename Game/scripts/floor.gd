@@ -16,6 +16,7 @@ var spawns = Array()
 var looters = Array()
 var number_of_rooms = 0
 var explored_rooms = []
+var nb_explored = 0
 
 #stocks buttons clicked for links between doors
 var first_door_button = null
@@ -169,6 +170,7 @@ func change_room(door_id):
 	if (explored_rooms[door_id[0]] == 0):
 		get_node("../..").websocket.send('{"event":"multicast","reason":"close_spawns","room":' + str(next_door_id[0]) + '}')
 		explored_rooms[door_id[0]] = 1
+		nb_explored += 1
 	
 	if (next_door_id == [-1,-1]):
 		pass

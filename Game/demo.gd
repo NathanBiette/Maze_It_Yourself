@@ -66,6 +66,22 @@ func _ready():
 		elif(i==2 or i ==3 or i==6):
 			level_instance.link(spawns[k][0],"skeleton")
 	level_instance.update_release()
+	set_process(true)
+
+func _process(delta):
+	if( get_node("hero_floor").nb_explored == 4):
+		var  doors=get_node("hero_floor").get_doors()
+		var door = null
+		var k = 0
+		while (door==null):
+			if(doors[k][2] !=  [-1,-1]):
+				door = doors[k]
+				
+			else:
+				k=k+1
+		get_node("hero_floor").add_room(8)
+		get_node("hero_floor").connect(door[1],[8,1])
+		set_process(false)
 
 func game_over():
 	get_node("..").game_over()
