@@ -10,9 +10,6 @@ var spawn_locations = []
 var looters_location = []
 
 func _ready():
-	pass
-
-func initialize():
 	doors_locations = [Vector2(-1,-1),Vector2(-1,-1),Vector2(-1,-1),Vector2(-1,-1)]
 	find_doors()
 	find_spawn()

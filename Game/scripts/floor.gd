@@ -34,14 +34,13 @@ func add_room(core_map_index):
 	
 	var room = load("res://scenes/rooms/core_room_" + str(core_map_index) + ".tscn")
 	var room_node = room.instance()
-	add_child(room_node)
-	
 	#setting up the room
-	
 	room_node.set_name("map_" + str(number_of_rooms))
 	room_node.set_room_id(number_of_rooms)
 	rooms.append(room_node)
+	
 	room_node.set_global_pos(Vector2(OFFSET * number_of_rooms, 0))
+	add_child(room_node)
 	
 	#managing doors
 	
