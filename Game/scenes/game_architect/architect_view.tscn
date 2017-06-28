@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=1]
+[gd_scene load_steps=25 format=1]
 
 [ext_resource path="res://scripts/architect_camera.gd" type="Script" id=1]
 [ext_resource path="res://scripts/architect_view.gd" type="Script" id=2]
@@ -16,7 +16,9 @@
 [ext_resource path="res://textures/menus/link_button.tex" type="Texture" id=14]
 [ext_resource path="res://textures/objects/coin.tex" type="Texture" id=15]
 [ext_resource path="res://textures/menus/font.fnt" type="BitmapFont" id=16]
-[ext_resource path="res://swipe/addons/swipe-detector/swipe_detector.gd" type="Script" id=17]
+[ext_resource path="res://textures/objects/items/ambrosia_potion.tex" type="Texture" id=17]
+[ext_resource path="res://textures/menus/font_50.fnt" type="BitmapFont" id=18]
+[ext_resource path="res://swipe/addons/swipe-detector/swipe_detector.gd" type="Script" id=19]
 
 [sub_resource type="ImageTexture" id=1]
 
@@ -496,11 +498,34 @@ params/stretch_mode = 0
 
 [node name="coin_sprite" type="Sprite" parent="CanvasLayer"]
 
-transform/pos = Vector2( 52.8475, 105.006 )
+transform/pos = Vector2( 100, 105.006 )
 transform/scale = Vector2( 4.5, 4.5 )
 texture = ExtResource( 15 )
 
 [node name="coin_label" type="Label" parent="CanvasLayer/coin_sprite"]
+
+rect/scale = Vector2( 0.7, 0.7 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 23.0
+margin/top = -4.0
+margin/right = 59.0
+margin/bottom = 24.0
+custom_fonts/font = ExtResource( 16 )
+text = "0"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="magic_sprite" type="Sprite" parent="CanvasLayer"]
+
+transform/pos = Vector2( 100, 242.688 )
+texture = ExtResource( 17 )
+
+[node name="magic_label" type="Label" parent="CanvasLayer/magic_sprite"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -508,9 +533,10 @@ size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 14.0
 margin/top = -9.0
-margin/right = 64.0
-margin/bottom = 33.0
-custom_fonts/font = ExtResource( 16 )
+margin/right = 214.0
+margin/bottom = 62.0
+custom_fonts/font = ExtResource( 18 )
+text = "0"
 align = 2
 percent_visible = 1.0
 lines_skipped = 0
@@ -518,7 +544,7 @@ max_lines_visible = -1
 
 [node name="swipe" type="Node" parent="."]
 
-script/script = ExtResource( 17 )
+script/script = ExtResource( 19 )
 detect_gesture = true
 process_method = null
 distance_threshold = 25.0
