@@ -15,7 +15,7 @@ func _ready():
 	
 
 func add_room(room_number):
-	get_node("../.").add_room(room_number)
+	get_node("../.").add_room_architect(room_number)
 	#get_node("../..").websocket.send('{"event":"multicast","reason":"add_room","room":' + str(next_room) + '}')
 
 

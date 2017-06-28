@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://textures/level/doors_buttons/greek_gate_front_200px.tex" type="Texture" id=1]
+[ext_resource path="res://scripts/door_button.gd" type="Script" id=2]
+
+[node name="TextureButton" type="TextureButton"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -100.0
+margin/top = -100.0
+margin/right = 100.0
+margin/bottom = 100.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 1 )
+params/resize_mode = 0
+params/stretch_mode = 0
+script/script = ExtResource( 2 )
+
+[connection signal="pressed" from="." to="." method="_on_TextureButton_pressed"]
+
+
