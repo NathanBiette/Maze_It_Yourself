@@ -179,7 +179,7 @@ func update_release():
 	if edition_ok == true:
 		doors = str2var(var2str(editable_doors))
 		var translated_doors = translate(doors)
-		get_node("../..").websocket.send('{"event":"multicast","reason":"update","spawns":"' + var2str(var2bytes(spawns)) + '","doors":"' + var2str(var2bytes(doors)) + '"}')
+		get_node("../..").websocket.send('{"event":"multicast","reason":"update","spawns":"' + var2str(var2bytes(spawns)) + '","doors":"' + var2str(var2bytes(translated_doors)) + '"}')
 	else:
 		editable_doors = str2var(var2str(doors))
 		get_node("architect/CanvasLayer/WindowDialog").popup()
@@ -216,3 +216,4 @@ func translate(array):
 	for element in array:
 		element[0][0] -= element[1][0] * OFFSET_ARCHITECT
 		element[0][0] += element[1][0] * OFFSET
+	return array
