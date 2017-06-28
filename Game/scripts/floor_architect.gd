@@ -16,6 +16,7 @@ var spawns = Array()
 var looters = Array()
 var number_of_rooms = 0
 var explored_rooms = []
+var this_is_my_first_time = true
 
 #stocks buttons clicked for links between doors
 var first_door_button = null
@@ -32,7 +33,8 @@ func _ready():
 func add_room(core_map_index):
 	
 	explored_rooms.append(0)
-	get_node("../..").websocket.send('{"event":"multicast","reason":"add_room","room":"'+ str(core_map_index)+'"}')
+	if !this_is_my_first_time:
+		get_node("../..").websocket.send('{"event":"multicast","reason":"add_room","room":"'+ str(core_map_index)+'"}')
 	
 	var room = load("res://scenes/game_hero/rooms/hero_map.tscn")
 	var room_node = room.instance()
