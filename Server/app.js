@@ -67,7 +67,7 @@
             try {
               ws.send('{"event":"error","msg":"game_started"}');
             } catch (e) {
-              console.log("Failed to send to " + ws.id + " : " + message);
+              console.log("Failed to: " + message);
             }
           }
           break;
@@ -100,7 +100,7 @@
           try {
             ws.send('{"event":"ack"}');
           } catch (e) {
-            console.log("Failed to send to " + ws.id + " : " + message);
+            console.log("Failed to send: " + message);
           }
           break;
 
@@ -210,7 +210,7 @@
         try {
           connections[i].send(message);
         } catch (e) {
-          console.log("Failed to send to " + ws.id + " : " + message);
+          console.log("Failed to send: " + message);
         }
       }
     }
@@ -223,7 +223,7 @@
         try {
           connections[i].send(msg);
         } catch (e) {
-          console.log("Failed to send to " + ws.id + " : " + message);
+          console.log("Failed to send: " + message);
         }
       }
     }
@@ -238,7 +238,7 @@
         try {
           connections[i].send(message);
         } catch (e) {
-          console.log("Failed to send to " + ws.id + " : " + message);
+          console.log("Failed to send: " + message);
         }
       }
     }
@@ -256,7 +256,7 @@
       try {
         ws.send('{"event":"error","msg":"clients_overflow"}');
       } catch (e) {
-        console.log("Failed to send to " + ws.id + " : " + message);
+        console.log("Failed to send: " + message);
       }
       return
     }
@@ -273,7 +273,7 @@
     try {
       ws.send('{"event":"channel", "channel":"' + channel + '"}');
     } catch (e) {
-      console.log("Failed to send to " + ws.id + " : " + message);
+      console.log("Failed to send: " + message);
     }
     console.log(ws.id + ' has joined channel ' + channel);
     console.log(numberChannels[channel] + ' clients in channel ' + channel);
@@ -364,7 +364,7 @@
           try {
             ws.send('{"event":"error","msg":"hero"}');
           } catch (e) {
-            console.log("Failed to send to " + ws.id + " : " + message);
+            console.log("Failed to send: " + message);
           }
           console.log('Already a hero');
         } else {
@@ -381,7 +381,7 @@
           try {
             ws.send('{"event":"error","msg":"architect"}');
           } catch (e) {
-            console.log("Failed to send to " + ws.id + " : " + message);
+            console.log("Failed to send: " + message);
           }
           console.log('Already an architect');
         } else {
@@ -397,7 +397,7 @@
         try {
           ws.send('{"event":"error","msg":"full"}');
         } catch (e) {
-          console.log("Failed to send to " + ws.id + " : " + message);
+          console.log("Failed to send: " + message);
         }
         break;
 
@@ -476,7 +476,7 @@
     try {
       web.send('{"event":"error","msg":"reconnection"}');
     } catch (e) {
-      console.log("Failed to send to " + ws.id + " : " + message);
+      console.log("Failed to send: " + message);
     }
     log.console('Could not reconnect ' + web.id);
   }
