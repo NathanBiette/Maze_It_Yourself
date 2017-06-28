@@ -25,7 +25,6 @@ func _ready():
 	randomize()
 	set_process(true)
 
-	next_action()
 
 func _process(delta):
 	if health <= 0:
@@ -43,6 +42,9 @@ func _process(delta):
 		get_node("AnimatedSprite/Death_anims").play("death_"+str(facing))
 		get_node("../../../../theseus/Camera2D/CanvasLayer1/end_game").play("you_win")
 		set_process(false)
+
+func _on_Timer_timeout():
+	next_action()
 
 func interact(dir, node):
 	#interactions are specific to one enemy
