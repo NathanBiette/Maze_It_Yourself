@@ -2,7 +2,7 @@ extends Node
 
 var next_room
 var doors_ids
-var library
+#var library
 
 func _ready():
 	#next_room = get_node("CanvasLayer/MenuButton/Panel/LineEdit").get_text()

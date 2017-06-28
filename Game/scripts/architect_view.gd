@@ -61,6 +61,9 @@ func _on_add_monster_pressed():
 func _on_add_boss_pressed():
 	pass # replace with function body
 
+func _on_release_pressed():
+	pass # replace with function body
+
 #############################################################################
 
 #########################ROOMS FOCUS#########################################
@@ -135,3 +138,5 @@ func _on_minotaure_input_event(ev):
 		get_node("boss_selector/GridContainer/minotaure").set_opacity(opacity)
 		selected_boss = 0
 ##############################################################################################
+
+
