@@ -31,6 +31,7 @@ func _ready():
 func add_room(core_map_index):
 	
 	explored_rooms.append(0)
+	get_node("../..").websocket.send('{"event":"multicast","reason":"add_room","room":"'+ str(core_map_index)+'"}')
 	
 	var room = load("res://scenes/game_hero/rooms/hero_map.tscn")
 	var room_node = room.instance()
