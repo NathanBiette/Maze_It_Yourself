@@ -12,7 +12,7 @@ var reconnectionTimer
 var connected = false
 var ingame = false # Used to check if the player is in-game or not
 var role
-const ENEMY_LIBRARY = [[1,"skeleton"],[2,"giant"],[3,"gorgon"]]
+const ENEMY_LIBRARY = [[1,'skeleton'],[2,'giant'],[3,'gorgon']]
 const ITEMS_LIBRARY = [[1,"helmets/basic_helmet"],[2,"items/ambrosia_potion"],[3,"items/necklace"],[4,"shields/basic_shield"],[5,"shields/cronos_shield"],[6,"weapons/steel_sword"]]
 
 func _ready():
@@ -63,7 +63,7 @@ func _on_message_recieved(msg):
 	if dict.reason == 'close_spawns':
 		get_child(1).get_node("architect_floor").close_spawns(dict.room)
 	if dict.reason == 'update':
-		get_child(1).get_node("hero_floor").update(dict.doors, dict.spawns)
+		get_child(1).get_node("hero_floor").update(bytes2var(str2var(dict.doors)), bytes2var(str2var(dict.spawns)))
 
 
 
