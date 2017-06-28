@@ -357,6 +357,7 @@ centered = false
 [node name="boss_selector" type="ScrollContainer" parent="CanvasLayer"]
 
 editor/display_folded = true
+visibility/visible = false
 anchor/left = 1
 anchor/right = 1
 rect/min_size = Vector2( 150, 0 )
@@ -380,7 +381,7 @@ size_flags/horizontal = 3
 size_flags/vertical = 3
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 150.0
+margin/right = 162.0
 margin/bottom = 150.0
 columns = 1
 
@@ -441,6 +442,7 @@ params/stretch_mode = 0
 
 [node name="add_boss" type="TextureButton" parent="CanvasLayer"]
 
+visibility/visible = false
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2

@@ -107,7 +107,10 @@ func get_looters_locations():
 
 func update_global_pos(room_number):
 	for i in doors_locations:
-		i[0] += 50*room_number
+		if get_node("../..").get_name() == "game_hero":
+			i[0] += 50*room_number
+		else:
+			i[0] += 20*room_number
 	
 func get_doors_locations():
 	return doors_locations
