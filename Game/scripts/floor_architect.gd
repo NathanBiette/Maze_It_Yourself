@@ -22,6 +22,8 @@ var this_is_my_first_time = true
 var first_door_button = null
 var second_door_button = null
 
+#stocks buttons clicked for links with monsters
+var spawn_button = null
 
 func _ready():
 	add_room(4)
@@ -167,8 +169,8 @@ func connect(room):
 		return true
 	return false
 
-func link(spawn_id, monster):
-	var i = get_spawn_index(spawn_id)
+func link(monster):
+	var i = get_spawn_index(spawn_button.get_spawn_button_id())
 	if spawns[i][2] == true:
 		spawns[i][3] = monster
 
@@ -202,7 +204,7 @@ func close_spawns(room):
 	get_node("architect").remove_spawn_from_list(room)
 
 
-func _on_pressed_button(button):
+func _on_pressed_door_button(button):
 	if button != first_door_button:
 		if second_door_button != null:
 			second_door_button.set_opacity(1)
@@ -216,11 +218,27 @@ func create_doors_button(active_room):
 	for d in doors_to_set:
 		var scene = load("res://scenes/game_hero/rooms/door_button.tscn")
 		var node = scene.instance()
-		print(get_node("map_" + str(number_of_rooms)).get_name())
 		get_node("map_" + str(number_of_rooms)).add_child(node)
 		node.set_door_button_id(d[1][0],d[1][1])
 		node.set_global_pos(Vector2(d[0][0]-100,d[0][1]-100))
 		node.connect("pressed_button", self, "_on_pressed_button")
+
+func _on_pressed_spawn_button(button):
+	if button != spawn_button:
+		spawn_button.set_opacity(1)
+		button.set_opacity(0.5)
+		spawn_button = button
+
+func create_spawns_button(active_room):
+	#finds all doors in the the room and put at these locations a square for TP
+	var spawns_to_set = find_spawns_in_room(active_room)
+	for s in spawns_to_set:
+		var scene = load("res://scenes/game_architect/ghost_rooms/spawn_button.tscn")
+		var node = scene.instance()
+		get_node("map_" + str(number_of_rooms)).add_child(node)
+		node.set_spawn_button_id(s[0][0],s[0][1])
+		node.set_global_pos(Vector2(s[1][0]-100,s[1][1]-100))
+		node.connect("pressed_button", self, "_on_pressed_door_button")
 
 func translate(array):
 	for k in range(array.size()):
