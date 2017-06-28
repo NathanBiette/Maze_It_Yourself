@@ -60,6 +60,7 @@ lossy_quality = 0.7
 
 [node name="Camera2D" type="Camera2D"]
 
+z/relative = false
 anchor_mode = 1
 rotating = false
 current = true
@@ -80,6 +81,7 @@ script/script = ExtResource( 1 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -495,6 +497,8 @@ debug_mode = false
 [connection signal="pressed" from="CanvasLayer/add_monster" to="CanvasLayer" method="_on_add_monster_pressed"]
 
 [connection signal="pressed" from="CanvasLayer/add_boss" to="CanvasLayer" method="_on_add_boss_pressed"]
+
+[connection signal="swipe_started" from="swipe" to="." method="_on_swipe_swipe_started"]
 
 [connection signal="swipe_updated" from="swipe" to="." method="_on_swipe_swipe_updated"]
 
