@@ -18,7 +18,7 @@
 
   wss = new WS({
     server: server,
-    perMessageDeflate: false
+    perMessageDeflate: false,
   });
 
   var connections = [];
@@ -48,9 +48,9 @@
     ws.onmessage = function(event) {
       var dict;
       console.log(ws.id + ' : ' + event.data);
-      dict = JSON.parse(event.data);
-
-      switch (dict.event) {
+      try{
+		dict = JSON.parse(event.data);
+		switch (dict.event) {
 
         case 'pong':
           pong();
@@ -110,6 +110,8 @@
         default:
           console.log('Event non reconnu : ' + dict.event);
       }
+		} catch(err){
+		console.log('something horribly bad happened when trying to parse');}
     };
 
     // Activated when an error is happening
@@ -244,7 +246,7 @@
       numberChannels[channel] = 0;
     }
     numberChannels[channel] += 1;
-    ws.send('{"event":"channel", "channel":' + channel + '}')
+    ws.send('{"event":"channel", "channel":"' + channel + '"}')
     console.log(ws.id + ' has joined channel ' + channel);
     console.log(numberChannels[channel] + ' clients in channel ' + channel);
   }
