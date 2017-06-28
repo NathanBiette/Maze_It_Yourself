@@ -67,6 +67,9 @@ func _on_message_recieved(msg):
 	if dict.reason == 'room_finished':
 		print('recieved room_finished')
 		#to do: switch in slow resource mode
+	if dict.reason == 'game_over':
+		print('game_over')
+		#to do: end the architect game, saying he's won the game
 
 
 
