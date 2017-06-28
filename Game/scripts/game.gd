@@ -11,7 +11,8 @@ var reconnectionTries = 0
 var reconnectionTimer
 var connected = false
 var ingame = false # Used to check if the player is in-game or not
-const ENEMY_LIBRARY = [[1,"skeleton"],[2,"giant"]]
+const ENEMY_LIBRARY = [[1,"skeleton"],[2,"giant"],[3,"gorgon"]]
+const ITEMS_LIBRARY = [[1,"helmets/basic_helmet"],[2,"items/ambrosia_potion"],[3,"items/necklace"],[4,"shields/basic_shield"],[5,"shields/cronos_shield"],[6,"weapons/steel_sword"]]
 
 func _ready():
 	websocket = preload('res://scripts/websocket.gd').new(self)
@@ -32,9 +33,14 @@ func _ready():
 func _on_message_recieved(msg):
 	var dict = {}
 	dict.parse_json(msg)
+	print(msg)
 	print(dict)
-	if (dict.event == 'channel'):
+	if (dict.event == channel):
 		channel = dict.channel
+		if(channel=='global'):
+			get_node("background/CanvasLayer/status_text").set_text("Connected to server")
+		else:
+			get_node("background/CanvasLayer/status_text").set_text("Connected to channel " + dict.channel)
 		return
 	if (dict.event == 'ping'):
 		timer.stop()
@@ -42,6 +48,7 @@ func _on_message_recieved(msg):
 		timer.start()
 		websocket.send('{"event":"pong"}')
 		return
+	print("prout")
 	if (dict.event == 'ack'):
 		connected = true
 		print('Connected')
@@ -51,6 +58,8 @@ func _on_message_recieved(msg):
 		get_child(1).get_node("architect_floor").close_spawns(dict.room)
 	if dict.reason == 'update':
 		get_child(1).get_node("hero_floor").update(dict.doors, dict.spawns)
+
+
 func _on_timer_timeout():
 	timer.stop()
 	print("Timed out")
@@ -58,6 +67,8 @@ func _on_timer_timeout():
 
 func get_ENEMY_LIBRARY():
 	return ENEMY_LIBRARY
+func get_ITEMS_LIBRARY():
+	return ITEMS_LIBRARY
 #	
 #	reconnectionTimer = Timer.new()
 #	reconnectionTimer.connect("timeout",self,"_on_reconnection_timer_timeout")
