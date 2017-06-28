@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 var facing = "down"
-var damage = 2
+var damage = 4
 var health
 var gold = 100
 var is_dead = false
@@ -40,7 +40,6 @@ func _process(delta):
 		get_node("AnimatedSprite/Circular_strike_windup").queue_free()
 		get_node("AnimatedSprite/Idle_anims").queue_free()
 		get_node("AnimatedSprite/Death_anims").play("death_"+str(facing))
-		get_node("../../../../theseus/Camera2D/CanvasLayer1/end_game").play("you_win")
 		set_process(false)
 
 func _on_Timer_timeout():
@@ -167,8 +166,12 @@ func _on_Circular_strike_windup_finished():
 	var theseus_pos = get_node("../../../../theseus").get_global_pos() 
 	var guideline = get_node(".").get_global_pos() - theseus_pos
 	if guideline.length() < 250:
-		get_node("../../../../theseus").lose_hp(4)
+		get_node("../../../../theseus").lose_hp(6)
 
 
 func _on_Circular_strike_anim_finished():
 	next_action()
+
+
+func _on_Death_anims_finished():
+	get_node("../../../../theseus/Camera2D/CanvasLayer1/end_game").play("you_win")
