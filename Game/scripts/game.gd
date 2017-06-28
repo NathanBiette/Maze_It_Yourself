@@ -55,6 +55,8 @@ func _on_message_recieved(msg):
 		get_node("background/CanvasLayer/status_text").set_text("Game is about to start!")
 	if(dict.event == "start"):
 		get_node("background/CanvasLayer/status_text").set_text("Game has started! Press start to join.")
+		get_node("background/CanvasLayer/start_game").set_hidden(false)
+		get_node("background/CanvasLayer/leave_lobby").set_hidden(true)
 		ingame = true
 	if (dict.reason == 'add_room'):
 		get_child(1).get_node("hero_floor").add_room(dict.room)
