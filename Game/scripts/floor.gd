@@ -17,7 +17,7 @@ var number_of_rooms = 0
 
 func _ready():
 	
-	add_room(4)
+	add_room(99)
 	#hero_exclusive
 	if get_node("../.").get_name() == "game_hero":
 		add_architect()
@@ -32,22 +32,16 @@ func _ready():
 
 func add_room(core_map_index):
 	
-	var room = load("res://scenes/game_hero/rooms/hero_map.tscn")
+	var room = load("res://scenes/rooms/core_room_" + str(core_map_index) + ".tscn")
 	var room_node = room.instance()
 	add_child(room_node)
-	
-	#creation of room
-	
-	var tile_map_scene = load("res://scenes/rooms/core_room_" + str(core_map_index) + ".tscn")
-	var tile_map_node = tile_map_scene.instance()
-	room_node.add_child(tile_map_node)
 	
 	#setting up the room
 	
 	room_node.set_name("map_" + str(number_of_rooms))
 	room_node.set_room_id(number_of_rooms)
 	rooms.append(room_node)
-	room_node.get_node("TileMap").set_global_pos(Vector2(OFFSET * number_of_rooms, 0))
+	room_node.set_global_pos(Vector2(OFFSET * number_of_rooms, 0))
 	
 	#managing doors
 	
