@@ -34,8 +34,8 @@ func _ready():
 func _on_message_recieved(msg):
 	var dict = {}
 	dict.parse_json(msg)
-	print(msg)
-	print(dict)
+	#print(msg)
+	#print(dict)
 	if (dict.event == "channel"):
 		channel = dict.channel
 		if(channel=='global'):
