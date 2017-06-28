@@ -21,6 +21,10 @@ func initialize():
 		close_doors()
 		set_process(true)
 
+func set_as_boss_room():
+	get_node("..").set_as_boss_room([room_id,3])
+	
+
 func _process(delta):
 	var tree = get_tree()
 	if (no_enemy_left()):
