@@ -58,12 +58,12 @@ func _ready():
 	var k = 0
 	for k in range(spawns.size()):
 		randomize()
-		var i = round(rand_range(1,7))
+		var i = round(rand_range(1, 8))
 		if (i==5):
 			level_instance.link(spawns[k][0],"gorgon")
 		elif (i==4):
 			level_instance.link(spawns[k][0],"giant")
-		elif(i==2 or i ==3):
+		elif(i==2 or i ==3 or i==6):
 			level_instance.link(spawns[k][0],"skeleton")
 	level_instance.update_release()
 

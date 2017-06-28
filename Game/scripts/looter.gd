@@ -3,7 +3,7 @@ extends StaticBody2D
 var location
 
 func _ready():
-	pass
+	randomize()
 
 func set_location(location_to_set):
 	location = location_to_set
