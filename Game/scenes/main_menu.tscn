@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://textures/menus/Artwork MIY.tex" type="Texture" id=1]
 [ext_resource path="res://scripts/main_menu.gd" type="Script" id=2]
 [ext_resource path="res://textures/menus/Logo MIY.tex" type="Texture" id=3]
 [ext_resource path="res://textures/menus/font.fnt" type="BitmapFont" id=4]
+[ext_resource path="res://sounds/Titan Quest OST - 08 - Knossos Labyrinth-1.ogg" type="AudioStream" id=5]
 
 [node name="background" type="Sprite"]
 
@@ -54,7 +55,7 @@ margin/right = 220.0
 margin/bottom = -11.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Enter IP and channel to connect to:"
+text = "Enter a channel name to connect to:"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -93,23 +94,6 @@ shortcut = null
 text = "Connect as hero"
 flat = false
 
-[node name="disconnect" type="Button" parent="CanvasLayer"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 214.0
-margin/top = 410.0
-margin/right = 318.0
-margin/bottom = 444.0
-custom_fonts/font = ExtResource( 4 )
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-text = "Disconnect"
-flat = false
-
 [node name="status_text" type="Label" parent="CanvasLayer"]
 
 focus/ignore_mouse = true
@@ -117,9 +101,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 181.0
-margin/top = 379.0
+margin/top = 386.0
 margin/right = 347.0
-margin/bottom = 410.0
+margin/bottom = 417.0
 custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Status: disconnected"
@@ -133,32 +117,15 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 66.0
-margin/top = 459.0
-margin/right = 212.0
-margin/bottom = 493.0
-custom_fonts/font = ExtResource( 4 )
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-text = "Start local hero"
-flat = false
-
-[node name="start_architect" type="Button" parent="CanvasLayer"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 313.0
+margin/left = 188.0
 margin/top = 458.0
-margin/right = 490.0
+margin/right = 334.0
 margin/bottom = 492.0
 custom_fonts/font = ExtResource( 4 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "start local architect"
+text = "Start local demo"
 flat = false
 
 [node name="leave_lobby" type="Button" parent="CanvasLayer"]
@@ -178,15 +145,22 @@ shortcut = null
 text = "Leave lobby"
 flat = false
 
+[node name="StreamPlayer" type="StreamPlayer" parent="."]
+
+stream/stream = ExtResource( 5 )
+stream/play = false
+stream/loop = false
+stream/volume_db = 0.0
+stream/autoplay = false
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 500
+
 [connection signal="pressed" from="CanvasLayer/connect_architect" to="." method="_on_connect_architect_pressed"]
 
 [connection signal="pressed" from="CanvasLayer/connect_hero" to="." method="_on_connect_hero_pressed"]
 
-[connection signal="pressed" from="CanvasLayer/disconnect" to="." method="_on_disconnect_pressed"]
-
 [connection signal="pressed" from="CanvasLayer/start_hero" to="." method="_on_start_hero_pressed"]
-
-[connection signal="pressed" from="CanvasLayer/start_architect" to="." method="_on_start_architect_pressed"]
 
 [connection signal="pressed" from="CanvasLayer/leave_lobby" to="." method="_on_leave_lobby_pressed"]
 

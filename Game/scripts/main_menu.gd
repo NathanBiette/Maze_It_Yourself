@@ -6,22 +6,12 @@ onready var parent = get_node("..")
 func _ready():
 	websocket = parent.websocket
 
-func _on_start_architect_pressed():
-	var game_architect = preload("res://scenes/game_architect/game_architect.tscn")
-	var arch = game_architect.instance()
-	get_node("..").add_child(arch)
-	queue_free()
-
 
 func _on_start_hero_pressed():
-	var game_hero = preload("res://scenes/game_hero/game_hero.tscn")
+	var game_hero = preload("res://scenes/game_hero/demo.tscn")
 	var hero = game_hero.instance()
 	get_node("..").add_child(hero)
 	queue_free()
-
-
-func _on_disconnect_pressed():
-	pass # replace with function body
 
 
 func _on_connect_hero_pressed():
@@ -37,5 +27,21 @@ func _on_connect_architect_pressed():
 func _on_leave_lobby_pressed():
 	websocket.send('{"event":"leave"}')
 
-func game_over():
-	
+func _on_message_recieved(msg):
+	var dict = {}
+	dict.parse_json(msg)
+	var event = dict.event
+	if (dict.event == 'channel'):
+		if(dict.event=='global'):
+			get_node("CanvasLayer/status_text").set_text("Connected to server")
+		else:
+			get_node("CanvasLayer/status_text").set_text("Connected to channel " + dict.channel)
+	if (dict.event == 'ack'):
+		get_node("CanvasLayer/status_text").set_text("Connected to server")
+	if (dict.event == 'soon'):
+		get_node("CanvasLayer/status_text").set_text("Game is about to start!")
+	if(dict.event == 'start'):
+		var game_hero = preload("res://scenes/game_hero/game_hero.tscn")
+		var hero = game_hero.instance()
+		get_node("..").add_child(hero)
+		queue_free()
