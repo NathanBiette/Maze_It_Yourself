@@ -11,6 +11,7 @@ var reconnectionTries = 0
 var reconnectionTimer
 var connected = false
 var ingame = false # Used to check if the player is in-game or not
+var role
 const ENEMY_LIBRARY = [[1,"skeleton"],[2,"giant"],[3,"gorgon"]]
 const ITEMS_LIBRARY = [[1,"helmets/basic_helmet"],[2,"items/ambrosia_potion"],[3,"items/necklace"],[4,"shields/basic_shield"],[5,"shields/cronos_shield"],[6,"weapons/steel_sword"]]
 
@@ -41,27 +42,38 @@ func _on_message_recieved(msg):
 			get_node("background/CanvasLayer/status_text").set_text("Connected to server")
 		else:
 			get_node("background/CanvasLayer/status_text").set_text("Connected to channel " + dict.channel)
-	elif (dict.event == 'ping'):
+	if (dict.event == 'ping'):
 		timer.stop()
 		timer.set_wait_time(35)
 		timer.start()
 		websocket.send('{"event":"pong"}')
-	elif (dict.event == 'ack'):
+	if (dict.event == 'ack'):
 		connected = true
+		get_node("background/CanvasLayer/status_text").set_text("Connected to server")
 		print('Connected')
-	elif (dict.reason == 'add_room'):
+	if (dict.event == "soon"):
+		get_node("background/CanvasLayer/status_text").set_text("Game is about to start!")
+	if(dict.event == "start"):
+		if role ==1:
+			get_child(1).start_game_hero()
+		elif role == 2:
+			get_child(1).start_game_architect()
+	if (dict.reason == 'add_room'):
 		get_child(1).get_node("hero_floor").add_room(dict.room)
-	elif dict.reason == 'close_spawns':
+	if dict.reason == 'close_spawns':
 		get_child(1).get_node("architect_floor").close_spawns(dict.room)
-	elif dict.reason == 'update':
+	if dict.reason == 'update':
 		get_child(1).get_node("hero_floor").update(dict.doors, dict.spawns)
-	print("prout")
+
 
 
 func _on_timer_timeout():
 	timer.stop()
 	print("Timed out")
 	connected = false
+
+func set_role(i):
+	role = i
 
 func get_ENEMY_LIBRARY():
 	return ENEMY_LIBRARY
