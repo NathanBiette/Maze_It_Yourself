@@ -135,6 +135,13 @@ func find_spawns_in_room(x):
 #================================
 func get_looters():
 	return looters
+
+#================================
+
+func set_as_boss_room(id):
+	index = find_door_index(id)
+	doors[index][2] = [-1,5]
+
 #=============HERO ONLY==================#
 
 func change_room(door_id):
@@ -143,6 +150,9 @@ func change_room(door_id):
 	var next_door_index = find_door_index(next_door_id) 
 	
 	#creating monsters from spawns array
+	
+	if next_door_id == [-1,5]:
+		get_node("../theseus").get_node("Camera2D/CanvasLayer1/end_game").play("you_win")
 	
 	var spawns_in_room = find_spawns_in_room(next_door_id[0])
 	for s in spawns_in_room:
