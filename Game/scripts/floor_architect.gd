@@ -3,7 +3,7 @@ extends Node
 #/!\ I cheat, I am not sending messages to the architect or the hero and just using the fact that the architect is a local variable of game hero and has access to spawns and doors
 
 const OFFSET = 5000
-const OFFSET_ARCHITECT = 2000
+const OFFSET_ARCHITECT = 2500
 var rooms = Array()
 #doors format : 
 #	[[Vector2 global_pos, id [room number, door_type], id of connected door],[...],...]
@@ -73,6 +73,7 @@ func add_room(core_map_index):
 	var temp_spawn_locations = room_node.get_spawn_locations()
 	for i in range(temp_spawn_locations.size()):
 		spawns.append([[number_of_rooms, i], temp_spawn_locations[i], true, ""])
+	create_spawns_button(number_of_rooms)
 	
 	#updating for next_use
 	number_of_rooms += 1
@@ -221,24 +222,26 @@ func create_doors_button(active_room):
 		get_node("map_" + str(number_of_rooms)).add_child(node)
 		node.set_door_button_id(d[1][0],d[1][1])
 		node.set_global_pos(Vector2(d[0][0]-100,d[0][1]-100))
-		node.connect("pressed_button", self, "_on_pressed_button")
+		node.connect("pressed_door_button", self, "_on_pressed_door_button")
 
 func _on_pressed_spawn_button(button):
 	if button != spawn_button:
-		spawn_button.set_opacity(1)
+		if spawn_button != null: 
+			spawn_button.set_opacity(1)
 		button.set_opacity(0.5)
 		spawn_button = button
+	get_node("Camera2D/CanvasLayer").show_monsters()
 
 func create_spawns_button(active_room):
-	#finds all doors in the the room and put at these locations a square for TP
+	#finds all spawns in the the room and put at these locations a square for TP
 	var spawns_to_set = find_spawns_in_room(active_room)
 	for s in spawns_to_set:
 		var scene = load("res://scenes/game_architect/ghost_rooms/spawn_button.tscn")
 		var node = scene.instance()
 		get_node("map_" + str(number_of_rooms)).add_child(node)
 		node.set_spawn_button_id(s[0][0],s[0][1])
-		node.set_global_pos(Vector2(s[1][0]-100,s[1][1]-100))
-		node.connect("pressed_button", self, "_on_pressed_door_button")
+		node.set_global_pos(Vector2(s[1][0]*100 + (OFFSET_ARCHITECT * active_room) - 50 ,s[1][1] * 100 - 50))
+		node.connect("pressed_spawn_button", self, "_on_pressed_spawn_button")
 
 func translate(array):
 	for k in range(array.size()):

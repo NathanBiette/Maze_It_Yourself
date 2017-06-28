@@ -73,7 +73,8 @@ func _on_add_room_pressed():
 	current_room += 1
 
 func _on_add_monster_pressed():
-	pass # replace with function body
+	get_node("../..").link(enemies[selected_monster])
+	hide_monsters()
 
 func _on_add_boss_pressed():
 	pass # replace with function body

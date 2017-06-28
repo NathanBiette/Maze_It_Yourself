@@ -30,4 +30,6 @@ params/scale = Vector2( 2, 2 )
 params/stretch_mode = 0
 script/script = ExtResource( 1 )
 
+[connection signal="pressed" from="." to="." method="_on_spawn_button_pressed"]
+
 

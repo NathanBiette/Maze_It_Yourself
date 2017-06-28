@@ -3,7 +3,7 @@ extends TextureButton
 var door_button_id=[0,0]
 var door_button_type = "west"
 
-signal pressed_button(button)
+signal pressed_door_button(button)
 
 func _ready():
 	pass
@@ -17,4 +17,4 @@ func set_door_button_id(room, door):
 
 
 func _on_TextureButton_pressed():
-	emit_signal("pressed_button", self)
+	emit_signal("pressed_door_button", self)
