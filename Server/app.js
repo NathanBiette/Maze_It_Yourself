@@ -130,6 +130,8 @@
     // Activated when a connection is closed
     ws.onclose = function(code, reason) {
 
+      clearInterval(pingpong);
+
       ws.connected = false;
 
       var channel = ws.channel;
@@ -147,8 +149,6 @@
       }
       var index = connections.indexOf(ws);
       connections.splice(index, 1);
-
-      clearInterval(pingpong);
 
       return console.log(ws.id + ' has been disconnected');
     };
