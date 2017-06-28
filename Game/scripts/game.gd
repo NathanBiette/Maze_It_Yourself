@@ -35,29 +35,27 @@ func _on_message_recieved(msg):
 	dict.parse_json(msg)
 	print(msg)
 	print(dict)
-	if (dict.event == channel):
+	if (dict.event == "channel"):
 		channel = dict.channel
 		if(channel=='global'):
 			get_node("background/CanvasLayer/status_text").set_text("Connected to server")
 		else:
 			get_node("background/CanvasLayer/status_text").set_text("Connected to channel " + dict.channel)
-		return
-	if (dict.event == 'ping'):
+	elif (dict.event == 'ping'):
 		timer.stop()
 		timer.set_wait_time(35)
 		timer.start()
 		websocket.send('{"event":"pong"}')
-		return
-	print("prout")
-	if (dict.event == 'ack'):
+	elif (dict.event == 'ack'):
 		connected = true
 		print('Connected')
-	if (dict.reason == 'add_room'):
+	elif (dict.reason == 'add_room'):
 		get_child(1).get_node("hero_floor").add_room(dict.room)
-	if dict.reason == 'close_spawns':
+	elif dict.reason == 'close_spawns':
 		get_child(1).get_node("architect_floor").close_spawns(dict.room)
-	if dict.reason == 'update':
+	elif dict.reason == 'update':
 		get_child(1).get_node("hero_floor").update(dict.doors, dict.spawns)
+	print("prout")
 
 
 func _on_timer_timeout():
