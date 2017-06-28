@@ -30,7 +30,7 @@ func _ready():
 		add_room(4)
 		get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
 	else:
-		get_node("../theseus").set_idle(true)
+		get_node("../theseus").set_idle(false)
 
 
 func first_room():

@@ -878,6 +878,22 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="waiting_architect" type="Label" parent="Camera2D/hud"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 789.0
+margin/top = 437.0
+margin/right = 1300.0
+margin/bottom = 508.0
+custom_fonts/font = ExtResource( 22 )
+text = "Waiting for the architect..."
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [node name="Area2D" type="Area2D" parent="."]
 
 input/pickable = true

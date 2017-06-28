@@ -62,7 +62,7 @@ func _on_message_recieved(msg):
 		get_node("background/CanvasLayer/leave_lobby").set_hidden(true)
 		ingame = true
 	if (dict.reason == 'first_room'):
-		get_node("game_hero/theseus").set_idle(false)
+		get_node("game_hero/theseus").set_idle(true)
 		get_node("game_hero/theseus").time_start = OS.get_unix_time()
 		get_node("game_hero/theseus/Camera2D/hud/stopwatch").set_hidden(false)
 		get_node("game_hero/theseus/Camera2D/hud/waiting_architect").set_hidden(true)
