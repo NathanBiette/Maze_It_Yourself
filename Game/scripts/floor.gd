@@ -27,13 +27,12 @@ func _ready():
 	
 	#hero_exclusive
 	if (get_node("../.").get_name() == "demo"):
-	add_room(4)
-	get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
+		add_room(4)
+		get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
 
 
 func first_room():
 	if get_node("../.").get_name() == "game_hero":
->>>>>>> origin/architect_floor
 		add_room(4)
 		get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
 
