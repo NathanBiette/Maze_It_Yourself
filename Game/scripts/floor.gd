@@ -255,8 +255,8 @@ func update_release():
 			edition_ok = false
 	if edition_ok == true:
 		doors = str2var(var2str(editable_doors))
-		print(str(doors))
-		get_node("../..").websocket.send('{"event":"multicast","reason":"update","spawns":"' + var2str(var2bytes(spawns)) + '","doors":"' + var2str(var2bytes(doors)) + '"}')
+		translated_doors = translate(doors)
+		get_node("../..").websocket.send('{"event":"multicast","reason":"update","spawns":"' + var2str(var2bytes(spawns)) + '","doors":"' + var2str(var2bytes(translated_doors)) + '"}')
 	else:
 		editable_doors = str2var(var2str(doors))
 		get_node("architect/CanvasLayer/WindowDialog").popup()
@@ -276,4 +276,9 @@ func _on_pressed_button(button):
 		second_door_button = first_door_button
 		first_door_button = button
 		first_door_button.set_opacity(0.5)
+
+func translate(array):
+	for element in array:
+		element[0][0] -= element[1][0] * OFFSET_ARCHITECT
+		element[0][0] += element[1][0] * OFFSET
 	
