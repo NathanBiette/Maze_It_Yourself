@@ -25,7 +25,6 @@ func _ready():
 		get_node("architect").update_spawn(spawns)
 		get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
 	elif get_node("../.").get_name() == "game_architect":
-		add_architect_view()
 		add_architect()
 
 #==============================
@@ -187,11 +186,6 @@ func update(new_doors, new_spawns):
 #===================ARCHITECT ONLY==========================#
 func add_architect():
 	var scene = load("res://scenes/game_architect/architect.tscn")
-	var node = scene.instance()
-	add_child(node)
-
-func add_architect_view():
-	var scene = load("res://scenes/game_architect/architect_view.tscn")
 	var node = scene.instance()
 	add_child(node)
 

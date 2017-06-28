@@ -53,8 +53,7 @@ func hide_bosses():
 #################################ADD BUTTONS####################################################
 
 func _on_add_room_pressed():
-	#add room number room_selected
-	pass
+	get_node("../..").add_room(selected_room)
 
 func _on_add_monster_pressed():
 	pass # replace with function body
