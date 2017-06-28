@@ -79,7 +79,7 @@ func _on_add_boss_pressed():
 	pass # replace with function body
 
 func _on_release_pressed():
-	pass # replace with function body
+	get_node("../..").update_release()
 
 func _on_link_pressed():
 	if get_node("../..").connect(current_room):
