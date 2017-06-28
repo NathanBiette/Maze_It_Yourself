@@ -33,6 +33,10 @@ var gold
 
 var invincibility = false
 
+#stopwatch
+var time_start = 0
+var time_now = 0
+
 #is a movement animation over right now?
 var idle = true
 
@@ -74,6 +78,8 @@ func _ready():
 	get_node("Camera2D/hud/helmetPanel/Sprite").set_texture(load("res://textures/objects/helmets/"+helmet.get_name()+".tex"))
 	get_node("Camera2D/hud/shieldPanel/Sprite").set_texture(load("res://textures/objects/shields/"+shield.get_name()+".tex"))
 	get_node("Camera2D/hud/itemPanel/Sprite").set_texture(load("res://textures/objects/items/"+item.get_name()+".tex"))
+	
+	time_start = OS.get_unix_time()
 	
 	set_process(true)
 
@@ -120,6 +126,13 @@ func _process(delta):
 				get_node("Camera2D/hud/itemPanel/itemProgress").set_value(100)
 		else:
 			get_node("Camera2D/hud/itemPanel/itemProgress").set_value(0)
+	
+	time_now = OS.get_unix_time()
+	var elapsed = time_now - time_start
+	var minutes = elapsed / 60
+	var seconds = elapsed % 60
+	var str_elapsed = "%02d : %02d" % [minutes, seconds]
+	get_node("Camera2D/hud/stopwatch").set_text(str_elapsed)
 
 #move script of theseus
 func _move(dir):
