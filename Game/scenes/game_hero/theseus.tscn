@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=1]
+[gd_scene load_steps=49 format=1]
 
 [ext_resource path="res://scripts/theseus.gd" type="Script" id=1]
 [ext_resource path="res://textures/hero/hero_face_right_100px.tex" type="Texture" id=2]
@@ -21,11 +21,12 @@
 [ext_resource path="res://textures/hero/key_arrow_left.tex" type="Texture" id=19]
 [ext_resource path="res://textures/hero/key_arrow_up.tex" type="Texture" id=20]
 [ext_resource path="res://textures/hero/key_arrow_down.tex" type="Texture" id=21]
-[ext_resource path="res://textures/menus/font_30.fnt" type="BitmapFont" id=22]
-[ext_resource path="res://sounds/162168__hunterscrossbow__aah2.smp" type="Sample" id=23]
-[ext_resource path="res://sounds/163441__under7dude__man-getting-hit.smp" type="Sample" id=24]
-[ext_resource path="res://sounds/268758__deleted-user-5093904__footsteps.smp" type="Sample" id=25]
-[ext_resource path="res://sounds/52458__audione__sword-01.smp" type="Sample" id=26]
+[ext_resource path="res://textures/menus/font_50.fnt" type="BitmapFont" id=22]
+[ext_resource path="res://textures/menus/font_30.fnt" type="BitmapFont" id=23]
+[ext_resource path="res://sounds/162168__hunterscrossbow__aah2.smp" type="Sample" id=24]
+[ext_resource path="res://sounds/163441__under7dude__man-getting-hit.smp" type="Sample" id=25]
+[ext_resource path="res://sounds/268758__deleted-user-5093904__footsteps.smp" type="Sample" id=26]
+[ext_resource path="res://sounds/52458__audione__sword-01.smp" type="Sample" id=27]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -364,7 +365,7 @@ default_font = ExtResource( 22 )
 
 [sub_resource type="Theme" id=19]
 
-default_font = ExtResource( 22 )
+default_font = ExtResource( 23 )
 
 [sub_resource type="RectangleShape2D" id=20]
 
@@ -377,25 +378,25 @@ samples/loot = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 23 )
+"sample": ExtResource( 24 )
 }
 samples/ouch = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 24 )
+"sample": ExtResource( 25 )
 }
 samples/step = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 25 )
+"sample": ExtResource( 26 )
 }
 samples/sword = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 26 )
+"sample": ExtResource( 27 )
 }
 
 [node name="theseus" type="KinematicBody2D" groups=[
@@ -858,8 +859,7 @@ margin/top = 121.0
 margin/right = 169.0
 margin/bottom = 161.0
 popup/exclusive = true
-window/title = "Item information"
-dialog/text = "HEY GUYS I'M A POPUP LOOK AT ME"
+window/title = ""
 dialog/hide_on_ok = true
 
 [node name="stopwatch" type="Label" parent="Camera2D/hud"]
