@@ -54,10 +54,8 @@ func _on_message_recieved(msg):
 	if (dict.event == "soon"):
 		get_node("background/CanvasLayer/status_text").set_text("Game is about to start!")
 	if(dict.event == "start"):
-		if role ==1:
-			get_child(1).start_game_hero()
-		elif role == 2:
-			get_child(1).start_game_architect()
+		get_node("background/CanvasLayer/status_text").set_text("Game has started! Press start to join.")
+		ingame = true
 	if (dict.reason == 'add_room'):
 		get_child(1).get_node("hero_floor").add_room(dict.room)
 	if dict.reason == 'close_spawns':
@@ -79,6 +77,8 @@ func get_ENEMY_LIBRARY():
 	return ENEMY_LIBRARY
 func get_ITEMS_LIBRARY():
 	return ITEMS_LIBRARY
+func is_ingame():
+	return ingame
 #	
 #	reconnectionTimer = Timer.new()
 #	reconnectionTimer.connect("timeout",self,"_on_reconnection_timer_timeout")
