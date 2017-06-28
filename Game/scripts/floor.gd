@@ -13,6 +13,7 @@ var editable_doors = Array() #editable version for architect only
 var spawns = Array()
 var looters = Array()
 var number_of_rooms = 0
+var explored_rooms = []
 
 
 func _ready():
@@ -31,6 +32,8 @@ func _ready():
 #==============================
 
 func add_room(core_map_index):
+	
+	explored_rooms.append(0)
 	
 	var room = load("res://scenes/game_hero/rooms/hero_map.tscn")
 	var room_node = room.instance()
@@ -151,7 +154,9 @@ func change_room(door_id):
 			get_node("map_" + str(next_door_id[0]) + "/TileMap").add_child(enemy_node)
 			enemy_node.set_pos(Vector2(s[1][0]*100 +50,s[1][1]*100 +50))
 			s[2] = false
-	#get_node("../..").websocket.send('{"event":"multicast","reason":"close_spawns","room":' + str(next_door_id[0]) + '}')
+	if (explored_rooms[door_id[0]] == 0):
+		get_node("../..").websocket.send('{"event":"multicast","reason":"close_spawns","room":' + str(next_door_id[0]) + '}')
+		explored_rooms[door_id[0]] = 1
 	
 	if (next_door_id == [-1,-1]):
 		pass
@@ -228,4 +233,5 @@ func close_spawns(room):
 	for s in spawns:
 		if s[0][0] == room:
 			s[2] = false
+	explored_rooms[room]=1
 	get_node("architect").remove_spawn_from_list(room)
