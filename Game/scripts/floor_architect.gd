@@ -24,6 +24,7 @@ var second_door_button = null
 
 func _ready():
 	add_room(4)
+	get_node("../..").websocket.send('{"event":"multicast","reason":"first_room"}')
 	add_architect_view()
 
 #==============================
