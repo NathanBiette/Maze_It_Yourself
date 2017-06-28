@@ -14,6 +14,8 @@ var item
 
 var hasItem = true
 
+var popup_items = {}
+
 #cooldowns
 var helmet_on_cooldown = false
 var weapon_on_cooldown = false
@@ -32,6 +34,10 @@ var defense
 var gold
 
 var invincibility = false
+
+#stopwatch
+var time_start = 0
+var time_now = 0
 
 #is a movement animation over right now?
 var idle = true
@@ -74,6 +80,10 @@ func _ready():
 	get_node("Camera2D/hud/helmetPanel/Sprite").set_texture(load("res://textures/objects/helmets/"+helmet.get_name()+".tex"))
 	get_node("Camera2D/hud/shieldPanel/Sprite").set_texture(load("res://textures/objects/shields/"+shield.get_name()+".tex"))
 	get_node("Camera2D/hud/itemPanel/Sprite").set_texture(load("res://textures/objects/items/"+item.get_name()+".tex"))
+	
+	time_start = OS.get_unix_time()
+	
+	get_node("Camera2D/hud/popup").get_ok().set_text("        OK        ")
 	
 	set_process(true)
 
@@ -120,6 +130,13 @@ func _process(delta):
 				get_node("Camera2D/hud/itemPanel/itemProgress").set_value(100)
 		else:
 			get_node("Camera2D/hud/itemPanel/itemProgress").set_value(0)
+	
+	time_now = OS.get_unix_time()
+	var elapsed = time_now - time_start
+	var minutes = elapsed / 60
+	var seconds = elapsed % 60
+	var str_elapsed = "%02d : %02d" % [minutes, seconds]
+	get_node("Camera2D/hud/stopwatch").set_text(str_elapsed)
 
 #move script of theseus
 func _move(dir):
@@ -225,7 +242,6 @@ func update_inventory(dir):
 
 func loot(looting_object_name,looting_object_type):
 	get_node("SamplePlayer2D").play("loot")
-	get_node("Camera2D/hud/popup").add_font_override("",load("res://textures/menus/font.fnt"))
 	if (looting_object_type == "weapons"):
 			dropping_object_name = weapon.get_name()
 			dropping_object_type = "weapons"
@@ -239,6 +255,13 @@ func loot(looting_object_name,looting_object_type):
 				weapon_cooldown(weapon)
 			#save weapon reference 
 			Globals.set("weapon", weapon.get_name())
+			if popup_items.has(weapon.get_name()):
+				if !popup_items[weapon.get_name()]:
+					popup_items[weapon.get_name()] = true
+					get_node("Camera2D/hud/popup").popup_centered_ratio(0.5)
+			else:
+				popup_items[weapon.get_name()] = true
+				get_node("Camera2D/hud/popup").popup_centered_ratio(0.5)
 	if (looting_object_type == "shields"):
 			dropping_object_name = shield.get_name()
 			dropping_object_type = "shields"
@@ -249,6 +272,13 @@ func loot(looting_object_name,looting_object_type):
 			if (shield.cooldown() > 0):
 				shield_cooldown(shield)
 			Globals.set("shield", helmet.get_name())
+			if popup_items.has(shield.get_name()):
+				if !popup_items[shield.get_name()]:
+					popup_items[shield.get_name()] = true
+					get_node("Camera2D/hud/popup").popup_centered_ratio(0.5)
+			else:
+				popup_items[shield.get_name()] = true
+				get_node("Camera2D/hud/popup").popup_centered_ratio(0.5)
 	if (looting_object_type == "helmets"):
 			dropping_object_name = helmet.get_name()
 			dropping_object_type = "helmets"
@@ -259,6 +289,13 @@ func loot(looting_object_name,looting_object_type):
 			if (helmet.cooldown() > 0):
 				helmet_cooldown(helmet)
 			Globals.set("helmet", helmet.get_name())
+			if popup_items.has(helmet.get_name()):
+				if !popup_items[helmet.get_name()]:
+					popup_items[helmet.get_name()] = true
+					get_node("Camera2D/hud/popup").popup_centered_ratio(0.5)
+			else:
+				popup_items[helmet.get_name()] = true
+				get_node("Camera2D/hud/popup").popup_centered_ratio(0.5)
 	if (looting_object_type == "items"):
 			if item != null:
 				dropping_object_name = item.get_name()
@@ -270,7 +307,13 @@ func loot(looting_object_name,looting_object_type):
 			if (item.cooldown() > 0):
 				item_cooldown(item)
 			Globals.set("item", item.get_name())
-	get_node("Camera2D/hud/popup").popup_centered_ratio(0.5)
+			if popup_items.has(item.get_name()):
+				if !popup_items[item.get_name()]:
+					popup_items[item.get_name()] = true
+					get_node("Camera2D/hud/popup").popup_centered_ratio(0.5)
+			else:
+				popup_items[item.get_name()] = true
+				get_node("Camera2D/hud/popup").popup_centered_ratio(0.5)
 
 func drop(dropping_object_name,dropping_object_type,dir):
 	print("dropping " + dropping_object_name)
