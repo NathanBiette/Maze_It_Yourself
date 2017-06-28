@@ -61,8 +61,8 @@ func add_room(core_map_index):
 			
 			#for later when we have a real architect
 			
-			#if get_node("../.").get_name() == "game_architect":
-			editable_doors.append([Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]])
+			if get_node("../.").get_name() == "game_architect":
+				editable_doors.append([Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]])
 		
 	create_doors(number_of_rooms)
 	create_looters(number_of_rooms)
