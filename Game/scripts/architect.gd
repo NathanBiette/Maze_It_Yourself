@@ -5,8 +5,6 @@ var doors_ids
 var library
 
 func _ready():
-	# Called every time the node is added to the scene.
-	# Initialization here
 	next_room = get_node("CanvasLayer/MenuButton/Panel/LineEdit").get_text()
 	library = get_node("../../../.").get_ENEMY_LIBRARY()
 	for e in library:
