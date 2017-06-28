@@ -177,7 +177,7 @@ func update_release():
 			edition_ok = false
 	if edition_ok == true:
 		doors = str2var(var2str(editable_doors))
-		print(str(doors))
+		var translated_doors = translate(doors)
 		get_node("../..").websocket.send('{"event":"multicast","reason":"update","spawns":"' + var2str(var2bytes(spawns)) + '","doors":"' + var2str(var2bytes(doors)) + '"}')
 	else:
 		editable_doors = str2var(var2str(doors))
@@ -210,3 +210,8 @@ func create_doors_button(active_room):
 		node.set_door_button_id(d[1][0],d[1][1])
 		node.set_global_pos(Vector2(d[0][0]-100,d[0][1]-100))
 		node.connect("pressed_button", self, "_on_pressed_button")
+
+func translate(array):
+	for element in array:
+		element[0][0] -= element[1][0] * OFFSET_ARCHITECT
+		element[0][0] += element[1][0] * OFFSET
