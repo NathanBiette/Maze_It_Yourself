@@ -32,8 +32,7 @@ func _ready():
 		get_node("architect").update_spawn(spawns)
 		get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
 	elif get_node("../.").get_name() == "game_architect":
-		add_room_architect(4)
-		add_architect()
+		add_architect_view()
 
 #==============================
 
@@ -145,7 +144,7 @@ func get_looters():
 #================================
 
 func set_as_boss_room(id):
-	index = find_door_index(id)
+	var index = find_door_index(id)
 	doors[index][2] = [-1,5]
 
 #=============HERO ONLY==================#
