@@ -162,6 +162,22 @@ shortcut = null
 text = "Leave lobby"
 flat = false
 
+[node name="waiting_hero" type="Label" parent="CanvasLayer"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 157.0
+margin/top = 380.0
+margin/right = 337.0
+margin/bottom = 408.0
+custom_fonts/font = ExtResource( 3 )
+text = "Waiting for the hero..."
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [node name="StreamPlayer" type="StreamPlayer" parent="."]
 
 stream/stream = ExtResource( 5 )

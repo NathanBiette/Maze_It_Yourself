@@ -83,6 +83,8 @@ func _ready():
 	
 	time_start = OS.get_unix_time()
 	
+	get_node("Camera2D/hud/stopwatch").set_hidden(true)
+	
 	get_node("Camera2D/hud/popup").get_ok().set_text("        OK        ")
 	
 	set_process(true)

@@ -7,6 +7,7 @@ func _ready():
 	websocket = parent.websocket
 	get_node("CanvasLayer/start_game").set_hidden(true)
 	get_node("CanvasLayer/leave_lobby").set_hidden(true)
+	get_node("CanvasLayer/waiting_hero").set_hidden(true)
 
 
 func _on_start_hero_pressed():
@@ -64,6 +65,7 @@ func start_game_architect():
 func _on_start_game_pressed():
 	if (get_parent().is_ingame()):
 		if (get_parent().role==1):
+			get_parent().websocket.send('{"event":"multicast","reason":"hero_ready"}')
 			start_game_hero()
 		elif(get_parent().role==2):
 			start_game_architect()

@@ -29,6 +29,8 @@ func _ready():
 	if (get_node("../.").get_name() == "demo"):
 		add_room(4)
 		get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
+	else:
+		get_node("../theseus").set_idle(true)
 
 
 func first_room():
