@@ -57,7 +57,8 @@ func add_room(core_map_index):
 		else:
 			doors.append([Vector2((temp_doors_locations[i][0] + (OFFSET_ARCHITECT/100 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]])
 			editable_doors.append([Vector2((temp_doors_locations[i][0] + (OFFSET_ARCHITECT/100 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]])
-	create_doors(number_of_rooms)
+	
+	create_doors_button(number_of_rooms)
 	create_looters(number_of_rooms)
 	#managing spawn locations
 	
@@ -145,23 +146,13 @@ func add_architect_view():
 	var node = scene.instance()
 	add_child(node)
 
-func connect(door_id1,door_id2):
-	if door_id1[0] == door_id2[0]:
-		print("UWOTM8")
-		return
-	var i = find_door_index(door_id1)
-	var j = find_door_index(door_id2)
-	editable_doors[i][2] = door_id2
-	editable_doors[j][2] = door_id1
-
-func connect_architect(room):
+func connect(room):
 	if second_door_button != null:
 		var door_id1 = first_door_button.get_door_button_id()
 		var door_id2 = second_door_button.get_door_button_id()
 		if (door_id1[0] != room and door_id2[0] != room):
 			return false
 		if door_id1[0] == door_id2[0]:
-			print("UWOTM8")
 			return false
 		var i = find_door_index(door_id1)
 		var j = find_door_index(door_id2)
@@ -207,4 +198,15 @@ func _on_pressed_button(button):
 		second_door_button = first_door_button
 		first_door_button = button
 		first_door_button.set_opacity(0.5)
-	
+
+func create_doors_button(active_room):
+	#finds all doors in the the room and put at these locations a square for TP
+	var doors_to_set = find_doors_in_room(active_room)
+	for d in doors_to_set:
+		var scene = load("res://scenes/game_hero/rooms/door_button.tscn")
+		var node = scene.instance()
+		print(get_node("map_" + str(number_of_rooms)).get_name())
+		get_node("map_" + str(number_of_rooms)).add_child(node)
+		node.set_door_button_id(d[1][0],d[1][1])
+		node.set_global_pos(Vector2(d[0][0]-100,d[0][1]-100))
+		node.connect("pressed_button", self, "_on_pressed_button")

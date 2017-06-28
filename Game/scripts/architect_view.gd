@@ -82,7 +82,7 @@ func _on_release_pressed():
 	pass # replace with function body
 
 func _on_link_pressed():
-	if get_node("../../..").connect_architect(current_room):
+	if get_node("../..").connect(current_room):
 		show_rooms()
 
 #############################################################################
