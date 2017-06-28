@@ -199,7 +199,6 @@ func change_room(door_id):
 
 func update(new_doors, new_spawns):
 	doors = new_doors
-	print(doors)
 	spawns = new_spawns
 
 #=============HERO ONLY END===============#
@@ -249,7 +248,7 @@ func link(spawn_id, monster):
 func update_release():
 	var edition_ok = true
 	for i in range (doors.size()):
-		if doors[i][2] == [-1,-1]:
+		if doors[i][2] == [-1,-1] or doors[i][2] == [-1,5]:
 			pass
 		elif doors[i][2] == editable_doors[i][2]:
 			pass
@@ -257,11 +256,11 @@ func update_release():
 			edition_ok = false
 	if edition_ok == true:
 		doors = str2var(var2str(editable_doors))
-		print(str(doors))
 		get_node("../..").websocket.send('{"event":"multicast","reason":"update","spawns":"' + var2str(var2bytes(spawns)) + '","doors":"' + var2str(var2bytes(doors)) + '"}')
 	else:
 		editable_doors = str2var(var2str(doors))
-		get_node("architect/CanvasLayer/WindowDialog").popup()
+		#get_node("architect/CanvasLayer/WindowDialog").popup()
+	print(edition_ok)
 
 func close_spawns(room):
 	for s in spawns:
