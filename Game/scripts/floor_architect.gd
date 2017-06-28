@@ -35,6 +35,8 @@ func add_room(core_map_index):
 	explored_rooms.append(0)
 	if !this_is_my_first_time:
 		get_node("../..").websocket.send('{"event":"multicast","reason":"add_room","room":"'+ str(core_map_index)+'"}')
+	else:
+		this_is_my_first_time = false
 	
 	var room = load("res://scenes/game_hero/rooms/hero_map.tscn")
 	var room_node = room.instance()
@@ -217,6 +219,9 @@ func create_doors_button(active_room):
 
 func translate(array):
 	for element in array:
+		print(element)
 		element[0][0] -= element[1][0] * OFFSET_ARCHITECT
 		element[0][0] += element[1][0] * OFFSET
+		print(element)
+	print(array)
 	return array
