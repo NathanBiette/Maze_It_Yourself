@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=1]
+[gd_scene load_steps=21 format=1]
 
 [ext_resource path="res://scripts/architect_camera.gd" type="Script" id=1]
 [ext_resource path="res://scripts/architect_view.gd" type="Script" id=2]
@@ -13,7 +13,8 @@
 [ext_resource path="res://textures/level/enemies/skeleton.tex" type="Texture" id=11]
 [ext_resource path="res://textures/menus/add_button.tex" type="Texture" id=12]
 [ext_resource path="res://textures/menus/release.tex" type="Texture" id=13]
-[ext_resource path="res://swipe/addons/swipe-detector/swipe_detector.gd" type="Script" id=14]
+[ext_resource path="res://textures/menus/link_button.tex" type="Texture" id=14]
+[ext_resource path="res://swipe/addons/swipe-detector/swipe_detector.gd" type="Script" id=15]
 
 [sub_resource type="ImageTexture" id=1]
 
@@ -457,10 +458,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 1558.0
-margin/top = 920.0
-margin/right = 1896.0
-margin/bottom = 1066.0
+margin/left = 1560.0
+margin/top = 930.0
+margin/right = 1898.0
+margin/bottom = 1076.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -468,9 +469,26 @@ textures/normal = ExtResource( 13 )
 params/resize_mode = 0
 params/stretch_mode = 0
 
+[node name="link" type="TextureButton" parent="CanvasLayer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 1560.0
+margin/top = 770.0
+margin/right = 1898.0
+margin/bottom = 916.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 14 )
+params/resize_mode = 0
+params/stretch_mode = 0
+
 [node name="swipe" type="Node" parent="."]
 
-script/script = ExtResource( 14 )
+script/script = ExtResource( 15 )
 detect_gesture = true
 process_method = null
 distance_threshold = 25.0
