@@ -3,6 +3,7 @@ extends CanvasLayer
 var selected_room
 var selected_monster
 var selected_boss
+var current_room = 0
 const enemies = ["skeleton", "gorgon", "giant"]
 const bosses = ["minotaure"]
 const opacity = 0.5
@@ -21,6 +22,20 @@ func _ready():
 	selected_monster = 0
 
 ############################################SHOW HIDE MENUS#####################################
+#show room menu
+func show_rooms():
+	get_node("map_selector").show()
+	get_node("map_selector").set_ignore_mouse(false)
+	get_node("add_room").show()
+	get_node("add_room").set_ignore_mouse(false)
+
+#hide monster menu
+func hide_rooms():
+	get_node("map_selector").set_hidden(true)
+	get_node("map_selector").set_ignore_mouse(true)
+	get_node("add_room").set_hidden(true)
+	get_node("add_room").set_ignore_mouse(true)
+
 #show monster menu
 func show_monsters():
 	get_node("monster_selector").show()
@@ -53,14 +68,22 @@ func hide_bosses():
 #################################ADD BUTTONS####################################################
 
 func _on_add_room_pressed():
-	#add room number room_selected
-	pass
+	get_node("../..").add_room(selected_room)
+	hide_rooms()
+	current_room += 1
 
 func _on_add_monster_pressed():
 	pass # replace with function body
 
 func _on_add_boss_pressed():
 	pass # replace with function body
+
+func _on_release_pressed():
+	pass # replace with function body
+
+func _on_link_pressed():
+	if get_node("../../..").connect_architect(current_room):
+		show_rooms()
 
 #############################################################################
 

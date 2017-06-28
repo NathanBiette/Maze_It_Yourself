@@ -3,11 +3,13 @@ extends Node
 #/!\ I cheat, I am not sending messages to the architect or the hero and just using the fact that the architect is a local variable of game hero and has access to spawns and doors
 
 const OFFSET = 5000
+const OFFSET_ARCHITECT = 2000
 var rooms = Array()
 #doors format : 
 #	[[Vector2 global_pos, id [room number, door_type], id of connected door],[...],...]
 var doors = Array()
 var editable_doors = Array() #editable version for architect only
+var doors_buttons = Array()
 #spawns format : 
 #	[[id [room number, spawn_index], Vector2 global_pos, hero_has_not_entered (bool), monster type (string)],[...],...]
 var spawns = Array()
@@ -15,18 +17,22 @@ var looters = Array()
 var number_of_rooms = 0
 var explored_rooms = []
 
+#stocks buttons clicked for links between doors
+var first_door_button = null
+var second_door_button = null
+
 
 func _ready():
 	
-	add_room(4)
 	#hero_exclusive
 	if get_node("../.").get_name() == "game_hero":
+		add_room(4)
 		add_architect()
 		get_node("architect").update_doors(doors)
 		get_node("architect").update_spawn(spawns)
 		get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
 	elif get_node("../.").get_name() == "game_architect":
-		add_architect_view()
+		add_room_architect(4)
 		add_architect()
 
 #==============================
@@ -207,15 +213,35 @@ func add_architect():
 	add_child(node)
 
 func add_architect_view():
+	
 	var scene = load("res://scenes/game_architect/architect_view.tscn")
 	var node = scene.instance()
 	add_child(node)
 
 func connect(door_id1,door_id2):
+	if door_id1[0] == door_id2[0]:
+		print("UWOTM8")
+		return
 	var i = find_door_index(door_id1)
 	var j = find_door_index(door_id2)
 	editable_doors[i][2] = door_id2
 	editable_doors[j][2] = door_id1
+
+func connect_architect(room):
+	if second_door_button != null:
+		var door_id1 = first_door_button.get_door_button_id()
+		var door_id2 = second_door_button.get_door_button_id()
+		if (door_id1[0] != room and door_id2[0] != room):
+			return false
+		if door_id1[0] == door_id2[0]:
+			print("UWOTM8")
+			return false
+		var i = find_door_index(door_id1)
+		var j = find_door_index(door_id2)
+		editable_doors[i][2] = door_id2
+		editable_doors[j][2] = door_id1
+		return true
+	return false
 
 func link(spawn_id, monster):
 	var i = get_spawn_index(spawn_id)
@@ -245,3 +271,13 @@ func close_spawns(room):
 			s[2] = false
 	explored_rooms[room]=1
 	get_node("architect").remove_spawn_from_list(room)
+
+
+func _on_pressed_button(button):
+	if button != first_door_button:
+		if second_door_button != null:
+			second_door_button.set_opacity(1)
+		second_door_button = first_door_button
+		first_door_button = button
+		first_door_button.set_opacity(0.5)
+	
