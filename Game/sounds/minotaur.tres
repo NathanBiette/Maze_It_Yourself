@@ -1,0 +1,69 @@
+[gd_resource type="SampleLibrary" load_steps=10 format=1]
+
+[ext_resource path="res://sounds/176730__yottasounds__beast-roar-005.smp" type="Sample" id=1]
+[ext_resource path="res://sounds/257635__bananaboatman33__demon-giant-howl.smp" type="Sample" id=2]
+[ext_resource path="res://sounds/370036__punisherman__grunt.smp" type="Sample" id=3]
+[ext_resource path="res://sounds/377303__rensvdmeijs__deep-cinematic-impact.smp" type="Sample" id=4]
+[ext_resource path="res://sounds/273931__sforsman__grunt-1.smp" type="Sample" id=5]
+[ext_resource path="res://sounds/213839__sihil__beast-of-burden.smp" type="Sample" id=6]
+[ext_resource path="res://sounds/163441__under7dude__man-getting-hit.smp" type="Sample" id=7]
+[ext_resource path="res://sounds/76187__movingplaid__concrete-step-1.smp" type="Sample" id=8]
+[ext_resource path="res://sounds/194081__potentjello__woosh-noise-1.smp" type="Sample" id=9]
+
+[resource]
+
+samples/176730__yottasounds__beast-roar-005 = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 1 )
+}
+samples/257635__bananaboatman33__demon-giant-howl = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 2 )
+}
+samples/370036__punisherman__grunt = {
+"db": 0.0,
+"pitch": 0.5,
+"priority": 0,
+"sample": ExtResource( 3 )
+}
+samples/377303__rensvdmeijs__deep-cinematic-impact = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 4 )
+}
+samples/circular_warn = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 5 )
+}
+samples/death = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 6 )
+}
+samples/idle = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 7 )
+}
+samples/step = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 8 )
+}
+samples/woosh = {
+"db": 0.04,
+"pitch": 0.75,
+"priority": 0,
+"sample": ExtResource( 9 )
+}
+
