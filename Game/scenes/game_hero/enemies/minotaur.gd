@@ -39,6 +39,7 @@ func _process(delta):
 		get_node("AnimatedSprite/Circular_strike_anim").queue_free()
 		get_node("AnimatedSprite/Circular_strike_windup").queue_free()
 		get_node("AnimatedSprite/Idle_anims").queue_free()
+		get_node("SamplePlayer2D").play("death")
 		get_node("AnimatedSprite/Death_anims").play("death_"+str(facing))
 		set_process(false)
 
@@ -80,6 +81,7 @@ func next_action():
 				facing = "down"
 		elif (this_time > 5):
 			get_node("AnimatedSprite/Circular_strike_windup").play("circular_strike_windup")
+			get_node("SamplePlayer2D").play("circular_warn")
 	elif (get_node("theseus_detection_ray").get_cast_to().x == 0 or get_node("theseus_detection_ray").get_cast_to().y == 0):
 		get_node("AnimatedSprite/Idle_anims").play("idle_"+str(facing))
 	else:
@@ -92,6 +94,7 @@ func next_action():
 			else:
 				get_node("AnimatedSprite").set_offset(Vector2(0,100))
 				get_node("AnimatedSprite/Movement_anims").play("up_walk")
+				get_node("SamplePlayer2D").play("step")
 				facing = "up"
 		if (angle <= -0.785 and angle >= -2.356):
 			#RIGHT
@@ -102,6 +105,7 @@ func next_action():
 			else:
 				get_node("AnimatedSprite").set_offset(Vector2(-100,0))
 				get_node("AnimatedSprite/Movement_anims").play("right_walk")
+				get_node("SamplePlayer2D").play("step")
 			facing = "right"
 		if (angle <= 2.356 and angle >= 0.785):
 			#LEFT
@@ -112,6 +116,7 @@ func next_action():
 			else:
 				get_node("AnimatedSprite").set_offset(Vector2(100,0))
 				get_node("AnimatedSprite/Movement_anims").play("left_walk")
+				get_node("SamplePlayer2D").play("step")
 				facing = "left"
 		if (angle < -2.356 or angle > 2.356) :
 			#DOWN
@@ -122,6 +127,7 @@ func next_action():
 			else:
 				get_node("AnimatedSprite").set_offset(Vector2(0,-100))
 				get_node("AnimatedSprite/Movement_anims").play("down_walk")
+				get_node("SamplePlayer2D").play("step")
 				facing = "down"
 
 #================Movement=======================
@@ -155,6 +161,7 @@ func _on_Attack_anims_windup_finished():
 		if (collider.is_in_group("theseus")):
 			collider.lose_hp(damage)
 	get_node("AnimatedSprite/Attack_anims").play("attack_"+str(facing))
+	get_node("SamplePlayer2D").play("woosh")
 
 func _on_Attack_anims_finished():
 	next_action()
@@ -163,6 +170,7 @@ func _on_Attack_anims_finished():
 
 func _on_Circular_strike_windup_finished():
 	get_node("AnimatedSprite/Circular_strike_anim").play("circular_strike")
+	get_node("SamplePlayer2D").play("woosh")
 	var theseus_pos = get_node("../../../../theseus").get_global_pos() 
 	var guideline = get_node(".").get_global_pos() - theseus_pos
 	if guideline.length() < 250:

@@ -5,12 +5,6 @@ var doors_ids
 #var library
 
 func _ready():
-	#next_room = get_node("CanvasLayer/MenuButton/Panel/LineEdit").get_text()
-	#library = get_node("../../../.").get_ENEMY_LIBRARY()
-	#for e in library:
-	#	get_node("CanvasLayer/MenuButton/Panel/monster_button").add_item(e[1],e[0])
-	#var scene = load("res://scenes/game_architect/architect_view.tscn").instance()
-	#add_child(scene)
 	pass
 	
 

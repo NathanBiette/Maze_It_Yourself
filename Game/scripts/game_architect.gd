@@ -5,11 +5,10 @@ const FAST_TIMER = 1
 const GOLD_INCOME = 10
 const MAGIC_INCOME = 2
 
-var architect_gold = 0
+var architect_gold = 300
+var architect_magic = 30
+
 var gold_timer
-
-var architect_magic = 0 
-
 var income_speed = false
 
 var websocket
@@ -25,6 +24,14 @@ func _ready():
 func set_gold_income(speed):
 	income_speed = speed
 
+func set_gold_amount(gold_amount):
+	architect_gold = gold_amount
+	get_node("architect_floor/Camera2D/CanvasLayer/coin_sprite/coin_label").set_text(str(architect_gold))
+
+func set_magic_amount(magic_amount):
+	architect_magic = magic_amount
+	get_node("architect_floor/Camera2D/CanvasLayer/magic_sprite/magic_label").set_text(str(architect_magic))
+
 func _on_gold_timeout():
 	gold_timer.stop()
 	if income_speed:
@@ -36,3 +43,7 @@ func _on_gold_timeout():
 	get_node("architect_floor/Camera2D/CanvasLayer/coin_sprite/coin_label").set_text(str(architect_gold))
 	architect_magic += MAGIC_INCOME
 	get_node("architect_floor/Camera2D/CanvasLayer/magic_sprite/magic_label").set_text(str(architect_magic))
+	
+func game_over():
+	get_node("..").game_over()
+	queue_free()

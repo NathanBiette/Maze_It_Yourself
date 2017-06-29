@@ -1,4 +1,4 @@
-[gd_scene load_steps=128 format=1]
+[gd_scene load_steps=129 format=1]
 
 [ext_resource path="res://scenes/game_hero/enemies/minotaur.gd" type="Script" id=1]
 [ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_1.tex" type="Texture" id=2]
@@ -17,92 +17,93 @@
 [ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_19.tex" type="Texture" id=15]
 [ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_3.tex" type="Texture" id=16]
 [ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_4.tex" type="Texture" id=17]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_13.tex" type="Texture" id=18]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_14.tex" type="Texture" id=19]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_15.tex" type="Texture" id=20]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_16.tex" type="Texture" id=21]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_17.tex" type="Texture" id=22]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_18.tex" type="Texture" id=23]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_19.tex" type="Texture" id=24]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_10.tex" type="Texture" id=25]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_11.tex" type="Texture" id=26]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_12.tex" type="Texture" id=27]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_5.tex" type="Texture" id=28]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_6.tex" type="Texture" id=29]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_7.tex" type="Texture" id=30]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_8.tex" type="Texture" id=31]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_9.tex" type="Texture" id=32]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_9.tex" type="Texture" id=33]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_10.tex" type="Texture" id=34]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_8.tex" type="Texture" id=35]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_7.tex" type="Texture" id=36]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_11.tex" type="Texture" id=37]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_12.tex" type="Texture" id=38]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_6.tex" type="Texture" id=39]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_5.tex" type="Texture" id=40]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_2.tex" type="Texture" id=41]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_20.tex" type="Texture" id=42]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_21.tex" type="Texture" id=43]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_22.tex" type="Texture" id=44]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_23.tex" type="Texture" id=45]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_24.tex" type="Texture" id=46]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_20.tex" type="Texture" id=47]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_21.tex" type="Texture" id=48]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_22.tex" type="Texture" id=49]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_23.tex" type="Texture" id=50]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_24.tex" type="Texture" id=51]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_20.tex" type="Texture" id=52]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_21.tex" type="Texture" id=53]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_22.tex" type="Texture" id=54]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_23.tex" type="Texture" id=55]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_24.tex" type="Texture" id=56]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_2.tex" type="Texture" id=57]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_20.tex" type="Texture" id=58]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_21.tex" type="Texture" id=59]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_22.tex" type="Texture" id=60]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_23.tex" type="Texture" id=61]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_24.tex" type="Texture" id=62]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down_left/minotaur_alpha_8_14.tex" type="Texture" id=63]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_14.tex" type="Texture" id=64]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down_right/minotaur_alpha_6_14.tex" type="Texture" id=65]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_14.tex" type="Texture" id=66]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up_right/minotaur_alpha_4_14.tex" type="Texture" id=67]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_14.tex" type="Texture" id=68]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up_left/minotaur_alpha_2_14.tex" type="Texture" id=69]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_13.tex" type="Texture" id=70]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_15.tex" type="Texture" id=71]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_16.tex" type="Texture" id=72]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_17.tex" type="Texture" id=73]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_18.tex" type="Texture" id=74]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_2.tex" type="Texture" id=75]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_9.tex" type="Texture" id=76]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_10.tex" type="Texture" id=77]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_8.tex" type="Texture" id=78]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_7.tex" type="Texture" id=79]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_11.tex" type="Texture" id=80]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_12.tex" type="Texture" id=81]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_6.tex" type="Texture" id=82]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_5.tex" type="Texture" id=83]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_13.tex" type="Texture" id=84]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_15.tex" type="Texture" id=85]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_16.tex" type="Texture" id=86]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_17.tex" type="Texture" id=87]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_18.tex" type="Texture" id=88]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_10.tex" type="Texture" id=89]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_11.tex" type="Texture" id=90]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_12.tex" type="Texture" id=91]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_5.tex" type="Texture" id=92]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_6.tex" type="Texture" id=93]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_7.tex" type="Texture" id=94]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_8.tex" type="Texture" id=95]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_9.tex" type="Texture" id=96]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_13.tex" type="Texture" id=97]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_15.tex" type="Texture" id=98]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_16.tex" type="Texture" id=99]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_18.tex" type="Texture" id=100]
-[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_17.tex" type="Texture" id=101]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_13.tex" type="Texture" id=18]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_14.tex" type="Texture" id=19]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_15.tex" type="Texture" id=20]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_16.tex" type="Texture" id=21]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_17.tex" type="Texture" id=22]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_18.tex" type="Texture" id=23]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_2.tex" type="Texture" id=24]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_13.tex" type="Texture" id=25]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_14.tex" type="Texture" id=26]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_15.tex" type="Texture" id=27]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_16.tex" type="Texture" id=28]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_17.tex" type="Texture" id=29]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_18.tex" type="Texture" id=30]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_2.tex" type="Texture" id=31]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_9.tex" type="Texture" id=32]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_10.tex" type="Texture" id=33]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_8.tex" type="Texture" id=34]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_7.tex" type="Texture" id=35]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_11.tex" type="Texture" id=36]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_12.tex" type="Texture" id=37]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_6.tex" type="Texture" id=38]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_5.tex" type="Texture" id=39]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_13.tex" type="Texture" id=40]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_14.tex" type="Texture" id=41]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_15.tex" type="Texture" id=42]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_16.tex" type="Texture" id=43]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_18.tex" type="Texture" id=44]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_17.tex" type="Texture" id=45]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_2.tex" type="Texture" id=46]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_9.tex" type="Texture" id=47]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_10.tex" type="Texture" id=48]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_8.tex" type="Texture" id=49]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_7.tex" type="Texture" id=50]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_11.tex" type="Texture" id=51]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_12.tex" type="Texture" id=52]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_6.tex" type="Texture" id=53]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_5.tex" type="Texture" id=54]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_17.tex" type="Texture" id=55]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_13.tex" type="Texture" id=56]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_14.tex" type="Texture" id=57]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down_left/minotaur_alpha_8_14.tex" type="Texture" id=58]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down_right/minotaur_alpha_6_14.tex" type="Texture" id=59]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up_right/minotaur_alpha_4_14.tex" type="Texture" id=60]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up_left/minotaur_alpha_2_14.tex" type="Texture" id=61]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_10.tex" type="Texture" id=62]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_11.tex" type="Texture" id=63]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_12.tex" type="Texture" id=64]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_5.tex" type="Texture" id=65]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_6.tex" type="Texture" id=66]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_7.tex" type="Texture" id=67]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_8.tex" type="Texture" id=68]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_9.tex" type="Texture" id=69]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_15.tex" type="Texture" id=70]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_16.tex" type="Texture" id=71]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_18.tex" type="Texture" id=72]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_19.tex" type="Texture" id=73]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_10.tex" type="Texture" id=74]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_11.tex" type="Texture" id=75]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_12.tex" type="Texture" id=76]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_5.tex" type="Texture" id=77]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_6.tex" type="Texture" id=78]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_7.tex" type="Texture" id=79]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_8.tex" type="Texture" id=80]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_9.tex" type="Texture" id=81]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_20.tex" type="Texture" id=82]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_21.tex" type="Texture" id=83]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_22.tex" type="Texture" id=84]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_23.tex" type="Texture" id=85]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_up/minotaur_alpha_3_24.tex" type="Texture" id=86]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_20.tex" type="Texture" id=87]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_21.tex" type="Texture" id=88]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_22.tex" type="Texture" id=89]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_23.tex" type="Texture" id=90]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_down/minotaur_alpha_7_24.tex" type="Texture" id=91]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_20.tex" type="Texture" id=92]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_21.tex" type="Texture" id=93]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_22.tex" type="Texture" id=94]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_23.tex" type="Texture" id=95]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_left/minotaur_alpha_1_24.tex" type="Texture" id=96]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_20.tex" type="Texture" id=97]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_21.tex" type="Texture" id=98]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_22.tex" type="Texture" id=99]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_23.tex" type="Texture" id=100]
+[ext_resource path="res://textures/enemies/bosses/Minotaur/Minautor_right/minotaur_alpha_5_24.tex" type="Texture" id=101]
 [ext_resource path="res://textures/hero/health_bar_under.tex" type="Texture" id=102]
 [ext_resource path="res://textures/hero/item_bar_progress.tex" type="Texture" id=103]
+[ext_resource path="res://sounds/minotaur.tres" type="SampleLibrary" id=104]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -117,54 +118,54 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "attack_down",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ) ],
-"loop": true,
-"name": "down_walk",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ) ],
-"loop": true,
-"name": "left_walk",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 45 ), ExtResource( 46 ), ExtResource( 3 ), ExtResource( 47 ), ExtResource( 48 ), ExtResource( 49 ), ExtResource( 50 ), ExtResource( 51 ), ExtResource( 11 ), ExtResource( 52 ), ExtResource( 53 ), ExtResource( 54 ), ExtResource( 55 ), ExtResource( 56 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 59 ), ExtResource( 60 ), ExtResource( 61 ), ExtResource( 62 ) ],
-"loop": true,
-"name": "death",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 22 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 63 ), ExtResource( 64 ), ExtResource( 65 ), ExtResource( 66 ), ExtResource( 67 ), ExtResource( 68 ), ExtResource( 69 ) ],
-"loop": true,
-"name": "circular_strike",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 10 ), ExtResource( 70 ), ExtResource( 64 ), ExtResource( 71 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 74 ), ExtResource( 11 ), ExtResource( 75 ) ],
-"loop": true,
-"name": "attack_left",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 76 ), ExtResource( 77 ), ExtResource( 78 ), ExtResource( 79 ), ExtResource( 80 ), ExtResource( 81 ), ExtResource( 82 ), ExtResource( 83 ) ],
-"loop": true,
-"name": "right_walk",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 14 ), ExtResource( 84 ), ExtResource( 66 ), ExtResource( 85 ), ExtResource( 86 ), ExtResource( 87 ), ExtResource( 88 ), ExtResource( 15 ), ExtResource( 57 ) ],
+"frames": [ ExtResource( 14 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 15 ), ExtResource( 24 ) ],
 "loop": true,
 "name": "attack_right",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 89 ), ExtResource( 90 ), ExtResource( 91 ), ExtResource( 92 ), ExtResource( 93 ), ExtResource( 94 ), ExtResource( 95 ), ExtResource( 96 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 11 ), ExtResource( 31 ) ],
+"loop": true,
+"name": "attack_left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ) ],
+"loop": true,
+"name": "left_walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 40 ), ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 45 ), ExtResource( 7 ), ExtResource( 46 ) ],
+"loop": true,
+"name": "attack_up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 47 ), ExtResource( 48 ), ExtResource( 49 ), ExtResource( 50 ), ExtResource( 51 ), ExtResource( 52 ), ExtResource( 53 ), ExtResource( 54 ) ],
+"loop": true,
+"name": "right_walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 55 ), ExtResource( 56 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 26 ), ExtResource( 59 ), ExtResource( 19 ), ExtResource( 60 ), ExtResource( 41 ), ExtResource( 61 ) ],
+"loop": true,
+"name": "circular_strike",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 62 ), ExtResource( 63 ), ExtResource( 64 ), ExtResource( 65 ), ExtResource( 66 ), ExtResource( 67 ), ExtResource( 68 ), ExtResource( 69 ) ],
 "loop": true,
 "name": "up_walk",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 97 ), ExtResource( 68 ), ExtResource( 98 ), ExtResource( 99 ), ExtResource( 100 ), ExtResource( 101 ), ExtResource( 7 ), ExtResource( 41 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 56 ), ExtResource( 57 ), ExtResource( 70 ), ExtResource( 71 ), ExtResource( 55 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 3 ) ],
 "loop": true,
-"name": "attack_up",
+"name": "attack_down",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 74 ), ExtResource( 75 ), ExtResource( 76 ), ExtResource( 77 ), ExtResource( 78 ), ExtResource( 79 ), ExtResource( 80 ), ExtResource( 81 ) ],
+"loop": true,
+"name": "down_walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 46 ), ExtResource( 82 ), ExtResource( 83 ), ExtResource( 84 ), ExtResource( 85 ), ExtResource( 86 ), ExtResource( 3 ), ExtResource( 87 ), ExtResource( 88 ), ExtResource( 89 ), ExtResource( 90 ), ExtResource( 91 ), ExtResource( 11 ), ExtResource( 92 ), ExtResource( 93 ), ExtResource( 94 ), ExtResource( 95 ), ExtResource( 96 ), ExtResource( 24 ), ExtResource( 97 ), ExtResource( 98 ), ExtResource( 99 ), ExtResource( 100 ), ExtResource( 101 ) ],
+"loop": true,
+"name": "death",
 "speed": 5.0
 } ]
 
@@ -1047,10 +1048,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = -110.0
-margin/top = -223.0
-margin/right = 110.0
-margin/bottom = -203.0
+margin/left = -109.0
+margin/top = -104.0
+margin/right = 111.0
+margin/bottom = -84.0
 range/min = 0.0
 range/max = 100.0
 range/step = 1.0
@@ -1091,6 +1092,17 @@ process_mode = 1
 wait_time = 1.0
 one_shot = true
 autostart = true
+
+[node name="SamplePlayer2D" type="SamplePlayer2D" parent="."]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = ExtResource( 104 )
+config/pitch_random = 0.1
 
 [connection signal="finished" from="AnimatedSprite/Death_anims" to="." method="_on_Death_anims_finished"]
 

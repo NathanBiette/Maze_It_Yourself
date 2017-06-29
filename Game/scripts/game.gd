@@ -82,11 +82,9 @@ func _on_message_recieved(msg):
 		get_child(1).set_gold_income(false)
 		#to do: switch in slow resource mode
 	if dict.reason == 'game_over':
-		print('game_over')
-		#to do: end the architect game, saying he's won the game
+		get_node("game_architect/architect_floor/Camera2D/CanvasLayer/Revenge").play("revenge")
 	if dict.reason == 'game_won':
-		print('game_won')
-		#to do: end the architect game, saying he's lost the game
+		get_node("game_architect/architect_floor/Camera2D/CanvasLayer/Defeat").play("failed")
 
 
 

@@ -198,6 +198,7 @@ func change_room(door_id):
 		get_node("map_"+str(next_door_id[0])).close_doors()
 	get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
 	
+	get_node("map_"+str(get_node("../theseus").get_current_room())).entered = true
 
 func update(new_doors, new_spawns):
 	doors = new_doors
