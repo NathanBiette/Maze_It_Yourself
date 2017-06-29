@@ -8,7 +8,7 @@ const enemies = ["skeleton", "gorgon", "giant"]
 const bosses = ["minotaure"]
 const opacity = 0.5
 const enemies_price = [[40,0],[100,20],[130,15]] #[[gold price, magic price]]
-const rooms_price = [0,35,25,70,0,20,40,105,1500] #[gold price]
+const rooms_price = [0,35,25,70,0,20,40,105,750] #[gold price]
 
 
 func _ready():

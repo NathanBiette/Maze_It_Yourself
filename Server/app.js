@@ -41,7 +41,7 @@
     numberChannels[ws.channel] += 1;
 
     connections.push(ws);
-    // var pingpong = setInterval(ping, 30000);
+    var pingpong = setInterval(ping, 20000);
     console.log(numberChannels[ws.channel] + ' clients in channel ' + ws.channel);
 
     // Activated when receiving a message from a connection
@@ -67,7 +67,7 @@
             try {
               ws.send('{"event":"error","msg":"game_started"}');
             } catch (e) {
-              console.log('Failed to send to ' ws.id + ' : '+ message);
+              console.log("Failed to send");
             }
           }
           break;
@@ -100,7 +100,7 @@
           try {
             ws.send('{"event":"ack"}');
           } catch (e) {
-            console.log('Failed to send to ' ws.id + ' : '+ message);
+            console.log("Failed to send");
           }
           break;
 
@@ -113,6 +113,10 @@
           ws.id = dict.id;
           console.log('Reconnection id: ' + ws.id);
           is_double(ws);
+          break;
+
+        case 'end':
+          end(ws.channel);
           break;
 
         default:
@@ -129,6 +133,8 @@
 
     // Activated when a connection is closed
     ws.onclose = function(code, reason) {
+
+      clearInterval(pingpong);
 
       ws.connected = false;
 
@@ -148,18 +154,16 @@
       var index = connections.indexOf(ws);
       connections.splice(index, 1);
 
-      // clearInterval(pingpong);
-
       return console.log(ws.id + ' has been disconnected');
     };
 
-    /*
     function ping() {
       try {
         ws.send('{"event":"ping"}');
       } catch(e) {
         console.log('Could not send ping to ' + ws.id);
       }
+      /*
       tm = setTimeout(function () {
         console.log(ws.id + ' timed out');
         ws.close(42, 'Duh');
@@ -186,12 +190,13 @@
 
         return console.log(ws.id + ' has been disconnected');
       }, 1000);
+      */
     }
 
     function pong() {
-      clearTimeout(tm);
+      console.log("Received pong");
+      //clearTimeout(tm);
     }
-    */
 
     return
   });
@@ -210,7 +215,7 @@
         try {
           connections[i].send(message);
         } catch (e) {
-          console.log('Failed to send to ' ws.id + ' : '+ message);
+          console.log("Failed to send");
         }
       }
     }
@@ -223,7 +228,7 @@
         try {
           connections[i].send(msg);
         } catch (e) {
-          console.log('Failed to send to ' ws.id + ' : '+ message);
+          console.log("Failed to send");
         }
       }
     }
@@ -238,7 +243,7 @@
         try {
           connections[i].send(message);
         } catch (e) {
-          console.log('Failed to send to ' ws.id + ' : '+ message);
+          console.log("Failed to send");
         }
       }
     }
@@ -256,7 +261,7 @@
       try {
         ws.send('{"event":"error","msg":"clients_overflow"}');
       } catch (e) {
-        console.log('Failed to send to ' ws.id + ' : '+ message);
+        console.log("Failed to send");
       }
       return
     }
@@ -273,7 +278,7 @@
     try {
       ws.send('{"event":"channel", "channel":"' + channel + '"}');
     } catch (e) {
-      console.log('Failed to send to ' ws.id + ' : '+ message);
+      console.log("Failed to send");
     }
     console.log(ws.id + ' has joined channel ' + channel);
     console.log(numberChannels[channel] + ' clients in channel ' + channel);
@@ -364,7 +369,7 @@
           try {
             ws.send('{"event":"error","msg":"hero"}');
           } catch (e) {
-            console.log('Failed to send to ' ws.id + ' : '+ message);
+            console.log("Failed to send");
           }
           console.log('Already a hero');
         } else {
@@ -381,7 +386,7 @@
           try {
             ws.send('{"event":"error","msg":"architect"}');
           } catch (e) {
-            console.log('Failed to send to ' ws.id + ' : '+ message);
+            console.log("Failed to send");
           }
           console.log('Already an architect');
         } else {
@@ -397,7 +402,7 @@
         try {
           ws.send('{"event":"error","msg":"full"}');
         } catch (e) {
-          console.log('Failed to send to ' ws.id + ' : '+ message);
+          console.log("Failed to send");
         }
         break;
 
@@ -476,7 +481,7 @@
     try {
       web.send('{"event":"error","msg":"reconnection"}');
     } catch (e) {
-      console.log('Failed to send to ' ws.id + ' : '+ message);
+      console.log("Failed to send");
     }
     log.console('Could not reconnect ' + web.id);
   }
