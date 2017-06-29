@@ -7,10 +7,17 @@ var current_room = 0
 const enemies = ["skeleton", "gorgon", "giant"]
 const bosses = ["minotaure"]
 const opacity = 0.5
+const enemies_price = [[40,0],[100,20],[130,15]] #[[gold price, magic price]]
+const rooms_price = [0,35,25,70,0,20,40,105,0] #[gold price]
+
 
 func _ready():
 	#set rooms menu
+	for i in range(0,9):
+		get_node("map_selector/GridContainer/core_room_" + str(i) + "/Price").set_text(str(rooms_price[i]))
+		get_node("map_selector/GridContainer/core_room_" + str(i) + "/Price").set_hidden(true)
 	get_node("map_selector/GridContainer/core_room_0").set_opacity(opacity)
+	get_node("map_selector/GridContainer/core_room_0/Price").show()
 	selected_room = 0
 	#set monsters menu
 	hide_monsters()
@@ -68,13 +75,20 @@ func hide_bosses():
 #################################ADD BUTTONS####################################################
 
 func _on_add_room_pressed():
-	get_node("../..").add_room(selected_room)
-	hide_rooms()
-	current_room += 1
+	if get_node("../../..").architect_gold >= rooms_price[selected_room]:
+		get_node("../../..").set_gold_amount(get_node("../../..").architect_gold - rooms_price[selected_room])
+		get_node("../..").add_room(selected_room)
+		hide_rooms()
+		current_room += 1
+	else:
+		get_node("pop_up/AnimationPlayer").play("not_enough_ressources")
 
 func _on_add_monster_pressed():
-	get_node("../..").link(enemies[selected_monster])
-	hide_monsters()
+	if (get_node("../../..").architect_gold >= enemies_price[selected_monster][0] and get_node("../../..").architect_magic >= enemies_price[selected_monster][1]) :
+		get_node("../..").link(enemies[selected_monster])
+		hide_monsters()
+	else:
+		get_node("pop_up/AnimationPlayer").play("not_enough_ressources")
 
 func _on_add_boss_pressed():
 	pass # replace with function body
@@ -127,7 +141,9 @@ func _on_core_room_8_input_event(ev):
 
 func change_focus(room_number):
 		get_node("map_selector/GridContainer/core_room_" + str(selected_room)).set_opacity(1.0)
+		get_node("map_selector/GridContainer/core_room_" + str(selected_room) + "/Price").set_hidden(true)
 		get_node("map_selector/GridContainer/core_room_" + str(room_number)).set_opacity(opacity)
+		get_node("map_selector/GridContainer/core_room_" + str(room_number) + "/Price").show()
 		selected_room = room_number
 ################################################################################################
 
