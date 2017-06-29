@@ -204,3 +204,5 @@ func _on_minotaure_input_event(ev):
 func _on_Revenge_finished():
 	get_node("../..").game_over()
 
+func _on_Defeat_finished():
+	get_node("../..").game_over()
