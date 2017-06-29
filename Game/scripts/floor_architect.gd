@@ -181,7 +181,7 @@ func link(monster):
 func update_release():
 	var edition_ok = true
 	for i in range (doors.size()):
-		if doors[i][2] == [-1,-1] or doors[i][2] == [-1,5]:
+		if doors[i][2] == [-1,-1] :
 			pass
 		elif doors[i][2] == editable_doors[i][2]:
 			pass
