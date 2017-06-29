@@ -83,7 +83,7 @@ func _ready():
 	doors = level_instance.get_doors()
 	print(doors)
 	
-
+	get_node("theseus/Camera2D/hud/waiting_architect").set_hidden(true)
 
 func _process(delta):
 	if( get_node("hero_floor").nb_explored == 4):
