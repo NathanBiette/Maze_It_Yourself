@@ -4,7 +4,6 @@ extends Node
 
 const OFFSET = 5000
 const OFFSET_ARCHITECT = 2000
-var rooms = Array()
 #doors format : 
 #	[[Vector2 global_pos, id [room number, door_type], id of connected door],[...],...]
 var doors = Array()
@@ -57,7 +56,6 @@ func add_room(core_map_index):
 	
 	room_node.set_name("map_" + str(number_of_rooms))
 	room_node.set_room_id(number_of_rooms)
-	rooms.append(room_node)
 	
 	room_node.add_child(tile_map_node)
 	#managing doors
@@ -67,16 +65,14 @@ func add_room(core_map_index):
 		if (temp_doors_locations[i] == Vector2(-1,-1)):
 			pass
 		else:
-			var new_door = [Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]]
 			doors.append([Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]])
 			
-			#for later when we have a real architect
-			
-			#if get_node("../.").get_name() == "game_architect":
-			editable_doors.append([Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]])
+			if get_node("../.").get_name() == "game_architect":
+				editable_doors.append([Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]])
 		
 	create_doors(number_of_rooms)
 	create_looters(number_of_rooms)
+	room_node.post_initialize()
 	#managing spawn locations
 	
 	var temp_spawn_locations = room_node.get_spawn_locations()

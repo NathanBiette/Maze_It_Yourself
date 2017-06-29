@@ -21,7 +21,9 @@ func initialize():
 	finished=false
 	if (get_node("../../.").get_name() == "game_hero" or get_node("../../.").get_name() == "demo"):
 		close_doors()
-		set_process(true)
+
+func post_initialize():
+	set_process(true)
 
 func set_as_boss_room():
 	get_node("..").set_as_boss_room([room_id,3])
