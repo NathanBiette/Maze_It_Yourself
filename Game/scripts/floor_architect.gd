@@ -177,6 +177,8 @@ func link(monster):
 	var i = get_spawn_index(spawn_button.get_spawn_button_id())
 	if spawns[i][2] == true:
 		spawns[i][3] = monster
+	else:
+		get_node("Camera2D/CanvasLayer/error_explored").set_hidden(false)
 
 func update_release():
 	var edition_ok = true
@@ -234,6 +236,7 @@ func _on_pressed_spawn_button(button):
 		button.set_opacity(0.5)
 		spawn_button = button
 	get_node("Camera2D/CanvasLayer").show_monsters()
+	get_node("Camera2D/CanvasLayer/error_explored").set_hidden(true)
 
 func create_spawns_button(active_room):
 	#finds all spawns in the the room and put at these locations a square for TP

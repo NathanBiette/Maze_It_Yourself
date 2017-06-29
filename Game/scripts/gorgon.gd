@@ -125,17 +125,29 @@ func _on_laugh_anim_finished():
 		if(dx<0 and dx>-400 and dy==0):
 			get_node("../../../../theseus").set_idle(false)
 			get_node("../../../../theseus/AnimatedSprite").set_modulate(Color(0.5,0.5,0.5))
+			get_node("../../../../theseus/AnimatedSprite/Movement_anims").stop(true)
+			get_node("../../../../theseus/AnimatedSprite/Blocked_move_anims").stop(true)
+			get_node("Timer").set_wait_time(0.5)
 	else:
 		get_node("AnimatedSprite/petrif_anim").play("petrify_left")
 		if (current_dir == "left" and dx>0 and dx<400 and dy==0):
 			get_node("../../../../theseus").set_idle(false)
 			get_node("../../../../theseus/AnimatedSprite").set_modulate(Color(0.5,0.5,0.5))
+			get_node("../../../../theseus/AnimatedSprite/Movement_anims").stop(true)
+			get_node("../../../../theseus/AnimatedSprite/Blocked_move_anims").stop(true)
+			get_node("Timer").set_wait_time(0.5)
 		if (current_dir == "up" and dx==0 and dy<400 and dy>0):
 			get_node("../../../../theseus").set_idle(false)
 			get_node("../../../../theseus/AnimatedSprite").set_modulate(Color(0.5,0.5,0.5))
+			get_node("../../../../theseus/AnimatedSprite/Movement_anims").stop(true)
+			get_node("../../../../theseus/AnimatedSprite/Blocked_move_anims").stop(true)
+			get_node("Timer").set_wait_time(0.5)
 		if (current_dir == "down" and dx==0 and dy>-400 and dy<0):
 			get_node("../../../../theseus").set_idle(false)
 			get_node("../../../../theseus/AnimatedSprite").set_modulate(Color(0.5,0.5,0.5))
+			get_node("../../../../theseus/AnimatedSprite/Movement_anims").stop(true)
+			get_node("../../../../theseus/AnimatedSprite/Blocked_move_anims").stop(true)
+			get_node("Timer").set_wait_time(0.5)
 	get_node("duration").set_active(true)
 	get_node("duration").start()
 	get_node("cooldown").set_active(true)
@@ -155,7 +167,6 @@ func _on_cooldown_timeout():
 
 
 func _on_petrif_anim_finished():
-	get_node("Timer").set_wait_time(0.5)
 	get_node("Timer").start()
 	get_node("SamplePlayer2D").stop_all()
 
