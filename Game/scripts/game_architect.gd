@@ -5,8 +5,8 @@ const FAST_TIMER = 1
 const GOLD_INCOME = 10
 const MAGIC_INCOME = 2
 
-var architect_gold = 0
-var architect_magic = 0 
+var architect_gold = 100
+var architect_magic = 20
 
 var gold_timer
 var income_speed = false
@@ -43,3 +43,7 @@ func _on_gold_timeout():
 	get_node("architect_floor/Camera2D/CanvasLayer/coin_sprite/coin_label").set_text(str(architect_gold))
 	architect_magic += MAGIC_INCOME
 	get_node("architect_floor/Camera2D/CanvasLayer/magic_sprite/magic_label").set_text(str(architect_magic))
+	
+func game_over():
+	get_node("..").game_over()
+	queue_free()
