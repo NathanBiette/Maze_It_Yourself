@@ -177,6 +177,8 @@ func link(monster):
 	var i = get_spawn_index(spawn_button.get_spawn_button_id())
 	if spawns[i][2] == true:
 		spawns[i][3] = monster
+	else:
+		get_node("Camera2D/CanvasLayer/error_explored").set_hidden(false)
 
 func update_release():
 	var edition_ok = true
