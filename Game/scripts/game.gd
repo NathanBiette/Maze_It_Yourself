@@ -13,7 +13,7 @@ var connected = false
 var ingame = false # Used to check if the player is in-game or not
 var role
 const ENEMY_LIBRARY = [[1,'skeleton'],[2,'giant'],[3,'gorgon']]
-const ITEMS_LIBRARY = [[1,"helmets/basic_helmet"],[2,"items/ambrosia_potion"],[3,"items/necklace"],[4,"shields/basic_shield"],[5,"shields/cronos_shield"],[6,"weapons/steel_sword"],[7,"helmets/barbute_helmet"],[8,"items/health_potion"]]
+const ITEMS_LIBRARY = [[1,"helmets/basic_helmet"],[2,"items/ambrosia_potion"],[3,"items/necklace"],[4,"shields/basic_shield"],[5,"shields/cronos_shield"],[6,"weapons/steel_sword"],[7,"helmets/barbute_helmet"],[8,"items/health_potion"],[9,"items/health_potion"],[10,"items/health_potion"],[11,"items/health_potion"],[12,"items/health_potion"]]
 
 func _ready():
 	websocket = preload('res://scripts/websocket.gd').new(self)

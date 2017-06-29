@@ -11,7 +11,7 @@ func set_location(location_to_set):
 func give_loot(current_room):
 	if (current_room == get_node("..").get_room_id()):
 		get_node("../TileMap").set_cell(location[0],location[1],13)
-		if(randi()%3==0):
+		if(randi()%4==0):
 			var lib = get_node("../../../..").get_ITEMS_LIBRARY()
 			var k = randi()%lib.size()
 			var item = load("res://scenes/game_hero/objects/"+str(lib[k][1])+".tscn")
