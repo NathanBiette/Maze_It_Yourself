@@ -8,6 +8,7 @@ var room_id = 0
 const hero_speed = 50
 var spawn_locations = []
 var looters_location = []
+var entered = false
 var finished = false
 
 func _ready():
@@ -18,7 +19,6 @@ func initialize():
 	find_doors()
 	find_spawn()
 	find_looters()
-	finished=false
 	if (get_node("../../.").get_name() == "game_hero" or get_node("../../.").get_name() == "demo"):
 		close_doors()
 
@@ -33,9 +33,6 @@ func _process(delta):
 	var tree = get_tree()
 	if (no_enemy_left()):
 		open_doors()
-		if(!finished):
-			get_node("../../..").websocket.send('{"event":"multicast","reason":"room_finished"}')
-			finished = true
 
 func open_doors():
 	for d in range(doors_locations.size()):
@@ -54,6 +51,10 @@ func open_doors():
 		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==7 and (get_node("..").get_my_door([room_id,2]) != [-1,-1])):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],8)
 	
+	if(entered and !finished):
+		get_node("../../..").websocket.send('{"event":"multicast","reason":"room_finished"}')
+		print("room_finished")
+		finished = true
 	
 	is_open = true
 
@@ -72,6 +73,7 @@ func close_doors():
 		#SOUTH
 		if (get_node("TileMap").get_cell(doors_locations[d][0],doors_locations[d][1])==8):
 			get_node("TileMap").set_cell(doors_locations[d][0],doors_locations[d][1],7)
+
 
 func find_doors():
 	var tab = get_node("TileMap").get_used_cells()
