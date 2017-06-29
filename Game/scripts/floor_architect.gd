@@ -236,6 +236,7 @@ func _on_pressed_spawn_button(button):
 		button.set_opacity(0.5)
 		spawn_button = button
 	get_node("Camera2D/CanvasLayer").show_monsters()
+	get_node("Camera2D/CanvasLayer/error_explored").set_hidden(true)
 
 func create_spawns_button(active_room):
 	#finds all spawns in the the room and put at these locations a square for TP
