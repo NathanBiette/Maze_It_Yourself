@@ -94,6 +94,8 @@ func _on_add_room_pressed():
 
 func _on_add_monster_pressed():
 	if (get_node("../../..").architect_gold >= enemies_price[selected_monster][0] and get_node("../../..").architect_magic >= enemies_price[selected_monster][1]) :
+		get_node("../../..").set_gold_amount(get_node("../../..").architect_gold - enemies_price[selected_monster][0])
+		get_node("../../..").set_magic_amount(get_node("../../..").architect_magic - enemies_price[selected_monster][1])
 		get_node("../..").link(enemies[selected_monster])
 		hide_monsters()
 	else:
