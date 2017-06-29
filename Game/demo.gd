@@ -77,7 +77,6 @@ func _ready():
 	level_instance.add_room(8)
 	doors = level_instance.get_doors()
 	level_instance.connect(doors[k][1],[8,1])
-	level_instance.set_as_boss_room([8,3])
 	level_instance.update_release()
 	level_instance.set_as_boss_room([8,3])
 	doors = level_instance.get_doors()
