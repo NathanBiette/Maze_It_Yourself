@@ -144,6 +144,7 @@ func get_looters():
 func set_as_boss_room(id):
 	var index = find_door_index(id)
 	doors[index][2] = [-1,5]
+	editable_doors[index][2] = [-1,5]
 
 #===================ARCHITECT ONLY==========================#
 func add_architect():
