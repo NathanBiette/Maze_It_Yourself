@@ -73,6 +73,8 @@ func add_room(core_map_index):
 	create_doors(number_of_rooms)
 	create_looters(number_of_rooms)
 	room_node.post_initialize()
+	if core_map_index == 8:
+		room_node.set_as_boss_room()
 	#managing spawn locations
 	
 	var temp_spawn_locations = room_node.get_spawn_locations()
@@ -219,7 +221,6 @@ func add_architect_view():
 
 func connect(door_id1,door_id2):
 	if door_id1[0] == door_id2[0]:
-		print("UWOTM8")
 		return
 	var i = find_door_index(door_id1)
 	var j = find_door_index(door_id2)
@@ -233,7 +234,6 @@ func connect_architect(room):
 		if (door_id1[0] != room and door_id2[0] != room):
 			return false
 		if door_id1[0] == door_id2[0]:
-			print("UWOTM8")
 			return false
 		var i = find_door_index(door_id1)
 		var j = find_door_index(door_id2)
