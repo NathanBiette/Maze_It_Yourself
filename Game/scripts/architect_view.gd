@@ -19,10 +19,19 @@ func _ready():
 	get_node("map_selector/GridContainer/core_room_0").set_opacity(opacity)
 	get_node("map_selector/GridContainer/core_room_0/Price").show()
 	selected_room = 0
+	
 	#set monsters menu
+	for i in range(0,3):
+		get_node("monster_selector/GridContainer/" + enemies[i] + "/Price").set_text(str(enemies_price[i][0]))
+		get_node("monster_selector/GridContainer/" + enemies[i] + "/Price").set_hidden(true)
+		get_node("monster_selector/GridContainer/" + enemies[i] + "/Magic").set_text(str(enemies_price[i][1]))
+		get_node("monster_selector/GridContainer/" + enemies[i] + "/Magic").set_hidden(true)
 	hide_monsters()
 	get_node("monster_selector/GridContainer/skeleton").set_opacity(opacity)
+	get_node("monster_selector/GridContainer/" + enemies[0] + "/Price").show()
+	get_node("monster_selector/GridContainer/" + enemies[0] + "/Magic").show()
 	selected_monster = 0
+	
 	#set bosses menu
 	hide_bosses()
 	get_node("boss_selector/GridContainer/minotaure").set_opacity(opacity)
@@ -151,20 +160,33 @@ func change_focus(room_number):
 func _on_skeleton_input_event(ev):
 	if (ev.type == InputEvent.MOUSE_BUTTON):
 		get_node("monster_selector/GridContainer/" + enemies[selected_monster]).set_opacity(1.0)
+		get_node("monster_selector/GridContainer/" + enemies[selected_monster] + "/Price").set_hidden(true)
+		get_node("monster_selector/GridContainer/" + enemies[selected_monster] + "/Magic").set_hidden(true)
+		get_node("monster_selector/GridContainer/skeleton/Magic").show()
 		get_node("monster_selector/GridContainer/skeleton").set_opacity(opacity)
+		get_node("monster_selector/GridContainer/skeleton/Price").show()
+		get_node("monster_selector/GridContainer/skeleton/Magic").show()
 		selected_monster = 0
 
 func _on_gorgon_input_event(ev):
 	if (ev.type == InputEvent.MOUSE_BUTTON):
 		get_node("monster_selector/GridContainer/" + enemies[selected_monster]).set_opacity(1.0)
+		get_node("monster_selector/GridContainer/" + enemies[selected_monster] + "/Price").set_hidden(true)
+		get_node("monster_selector/GridContainer/" + enemies[selected_monster] + "/Magic").set_hidden(true)
 		get_node("monster_selector/GridContainer/gorgon").set_opacity(opacity)
+		get_node("monster_selector/GridContainer/gorgon/Price").show()
+		get_node("monster_selector/GridContainer/gorgon/Magic").show()
 		selected_monster = 1
 
 
 func _on_giant_input_event(ev):
 	if (ev.type == InputEvent.MOUSE_BUTTON):
 		get_node("monster_selector/GridContainer/" + enemies[selected_monster]).set_opacity(1.0)
+		get_node("monster_selector/GridContainer/" + enemies[selected_monster] + "/Price").set_hidden(true)
+		get_node("monster_selector/GridContainer/" + enemies[selected_monster] + "/Magic").set_hidden(true)
 		get_node("monster_selector/GridContainer/giant").set_opacity(opacity)
+		get_node("monster_selector/GridContainer/giant/Price").show()
+		get_node("monster_selector/GridContainer/giant/Magic").show()
 		selected_monster = 2
 ##############################################################################################
 
