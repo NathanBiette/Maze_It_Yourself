@@ -115,6 +115,10 @@
           is_double(ws);
           break;
 
+        case 'end':
+          end(ws.channel);
+          break;
+
         default:
           console.log('Event non reconnu : ' + dict.event);
       }
