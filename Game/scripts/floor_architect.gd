@@ -68,6 +68,8 @@ func add_room(core_map_index):
 	
 	create_doors_button(number_of_rooms)
 	create_looters(number_of_rooms)
+	if core_map_index == 8:
+		room_node.set_as_boss_room()
 	#managing spawn locations
 	
 	var temp_spawn_locations = room_node.get_spawn_locations()
