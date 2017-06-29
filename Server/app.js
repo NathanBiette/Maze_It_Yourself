@@ -18,7 +18,7 @@
 
   wss = new WS({
     server: server,
-    perMessageDeflate: false
+    perMessageDeflate: false,
   });
 
   var connections = [];
@@ -48,9 +48,9 @@
     ws.onmessage = function(event) {
       var dict;
       console.log(ws.id + ' : ' + event.data);
-      dict = JSON.parse(event.data);
-
-      switch (dict.event) {
+      try{
+		dict = JSON.parse(event.data);
+		switch (dict.event) {
 
         case 'pong':
           pong();
@@ -64,7 +64,11 @@
           if (hasStarted[dict.channel] != true) {
             join(ws, dict.channel, dict.role);
           } else {
-            ws.send('{"event":"error","msg":"game_started"}');
+            try {
+              ws.send('{"event":"error","msg":"game_started"}');
+            } catch (e) {
+              console.log('Failed to send to ' ws.id + ' : '+ message);
+            }
           }
           break;
 
@@ -93,7 +97,11 @@
         case 'connection':
           // ws.id = dict.id;
           console.log('New id: ' + ws.id);
-          ws.send('{"event":"ack"}');
+          try {
+            ws.send('{"event":"ack"}');
+          } catch (e) {
+            console.log('Failed to send to ' ws.id + ' : '+ message);
+          }
           break;
 
         case 'add_room':
@@ -110,6 +118,8 @@
         default:
           console.log('Event non reconnu : ' + dict.event);
       }
+		} catch(err){
+		console.log('something horribly bad happened when trying to parse');}
     };
 
     // Activated when an error is happening
@@ -197,7 +207,11 @@
     for (var i=0; i<connections.length; i++) {
       if (connections[i].id != id && connections[i].channel == channel) {
         console.log('multicasting');
-        connections[i].send(message);
+        try {
+          connections[i].send(message);
+        } catch (e) {
+          console.log('Failed to send to ' ws.id + ' : '+ message);
+        }
       }
     }
   }
@@ -206,7 +220,11 @@
   function server_multicast(channel, msg) {
     for (var i=0; i<connections.length; i++) {
       if (connections[i].channel == channel) {
-        connections[i].send(msg);
+        try {
+          connections[i].send(msg);
+        } catch (e) {
+          console.log('Failed to send to ' ws.id + ' : '+ message);
+        }
       }
     }
   }
@@ -217,7 +235,11 @@
   var id = ws.id;
     for (var i=0; i<connections.length; i++) {
       if (connections[i].id != ws.id) {
-        connections[i].send(message);
+        try {
+          connections[i].send(message);
+        } catch (e) {
+          console.log('Failed to send to ' ws.id + ' : '+ message);
+        }
       }
     }
   }
@@ -231,7 +253,11 @@
 
     if (channel != 'global' && numberChannels[channel] >= 2) {
       console.log('Too many clients in channel ' + channel);
-      ws.send('{"event":"error","msg":"clients_overflow"}');
+      try {
+        ws.send('{"event":"error","msg":"clients_overflow"}');
+      } catch (e) {
+        console.log('Failed to send to ' ws.id + ' : '+ message);
+      }
       return
     }
 
@@ -244,7 +270,11 @@
       numberChannels[channel] = 0;
     }
     numberChannels[channel] += 1;
-    ws.send('{"event":"channel", "channel":' + channel + '}')
+    try {
+      ws.send('{"event":"channel", "channel":"' + channel + '"}');
+    } catch (e) {
+      console.log('Failed to send to ' ws.id + ' : '+ message);
+    }
     console.log(ws.id + ' has joined channel ' + channel);
     console.log(numberChannels[channel] + ' clients in channel ' + channel);
   }
@@ -331,7 +361,11 @@
 
       case 1:
         if (role == 1) {
-          ws.send('{"event":"error","msg":"hero"}');
+          try {
+            ws.send('{"event":"error","msg":"hero"}');
+          } catch (e) {
+            console.log('Failed to send to ' ws.id + ' : '+ message);
+          }
           console.log('Already a hero');
         } else {
           lobbyState[channel] = 3;
@@ -344,7 +378,11 @@
 
       case 2:
         if (role == 2) {
-          ws.send('{"event":"error","msg":"architect"}');
+          try {
+            ws.send('{"event":"error","msg":"architect"}');
+          } catch (e) {
+            console.log('Failed to send to ' ws.id + ' : '+ message);
+          }
           console.log('Already an architect');
         } else {
           lobbyState[channel] = 3;
@@ -356,7 +394,11 @@
         break;
 
       case 3:
-        ws.send('{"event":"error","msg":"full"}')
+        try {
+          ws.send('{"event":"error","msg":"full"}');
+        } catch (e) {
+          console.log('Failed to send to ' ws.id + ' : '+ message);
+        }
         break;
 
       default:
@@ -431,7 +473,11 @@
         return
       }
     }
-    web.send('{"event":"error","msg":"reconnection"}');
+    try {
+      web.send('{"event":"error","msg":"reconnection"}');
+    } catch (e) {
+      console.log('Failed to send to ' ws.id + ' : '+ message);
+    }
     log.console('Could not reconnect ' + web.id);
   }
 

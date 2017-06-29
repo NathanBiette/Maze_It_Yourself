@@ -157,4 +157,5 @@ func _on_cooldown_timeout():
 func _on_petrif_anim_finished():
 	get_node("Timer").set_wait_time(0.5)
 	get_node("Timer").start()
+	get_node("SamplePlayer2D").stop_all()
 

@@ -1,0 +1,285 @@
+[gd_scene load_steps=30 format=1]
+
+[ext_resource path="res://textures/level/floors/floor.tex" type="Texture" id=1]
+[ext_resource path="res://textures/level/doors/greek_gate_side_E_closed.tex" type="Texture" id=2]
+[ext_resource path="res://textures/level/walls/greek_wall_big_pattern_shadowy.tex" type="Texture" id=3]
+[ext_resource path="res://textures/level/walls/greek_wall_side_E_closed.tex" type="Texture" id=4]
+[ext_resource path="res://textures/level/floors/sand.tex" type="Texture" id=5]
+[ext_resource path="res://textures/level/floors/floor_clean.tex" type="Texture" id=6]
+[ext_resource path="res://textures/level/walls/greek_wall_side_W_closed.tex" type="Texture" id=7]
+[ext_resource path="res://textures/level/walls/greek_wall_side_E_open.tex" type="Texture" id=8]
+[ext_resource path="res://textures/level/walls/greek_wall_side_W_open.tex" type="Texture" id=9]
+[ext_resource path="res://textures/level/floors/floor_with_vase1.tex" type="Texture" id=10]
+[ext_resource path="res://textures/level/floors/floor_with_vase2.tex" type="Texture" id=11]
+[ext_resource path="res://textures/level/floors/floor_with_vase3.tex" type="Texture" id=12]
+[ext_resource path="res://textures/level/doors/greek_gate_side_E_open.tex" type="Texture" id=13]
+[ext_resource path="res://textures/level/floors/floor_with_vase4.tex" type="Texture" id=14]
+[ext_resource path="res://textures/level/floors/floor_with_vase5.tex" type="Texture" id=15]
+[ext_resource path="res://textures/level/floors/floor_with_vase6.tex" type="Texture" id=16]
+[ext_resource path="res://textures/level/doors/greek_gate_front.tex" type="Texture" id=17]
+[ext_resource path="res://textures/level/doors/greek_gate_front_open.tex" type="Texture" id=18]
+[ext_resource path="res://textures/level/doors/greek_gate_side_W_closed.tex" type="Texture" id=19]
+[ext_resource path="res://textures/level/doors/greek_gate_side_W_open.tex" type="Texture" id=20]
+[ext_resource path="res://textures/level/walls/greek_wall_white_shadowy.tex" type="Texture" id=21]
+[ext_resource path="res://scripts/boss_room_script.gd" type="Script" id=22]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 50, -50, 50, 50, -50, 50, -50, -50 )
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
+
+[sub_resource type="ConvexPolygonShape2D" id=3]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
+
+[sub_resource type="ConvexPolygonShape2D" id=4]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
+
+[sub_resource type="ConvexPolygonShape2D" id=5]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
+
+[sub_resource type="ConvexPolygonShape2D" id=6]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -50, -50, 50, -50, 50, 50, -50, 50 )
+
+[sub_resource type="TileSet" id=7]
+
+0/name = "floor"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 100, 100 )
+0/occluder_offset = Vector2( 50, 50 )
+0/navigation_offset = Vector2( 50, 50 )
+0/shape_offset = Vector2( 0, 0 )
+0/shapes = [  ]
+1/name = "door_closed_E"
+1/texture = ExtResource( 2 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 100, 100 )
+1/occluder_offset = Vector2( 50, 50 )
+1/navigation_offset = Vector2( 50, 50 )
+1/shape_offset = Vector2( 50, 50 )
+1/shapes = [ SubResource( 1 ) ]
+2/name = "door_open_E"
+2/texture = ExtResource( 13 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 0, 0, 100, 100 )
+2/occluder_offset = Vector2( 50, 50 )
+2/navigation_offset = Vector2( 50, 50 )
+2/shape_offset = Vector2( 0, 0 )
+2/shapes = [  ]
+3/name = "door_close_N"
+3/texture = ExtResource( 17 )
+3/tex_offset = Vector2( 0, 0 )
+3/modulate = Color( 1, 1, 1, 1 )
+3/region = Rect2( 0, 0, 100, 100 )
+3/occluder_offset = Vector2( 50, 50 )
+3/navigation_offset = Vector2( 50, 50 )
+3/shape_offset = Vector2( 50, 50 )
+3/shapes = [ SubResource( 5 ) ]
+4/name = "door_open_N"
+4/texture = ExtResource( 18 )
+4/tex_offset = Vector2( 0, 0 )
+4/modulate = Color( 1, 1, 1, 1 )
+4/region = Rect2( 0, 0, 100, 100 )
+4/occluder_offset = Vector2( 50, 50 )
+4/navigation_offset = Vector2( 50, 50 )
+4/shape_offset = Vector2( 0, 0 )
+4/shapes = [  ]
+5/name = "door_close_W"
+5/texture = ExtResource( 19 )
+5/tex_offset = Vector2( 0, 0 )
+5/modulate = Color( 1, 1, 1, 1 )
+5/region = Rect2( 0, 0, 100, 100 )
+5/occluder_offset = Vector2( 50, 50 )
+5/navigation_offset = Vector2( 50, 50 )
+5/shape_offset = Vector2( 50, 50 )
+5/shapes = [ SubResource( 2 ) ]
+6/name = "door_open_W"
+6/texture = ExtResource( 20 )
+6/tex_offset = Vector2( 0, 0 )
+6/modulate = Color( 1, 1, 1, 1 )
+6/region = Rect2( 0, 0, 100, 100 )
+6/occluder_offset = Vector2( 50, 50 )
+6/navigation_offset = Vector2( 50, 50 )
+6/shape_offset = Vector2( 0, 0 )
+6/shapes = [  ]
+7/name = "door_close_S"
+7/texture = ExtResource( 17 )
+7/tex_offset = Vector2( 0, 0 )
+7/modulate = Color( 1, 1, 1, 1 )
+7/region = Rect2( 0, 0, 100, 100 )
+7/occluder_offset = Vector2( 50, 50 )
+7/navigation_offset = Vector2( 50, 50 )
+7/shape_offset = Vector2( 50, 50 )
+7/shapes = [ SubResource( 2 ) ]
+8/name = "door_open_S"
+8/texture = ExtResource( 18 )
+8/tex_offset = Vector2( 0, 0 )
+8/modulate = Color( 1, 1, 1, 1 )
+8/region = Rect2( 0, 0, 100, 100 )
+8/occluder_offset = Vector2( 50, 50 )
+8/navigation_offset = Vector2( 50, 50 )
+8/shape_offset = Vector2( 0, 0 )
+8/shapes = [  ]
+9/name = "wall1"
+9/texture = ExtResource( 21 )
+9/tex_offset = Vector2( 0, 0 )
+9/modulate = Color( 1, 1, 1, 1 )
+9/region = Rect2( 0, 0, 100, 100 )
+9/occluder_offset = Vector2( 50, 50 )
+9/navigation_offset = Vector2( 50, 50 )
+9/shape_offset = Vector2( 50, 50 )
+9/shapes = [ SubResource( 6 ) ]
+10/name = "wall2"
+10/texture = ExtResource( 3 )
+10/tex_offset = Vector2( 0, 0 )
+10/modulate = Color( 1, 1, 1, 1 )
+10/region = Rect2( 0, 0, 100, 100 )
+10/occluder_offset = Vector2( 50, 50 )
+10/navigation_offset = Vector2( 50, 50 )
+10/shape_offset = Vector2( 50, 50 )
+10/shapes = [ SubResource( 2 ) ]
+11/name = "wall_door_E_closed"
+11/texture = ExtResource( 4 )
+11/tex_offset = Vector2( 0, 0 )
+11/modulate = Color( 1, 1, 1, 1 )
+11/region = Rect2( 0, 0, 100, 100 )
+11/occluder_offset = Vector2( 50, 50 )
+11/navigation_offset = Vector2( 50, 50 )
+11/shape_offset = Vector2( 50, 50 )
+11/shapes = [ SubResource( 3 ) ]
+12/name = "monster_spawn"
+12/texture = ExtResource( 5 )
+12/tex_offset = Vector2( 0, 0 )
+12/modulate = Color( 1, 1, 1, 1 )
+12/region = Rect2( 0, 0, 100, 100 )
+12/occluder_offset = Vector2( 50, 50 )
+12/navigation_offset = Vector2( 50, 50 )
+12/shape_offset = Vector2( 0, 0 )
+12/shapes = [  ]
+13/name = "floor_clean"
+13/texture = ExtResource( 6 )
+13/tex_offset = Vector2( 0, 0 )
+13/modulate = Color( 1, 1, 1, 1 )
+13/region = Rect2( 0, 0, 100, 100 )
+13/occluder_offset = Vector2( 50, 50 )
+13/navigation_offset = Vector2( 50, 50 )
+13/shape_offset = Vector2( 0, 0 )
+13/shapes = [  ]
+14/name = "wall_door_W_closed"
+14/texture = ExtResource( 7 )
+14/tex_offset = Vector2( 0, 0 )
+14/modulate = Color( 1, 1, 1, 1 )
+14/region = Rect2( 0, 0, 100, 100 )
+14/occluder_offset = Vector2( 50, 50 )
+14/navigation_offset = Vector2( 50, 50 )
+14/shape_offset = Vector2( 50, 50 )
+14/shapes = [ SubResource( 4 ) ]
+15/name = "wall_door_E_open"
+15/texture = ExtResource( 8 )
+15/tex_offset = Vector2( 0, 0 )
+15/modulate = Color( 1, 1, 1, 1 )
+15/region = Rect2( 0, 0, 100, 100 )
+15/occluder_offset = Vector2( 50, 50 )
+15/navigation_offset = Vector2( 50, 50 )
+15/shape_offset = Vector2( 50, 50 )
+15/shapes = [ SubResource( 4 ) ]
+16/name = "wall_door_W_open"
+16/texture = ExtResource( 9 )
+16/tex_offset = Vector2( 0, 0 )
+16/modulate = Color( 1, 1, 1, 1 )
+16/region = Rect2( 0, 0, 100, 100 )
+16/occluder_offset = Vector2( 50, 50 )
+16/navigation_offset = Vector2( 50, 50 )
+16/shape_offset = Vector2( 50, 50 )
+16/shapes = [ SubResource( 4 ) ]
+17/name = "floor_with_vase1"
+17/texture = ExtResource( 10 )
+17/tex_offset = Vector2( 0, 0 )
+17/modulate = Color( 1, 1, 1, 1 )
+17/region = Rect2( 0, 0, 100, 100 )
+17/occluder_offset = Vector2( 50, 50 )
+17/navigation_offset = Vector2( 50, 50 )
+17/shape_offset = Vector2( 0, 0 )
+17/shapes = [  ]
+18/name = "floor_with_vase2"
+18/texture = ExtResource( 11 )
+18/tex_offset = Vector2( 0, 0 )
+18/modulate = Color( 1, 1, 1, 1 )
+18/region = Rect2( 0, 0, 100, 100 )
+18/occluder_offset = Vector2( 50, 50 )
+18/navigation_offset = Vector2( 50, 50 )
+18/shape_offset = Vector2( 0, 0 )
+18/shapes = [  ]
+19/name = "floor_with_vase3"
+19/texture = ExtResource( 12 )
+19/tex_offset = Vector2( 0, 0 )
+19/modulate = Color( 1, 1, 1, 1 )
+19/region = Rect2( 0, 0, 100, 100 )
+19/occluder_offset = Vector2( 50, 50 )
+19/navigation_offset = Vector2( 50, 50 )
+19/shape_offset = Vector2( 0, 0 )
+19/shapes = [  ]
+20/name = "floor_with_vase4"
+20/texture = ExtResource( 14 )
+20/tex_offset = Vector2( 0, 0 )
+20/modulate = Color( 1, 1, 1, 1 )
+20/region = Rect2( 0, 0, 100, 100 )
+20/occluder_offset = Vector2( 50, 50 )
+20/navigation_offset = Vector2( 50, 50 )
+20/shape_offset = Vector2( 0, 0 )
+20/shapes = [  ]
+21/name = "floor_with_vase5"
+21/texture = ExtResource( 15 )
+21/tex_offset = Vector2( 0, 0 )
+21/modulate = Color( 1, 1, 1, 1 )
+21/region = Rect2( 0, 0, 100, 100 )
+21/occluder_offset = Vector2( 50, 50 )
+21/navigation_offset = Vector2( 50, 50 )
+21/shape_offset = Vector2( 0, 0 )
+21/shapes = [  ]
+22/name = "floor_with_vase6"
+22/texture = ExtResource( 16 )
+22/tex_offset = Vector2( 0, 0 )
+22/modulate = Color( 1, 1, 1, 1 )
+22/region = Rect2( 0, 0, 100, 100 )
+22/occluder_offset = Vector2( 50, 50 )
+22/navigation_offset = Vector2( 50, 50 )
+22/shape_offset = Vector2( 0, 0 )
+22/shapes = [  ]
+
+[node name="TileMap" type="TileMap"]
+
+mode = 0
+tile_set = SubResource( 7 )
+cell/size = Vector2( 100, 100 )
+cell/quadrant_size = 16
+cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+cell/half_offset = 2
+cell/tile_origin = 0
+cell/y_sort = false
+collision/use_kinematic = false
+collision/friction = 1.0
+collision/bounce = 0.0
+collision/layers = 1
+collision/mask = 1
+occluder/light_mask = 1
+tile_data = IntArray( 0, 9, 1, 10, 2, 10, 3, 10, 4, 10, 5, 10, 6, 10, 7, 10, 8, 10, 9, 10, 10, 10, 11, 10, 12, 10, 13, 10, 14, 10, 15, 10, 16, 10, 17, 10, 18, 10, 19, 10, 20, 10, 21, 9, 65536, 9, 65537, 17, 65538, 21, 65539, 13, 65540, 13, 65541, 13, 65542, 13, 65543, 13, 65544, 13, 65545, 13, 65546, 13, 65547, 13, 65548, 17, 65549, 13, 65550, 13, 65551, 13, 65552, 13, 65553, 13, 65554, 13, 65555, 13, 65556, 17, 65557, 9, 131072, 9, 131073, 13, 131074, 13, 131075, 13, 131076, 13, 131077, 13, 131078, 13, 131079, 13, 131080, 13, 131081, 13, 131082, 13, 131083, 13, 131084, 13, 131085, 13, 131086, 13, 131087, 13, 131088, 13, 131089, 13, 131090, 13, 131091, 13, 131092, 18, 131093, 9, 196608, 9, 196609, 13, 196610, 13, 196611, 13, 196612, 13, 196613, 13, 196614, 13, 196615, 13, 196616, 13, 196617, 13, 196618, 13, 196619, 13, 196620, 13, 196621, 13, 196622, 13, 196623, 13, 196624, 13, 196625, 13, 196626, 13, 196627, 13, 196628, 13, 196629, 9, 262144, 9, 262145, 13, 262146, 13, 262147, 13, 262148, 13, 262149, 0, 262150, 0, 262151, 0, 262152, 0, 262153, 0, 262154, 0, 262155, 0, 262156, 0, 262157, 0, 262158, 0, 262159, 0, 262160, 0, 262161, 13, 262162, 13, 262163, 13, 262164, 13, 262165, 9, 327680, 9, 327681, 13, 327682, 13, 327683, 13, 327684, 0, 327685, 13, 327686, 13, 327687, 13, 327688, 13, 327689, 13, 327690, 13, 327691, 13, 327692, 13, 327693, 13, 327694, 13, 327695, 13, 327696, 13, 327697, 0, 327698, 13, 327699, 13, 327700, 13, 327701, 9, 393216, 9, 393217, 22, 393218, 13, 393219, 13, 393220, 0, 393221, 13, 393222, 0, 393223, 13, 393224, 13, 393225, 13, 393226, 13, 393227, 13, 393228, 13, 393229, 13, 393230, 13, 393231, 0, 393232, 13, 393233, 0, 393234, 13, 393235, 13, 393236, 13, 393237, 9, 458752, 9, 458753, 13, 458754, 13, 458755, 13, 458756, 0, 458757, 13, 458758, 13, 458759, 0, 458760, 13, 458761, 13, 458762, 13, 458763, 13, 458764, 13, 458765, 13, 458766, 0, 458767, 13, 458768, 13, 458769, 0, 458770, 13, 458771, 13, 458772, 13, 458773, 9, 524288, 9, 524289, 13, 524290, 13, 524291, 13, 524292, 0, 524293, 13, 524294, 13, 524295, 13, 524296, 13, 524297, 13, 524298, 13, 524299, 13, 524300, 13, 524301, 13, 524302, 13, 524303, 13, 524304, 13, 524305, 0, 524306, 13, 524307, 13, 524308, 13, 524309, 9, 589824, 9, 589825, 13, 589826, 13, 589827, 13, 589828, 0, 589829, 13, 589830, 13, 589831, 13, 589832, 13, 589833, 13, 589834, 0, 589835, 0, 589836, 13, 589837, 13, 589838, 13, 589839, 13, 589840, 13, 589841, 0, 589842, 13, 589843, 13, 589844, 13, 589845, 9, 655360, 14, 655361, 13, 655362, 13, 655363, 13, 655364, 0, 655365, 13, 655366, 13, 655367, 13, 655368, 13, 655369, 0, 655370, 13, 655371, 13, 655372, 0, 655373, 13, 655374, 13, 655375, 13, 655376, 13, 655377, 0, 655378, 13, 655379, 13, 655380, 13, 655381, 11, 720896, 5, 720897, 13, 720898, 13, 720899, 13, 720900, 0, 720901, 13, 720902, 13, 720903, 13, 720904, 13, 720905, 0, 720906, 13, 720907, 13, 720908, 0, 720909, 13, 720910, 13, 720911, 13, 720912, 13, 720913, 0, 720914, 13, 720915, 13, 720916, 13, 720917, 1, 786432, 9, 786433, 13, 786434, 13, 786435, 13, 786436, 0, 786437, 13, 786438, 13, 786439, 13, 786440, 13, 786441, 13, 786442, 0, 786443, 0, 786444, 13, 786445, 13, 786446, 13, 786447, 13, 786448, 13, 786449, 0, 786450, 13, 786451, 13, 786452, 13, 786453, 9, 851968, 9, 851969, 13, 851970, 13, 851971, 13, 851972, 0, 851973, 13, 851974, 13, 851975, 13, 851976, 13, 851977, 13, 851978, 13, 851979, 13, 851980, 13, 851981, 13, 851982, 13, 851983, 13, 851984, 13, 851985, 0, 851986, 13, 851987, 13, 851988, 17, 851989, 9, 917504, 9, 917505, 13, 917506, 13, 917507, 13, 917508, 0, 917509, 13, 917510, 13, 917511, 0, 917512, 13, 917513, 13, 917514, 13, 917515, 13, 917516, 13, 917517, 13, 917518, 0, 917519, 13, 917520, 13, 917521, 0, 917522, 13, 917523, 13, 917524, 13, 917525, 9, 983040, 9, 983041, 13, 983042, 13, 983043, 13, 983044, 0, 983045, 13, 983046, 0, 983047, 13, 983048, 13, 983049, 13, 983050, 13, 983051, 13, 983052, 13, 983053, 13, 983054, 13, 983055, 0, 983056, 13, 983057, 0, 983058, 13, 983059, 13, 983060, 13, 983061, 9, 1048576, 9, 1048577, 13, 1048578, 13, 1048579, 13, 1048580, 0, 1048581, 13, 1048582, 13, 1048583, 13, 1048584, 13, 1048585, 13, 1048586, 13, 1048587, 13, 1048588, 13, 1048589, 13, 1048590, 13, 1048591, 13, 1048592, 13, 1048593, 0, 1048594, 13, 1048595, 13, 1048596, 13, 1048597, 9, 1114112, 9, 1114113, 13, 1114114, 13, 1114115, 13, 1114116, 13, 1114117, 0, 1114118, 0, 1114119, 0, 1114120, 0, 1114121, 0, 1114122, 0, 1114123, 0, 1114124, 0, 1114125, 0, 1114126, 0, 1114127, 0, 1114128, 0, 1114129, 13, 1114130, 13, 1114131, 13, 1114132, 13, 1114133, 9, 1179648, 9, 1179649, 13, 1179650, 13, 1179651, 13, 1179652, 13, 1179653, 13, 1179654, 13, 1179655, 13, 1179656, 13, 1179657, 13, 1179658, 13, 1179659, 13, 1179660, 13, 1179661, 13, 1179662, 13, 1179663, 13, 1179664, 13, 1179665, 13, 1179666, 13, 1179667, 13, 1179668, 13, 1179669, 9, 1245184, 9, 1245185, 20, 1245186, 13, 1245187, 13, 1245188, 13, 1245189, 13, 1245190, 13, 1245191, 13, 1245192, 13, 1245193, 13, 1245194, 13, 1245195, 13, 1245196, 13, 1245197, 13, 1245198, 13, 1245199, 13, 1245200, 13, 1245201, 13, 1245202, 13, 1245203, 13, 1245204, 13, 1245205, 9, 1310720, 9, 1310721, 21, 1310722, 13, 1310723, 13, 1310724, 13, 1310725, 13, 1310726, 13, 1310727, 13, 1310728, 13, 1310729, 13, 1310730, 18, 1310731, 13, 1310732, 13, 1310733, 13, 1310734, 13, 1310735, 13, 1310736, 13, 1310737, 13, 1310738, 13, 1310739, 19, 1310740, 20, 1310741, 9, 1376256, 10, 1376257, 10, 1376258, 10, 1376259, 10, 1376260, 10, 1376261, 10, 1376262, 10, 1376263, 10, 1376264, 10, 1376265, 10, 1376266, 10, 1376267, 10, 1376268, 10, 1376269, 10, 1376270, 10, 1376271, 10, 1376272, 10, 1376273, 10, 1376274, 10, 1376275, 10, 1376276, 10, 1376277, 10 )
+script/script = ExtResource( 22 )
+
+

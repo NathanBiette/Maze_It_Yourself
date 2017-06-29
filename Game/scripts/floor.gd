@@ -3,34 +3,45 @@ extends Node
 #/!\ I cheat, I am not sending messages to the architect or the hero and just using the fact that the architect is a local variable of game hero and has access to spawns and doors
 
 const OFFSET = 5000
-var rooms = Array()
+const OFFSET_ARCHITECT = 2000
 #doors format : 
 #	[[Vector2 global_pos, id [room number, door_type], id of connected door],[...],...]
 var doors = Array()
 var editable_doors = Array() #editable version for architect only
+var doors_buttons = Array()
 #spawns format : 
 #	[[id [room number, spawn_index], Vector2 global_pos, hero_has_not_entered (bool), monster type (string)],[...],...]
 var spawns = Array()
 var looters = Array()
 var number_of_rooms = 0
+var explored_rooms = []
+var nb_explored = 0
+
+#stocks buttons clicked for links between doors
+var first_door_button = null
+var second_door_button = null
 
 
 func _ready():
 	
-	add_room(4)
 	#hero_exclusive
-	if get_node("../.").get_name() == "game_hero":
-		add_architect()
-		get_node("architect").update_doors(doors)
-		get_node("architect").update_spawn(spawns)
+	if (get_node("../.").get_name() == "demo"):
+		add_room(4)
 		get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
-	elif get_node("../.").get_name() == "game_architect":
-		add_architect_view()
-		add_architect()
+	else:
+		get_node("../theseus").set_idle(false)
+
+
+func first_room():
+	if get_node("../.").get_name() == "game_hero":
+		add_room(4)
+		get_node("map_"+str(get_node("../theseus").get_current_room())).set_pause_room(false)
 
 #==============================
 
 func add_room(core_map_index):
+	
+	explored_rooms.append(0)
 	
 	var room = load("res://scenes/game_hero/rooms/hero_map.tscn")
 	var room_node = room.instance()
@@ -40,15 +51,13 @@ func add_room(core_map_index):
 	
 	var tile_map_scene = load("res://scenes/rooms/core_room_" + str(core_map_index) + ".tscn")
 	var tile_map_node = tile_map_scene.instance()
-	room_node.add_child(tile_map_node)
-	
-	#setting up the room
+	tile_map_node.set_global_pos(Vector2(OFFSET * number_of_rooms, 0))
+		#setting up the room
 	
 	room_node.set_name("map_" + str(number_of_rooms))
 	room_node.set_room_id(number_of_rooms)
-	rooms.append(room_node)
-	room_node.get_node("TileMap").set_global_pos(Vector2(OFFSET * number_of_rooms, 0))
 	
+	room_node.add_child(tile_map_node)
 	#managing doors
 	
 	var temp_doors_locations = room_node.get_doors_locations()
@@ -56,16 +65,14 @@ func add_room(core_map_index):
 		if (temp_doors_locations[i] == Vector2(-1,-1)):
 			pass
 		else:
-			var new_door = [Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]]
 			doors.append([Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]])
 			
-			#for later when we have a real architect
-			
-			#if get_node("../.").get_name() == "game_architect":
-			editable_doors.append([Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]])
+			if get_node("../.").get_name() == "game_architect" or get_node("../.").get_name() == "demo" :
+				editable_doors.append([Vector2((temp_doors_locations[i][0] + (50 * number_of_rooms)) * 100 + 50,temp_doors_locations[i][1] * 100 + 50),[room_node.get_room_id(), i],[-1,-1]])
 		
 	create_doors(number_of_rooms)
 	create_looters(number_of_rooms)
+	room_node.post_initialize()
 	#managing spawn locations
 	
 	var temp_spawn_locations = room_node.get_spawn_locations()
@@ -84,18 +91,19 @@ func create_doors(active_room):
 	for d in doors_to_set:
 		var scene = load("res://scenes/game_hero/rooms/door.tscn")
 		var node = scene.instance()
-		get_node("map_" + str(number_of_rooms)).add_child(node)
 		node.set_door_id(d[1][0],d[1][1])
 		node.set_global_pos(d[0])
+		get_node("map_" + str(number_of_rooms)).add_child(node)
 #===============================
 func create_looters(active_room):
 	var looters_to_set = get_node("map_" + str(active_room)).get_looters_locations()
 	for location in looters_to_set:
 		var scene = load("res://scenes/game_hero/rooms/looter.tscn")
 		var node = scene.instance()
-		get_node("map_" + str(number_of_rooms)).add_child(node)
 		node.set_location(location)
 		node.set_global_pos(Vector2(location[0]*100+50 + OFFSET * number_of_rooms,location[1]*100+50))
+		get_node("map_" + str(number_of_rooms)).add_child(node)
+
 #================================
 func find_doors_in_room(x):
 	var l = []
@@ -132,6 +140,13 @@ func find_spawns_in_room(x):
 #================================
 func get_looters():
 	return looters
+
+#================================
+
+func set_as_boss_room(id):
+	var index = find_door_index(id)
+	doors[index][2] = [-1,5]
+
 #=============HERO ONLY==================#
 
 func change_room(door_id):
@@ -140,6 +155,9 @@ func change_room(door_id):
 	var next_door_index = find_door_index(next_door_id) 
 	
 	#creating monsters from spawns array
+	
+	if next_door_id == [-1,5]:
+		get_node("../theseus").get_node("Camera2D/CanvasLayer1/end_game").play("you_win")
 	
 	var spawns_in_room = find_spawns_in_room(next_door_id[0])
 	for s in spawns_in_room:
@@ -151,7 +169,10 @@ func change_room(door_id):
 			get_node("map_" + str(next_door_id[0]) + "/TileMap").add_child(enemy_node)
 			enemy_node.set_pos(Vector2(s[1][0]*100 +50,s[1][1]*100 +50))
 			s[2] = false
-	#get_node("../..").websocket.send('{"event":"multicast","reason":"close_spawns","room":' + str(next_door_id[0]) + '}')
+	if (explored_rooms[door_id[0]] == 0):
+		get_node("../..").websocket.send('{"event":"multicast","reason":"close_spawns","room":' + str(next_door_id[0]) + '}')
+		explored_rooms[door_id[0]] = 1
+		nb_explored += 1
 	
 	if (next_door_id == [-1,-1]):
 		pass
@@ -191,15 +212,35 @@ func add_architect():
 	add_child(node)
 
 func add_architect_view():
+	
 	var scene = load("res://scenes/game_architect/architect_view.tscn")
 	var node = scene.instance()
 	add_child(node)
 
 func connect(door_id1,door_id2):
+	if door_id1[0] == door_id2[0]:
+		print("UWOTM8")
+		return
 	var i = find_door_index(door_id1)
 	var j = find_door_index(door_id2)
 	editable_doors[i][2] = door_id2
 	editable_doors[j][2] = door_id1
+
+func connect_architect(room):
+	if second_door_button != null:
+		var door_id1 = first_door_button.get_door_button_id()
+		var door_id2 = second_door_button.get_door_button_id()
+		if (door_id1[0] != room and door_id2[0] != room):
+			return false
+		if door_id1[0] == door_id2[0]:
+			print("UWOTM8")
+			return false
+		var i = find_door_index(door_id1)
+		var j = find_door_index(door_id2)
+		editable_doors[i][2] = door_id2
+		editable_doors[j][2] = door_id1
+		return true
+	return false
 
 func link(spawn_id, monster):
 	var i = get_spawn_index(spawn_id)
@@ -209,7 +250,7 @@ func link(spawn_id, monster):
 func update_release():
 	var edition_ok = true
 	for i in range (doors.size()):
-		if doors[i][2] == [-1,-1]:
+		if doors[i][2] == [-1,-1] or doors[i][2] == [-1,5]:
 			pass
 		elif doors[i][2] == editable_doors[i][2]:
 			pass
@@ -217,14 +258,24 @@ func update_release():
 			edition_ok = false
 	if edition_ok == true:
 		doors = str2var(var2str(editable_doors))
-		print(str(doors))
-		#get_node("../..").websocket.send('{"event":"multicast","reason":"update","spawns":' + str(spawns) + ',"doors":' + str(doors) + '}')
+		get_node("../..").websocket.send('{"event":"multicast","reason":"update","spawns":"' + var2str(var2bytes(spawns)) + '","doors":"' + var2str(var2bytes(doors)) + '"}')
 	else:
 		editable_doors = str2var(var2str(doors))
-		get_node("architect/CanvasLayer/WindowDialog").popup()
+		#get_node("architect/CanvasLayer/WindowDialog").popup()
+	print(edition_ok)
 
 func close_spawns(room):
 	for s in spawns:
 		if s[0][0] == room:
 			s[2] = false
+	explored_rooms[room]=1
 	get_node("architect").remove_spawn_from_list(room)
+
+
+func _on_pressed_button(button):
+	if button != first_door_button:
+		if second_door_button != null:
+			second_door_button.set_opacity(1)
+		second_door_button = first_door_button
+		first_door_button = button
+		first_door_button.set_opacity(0.5)
