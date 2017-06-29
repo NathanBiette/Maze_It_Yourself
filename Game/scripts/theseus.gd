@@ -352,7 +352,7 @@ func heal(value):
 func game_over():
 	if (!game_over):
 		get_node("Camera2D/CanvasLayer/Game_over").play("you_died")
-		get_node("SamplePlayer2D").play("gameover")
+		get_node("SamplePlayer2D").play("game_over")
 		game_over = true
 
 

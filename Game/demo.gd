@@ -30,7 +30,6 @@ func _ready():
 		if k != 4:
 			level_instance.add_room(k)
 	var  doors=level_instance.get_doors()
-	print(doors)
 	var size = doors.size()
 	randomize()
 	while (doors.size()>0):
@@ -66,21 +65,29 @@ func _ready():
 		elif(i==2 or i ==3 or i==6):
 			level_instance.link(spawns[k][0],"skeleton")
 	level_instance.update_release()
-	set_process(true)
+	doors=level_instance.get_doors()
+	print(doors)
+	var door = null
+	var k = 0
+	while (door==null):
+		if(doors[k][2] ==  [-1,-1]):
+			door = doors[k]
+		else:
+			k=k+1
+	level_instance.add_room(8)
+	doors = level_instance.get_doors()
+	level_instance.connect(doors[k][1],[8,1])
+	level_instance.set_as_boss_room([8,3])
+	level_instance.update_release()
+	level_instance.set_as_boss_room([8,3])
+	doors = level_instance.get_doors()
+	print(doors)
+	
+
 
 func _process(delta):
 	if( get_node("hero_floor").nb_explored == 4):
-		var  doors=get_node("hero_floor").get_doors()
-		var door = null
-		var k = 0
-		while (door==null):
-			if(doors[k][2] !=  [-1,-1]):
-				door = doors[k]
-				
-			else:
-				k=k+1
-		get_node("hero_floor").add_room(8)
-		get_node("hero_floor").connect(door[1],[8,1])
+
 		set_process(false)
 
 func game_over():

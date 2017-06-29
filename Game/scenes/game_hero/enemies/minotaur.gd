@@ -172,3 +172,7 @@ func _on_Circular_strike_windup_finished():
 func _on_Circular_strike_anim_finished():
 	next_action()
 
+
+
+func _on_Death_anims_finished():
+	get_node(".").queue_free()
