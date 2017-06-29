@@ -5,8 +5,8 @@ const FAST_TIMER = 1
 const GOLD_INCOME = 10
 const MAGIC_INCOME = 2
 
-var architect_gold = 100
-var architect_magic = 20
+var architect_gold = 300
+var architect_magic = 30
 
 var gold_timer
 var income_speed = false
