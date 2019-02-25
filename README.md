@@ -6,14 +6,14 @@ link towards the Godot doc : http://docs.godotengine.org/en/stable/learning/work
 
 => To play the game on Android with one-click-deploy of Godot engine <=
 
-#Required:
+# Required:
 -Godot engine v2.1.3 (https://godotengine.org/download)<br/>
 -Android SDK (http://developer.android.com/sdk/index.html)<br/>
 -OpenJDK or Oracle JDK version 6 or superior<br/>
 -a debug keystore file <br/>
 -Android Debug Bridge<br/>
 
-#Step-by-step setup:
+# Step-by-step setup:
 -Install Android SDK<br/>
 -Install OpenJDK or Oracle JDK<br/>
 -Launch Godot engine<br/>
